@@ -1,15 +1,18 @@
 import './App.css';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+
+import BookDetails from './components/BookDetails';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-          Learn React
-      </header>
-    </div>
+    <Router>
+      <div className="app">
+        <Routes>
+          <Route path="/book/:id" element={<BookDetails />} />
+        </Routes>
+        {/* <NotesListPage/> */}
+      </div> 
+    </Router>
   );
 }
 
