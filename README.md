@@ -1,11 +1,11 @@
 # GreatReads
 You will need to setup python env and npm
 # Deploy locally:
-In the terminal where django must be runn(cd to GreatReads)
+In the terminal where django will be runn(cd to GreatReads)
 ```
 python manage.py runserver
 ```
-In the terminal where django must be run(cd to GreatReads/frontend)
+In the terminal where react will be run(cd to GreatReads/frontend)
 ```
 npm start
 ```
