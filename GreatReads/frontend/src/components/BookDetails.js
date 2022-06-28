@@ -26,6 +26,7 @@ const BookDetails = () => {
 
     return (
         <div>
+            <h1>Book details</h1>
             <h2>{book?.title}</h2>
             <p>{book?.description}</p>
             <p>ISBN: {book?.isbn}</p>
