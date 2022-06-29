@@ -1,11 +1,12 @@
 # GreatReads
 You will need to setup python env and npm
+Both frontend and backend is in the root folder. heroku doesn't allow running buidl scripts from subfolders for some weird reason. 
 # Deploy locally:
-In the terminal where django will be run(cd to GreatReads)
+In the terminal where django will be run
 ```
 python manage.py runserver
 ```
-In the terminal where react will be run(cd to GreatReads/frontend)
+In the terminal where react will be run
 ```
 npm start
 ```
