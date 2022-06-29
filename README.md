@@ -1,6 +1,6 @@
 # GreatReads
 You will need to setup python env and npm
-Both frontend and backend is in the root folder. heroku doesn't allow running buidl scripts from subfolders for some weird reason. 
+Both frontend and backend is in the root folder. Heroku doesn't allow running build scripts from subfolders for some weird reason. 
 # Deploy locally:
 In the terminal where django will be run
 ```
