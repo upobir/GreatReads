@@ -1,16 +1,19 @@
-import './App.css';
+import './App.scss';
 import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
-import { bookDetailsViewEndpoint } from './urls';
+import { bookDetailsURL } from './urls';
+import GreatReadsNavbar from './components/Navbar';
 
 import BookDetails from './components/BookDetails';
 
 function App() {
   return (
     <Router>
+      <GreatReadsNavbar />
       <div className="app">
-        <Link to={bookDetailsViewEndpoint(2)}>
-          Test book.
+        <Link to={bookDetailsURL(2)}>
+          Test book.sdsdsds
         </Link>
+        <p>aaaaaaaaaaaadfiodfjdifjkdijiojp;lk</p>
         <Routes>
           <Route path="/book/:id" element={<BookDetails />} />
         </Routes>

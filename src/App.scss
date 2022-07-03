@@ -1,0 +1,42 @@
+// define colors varables
+// If something isn't colored right, it's better to use chrom dev tools inspect to see the css affecting it
+$primary: #FFAB00;
+$secondary: #FFD740;
+$success: #3e8d63;
+$info: #7854e4;
+$warning: #b8c924;
+$danger: #d62518;
+$light: #f8f9fa;
+$dark: #343a40;
+
+//custom color to be mapped
+$accent : #da6d25;
+$body-bg: #121212;//background color
+$body-color: #FFFFFF;//css is stupid and this is the font color of any element
+
+// this is used to map colors. change accordingly.
+$theme-colors: (
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  info: $info,
+  warning: $warning,
+  danger: $danger,
+  light: $light,
+  dark: $dark,
+// add any additional color below
+  accent: $accent,
+// now bg-accent,btn-accent,etc.. can be called
+);
+
+
+
+
+
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+.navbar .navbar-brand > li > a {
+  color: #ff0000;
+}

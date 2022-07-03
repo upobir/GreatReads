@@ -17,7 +17,6 @@ from cgi import test
 from django.contrib import admin
 from django.urls import path
 from .views import *
-from django.views.generic import TemplateView
 
 urlpatterns = [
     path('book/<int:pk>/', get_book_info, name="book"),
