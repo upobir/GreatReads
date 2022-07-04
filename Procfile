@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn GreatReads.wgi --log-file=-
+web: gunicorn GreatReads.wsgi --log-file=-
