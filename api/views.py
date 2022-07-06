@@ -15,19 +15,12 @@ from .serializers import *
 def get_book_info(request, pk):
     # drf way, works offline but will need postgresql setup to work on heroku
     # uncomment this when you get postgres working
-    # book = Book.objects.get(id=pk)
-    # print(book)
-    # serializer = BookSerializer(book, many = False)
-    # return Response(serializer.data)
+    book = Book.objects.get(id=pk)
+    print(book)
+    serializer = BookSerializer(book, many = False)
+    print(serializer.data)
+    return Response(serializer.data)
 
-    #temp hack is to send dummy json
-    data = {
-        "id": pk,
-        "isbn": 2,
-        "title": "Lorem ipsum electric boogaloo",
-        "description": "sit dor amet"
-    }
-    return Response(data=data)
 
 @api_view(['GET'])
 def key_test(request):
