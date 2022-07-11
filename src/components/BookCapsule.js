@@ -1,11 +1,18 @@
 import React from 'react'
-import { Container, Col, Image} from 'react-bootstrap'
+import { Stack, Row, Col, Image, Container} from 'react-bootstrap'
 import 'holderjs'
+import { FaBookOpen, FaBookmark, FaCheck } from 'react-icons/fa'
 export default function BookCapsule({book}) {
   return (
-    <div>
-        <Image fluid src="holder.js/100px180"/>
-        <p >w, r, c</p>
-    </div>
+    <Container>
+        <Row>
+          <Image fluid src="holder.js/100px180" width={"100%"}/>
+        </Row>
+        <Row>
+          <Col xs = {4}><FaBookmark fontSize={20}/></Col>
+          <Col xs = {4}><FaBookOpen  fontSize={20}/></Col>
+          <Col xs = {4}><FaCheck  fontSize={20}/></Col>
+        </Row>
+    </Container>
   )
 }

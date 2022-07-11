@@ -1,5 +1,6 @@
 import React from 'react'
-import { Container, Row, Col, Image, Button } from 'react-bootstrap'
+import { Stack, Container, Row, Col, Image, Button } from 'react-bootstrap'
+import 'holderjs'
 
 export default function AuthorPreview({author}) {
   return (
@@ -10,11 +11,19 @@ export default function AuthorPreview({author}) {
             </Col>
             <Col>
                 <p>About:</p>
-                <h3>author.name</h3>
+                <h3>{author.name}</h3>
             </Col>
         </Row>
         <Row>
-            <Col>{author.followCount}Following</Col>
+            <Col xs = "auto">
+                    <h3 style={{ paddingTop: 0,
+                                 paddingBottom: 0,
+                                 marginBlockEnd:0,
+                                 marginBlockStart:0  }}>
+                        {author.followCount}
+                    </h3>
+                    <p>Following</p>
+            </Col>
             <Col>
             <Button variant='primary'>{author.isFollowedByUser? "Unfollow": "Follow"}</Button>
             </Col>

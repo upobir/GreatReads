@@ -1,19 +1,20 @@
 import React from 'react'
-import { Container, Row, Col,Button } from 'react-bootstrap'
+import { Stack, Container, Row, Col,Button } from 'react-bootstrap'
 
 export default function GenreBlock({genres}) {
   return (
     <div>
         <h1> Genre: </h1>
-        <Row>
-            <Col>
-                {genres.map((g) => 
-                    <Button key={g.id}>
-                        {g.name}
-                    </Button> 
+        <Stack gap={2} direction="horizontal">
+        {genres.map((g) => 
+                    <Col xs={"auto"}>
+                        <Button key={g.id} >
+                            {g.name}
+                        </Button> 
+                    </Col>
                 )}
-            </Col>
-        </Row>
+        </Stack>
+        <br />
     </div>
   )
 }

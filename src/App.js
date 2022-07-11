@@ -4,18 +4,23 @@ import { bookDetailsURL } from './urls';
 import GreatReadsNavbar from './components/Navbar';
 
 import BookDetails from './components/BookDetails';
-
+function GetBooksList(){
+  return <>
+    <Link to={bookDetailsURL(2)}>
+      Test book.sdsdsds
+    </Link>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium, quisquam aliquam, labore optio error et eveniet magnam, maiores nesciunt consequuntur perspiciatis. Repudiandae, sapiente. Distinctio libero laudantium ipsa laborum nihil ex.</p>
+  </>
+}
 function App() {
   return (
     <Router>
       <GreatReadsNavbar />
       <div className="app">
-        <Link to={bookDetailsURL(2)}>
-          Test book.sdsdsds
-        </Link>
-        <p>aaaaaaaaaaaadfiodfjdifjkdijiojp;lk</p>
+        
         <Routes>
-          <Route path="/book/:id" element={<BookDetails />} />
+          <Route path="/book/:id/*" element={<BookDetails />} />
+          <Route path="/" element={<GetBooksList />} />
         </Routes>
       </div> 
     </Router>
