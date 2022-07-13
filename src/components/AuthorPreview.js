@@ -4,14 +4,14 @@ import 'holderjs'
 
 export default function AuthorPreview({author}) {
   return (
-    <Container>
+    <Container className='author-preview'>
         <Row>
-            <Col xs={2}>
-                <Image fluid src="holder.js/100px180" height="100%"/>
+            <Col xs={4}>
+                <Image className='author-preview__image'/>
             </Col>
-            <Col>
-                <p>About:</p>
-                <h3>{author.name}</h3>
+            <Col xs={8} className='__author-name-block'>
+                <block>About:</block>
+                <h3 className='primary-text'>{author.name}</h3>
             </Col>
         </Row>
         <Row>
@@ -30,9 +30,8 @@ export default function AuthorPreview({author}) {
      
         </Row>
         <Row>
-            {author.description}
+            <Container>{author.description}</Container>
         </Row>
-
     </Container>
   )
 }

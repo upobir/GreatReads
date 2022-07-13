@@ -1,9 +1,11 @@
 import React from 'react'
-import { Image, Container,Row,Col, Button } from 'react-bootstrap'
+import { Image,Stack, Container,Row,Col, Button } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import 'holderjs'
 import { RatingView } from './components/RatingView'
 import { reviewDetailsURL,userDetailsURL,reviewID } from './urls'
+import { FaThumbsUp, FaComment} from 'react-icons/fa'
+
 function truncateReview(review){
   return  review.body.substring(0, 100);
 }
@@ -17,20 +19,31 @@ export const BookReviewPreview = ({bookID,review}) => {
    }
 
   return (
-    <Container>
+    <Container className='book-review-block'>
       <Row>
         <Col xs = {2}>
-          <Image fluid src="holder.js/80px80" height="100%"/>
+          <Image className='book-review-block__reviewer_image'/>
         </Col>
         <Col>
+          <Stack gap={2} direction='horizontal'>
+            <Link to={userDetailsURL(review.reviewer)}>{review.reviewer}</Link> 
+            <span className='inline-block'>Rated </span>
+            <RatingView rating={review.rating}></RatingView>
+          </Stack>
           <Row>
+            <Col xs ={1}>
+            </Col>
+            <Col xs ={11}>
+            </Col>
+          </Row>
+          {/* <Row>
             <Col xs ={1}>
               <Link to={userDetailsURL(review.reviewer)}>{review.reviewer}</Link> 
             </Col>
-            <Col>
-              <RatingView rating={review.rating}></RatingView>
+            <Col xs ={11}>
+              <span className='inline-block'>Rated </span><RatingView rating={review.rating}></RatingView>
             </Col>
-          </Row>
+          </Row> */}
           <Row>
             <Container>
             {review.body}...
@@ -43,13 +56,13 @@ export const BookReviewPreview = ({bookID,review}) => {
           <br />
           <Row>
             <Col xs={"auto"}>
-              <Button onClick={handleLikeToggle}>{review.likes} likes</Button>
+              <Button onClick={handleLikeToggle}> <FaThumbsUp/> {review.likes} likes</Button>
             </Col>
             <Col xs={"auto"}>
-              <Button onClick={handleCommentReply}> reply</Button>
+              <Button onClick={handleCommentReply}> <FaComment />  reply</Button>
             </Col>
             <Col xs={"auto"}>
-              <Link to={reviewDetailsURL(bookID, review.id)}>{`${review.commentCount} comments`}</Link> 
+              <Link to={reviewDetailsURL(bookID, review.id)} >{`${review.commentCount} comments`}</Link> 
             </Col>
           </Row>
         </Col>

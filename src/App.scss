@@ -1,3 +1,4 @@
+
 // define colors varables
 // If something isn't colored right, it's better to use chrom dev tools inspect to see the css affecting it
 $primary: #FFAB00;
@@ -14,6 +15,13 @@ $accent : #da6d25;
 $body-bg: #121212;//background color
 $body-color: #FFFFFF;//css is stupid and this is the font color of any element
 $nav-tabs-link-active-color: $primary;
+$dp-1: rgba(255, 255, 255, 0.07);
+$dp-2: rgba(255, 255, 255, 0.03);
+$dp-3: rgba(255, 255, 255, 0.07);
+$dp-4: rgba(255, 255, 255, 0.12);
+$text-light: rgba(255,255,255,.38);
+$text-medium: rgba(255,255,255,.60);
+$text-high: rgba(255,255,255,.87);
 
 // this is used to map colors. change accordingly.
 $theme-colors: (
@@ -38,6 +46,74 @@ $theme-colors: (
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
 
-.navbar .navbar-brand > li > a {
-  color: #ff0000;
+.book-capsule { 
+  img {
+    width: 100%;  
+    height: 240px;
+    background-color: $text-medium;
+  }
+  .book-capsule-buttons{
+    display: flex;
+    padding: .5rem .5rem .5rem .5rem;
+    * {
+      flex: 1 auto;
+      color: $text-medium;
+      :hover {
+        color: $text-high;
+      }
+      :active {
+        color: $primary;
+      }
+    }
+
+  }
+  background-color: $dp-3;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-around;
 }
+.author-preview {
+  background-color: $dp-3;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+
+  &__image{
+    width: 100%;  
+    height: 100%;
+    background-color: $text-medium
+  }
+}
+.book-review-block{
+  background-color:  $dp-3;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  &__reviewer_image{
+    width: 100%;  
+    height: 100px;
+    background-color: $text-medium
+  }
+}
+.primary-text{
+  color:$primary;
+}
+.light-text{
+  color:$text-light;
+}
+.medium-text{
+  color:$text-medium;
+}
+.high-text{
+  color: $text-high;
+}
+.inline-block{
+  display: inline-block;
+}
+.no-text-effects{
+  text-decoration: none;
+}
+
+.body{
+  color:$text-high;
+}
+  
