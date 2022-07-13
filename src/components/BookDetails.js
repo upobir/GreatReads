@@ -10,6 +10,7 @@ import Pagination from 'react-bootstrap/Pagination';
 import { BookReviews } from './BookReviews';
 import { authorDetailsURL } from '../urls';
 import { SeriesView } from './SeriesView';
+import {SimilarBooksView} from './SimilarBooksView'
 const BookDetails = () => {
     let {id} = useParams();
     let navigate = useNavigate()
@@ -177,6 +178,7 @@ const BookDetails = () => {
             }
         ]
     }
+    let _similar_books = _series.entries
     const getBook = async ()=> {
         console.log('id', id)
         console.log('bookFetchEndpoint(id)', bookFetchEndpoint(id))
@@ -228,13 +230,6 @@ const BookDetails = () => {
                     </Col>
                 </Container>
                 <Container fluid className='book-details__mid-col-bottom'>
-                    {/* <h1 className='primary-text'>{_book.title}</h1>
-                    <span className='inline-block light-text'>by</span>
-                    <Link to={authorDetailsURL(_author.id)} 
-                        className='high-text no-text-effects'>
-                            {` ${_author.name}`}
-                    </Link> */}
-
                     <Col xs={{span:7,offset:2 }}>
      
                         <p>{_book.description}</p>
@@ -256,7 +251,7 @@ const BookDetails = () => {
                             <Route path="/" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
                             <Route path="/reviews" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
                             <Route path="/series" element={<SeriesView book={_book} series={_series}/>} />
-                            <Route path="/similar_books" element={"zzzz"} />
+                            <Route path="/similar_books" element={<SimilarBooksView similarBooks={_similar_books}/>} />
                         </Routes>                    
                     </Col>
                 </Container>

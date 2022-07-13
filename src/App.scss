@@ -127,6 +127,9 @@ $theme-colors: (
   background-color: $body-bg;
   z-index: 1;
 }
+.book-carousel{
+  padding: 0 1.5rem 3rem 1.5rem ;
+}
 .primary-text{
   color:$primary;
 }
@@ -156,4 +159,11 @@ body{
 .no-pad-x{
   padding-left: 0;
   padding-right: 0;
+}
+.no-pad-y{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.center-text{
+  text-align: center;
 }

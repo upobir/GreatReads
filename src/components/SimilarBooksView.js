@@ -2,17 +2,17 @@ import { useState, React} from 'react'
 import {Stack,Row, Col,Container, Carousel, CarouselItem} from 'react-bootstrap'
 import BookCapsule from './BookCapsule';
 
-export const SeriesView = ({book, series}) => {
+export const SimilarBooksView = ({similarBooks}) => {
     const [index, setIndex] = useState(0);
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
-      };
-    const groupBooks = (series) => { 
-        console.log('series', series)
+    };
+    const groupBooks = (books) => { 
+        console.log('series', books)
         let books_grouped = []
         let groupindex = 0;
         let group = []
-        for (const seriesEntry of series) { 
+        for (const seriesEntry of books) { 
             if((groupindex++) >= 3){
                 books_grouped.push(group)
                 group = []
@@ -25,22 +25,17 @@ export const SeriesView = ({book, series}) => {
   return (
     <Container>
         <Row>
-            <p><h5 className='inline-block text-high'>Book {book.seriesEntry}</h5> <span>of</span></p>
-            <h3 className='primary-text'>{`${series.name} (${series.entries.length} books):`}</h3>
+            <h5 className='text-high'>Readers also enjoyed:</h5>
         </Row>
         <Row>
             <Carousel className='book-carousel'>
-                {groupBooks(series.entries).map((group) => { 
-                    return <Carousel.Item>
-                                <Container>
+                {groupBooks(similarBooks).map((group) => { 
+                    return <Carousel.Item >
+                                <Container fluid>
                                     <Row>
-                                        {group.map((seriesEntry) => {
-                                            return <Col xs = {4}>
-                                                    <Stack>
-                                                        <BookCapsule book={seriesEntry}/>
-                                                        <Container className='center-text no-pad-y'>Book {seriesEntry.seriesEntry}</Container>
-                                                    </Stack>
-                                                       
+                                        {group.map((book) => {
+                                            return  <Col xs = {4}>
+                                                        <BookCapsule book={book}/>
                                                     </Col>
                                         })}
                                     </Row>
