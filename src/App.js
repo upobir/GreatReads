@@ -2,7 +2,8 @@ import './App.scss';
 import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
 import { bookDetailsURL } from './urls';
 import GreatReadsNavbar from './components/Navbar';
-
+import {Container} from 'react-bootstrap'
+import {Header} from 'react'
 import BookDetails from './components/BookDetails';
 function GetBooksList(){
   return <>
@@ -15,14 +16,16 @@ function GetBooksList(){
 function App() {
   return (
     <Router>
-      <GreatReadsNavbar />
       <div className="app">
-        
-        <Routes>
-          <Route path="/book/:id/*" element={<BookDetails />} />
-          <Route path="/" element={<GetBooksList />} />
-        </Routes>
-      </div> 
+        <GreatReadsNavbar />
+        <Container fluid className='app-body'>
+          
+          <Routes>
+            <Route path="/book/:id/*" element={<BookDetails />} />
+            <Route path="/" element={<GetBooksList />} />
+          </Routes>
+          </Container>
+        </div> 
     </Router>
   );
 }

@@ -23,6 +23,8 @@ $text-light: rgba(255,255,255,.38);
 $text-medium: rgba(255,255,255,.60);
 $text-high: rgba(255,255,255,.87);
 
+$navbar-height: 56px;
+
 // this is used to map colors. change accordingly.
 $theme-colors: (
   primary: $primary,
@@ -42,7 +44,10 @@ $theme-colors: (
 
 
 
-
+.container{
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+}
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
 
@@ -77,7 +82,7 @@ $theme-colors: (
   background-color: $dp-3;
   padding-top: .75rem;
   padding-bottom: .75rem;
-
+  margin-right: 2.75rem;
   &__image{
     width: 100%;  
     height: 100%;
@@ -86,14 +91,24 @@ $theme-colors: (
 }
 .book-review-block{
   background-color:  $dp-3;
-  padding-top: .75rem;
-  padding-bottom: .75rem;
+  padding-right: .75rem;
+  padding-left: .75rem;
   &__reviewer_image{
     width: 100%;  
     height: 100px;
     background-color: $text-medium
   }
 }
+.book-details{
+  &__left-col,&__right-col{
+    position: fixed;
+  }
+  // &__left-col,&__mid-col, &__right-col{
+  //   padding-left: 0;
+  //   padding-right: 0;
+  // }
+}
+
 .primary-text{
   color:$primary;
 }
@@ -113,7 +128,14 @@ $theme-colors: (
   text-decoration: none;
 }
 
-.body{
+body{
   color:$text-high;
 }
-  
+
+.app-body{ 
+  padding-top: $navbar-height;
+}
+.no-pad-x{
+  padding-left: 0;
+  padding-right: 0;
+}

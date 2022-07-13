@@ -4,7 +4,7 @@ import { bookFetchEndpoint } from '../endpoints';
 import BookCapsule from './BookCapsule';
 import AuthorPreview from './AuthorPreview';
 import GenreBlock from './GenreBlock';
-import {Row, Col, Container, Tabs, Tab, TabContainer} from 'react-bootstrap'
+import {Row, Col, Container, Tabs, Tab, TabContainer, Navbar} from 'react-bootstrap'
 import 'holderjs'
 import Pagination from 'react-bootstrap/Pagination';
 import { BookReviews } from './BookReviews';
@@ -35,6 +35,79 @@ const BookDetails = () => {
         "reviews":[
             {
                 "id": 1,
+                "reviewer": "Vraig",
+                "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
+                "rating":4.5,
+                "likes": 58,
+                "commentCount": 19,
+                "comments": [
+                    {
+                        "Commenter": "Tamahome",
+                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                        "Text": "You go girl! (the audiobook is 45 hours)"
+                    },
+                    {
+                        "Commenter": "Tamahome",
+                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                        "Text": "You go girl! (the audiobook is 45 hours)"
+                    },
+                    {
+                        "Commenter": "Tamahome",
+                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                        "Text": "You go girl! (the audiobook is 45 hours)"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "reviewer": "Vraig",
+                "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
+                "rating":4.5,
+                "likes": 58,
+                "commentCount": 19,
+                "comments": [
+                    {
+                        "Commenter": "Tamahome",
+                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                        "Text": "You go girl! (the audiobook is 45 hours)"
+                    },
+                    {
+                        "Commenter": "Tamahome",
+                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                        "Text": "You go girl! (the audiobook is 45 hours)"
+                    },
+                    {
+                        "Commenter": "Tamahome",
+                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                        "Text": "You go girl! (the audiobook is 45 hours)"
+                    }
+                ]
+            },{
+                "id": 3,
+                "reviewer": "Vraig",
+                "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
+                "rating":4.5,
+                "likes": 58,
+                "commentCount": 19,
+                "comments": [
+                    {
+                        "Commenter": "Tamahome",
+                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                        "Text": "You go girl! (the audiobook is 45 hours)"
+                    },
+                    {
+                        "Commenter": "Tamahome",
+                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                        "Text": "You go girl! (the audiobook is 45 hours)"
+                    },
+                    {
+                        "Commenter": "Tamahome",
+                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                        "Text": "You go girl! (the audiobook is 45 hours)"
+                    }
+                ]
+            },{
+                "id": 4,
                 "reviewer": "Vraig",
                 "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
                 "rating":4.5,
@@ -126,51 +199,89 @@ const BookDetails = () => {
         navigate(eventKey); // "/home/firsttab" <-> "/home/secondtab"
       };
     return (
-        <Container fluid>
-            <Row>
-                <Col xs={2}>
-                    <BookCapsule />
-                    <Container>
-                        <h1> {_book.avgRating}/5 </h1>
-                        <p>from {_book.reviewCount} reviews</p>
-                        <p> Write a review </p>                  
-                    </Container>
-                </Col>
-                <Col>
-                    <h1 className='primary-text'>{_book.title}</h1>
+        <>
+            <div className='book-details'>
+                <Container fluid className='book-details__left-col'>
+                    <Col xs={2}>
+                        <BookCapsule />
+                        <Container>
+                            <h1> {_book.avgRating}/5 </h1>
+                            <p>from {_book.reviewCount} reviews</p>
+                            <p> Write a review </p>                  
+                        </Container>
+                    </Col>
+                </Container>
+               
+
+                <Container fluid  className='book-details__right-col'>
+                    <Col xs={{span:3,offset:9 }}>
+                        <AuthorPreview author={_author}/>
+                    </Col>
+                </Container>
+                <Container fluid className='book-details__mid-col'>
+                    {/* <h1 className='primary-text'>{_book.title}</h1>
                     <span className='inline-block light-text'>by</span>
                     <Link to={authorDetailsURL(_author.id)} 
                         className='high-text no-text-effects'>
                             {` ${_author.name}`}
-                    </Link>
-                    <p>{_book.description}</p>
-                    <div><span className="medium-text">ISBN:</span> {_book.isbn}</div>
-                    <div><span className="medium-text">Pages:</span> {_book.pageCount}</div>
-                    <div><span className="medium-text">Released:</span> {_book.released}</div>
-                    {/* <p><span className="medium-text">Language:</span> {_book.isbn}</p> */}
-                    <GenreBlock genres={_book.genres}/>
-                    <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} id="uncontrolled-tab-example" className="mb-3">
-                        <Tab eventKey="reviews" title="Reviews">
-                        </Tab>
-                        <Tab eventKey="series" title="Series">
-                        </Tab>
-                        <Tab eventKey="similar_books" title="Similar Books">
-                        </Tab>
-                    </Tabs>
-                    <Routes>
-                        <Route path="reviews" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
-                        <Route path="series" element={<SeriesView book={_book} series={_series}/>} />
-                        <Route path="similar_books" element={"zzzz"} />
-                    </Routes>                    
-                                            
-                </Col>
-                <Col xs={3}>
-                    <AuthorPreview author={_author}/>
-                </Col>
-            </Row>
-            <div>
-        </div>
-        </Container>
+                    </Link> */}
+
+                    <Col xs={{span:7,offset:2 }}>
+                        <h1 className='primary-text'>{_book.title}</h1>
+                        <span className='inline-block light-text'>by</span>
+                        <Link to={authorDetailsURL(_author.id)}
+                            className='high-text no-text-effects'>
+                            {` ${_author.name}`}
+                        <Navbar sticky="top">
+                            <Container fluid>
+                                <Col xs={3}>
+                                    adsdasd
+                                </Col>
+                                <Col xs={3}>
+                                    adsddccxzczc
+                                </Col>
+                                <Col xs={3}>
+                                    zcxc
+                                </Col>
+                            </Container>    
+                        </Navbar> 
+                        </Link>
+                        <p>{_book.description}</p>
+                        <div><span className="medium-text">ISBN:</span> {_book.isbn}</div>
+                        <div><span className="medium-text">Pages:</span> {_book.pageCount}</div>
+                        <div><span className="medium-text">Released:</span> {_book.released}</div>
+                        {/* <p><span className="medium-text">Language:</span> {_book.isbn}</p> */}
+                        <GenreBlock genres={_book.genres}/>
+                        <Navbar sticky="top">
+                            <Container fluid>
+                                <Col xs={3}>
+                                    adsdasd
+                                </Col>
+                                <Col xs={3}>
+                                    adsddccxzczc
+                                </Col>
+                                <Col xs={3}>
+                                    zcxc
+                                </Col>
+                            </Container>    
+                        </Navbar> 
+                        <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} id="book-details-tab-bar" >
+                            <Tab eventKey="reviews" title="Reviews">
+                            </Tab>
+                            <Tab eventKey="series" title="Series">
+                            </Tab>
+                            <Tab eventKey="similar_books" title="Similar Books">
+                            </Tab>
+                        </Tabs>
+                        <Routes>
+                            <Route path="reviews" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
+                            <Route path="series" element={<SeriesView book={_book} series={_series}/>} />
+                            <Route path="similar_books" element={"zzzz"} />
+                        </Routes>                    
+                    </Col>
+                </Container>
+            </div>
+        </>
 
     )
 }
