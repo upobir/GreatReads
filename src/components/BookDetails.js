@@ -218,7 +218,7 @@ const BookDetails = () => {
                 </Container>
 
                 <Container fluid  className='book-details__mid-col-top'>
-                    <Col xs={{span:7,offset:2 }}>
+                    <Col xs={{span:7,offset:2 }} className='book-details__mid-col-top-header' id='book-details-mid-header'>
                         <h1 className='primary-text'>{_book.title}</h1>
                         <span className='inline-block light-text'>by</span>
                         <Link to={authorDetailsURL(_author.id)}

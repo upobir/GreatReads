@@ -112,12 +112,20 @@ $theme-colors: (
 .book-details__tab-bar{
   top: $navbar-height + $book-details-top-height;
   position: sticky;
-  z-index: 1;
 }
 .book-details__mid-col-bottom{
   // margin-top: $navbar-height + $book-details-top-height;
   padding-top:  $book-details-top-height;
-
+  margin-left: .5rem;//book-details__mid-col-top-header has  some issues covering wholething
+  margin-right: .5rem;
+}
+.book-details__mid-col-top-header{
+  padding-left: .25rem;
+  padding-right: .25rem;
+}
+.top-navbar, .book-details__mid-col-top-header,.book-details__tab-bar {
+  background-color: $body-bg;
+  z-index: 1;
 }
 .primary-text{
   color:$primary;
@@ -138,10 +146,10 @@ $theme-colors: (
   text-decoration: none;
 }
 
+
 body{
   color:$text-high;
 }
-
 .app-body{ 
   padding-top: $navbar-height;
 }

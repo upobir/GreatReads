@@ -3,7 +3,7 @@ import {Navbar,NavDropdown,Nav, Container, Row, Col, Form,FormControl, Button} f
 import {myBookShelfURL, myFeedURL, homeURL} from '../urls'
 export default function GreatReadsNavbar() {
   return (
-    <Navbar variant = "dark" fixed="top">
+    <Navbar variant = "dark" fixed="top" className="top-navbar">
         <Container fluid>
             <Navbar.Brand href={homeURL}>GreatReads</Navbar.Brand>
             <NavDropdown title="Browse" id="basic-nav-dropdown">
