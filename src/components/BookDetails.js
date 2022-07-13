@@ -243,20 +243,8 @@ const BookDetails = () => {
                         <div><span className="medium-text">Released:</span> {_book.released}</div>
                         {/* <p><span className="medium-text">Language:</span> {_book.isbn}</p> */}
                         <GenreBlock genres={_book.genres}/>
-                        <Navbar sticky="top" className='book-details__tab-bar'>
-                            <Container fluid>
-                                <Col xs={3}>
-                                    adsdasd
-                                </Col>
-                                <Col xs={3}>
-                                    adsddccxzczc
-                                </Col>
-                                <Col xs={3}>
-                                    zcxc
-                                </Col>
-                            </Container>    
-                        </Navbar> 
-                        <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} >
+
+                        <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} className="book-details__tab-bar">
                             <Tab eventKey="reviews" title="Reviews">
                             </Tab>
                             <Tab eventKey="series" title="Series">
@@ -265,9 +253,10 @@ const BookDetails = () => {
                             </Tab>
                         </Tabs>
                         <Routes>
-                            <Route path="reviews" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
-                            <Route path="series" element={<SeriesView book={_book} series={_series}/>} />
-                            <Route path="similar_books" element={"zzzz"} />
+                            <Route path="/" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
+                            <Route path="/reviews" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
+                            <Route path="/series" element={<SeriesView book={_book} series={_series}/>} />
+                            <Route path="/similar_books" element={"zzzz"} />
                         </Routes>                    
                     </Col>
                 </Container>

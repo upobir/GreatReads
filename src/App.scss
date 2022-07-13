@@ -111,6 +111,8 @@ $theme-colors: (
 }
 .book-details__tab-bar{
   top: $navbar-height + $book-details-top-height;
+  position: sticky;
+  z-index: 1;
 }
 .book-details__mid-col-bottom{
   // margin-top: $navbar-height + $book-details-top-height;
