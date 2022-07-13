@@ -202,7 +202,7 @@ const BookDetails = () => {
         <>
             <div className='book-details'>
                 <Container fluid className='book-details__left-col'>
-                    <Col xs={2}>
+                    <Col xs={2} className='allow-click-self'>
                         <BookCapsule />
                         <Container>
                             <h1> {_book.avgRating}/5 </h1>
@@ -211,14 +211,23 @@ const BookDetails = () => {
                         </Container>
                     </Col>
                 </Container>
-               
-
                 <Container fluid  className='book-details__right-col'>
-                    <Col xs={{span:3,offset:9 }}>
+                    <Col xs={{span:3,offset:9 }} className='allow-click-self'>
                         <AuthorPreview author={_author}/>
                     </Col>
                 </Container>
-                <Container fluid className='book-details__mid-col'>
+
+                <Container fluid  className='book-details__mid-col-top'>
+                    <Col xs={{span:7,offset:2 }}>
+                        <h1 className='primary-text'>{_book.title}</h1>
+                        <span className='inline-block light-text'>by</span>
+                        <Link to={authorDetailsURL(_author.id)}
+                            className='high-text no-text-effects'>
+                            {` ${_author.name}`}
+                        </Link>
+                    </Col>
+                </Container>
+                <Container fluid className='book-details__mid-col-bottom'>
                     {/* <h1 className='primary-text'>{_book.title}</h1>
                     <span className='inline-block light-text'>by</span>
                     <Link to={authorDetailsURL(_author.id)} 
@@ -227,32 +236,14 @@ const BookDetails = () => {
                     </Link> */}
 
                     <Col xs={{span:7,offset:2 }}>
-                        <h1 className='primary-text'>{_book.title}</h1>
-                        <span className='inline-block light-text'>by</span>
-                        <Link to={authorDetailsURL(_author.id)}
-                            className='high-text no-text-effects'>
-                            {` ${_author.name}`}
-                        <Navbar sticky="top">
-                            <Container fluid>
-                                <Col xs={3}>
-                                    adsdasd
-                                </Col>
-                                <Col xs={3}>
-                                    adsddccxzczc
-                                </Col>
-                                <Col xs={3}>
-                                    zcxc
-                                </Col>
-                            </Container>    
-                        </Navbar> 
-                        </Link>
+     
                         <p>{_book.description}</p>
                         <div><span className="medium-text">ISBN:</span> {_book.isbn}</div>
                         <div><span className="medium-text">Pages:</span> {_book.pageCount}</div>
                         <div><span className="medium-text">Released:</span> {_book.released}</div>
                         {/* <p><span className="medium-text">Language:</span> {_book.isbn}</p> */}
                         <GenreBlock genres={_book.genres}/>
-                        <Navbar sticky="top">
+                        <Navbar sticky="top" className='book-details__tab-bar'>
                             <Container fluid>
                                 <Col xs={3}>
                                     adsdasd
@@ -265,7 +256,7 @@ const BookDetails = () => {
                                 </Col>
                             </Container>    
                         </Navbar> 
-                        <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} id="book-details-tab-bar" >
+                        <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} >
                             <Tab eventKey="reviews" title="Reviews">
                             </Tab>
                             <Tab eventKey="series" title="Series">

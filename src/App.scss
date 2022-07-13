@@ -24,6 +24,7 @@ $text-medium: rgba(255,255,255,.60);
 $text-high: rgba(255,255,255,.87);
 
 $navbar-height: 56px;
+$book-details-top-height: 80px;
 
 // this is used to map colors. change accordingly.
 $theme-colors: (
@@ -82,7 +83,6 @@ $theme-colors: (
   background-color: $dp-3;
   padding-top: .75rem;
   padding-bottom: .75rem;
-  margin-right: 2.75rem;
   &__image{
     width: 100%;  
     height: 100%;
@@ -99,16 +99,24 @@ $theme-colors: (
     background-color: $text-medium
   }
 }
-.book-details{
-  &__left-col,&__right-col{
-    position: fixed;
-  }
-  // &__left-col,&__mid-col, &__right-col{
-  //   padding-left: 0;
-  //   padding-right: 0;
-  // }
+.allow-click-self{
+  pointer-events: auto; 
 }
+.book-details{
+  &__left-col,&__mid-col-top,&__right-col{
+    position: fixed;
+    pointer-events: none; 
+  }
+  
+}
+.book-details__tab-bar{
+  top: $navbar-height + $book-details-top-height;
+}
+.book-details__mid-col-bottom{
+  // margin-top: $navbar-height + $book-details-top-height;
+  padding-top:  $book-details-top-height;
 
+}
 .primary-text{
   color:$primary;
 }
