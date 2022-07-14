@@ -15,12 +15,18 @@ export default function BookCapsule({book}) {
             <div className='book-capsule__rating-bar__avg-rating'>
               <FaStar fontSize={20}/><span>{book.avgRating}</span>
             </div>
-            <div  className='book-capsule__rating-bar__user-rating'>
+            <Button variant='outline-primary' className='book-capsule__rating-bar__user-rating' onClick={handleReviewPopupShow}>
+            {book.userRating
+                ? (<><FaStar fontSize={20} /><span>{book.userRating}</span></>)
+                : (<>+ Rate</> ) 
+            }
+            </Button>            
+            {/* <div  className='book-capsule__rating-bar__user-rating'>
               {book.userRating
-                ? (<div><FaStar fontSize={20} /><span>{book.userRating}</span></div>)
+                ? (<Button ><FaStar fontSize={20} /><span>{book.userRating}</span></Button>)
                 : (<Button variant='outline-primary' className='book-capsule__rating-bar__btn' onClick={handleReviewPopupShow}> {"+ Rate"} </Button>) 
               }            
-            </div>
+            </div> */}
           </Stack>
           <div className='book-capsule-buttons'>
             <FaBookmark fontSize={20}/>

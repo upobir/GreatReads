@@ -4,7 +4,7 @@ import { bookFetchEndpoint } from '../endpoints';
 import BookCapsule from './BookCapsule';
 import AuthorPreview from './AuthorPreview';
 import GenreBlock from './GenreBlock';
-import {Row, Col, Container, Tabs, Tab, TabContainer, Navbar} from 'react-bootstrap'
+import {Row, Col, Container, Tabs, Tab, Stack, TabContainer, Navbar} from 'react-bootstrap'
 import 'holderjs'
 import Pagination from 'react-bootstrap/Pagination';
 import { BookReviews } from './BookReviews';
@@ -12,10 +12,16 @@ import { authorDetailsURL } from '../urls';
 import { SeriesView } from './SeriesView';
 import {SimilarBooksView} from './SimilarBooksView'
 import { BookReview } from './BookReview';
+import { ReviewPopup } from './ReviewPopup';
 const BookDetails = () => {
     let {id} = useParams();
     let navigate = useNavigate()
-    let [book, setBook] = useState(null)
+    const [book, setBook] = useState(null)
+    const [showReviewPopup, setShowReviewPopup] = useState(false);
+  
+    const handleReviewPopupShow = () => setShowReviewPopup(true);
+    const handleReviewPopupClose = () => setShowReviewPopup(false);
+
     let _book = {
         "isbn": 1,
         "title": "The Way of Kings",
@@ -206,13 +212,13 @@ const BookDetails = () => {
         <>
             <div className='book-details'>
                 <Container fluid className='book-details__left-col'>
-                    <Col xs={2} className='allow-click-self'>
+                    <Col xs={2} className='allow-click-self book-details__left-col__inner' >
                         <BookCapsule book={_book}/>
-                        <Container>
+                        <div className='review-summary-block'>
                             <h1> {_book.avgRating}/5 </h1>
                             <p>from {_book.reviewCount} reviews</p>
-                            <p> Write a review </p>                  
-                        </Container>
+                            <button className='review-summary-block__write-review-btn' onClick={handleReviewPopupShow}> Write a review </button>
+                        </div>
                     </Col>
                 </Container>
                 <Container fluid  className='book-details__right-col'>
@@ -259,6 +265,7 @@ const BookDetails = () => {
                     </Col>
                 </Container>
             </div>
+            <ReviewPopup showState={showReviewPopup} handleClose={handleReviewPopupClose} />
         </>
 
     )
