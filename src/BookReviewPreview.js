@@ -7,15 +7,12 @@ import { reviewDetailsURL,userDetailsURL,reviewID } from './urls'
 import { FaThumbsUp, FaComment} from 'react-icons/fa'
 
 function truncateReview(review){
-  console.log('review', review)
-  console.log('aaaaaaaaaaaaaaa')
-  console.log('review truncks',review.substring(0, 100))
   return  review.substring(0, 100);
 }
 export const TruncatedReview = ({review,bookID})=> {
   return (<>
     <Row>
-      {`${truncateReview(review.body)}...`}
+      <span>{`${truncateReview(review.body)}...`}</span>
     </Row>
     <Row>
       <Link to={reviewDetailsURL(bookID, review.id)}>See more</Link>
@@ -24,7 +21,7 @@ export const TruncatedReview = ({review,bookID})=> {
 }
 export const NormalReview = ({review,bookID})=> {
   return <Row>
-            {review.body}
+            <p>{review.body}</p>
         </Row>
 }
 
@@ -45,8 +42,8 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate}) => {
           <Image className='book-review-block__reviewer_image'/>
         </Col>
         <Col>
-          <Stack gap={2} direction='horizontal'>
-            <Link to={userDetailsURL(review.reviewer)}>{review.reviewer}</Link> 
+          <Stack gap={2} direction='horizontal' id="review-header">
+            <Link to={userDetailsURL(review.reviewer)} >{review.reviewer}</Link> 
             <span className='inline-block'>Rated </span>
             <RatingView rating={review.rating}></RatingView>
           </Stack>

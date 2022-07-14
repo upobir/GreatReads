@@ -118,19 +118,19 @@ const BookDetails = () => {
                 "commentCount": 19,
                 "comments": [
                     {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
+                        "commenter": "Tamahome",
+                        "timeStamp": "Oct 05, 2010 08:10PM" ,
+                        "text": "You go girl! (the audiobook is 45 hours)"
                     },
                     {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
+                        "commenter": "Tamahome",
+                        "timeStamp": "Oct 05, 2010 08:10PM" ,
+                        "text": "You go girl! (the audiobook is 45 hours)"
                     },
                     {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
+                        "commenter": "Tamahome",
+                        "timeStamp": "Oct 05, 2010 08:10PM" ,
+                        "text": "You go girl! (the audiobook is 45 hours)"
                     }
                 ]
             }
