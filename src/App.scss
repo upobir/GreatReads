@@ -1,3 +1,4 @@
+
 // define colors varables
 // If something isn't colored right, it's better to use chrom dev tools inspect to see the css affecting it
 $primary: #FFAB00;
@@ -14,6 +15,16 @@ $accent : #da6d25;
 $body-bg: #121212;//background color
 $body-color: #FFFFFF;//css is stupid and this is the font color of any element
 $nav-tabs-link-active-color: $primary;
+$dp-1: rgba(255, 255, 255, 0.07);
+$dp-2: rgba(255, 255, 255, 0.03);
+$dp-3: rgba(255, 255, 255, 0.07);
+$dp-4: rgba(255, 255, 255, 0.12);
+$text-light: rgba(255,255,255,.38);
+$text-medium: rgba(255,255,255,.60);
+$text-high: rgba(255,255,255,.87);
+
+$navbar-height: 56px;
+$book-details-top-height: 80px;
 
 // this is used to map colors. change accordingly.
 $theme-colors: (
@@ -34,10 +45,219 @@ $theme-colors: (
 
 
 
-
+.container{
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+}
+.modal-body, .modal-header, .modal-footer{
+  background-color: $body-bg;
+}
+.modal-header > .btn-close{
+  background-color: $text-medium;
+}
+.modal-footer > .btn-secondary{
+  background-color: $text-light;
+  border-color: $text-light
+  // color: #121212;
+}
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
 
-.navbar .navbar-brand > li > a {
-  color: #ff0000;
+.book-capsule { 
+  &__image{
+    width: 100%;  
+    height: 240px;
+    background-color: $text-medium;
+  }
+  .book-capsule-buttons{
+    display: flex;
+    padding: .5rem .5rem .5rem .5rem;
+    * {
+      flex: 1 auto;
+      color: $text-medium;
+      :hover {
+        color: $text-high;
+      }
+      :active {
+        color: $primary;
+      }
+    }
+
+  }
+  &__rating-container{
+    display: flex;
+    justify-content: space-between;
+
+    div {
+
+      text-align: center;
+      padding: .5rem;
+      justify-content:left ;
+
+      span {
+        margin-top: auto;
+        margin-bottom: auto;
+        font-size:1rem ;
+      }
+    } 
+  }
+  &__rate-btn{
+    border-radius: 0;
+    border-color: unset;
+    border: 0;
+  }
+  &__rating-bar{
+    justify-content: space-between;
+    &__avg-rating{
+      width: 50%;
+      padding-left: .5rem;
+      padding-right: .5rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      svg{
+        align-self: center;
+        color: $text-high;
+      }
+      span{
+        font-size: 1.4rem;
+        color: $text-high;
+      }
+    }
+    &__user-rating{
+      width: 50%;
+      border-radius: 0;
+      border-color: transparent;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      svg{
+        align-self: center;
+      }
+      span{
+        font-size: 1.4rem;
+      }
+    }
+    
+    &__btn {
+      width: 100%;
+      border-radius: 0;
+      border-color: transparent;
+    }
+  }
+  background-color: $dp-3;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: stretch;
+  // padding: 0;
+}
+.author-preview {
+  background-color: $dp-3;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  &__image{
+    width: 100%;  
+    height: 100%;
+    background-color: $text-medium
+  }
+}
+.book-review-block{
+  background-color:  $dp-3;
+  padding-right: .75rem;
+  padding-left: .75rem;
+  &__reviewer_image{
+    width: 100%;  
+    height: 100px;
+    background-color: $text-medium
+  }
+}
+.review-summary-block{
+  padding-left: .5rem; 
+  padding-right: .5rem;
+  margin-top: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__write-review-btn{
+    color: $primary;
+    background-color: transparent;    
+  }
+}
+.allow-click-self{
+  pointer-events: auto; 
+}
+.book-details{
+  &__left-col,&__mid-col-top,&__right-col{
+    position: fixed;
+    pointer-events: none; 
+  }
+  &__left-col{
+    padding-right: .5rem;
+    padding-left: .5rem;
+  }
+}
+.book-details__tab-bar{
+  top: $navbar-height + $book-details-top-height;
+  position: sticky;
+}
+.book-details__mid-col-bottom{
+  // margin-top: $navbar-height + $book-details-top-height;
+  padding-top:  $book-details-top-height;
+  margin-left: .5rem;//book-details__mid-col-top-header has  some issues covering wholething
+  margin-right: .5rem;
+}
+.book-details__mid-col-top-header{
+  padding-left: .25rem;
+  padding-right: .25rem;
+}
+.top-navbar, .book-details__mid-col-top-header,.book-details__tab-bar {
+  background-color: $body-bg;
+  z-index: 1;
+}
+.book-carousel{
+  width: 100%;
+  padding: 0 3rem 3rem 3rem ;
+}
+.primary-text{
+  color:$primary;
+}
+.light-text{
+  color:$text-light;
+}
+.medium-text{
+  color:$text-medium;
+}
+.high-text{
+  color: $text-high;
+}
+.inline-block{
+  display: inline-block;
+}
+.no-text-effects{
+  text-decoration: none;
+}
+
+
+body{
+  color:$text-high;
+}
+.app-body{ 
+  padding-top: $navbar-height;
+}
+.no-pad-x{
+  padding-left: 0;
+  padding-right: 0;
+}
+.no-pad-y{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.center-text{
+  text-align: center;
 }

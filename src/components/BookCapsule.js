@@ -1,18 +1,39 @@
-import React from 'react'
-import { Stack, Row, Col, Image, Container} from 'react-bootstrap'
+import {React, useState} from 'react'
+import { Stack,Button, Row, Col, Image, Container} from 'react-bootstrap'
 import 'holderjs'
-import { FaBookOpen, FaBookmark, FaCheck } from 'react-icons/fa'
+import { FaBookOpen, FaBookmark, FaCheck, FaStar } from 'react-icons/fa'
+import { ReviewPopup } from './ReviewPopup'
 export default function BookCapsule({book}) {
+  const [showReviewPopup, setShowReviewPopup] = useState(false);
+  
+  const handleReviewPopupShow = () => setShowReviewPopup(true);
+  const handleReviewPopupClose = () => setShowReviewPopup(false);
   return (
-    <Container>
-        <Row>
-          <Image fluid src="holder.js/100px180" width={"100%"}/>
-        </Row>
-        <Row>
-          <Col xs = {4}><FaBookmark fontSize={20}/></Col>
-          <Col xs = {4}><FaBookOpen  fontSize={20}/></Col>
-          <Col xs = {4}><FaCheck  fontSize={20}/></Col>
-        </Row>
-    </Container>
+    <Stack className='book-capsule'>  
+          <Image className='book-capsule__image'/>
+          <Stack className='book-capsule__rating-bar' direction='horizontal'>
+            <div className='book-capsule__rating-bar__avg-rating'>
+              <FaStar fontSize={20}/><span>{book.avgRating}</span>
+            </div>
+            <Button variant='outline-primary' className='book-capsule__rating-bar__user-rating' onClick={handleReviewPopupShow}>
+            {book.userRating
+                ? (<><FaStar fontSize={20} /><span>{book.userRating}</span></>)
+                : (<>+ Rate</> ) 
+            }
+            </Button>            
+            {/* <div  className='book-capsule__rating-bar__user-rating'>
+              {book.userRating
+                ? (<Button ><FaStar fontSize={20} /><span>{book.userRating}</span></Button>)
+                : (<Button variant='outline-primary' className='book-capsule__rating-bar__btn' onClick={handleReviewPopupShow}> {"+ Rate"} </Button>) 
+              }            
+            </div> */}
+          </Stack>
+          <div className='book-capsule-buttons'>
+            <FaBookmark fontSize={20}/>
+            <FaBookOpen  fontSize={20}/>
+            <FaCheck  fontSize={20}/>
+          </div>
+        <ReviewPopup showState={showReviewPopup} handleClose={handleReviewPopupClose} />
+    </Stack>
   )
 }
