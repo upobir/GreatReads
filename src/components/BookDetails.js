@@ -11,6 +11,7 @@ import { BookReviews } from './BookReviews';
 import { authorDetailsURL } from '../urls';
 import { SeriesView } from './SeriesView';
 import {SimilarBooksView} from './SimilarBooksView'
+import { BookReview } from './BookReview';
 const BookDetails = () => {
     let {id} = useParams();
     let navigate = useNavigate()
@@ -32,6 +33,7 @@ const BookDetails = () => {
         "readPages": 10,
         "seriesEntry": 3,
         "avgRating": 4.6,
+        "userRating": 4.6,
         "reviewCount": 1520,
         "reviews":[
             {
@@ -205,7 +207,7 @@ const BookDetails = () => {
             <div className='book-details'>
                 <Container fluid className='book-details__left-col'>
                     <Col xs={2} className='allow-click-self'>
-                        <BookCapsule />
+                        <BookCapsule book={_book}/>
                         <Container>
                             <h1> {_book.avgRating}/5 </h1>
                             <p>from {_book.reviewCount} reviews</p>
@@ -233,9 +235,9 @@ const BookDetails = () => {
                     <Col xs={{span:7,offset:2 }}>
      
                         <p>{_book.description}</p>
-                        <div><span className="medium-text">ISBN:</span> {_book.isbn}</div>
-                        <div><span className="medium-text">Pages:</span> {_book.pageCount}</div>
-                        <div><span className="medium-text">Released:</span> {_book.released}</div>
+                        <Row><Col xs={2}className="medium-text">ISBN:</Col><Col>{_book.isbn}</Col></Row>
+                        <Row><Col xs={2}className="medium-text">Pages:</Col><Col>{_book.pageCount}</Col></Row>
+                        <Row><Col xs={2}className="medium-text">Released:</Col><Col>{_book.released}</Col></Row>
                         {/* <p><span className="medium-text">Language:</span> {_book.isbn}</p> */}
                         <GenreBlock genres={_book.genres}/>
 
@@ -252,6 +254,7 @@ const BookDetails = () => {
                             <Route path="/reviews" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
                             <Route path="/series" element={<SeriesView book={_book} series={_series}/>} />
                             <Route path="/similar_books" element={<SimilarBooksView similarBooks={_similar_books}/>} />
+                            <Route path="/review/:review_id" element={<BookReview review={_book.reviews[0]}/>}></Route>
                         </Routes>                    
                     </Col>
                 </Container>

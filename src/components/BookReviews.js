@@ -9,7 +9,7 @@ export const BookReviews = ({bookID,reviews}) => {
       <Stack gap={2}>
         {
           reviews.map( review => {
-              return<BookReviewPreview key={review.id} bookID={bookID} review={review}/>
+              return<BookReviewPreview key={review.id} bookID={bookID} review={review} shouldTruncate={true}/>
           })
         }
       </Stack>

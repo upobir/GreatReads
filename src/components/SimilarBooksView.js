@@ -38,7 +38,7 @@ export const SimilarBooksView = ({similarBooks}) => {
                                                         <BookCapsule book={book}/>
                                                     </Col>
                                         })}
-                                    </Row>
+                                </Row>
                                 </Container>
                             </Carousel.Item>
                             

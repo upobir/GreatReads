@@ -7,16 +7,36 @@ import { reviewDetailsURL,userDetailsURL,reviewID } from './urls'
 import { FaThumbsUp, FaComment} from 'react-icons/fa'
 
 function truncateReview(review){
-  return  review.body.substring(0, 100);
+  console.log('review', review)
+  console.log('aaaaaaaaaaaaaaa')
+  console.log('review truncks',review.substring(0, 100))
+  return  review.substring(0, 100);
 }
-export const BookReviewPreview = ({bookID,review}) => {
+export const TruncatedReview = ({review,bookID})=> {
+  return (<>
+    <Row>
+      {`${truncateReview(review.body)}...`}
+    </Row>
+    <Row>
+      <Link to={reviewDetailsURL(bookID, review.id)}>See more</Link>
+    </Row>
+  </>);
+}
+export const NormalReview = ({review,bookID})=> {
+  return <Row>
+            {review.body}
+        </Row>
+}
+
+export const BookReviewPreview = ({bookID,review, shouldTruncate}) => {
   const handleLikeToggle= () => {
     console.log("#TODO like toggle fetch url ")
   }
   const handleCommentReply = () => { 
     //#TODO
     console.log('#TODO comnet reply navigate')
-   }
+  }
+
 
   return (
     <Container className='book-review-block'>
@@ -30,29 +50,15 @@ export const BookReviewPreview = ({bookID,review}) => {
             <span className='inline-block'>Rated </span>
             <RatingView rating={review.rating}></RatingView>
           </Stack>
-          <Row>
-            <Col xs ={1}>
-            </Col>
-            <Col xs ={11}>
-            </Col>
-          </Row>
-          {/* <Row>
-            <Col xs ={1}>
-              <Link to={userDetailsURL(review.reviewer)}>{review.reviewer}</Link> 
-            </Col>
-            <Col xs ={11}>
-              <span className='inline-block'>Rated </span><RatingView rating={review.rating}></RatingView>
-            </Col>
-          </Row> */}
-          <Row>
-            <Container>
-            {review.body}...
 
-            </Container>
-          </Row>
-          <Row>
-            <Link to={reviewDetailsURL(bookID, review.id)}>See more</Link> 
-          </Row>
+      <Row>
+          <Container>
+            {shouldTruncate
+              ? <TruncatedReview review={review} bookID={bookID}/>
+              : <NormalReview review={review} bookID={bookID}/>
+            }
+          </Container>
+      </Row>
           <br />
           <Row>
             <Col xs={"auto"}>
@@ -65,7 +71,7 @@ export const BookReviewPreview = ({bookID,review}) => {
               <Link to={reviewDetailsURL(bookID, review.id)} >{`${review.commentCount} comments`}</Link> 
             </Col>
           </Row>
-        </Col>
+          </Col>
       </Row>
     </Container>
   )
