@@ -27,3 +27,11 @@ def key_test(request):
     s = str(SECRET_KEY) + ", "+ str(config("SECRET_KEY")) + ', '+os.environ.get("SECRET_KEY", 'dev default value')
     print(s)
     return Response(data=s) 
+
+@api_view(['POST'])
+def login(request):
+    print(request)
+    # I haven't been able to get this via request.POST, most likely need to change how the response is made is react 
+    print(request.body)
+    return Response(data="ok") 
+

@@ -5,22 +5,23 @@ import Form from 'react-bootstrap/Form';
 import { loginEndpoint } from '../endpoints';
 
 export const  LoginPopup = ({showState, handleClose}) => {
-  let [userName, setUserName] = useState("UserName") 
-  let [password, setPassword] = useState("Password")
+  let [_userName, setUserName] = useState("UserName") 
+  let [_password, setPassword] = useState("Password")
 
   const postLoginRequest= (e) => {
     e.preventDefault()//prevent refresh on submit event
     console.log('e', e)
-    console.log('userName', userName)
-    console.log('password', password)
+    console.log('userName', _userName)
+    console.log('password', _password)
     let result = fetch(loginEndpoint(), {
         method: "POST",
         headers: {
             'Content-type' : 'application/json'
         },
+        
         body: JSON.stringify({
-            "userName": userName,
-            "password": password
+            userName: _userName,
+            password: _password
         })
     })
   }  
@@ -45,7 +46,7 @@ export const  LoginPopup = ({showState, handleClose}) => {
           <Form.Label>Username:</Form.Label>
           <Form.Control 
             type="text"
-            placeholder={userName}
+            placeholder={_userName}
             onChange={e => setUserName(e.target.value)}  />
         </Form.Group>
 
@@ -54,7 +55,7 @@ export const  LoginPopup = ({showState, handleClose}) => {
           <Form.Label>Password:</Form.Label>
           <Form.Control 
               type="text" 
-              placeholder={password}
+              placeholder={_password}
               onChange={e => setPassword(e.target.value)} />
         </Form.Group>
 

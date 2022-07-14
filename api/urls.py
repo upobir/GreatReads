@@ -21,4 +21,5 @@ from .views import *
 urlpatterns = [
     path('book/<int:pk>/', get_book_info, name="book"),
     path('test', key_test, name="book"),
+    path('login/', login)
 ]
