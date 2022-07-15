@@ -17,8 +17,8 @@ const BookDetails = () => {
     let {id} = useParams();
     let navigate = useNavigate()
     const [book, setBook] = useState(null)
+    
     const [showReviewPopup, setShowReviewPopup] = useState(false);
-  
     const handleReviewPopupShow = () => setShowReviewPopup(true);
     const handleReviewPopupClose = () => setShowReviewPopup(false);
 

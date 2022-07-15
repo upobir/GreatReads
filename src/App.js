@@ -5,6 +5,7 @@ import GreatReadsNavbar from './components/Navbar';
 import {Container} from 'react-bootstrap'
 import {Header} from 'react'
 import BookDetails from './components/BookDetails';
+import { LandingPage } from './components/LandingPage';
 function GetBooksList(){
   return <>
     <Link to={bookDetailsURL(2)}>
@@ -22,6 +23,7 @@ function App() {
           
           <Routes>
             <Route path="/book/:id/*" element={<BookDetails />} />
+            <Route path="/home" element={<LandingPage />} />
             <Route path="/" element={<GetBooksList />} />
           </Routes>
           </Container>

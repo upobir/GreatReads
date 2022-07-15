@@ -9,3 +9,8 @@
 export function bookFetchEndpoint(noteID){
     return  `/api/book/${noteID}/`
 }
+
+export function loginEndpoint(){
+    return  `/api/login/`
+}
+
