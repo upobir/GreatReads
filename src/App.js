@@ -23,8 +23,8 @@ function App() {
           
           <Routes>
             <Route path="/book/:id/*" element={<BookDetails />} />
-            <Route path="/home" element={<LandingPage />} />
-            <Route path="/" element={<GetBooksList />} />
+            <Route path="/browse/" element={<GetBooksList />} />
+            <Route path="/" element={<LandingPage />} />
           </Routes>
           </Container>
         </div> 
