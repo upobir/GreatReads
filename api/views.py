@@ -13,13 +13,136 @@ from .serializers import *
 # replace with class based views later
 @api_view(['GET'])
 def get_book_info(request, pk):
-    # drf way, works offline but will need postgresql setup to work on heroku
-    # uncomment this when you get postgres working
     book = Book.objects.get(id=pk)
     print(book)
-    serializer = BookSerializer(book, many = False)
-    print(serializer.data)
-    return Response(serializer.data)
+
+
+    data = {
+        "isbn": book.isbn,
+        "title": book.title,
+        "description": book.description,
+        "pageCount": book.pages,
+        "released": book.release_date, 
+        "genres": [             # TODO
+            # {"name": "lorem", "id":1},
+            # {"name": "impsum", "id":2},
+            # {"name": "sit", "id":3},
+            # {"name": "dor", "id":4},
+            # {"name": "amet", "id":5}
+        ],
+        "readStatus":"reading", # TODO
+        "readPages": 10,        # TODO
+        "seriesEntry": book.series_number ,
+        "avgRating": 4.6,       # TODO
+        "userRating": 4.6,      # TODO
+        "reviewCount": 1520,    # TODO
+        "reviews":[             # TODO
+        #     {
+        #         "id": 1,
+        #         "reviewer": "Vraig",
+        #         "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
+        #         "rating":4.5,
+        #         "likes": 58,
+        #         "commentCount": 19,
+        #         "comments": [
+        #             {
+        #                 "Commenter": "Tamahome",
+        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "Text": "You go girl! (the audiobook is 45 hours)"
+        #             },
+        #             {
+        #                 "Commenter": "Tamahome",
+        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "Text": "You go girl! (the audiobook is 45 hours)"
+        #             },
+        #             {
+        #                 "Commenter": "Tamahome",
+        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "Text": "You go girl! (the audiobook is 45 hours)"
+        #             }
+        #         ]
+        #     },
+        #     {
+        #         "id": 2,
+        #         "reviewer": "Vraig",
+        #         "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
+        #         "rating":4.5,
+        #         "likes": 58,
+        #         "commentCount": 19,
+        #         "comments": [
+        #             {
+        #                 "Commenter": "Tamahome",
+        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "Text": "You go girl! (the audiobook is 45 hours)"
+        #             },
+        #             {
+        #                 "Commenter": "Tamahome",
+        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "Text": "You go girl! (the audiobook is 45 hours)"
+        #             },
+        #             {
+        #                 "Commenter": "Tamahome",
+        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "Text": "You go girl! (the audiobook is 45 hours)"
+        #             }
+        #         ]
+        #     },{
+        #         "id": 3,
+        #         "reviewer": "Vraig",
+        #         "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
+        #         "rating":4.5,
+        #         "likes": 58,
+        #         "commentCount": 19,
+        #         "comments": [
+        #             {
+        #                 "Commenter": "Tamahome",
+        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "Text": "You go girl! (the audiobook is 45 hours)"
+        #             },
+        #             {
+        #                 "Commenter": "Tamahome",
+        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "Text": "You go girl! (the audiobook is 45 hours)"
+        #             },
+        #             {
+        #                 "Commenter": "Tamahome",
+        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "Text": "You go girl! (the audiobook is 45 hours)"
+        #             }
+        #         ]
+        #     },{
+        #         "id": 4,
+        #         "reviewer": "Vraig",
+        #         "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
+        #         "rating":4.5,
+        #         "likes": 58,
+        #         "commentCount": 19,
+        #         "comments": [
+        #             {
+        #                 "commenter": "Tamahome",
+        #                 "timeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "text": "You go girl! (the audiobook is 45 hours)"
+        #             },
+        #             {
+        #                 "commenter": "Tamahome",
+        #                 "timeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "text": "You go girl! (the audiobook is 45 hours)"
+        #             },
+        #             {
+        #                 "commenter": "Tamahome",
+        #                 "timeStamp": "Oct 05, 2010 08:10PM" ,
+        #                 "text": "You go girl! (the audiobook is 45 hours)"
+        #             }
+        #         ]
+        #     }
+        ]
+    }
+
+    # serializer = BookSerializer(book, many = False)
+    # print(serializer.data)
+    # return Response(serializer.data)
+
+    return Response(data)
 
 
 @api_view(['GET'])
