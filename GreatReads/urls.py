@@ -22,5 +22,5 @@ from django.urls import re_path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    re_path(r'.*', TemplateView.as_view(template_name='index.html')), # only if the above routes don't trigger a match
+    re_path('(^(?!(api|admin)).*$)',TemplateView.as_view(template_name='index.html')), # only if the above routes don't trigger a match
 ]
