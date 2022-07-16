@@ -1,11 +1,16 @@
 import './App.scss';
 import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
+import PrivateRoute from "./utils/PrivateRoute";
+import { AuthProvider } from './context/AuthContext';
 import { bookDetailsURL } from './urls';
 import GreatReadsNavbar from './components/Navbar';
 import {Container} from 'react-bootstrap'
 import {Header} from 'react'
 import BookDetails from './components/BookDetails';
 import { LandingPage } from './components/LandingPage';
+import { LoginPage } from './components/LoginPage';
+
+
 function GetBooksList(){
   return <>
     <Link to={bookDetailsURL(2)}>
@@ -18,15 +23,25 @@ function App() {
   return (
     <Router>
       <div className="app">
-        <GreatReadsNavbar />
+        {/* <GreatReadsNavbar />
         <Container fluid className='app-body'>
           
           <Routes>
             <Route path="/book/:id/*" element={<BookDetails />} />
             <Route path="/browse/" element={<GetBooksList />} />
-            <Route path="/" element={<LandingPage />} />
+            <Route path="/" element={<LandingPage />} exact />
+            <PrivateRoute component={LandingPage} path="/home" exact />
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
-          </Container>
+          </Container> */}
+
+        <AuthProvider>
+          <Routes>
+            {/* <PrivateRoute element={<LandingPage />} path="/home" exact /> */}
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </AuthProvider >
+
         </div> 
     </Router>
   );
