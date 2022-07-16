@@ -32,11 +32,28 @@ def get_book_info(request, pk):
         "avgRating": 4.6,       # TODO
         "userRating": 4.6,      # TODO
         "reviewCount": 1520,    # TODO
-        "authorIds": [author.id for author in book.authors.all()], # NOTE new
+        "authorIds": [author.id for author in book.authors.all()],
         "publisherId" : book.publisher.id,
         "reviews": [1, 2, 4], # TODO placeholder for now
         #[review.id for review in book.reviews.all()], # NOTE actual code
     }
+
+    return Response(data)
+
+@api_view(['GET'])
+def get_all_books(request):
+
+    data = [
+        {
+            "id" : book.id,
+            "title" : book.title,
+            "desc" : book.description,
+            "authorIds" : [author.id for author in book.authors.all()],
+            "avgRating" : 4.6, # TODO
+            "thumbnail" : None,
+
+        } for book in Book.objects.all()
+    ]
 
     return Response(data)
 

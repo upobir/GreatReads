@@ -19,6 +19,7 @@ from .views import *
 
 urlpatterns = [
     path('book/<int:pk>/', get_book_info, name="book"),
+    path('books/', get_all_books, name="all_books"),
     path('author/<int:pk>/', get_author_info, name="author"),
     path('publisher/<int:pk>/', get_publisher_info, name="publisher"),
     path('review/<int:pk>/', get_review_info, name="review"),
