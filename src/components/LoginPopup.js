@@ -8,12 +8,12 @@ export const  LoginPopup = ({showState, handleClose}) => {
   let [_userName, setUserName] = useState("UserName") 
   let [_password, setPassword] = useState("Password")
 
-  const postLoginRequest= (e) => {
+  const postLoginRequest= async (e) => {
     e.preventDefault()//prevent refresh on submit event
     console.log('e', e)
     console.log('userName', _userName)
     console.log('password', _password)
-    let result = fetch(loginEndpoint(), {
+    let result = await fetch(loginEndpoint(), {
         method: "POST",
         headers: {
             'Content-type' : 'application/json'
@@ -23,7 +23,8 @@ export const  LoginPopup = ({showState, handleClose}) => {
             userName: _userName,
             password: _password
         })
-    })
+    })  
+    console.log('login respose', result)
   }  
   return (
     <>
