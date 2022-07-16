@@ -13,17 +13,17 @@ export default function BookCapsule({book}) {
           <Image className='book-capsule__image'/>
           <Stack className='book-capsule__rating-bar' direction='horizontal'>
             <div className='book-capsule__rating-bar__avg-rating'>
-              <FaStar fontSize={20}/><span>{book.avgRating}</span>
+              <FaStar fontSize={20}/><span>{book?.avgRating}</span>
             </div>
             <Button variant='outline-primary' className='book-capsule__rating-bar__user-rating' onClick={handleReviewPopupShow}>
-            {book.userRating
-                ? (<><FaStar fontSize={20} /><span>{book.userRating}</span></>)
+            {book?.userRating
+                ? (<><FaStar fontSize={20} /><span>{book?.userRating}</span></>)
                 : (<>+ Rate</> ) 
             }
             </Button>            
             {/* <div  className='book-capsule__rating-bar__user-rating'>
-              {book.userRating
-                ? (<Button ><FaStar fontSize={20} /><span>{book.userRating}</span></Button>)
+              {book?.userRating
+                ? (<Button ><FaStar fontSize={20} /><span>{book?.userRating}</span></Button>)
                 : (<Button variant='outline-primary' className='book-capsule__rating-bar__btn' onClick={handleReviewPopupShow}> {"+ Rate"} </Button>) 
               }            
             </div> */}

@@ -20,8 +20,8 @@ def get_book_info(request, pk):
         "pageCount": book.pages,
         "released": book.release_date, 
         "genres": [             # TODO
-            # {"name": "lorem", "id":1},
-            # {"name": "impsum", "id":2},
+            {"name": "lorem", "id":1},
+            {"name": "impsum", "id":2},
             # {"name": "sit", "id":3},
             # {"name": "dor", "id":4},
             # {"name": "amet", "id":5}
@@ -32,7 +32,12 @@ def get_book_info(request, pk):
         "avgRating": 4.6,       # TODO
         "userRating": 4.6,      # TODO
         "reviewCount": 1520,    # TODO
-        "authorIds": [author.id for author in book.authors.all()],
+        "authors": [
+            {
+                "id":author.id,
+                "name":author.name
+            } for author in book.authors.all()
+        ],
         "publisherId" : book.publisher.id,
         "reviews": [1, 2, 4], # TODO placeholder for now
         #[review.id for review in book.reviews.all()], # NOTE actual code

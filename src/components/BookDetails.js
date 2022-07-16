@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate, Routes, Route, Link } from "react-router-dom";
-import { bookFetchEndpoint } from '../endpoints';
+import { authorFetchEndpoint, bookFetchEndpoint } from '../endpoints';
 import BookCapsule from './BookCapsule';
 import AuthorPreview from './AuthorPreview';
 import GenreBlock from './GenreBlock';
@@ -17,7 +17,7 @@ const BookDetails = () => {
     let {id} = useParams();
     let navigate = useNavigate()
     const [book, setBook] = useState(null)
-    
+    const [author, setAuthor] = useState(null)
     const [showReviewPopup, setShowReviewPopup] = useState(false);
     const handleReviewPopupShow = () => setShowReviewPopup(true);
     const handleReviewPopupClose = () => setShowReviewPopup(false);
@@ -25,11 +25,29 @@ const BookDetails = () => {
         let response = await fetch(bookFetchEndpoint(id))
         let book = await response.json()
         console.log('book', book)
+        
         setBook(book)
+        return book
     }
-    
+    const getAuthor = async () => { 
+        console.log('my book', book)
+        let response = await fetch(authorFetchEndpoint(book.authors[0].id))
+        let author = await response.json()
+        console.log('author', author)
+        setAuthor(author)
+    }
+    const getAll = async () => { 
+        let response = await fetch(bookFetchEndpoint(id))
+        let book = await response.json()
+        console.log('book', book)
+        setBook(book)
+        
+        response = await fetch(authorFetchEndpoint(book.authors[0].id))
+        let author = await response.json()
+        setAuthor(author)
+     }
     useEffect(() => {
-        getBook()
+        getAll()
     }, [])
 
     let _book = {
@@ -212,7 +230,7 @@ const BookDetails = () => {
                     <Col xs={2} className='allow-click-self book-details__left-col__inner' >
                         <BookCapsule book={book}/>
                         <div className='review-summary-block'>
-                            <h1> {book.avgRating}/5 </h1>
+                            <h1> {book?.avgRating}/5 </h1>
                             <p>from {book?.reviewCount} reviews</p>
                             <button className='review-summary-block__write-review-btn' onClick={handleReviewPopupShow}> Write a review </button>
                         </div>
@@ -220,28 +238,42 @@ const BookDetails = () => {
                 </Container>
                 <Container fluid  className='book-details__right-col'>
                     <Col xs={{span:3,offset:9 }} className='allow-click-self'>
-                        <AuthorPreview book={book}/>
+                        <AuthorPreview author={author}/>
                     </Col>
                 </Container>
 
                 <Container fluid  className='book-details__mid-col-top'>
                     <Col xs={{span:7,offset:2 }} className='book-details__mid-col-top-header' id='book-details-mid-header'>
                         <h1 className='primary-text'>{book?.title}</h1>
+                        
+                        <Stack direction="horizontal" gap = {1}>
                         <span className='inline-block light-text'>by</span>
-                        <Link to={authorDetailsURL(_author.id)}
-                            className='high-text no-text-effects'>
-                            {` ${_author.name}`}
-                        </Link>
+                        {book?.authors.map((a, index) => {
+                            
+                            return (
+                                <>
+                                    <Link to={authorDetailsURL(a.id)}
+                                    key={index}
+                                    className='high-text no-text-effects'>
+                                    {` ${a.name}`}
+                                    </Link>
+                                    {index < (book.authors.length - 1)? ",": ""}
+                                </>
+                            )
+                        })}
+
+                        </Stack>
+
                     </Col>
                 </Container>
                 <Container fluid className='book-details__mid-col-bottom'>
                     <Col xs={{span:7,offset:2 }}>
      
-                        <p>{_book.description}</p>
+                        <p>{book?.description}</p>
                         <Row><Col xs={2}className="medium-text">ISBN:</Col><Col>{book?.isbn}</Col></Row>
                         <Row><Col xs={2}className="medium-text">Pages:</Col><Col>{book?.pageCount}</Col></Row>
                         <Row><Col xs={2}className="medium-text">Released:</Col><Col>{book?.released}</Col></Row>
-                        {/* <p><span className="medium-text">Language:</span> {_book.isbn}</p> */}
+                        {/* <p><span className="medium-text">Language:</span> {book.isbn}</p> */}
                         <GenreBlock genres={book?.genres}/>
 
                         <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} className="book-details__tab-bar">

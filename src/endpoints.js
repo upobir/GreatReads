@@ -14,6 +14,10 @@ export function authorFetchEndpoint(authorID){
     return  `/api/author/${authorID}/`
 }
 
+export function getAllBooks(){
+    return  `/api/books/`
+}
+
 export function loginEndpoint(){
     return  `/api/login/`
 }
