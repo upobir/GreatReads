@@ -21,6 +21,16 @@ const BookDetails = () => {
     const [showReviewPopup, setShowReviewPopup] = useState(false);
     const handleReviewPopupShow = () => setShowReviewPopup(true);
     const handleReviewPopupClose = () => setShowReviewPopup(false);
+    const getBook = async ()=> {        
+        let response = await fetch(bookFetchEndpoint(id))
+        let book = await response.json()
+        console.log('book', book)
+        setBook(book)
+    }
+    
+    useEffect(() => {
+        getBook()
+    }, [])
 
     let _book = {
         "isbn": 1,
@@ -41,107 +51,108 @@ const BookDetails = () => {
         "avgRating": 4.6,
         "userRating": 4.6,
         "reviewCount": 1520,
-        "reviews":[
-            {
-                "id": 1,
-                "reviewer": "Vraig",
-                "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-                "rating":4.5,
-                "likes": 58,
-                "commentCount": 19,
-                "comments": [
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    }
-                ]
-            },
-            {
-                "id": 2,
-                "reviewer": "Vraig",
-                "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-                "rating":4.5,
-                "likes": 58,
-                "commentCount": 19,
-                "comments": [
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    }
-                ]
-            },{
-                "id": 3,
-                "reviewer": "Vraig",
-                "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-                "rating":4.5,
-                "likes": 58,
-                "commentCount": 19,
-                "comments": [
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    }
-                ]
-            },{
-                "id": 4,
-                "reviewer": "Vraig",
-                "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-                "rating":4.5,
-                "likes": 58,
-                "commentCount": 19,
-                "comments": [
-                    {
-                        "commenter": "Tamahome",
-                        "timeStamp": "Oct 05, 2010 08:10PM" ,
-                        "text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "commenter": "Tamahome",
-                        "timeStamp": "Oct 05, 2010 08:10PM" ,
-                        "text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "commenter": "Tamahome",
-                        "timeStamp": "Oct 05, 2010 08:10PM" ,
-                        "text": "You go girl! (the audiobook is 45 hours)"
-                    }
-                ]
-            }
-        ]
+        
     }
+    const _reviews = [
+        {
+            "id": 1,
+            "reviewer": "Vraig",
+            "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
+            "rating":4.5,
+            "likes": 58,
+            "commentCount": 19,
+            "comments": [
+                {
+                    "Commenter": "Tamahome",
+                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                    "Text": "You go girl! (the audiobook is 45 hours)"
+                },
+                {
+                    "Commenter": "Tamahome",
+                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                    "Text": "You go girl! (the audiobook is 45 hours)"
+                },
+                {
+                    "Commenter": "Tamahome",
+                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                    "Text": "You go girl! (the audiobook is 45 hours)"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "reviewer": "Vraig",
+            "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
+            "rating":4.5,
+            "likes": 58,
+            "commentCount": 19,
+            "comments": [
+                {
+                    "Commenter": "Tamahome",
+                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                    "Text": "You go girl! (the audiobook is 45 hours)"
+                },
+                {
+                    "Commenter": "Tamahome",
+                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                    "Text": "You go girl! (the audiobook is 45 hours)"
+                },
+                {
+                    "Commenter": "Tamahome",
+                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                    "Text": "You go girl! (the audiobook is 45 hours)"
+                }
+            ]
+        },{
+            "id": 3,
+            "reviewer": "Vraig",
+            "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
+            "rating":4.5,
+            "likes": 58,
+            "commentCount": 19,
+            "comments": [
+                {
+                    "Commenter": "Tamahome",
+                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                    "Text": "You go girl! (the audiobook is 45 hours)"
+                },
+                {
+                    "Commenter": "Tamahome",
+                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                    "Text": "You go girl! (the audiobook is 45 hours)"
+                },
+                {
+                    "Commenter": "Tamahome",
+                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
+                    "Text": "You go girl! (the audiobook is 45 hours)"
+                }
+            ]
+        },{
+            "id": 4,
+            "reviewer": "Vraig",
+            "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
+            "rating":4.5,
+            "likes": 58,
+            "commentCount": 19,
+            "comments": [
+                {
+                    "commenter": "Tamahome",
+                    "timeStamp": "Oct 05, 2010 08:10PM" ,
+                    "text": "You go girl! (the audiobook is 45 hours)"
+                },
+                {
+                    "commenter": "Tamahome",
+                    "timeStamp": "Oct 05, 2010 08:10PM" ,
+                    "text": "You go girl! (the audiobook is 45 hours)"
+                },
+                {
+                    "commenter": "Tamahome",
+                    "timeStamp": "Oct 05, 2010 08:10PM" ,
+                    "text": "You go girl! (the audiobook is 45 hours)"
+                }
+            ]
+        }
+    ]
     let _author = {
         "followCount": 178000,
         "isFollowedByUser": false,
@@ -187,21 +198,7 @@ const BookDetails = () => {
         ]
     }
     let _similar_books = _series.entries
-    const getBook = async ()=> {
-        console.log('id', id)
-        console.log('bookFetchEndpoint(id)', bookFetchEndpoint(id))
 
-        let response = await fetch(bookFetchEndpoint(id))
-        let book = await response.json()
-        
-
-
-        setBook(book)
-    }
-    
-    useEffect(() => {
-        getBook()
-    }, [])
     
     const handleTabChange = (eventKey, e) => {
         console.log('eventKey', eventKey)
@@ -213,23 +210,23 @@ const BookDetails = () => {
             <div className='book-details'>
                 <Container fluid className='book-details__left-col'>
                     <Col xs={2} className='allow-click-self book-details__left-col__inner' >
-                        <BookCapsule book={_book}/>
+                        <BookCapsule book={book}/>
                         <div className='review-summary-block'>
-                            <h1> {_book.avgRating}/5 </h1>
-                            <p>from {_book.reviewCount} reviews</p>
+                            <h1> {book.avgRating}/5 </h1>
+                            <p>from {book?.reviewCount} reviews</p>
                             <button className='review-summary-block__write-review-btn' onClick={handleReviewPopupShow}> Write a review </button>
                         </div>
                     </Col>
                 </Container>
                 <Container fluid  className='book-details__right-col'>
                     <Col xs={{span:3,offset:9 }} className='allow-click-self'>
-                        <AuthorPreview author={_author}/>
+                        <AuthorPreview book={book}/>
                     </Col>
                 </Container>
 
                 <Container fluid  className='book-details__mid-col-top'>
                     <Col xs={{span:7,offset:2 }} className='book-details__mid-col-top-header' id='book-details-mid-header'>
-                        <h1 className='primary-text'>{_book.title}</h1>
+                        <h1 className='primary-text'>{book?.title}</h1>
                         <span className='inline-block light-text'>by</span>
                         <Link to={authorDetailsURL(_author.id)}
                             className='high-text no-text-effects'>
@@ -241,11 +238,11 @@ const BookDetails = () => {
                     <Col xs={{span:7,offset:2 }}>
      
                         <p>{_book.description}</p>
-                        <Row><Col xs={2}className="medium-text">ISBN:</Col><Col>{_book.isbn}</Col></Row>
-                        <Row><Col xs={2}className="medium-text">Pages:</Col><Col>{_book.pageCount}</Col></Row>
-                        <Row><Col xs={2}className="medium-text">Released:</Col><Col>{_book.released}</Col></Row>
+                        <Row><Col xs={2}className="medium-text">ISBN:</Col><Col>{book?.isbn}</Col></Row>
+                        <Row><Col xs={2}className="medium-text">Pages:</Col><Col>{book?.pageCount}</Col></Row>
+                        <Row><Col xs={2}className="medium-text">Released:</Col><Col>{book?.released}</Col></Row>
                         {/* <p><span className="medium-text">Language:</span> {_book.isbn}</p> */}
-                        <GenreBlock genres={_book.genres}/>
+                        <GenreBlock genres={book?.genres}/>
 
                         <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} className="book-details__tab-bar">
                             <Tab eventKey="reviews" title="Reviews">
@@ -256,11 +253,11 @@ const BookDetails = () => {
                             </Tab>
                         </Tabs>
                         <Routes>
-                            <Route path="/" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
-                            <Route path="/reviews" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
-                            <Route path="/series" element={<SeriesView book={_book} series={_series}/>} />
+                            <Route path="/" element={<BookReviews bookID={id} reviews={_reviews}/>} />
+                            <Route path="/reviews" element={<BookReviews bookID={id} reviews={_reviews}/>} />
+                            <Route path="/series" element={<SeriesView book={book} series={_series}/>} />
                             <Route path="/similar_books" element={<SimilarBooksView similarBooks={_similar_books}/>} />
-                            <Route path="/review/:review_id" element={<BookReview review={_book.reviews[0]}/>}></Route>
+                            <Route path="/review/:review_id" element={<BookReview review={_reviews[0]}/>}></Route>
                         </Routes>                    
                     </Col>
                 </Container>

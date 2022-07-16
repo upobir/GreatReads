@@ -13,7 +13,7 @@ export function userDetailsURL(user){
     return `/user/${user}`
 }
 export function reviewDetailsURL(bookID, reviewID){
-    return `${bookDetailsURL(bookID)}review/${reviewID}/#review-header`
+    return `${bookDetailsURL(bookID)}review/${reviewID}/#review-header  `
 }
 
 export function authorDetailsURL(authorID){

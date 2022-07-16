@@ -6,8 +6,12 @@
  * If you forget it, you will see fetch URL including the react host url
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
-export function bookFetchEndpoint(noteID){
-    return  `/api/book/${noteID}/`
+export function bookFetchEndpoint(bookID){
+    return  `/api/book/${bookID}/`
+}
+
+export function authorFetchEndpoint(authorID){
+    return  `/api/author/${authorID}/`
 }
 
 export function loginEndpoint(){

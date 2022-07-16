@@ -6,10 +6,13 @@ import {Container} from 'react-bootstrap'
 import {Header} from 'react'
 import BookDetails from './components/BookDetails';
 import { LandingPage } from './components/LandingPage';
+import { QueryClientProvider,QueryClient } from 'react-query';
+const queryClient = new QueryClient()
+
 function GetBooksList(){
   return <>
     <Link to={bookDetailsURL(2)}>
-      Test book.sdsdsds
+      Test book
     </Link>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium, quisquam aliquam, labore optio error et eveniet magnam, maiores nesciunt consequuntur perspiciatis. Repudiandae, sapiente. Distinctio libero laudantium ipsa laborum nihil ex.</p>
   </>
@@ -17,17 +20,21 @@ function GetBooksList(){
 function App() {
   return (
     <Router>
-      <div className="app">
-        <GreatReadsNavbar />
-        <Container fluid className='app-body'>
-          
-          <Routes>
-            <Route path="/book/:id/*" element={<BookDetails />} />
-            <Route path="/browse/" element={<GetBooksList />} />
-            <Route path="/" element={<LandingPage />} />
-          </Routes>
-          </Container>
+      <QueryClientProvider client = {queryClient}>
+        <div className="app">
+          <GreatReadsNavbar />
+          <Container fluid className='app-body'>
+            
+            <Routes>
+              <Route path="/book/:id/*" element={<BookDetails />} />
+              <Route path="/browse/" element={<GetBooksList />} />
+              <Route path="/" element={<LandingPage />} />
+            </Routes>
+            </Container>
         </div> 
+      </QueryClientProvider>
+
+
     </Router>
   );
 }
