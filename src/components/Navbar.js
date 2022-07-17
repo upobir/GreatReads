@@ -12,7 +12,7 @@ export default function GreatReadsNavbar() {
   return (
     <Navbar variant = "dark" fixed="top" className="top-navbar">
         <Container fluid>
-            <Stack direction="horizontal" gap={2}>
+            <Stack direction="horizontal" gap={2} class="top-navbar__left-group">
               <Navbar.Brand href={homeURL}>GreatReads</Navbar.Brand>
               <NavDropdown title="Browse" id="basic-nav-dropdown">
                   <NavDropdown.Item as={Link} to={browseAllURL()}>

@@ -25,7 +25,10 @@ export const  LoginPage = () => {
 
   return (
     <>
-        <Modal.Header closeButton>
+        {/* <Modal.Header closeButton>
+          <Modal.Title>Login</Modal.Title>
+        </Modal.Header> */}
+        <Modal.Header>
           <Modal.Title>Login</Modal.Title>
         </Modal.Header>
         <form onSubmit={handleSubmit}>

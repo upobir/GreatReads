@@ -15,8 +15,8 @@ import { ReviewPopup } from './ReviewPopup';
 import BookAuthorsBlock from './BookAuthorsBlock';
 
 const BookDetails = () => {
-    let {id} = useParams();
-    let navigate = useNavigate()
+    const {id} = useParams();
+    const navigate = useNavigate()
     const [book, setBook] = useState(null)
     const [author, setAuthor] = useState(null)
     const [showReviewPopup, setShowReviewPopup] = useState(false);

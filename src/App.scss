@@ -236,6 +236,9 @@ $theme-colors: (
     background-color: $text-medium
   }
 }
+.top-navbar__left-group{
+  min-width: 50%;
+}
 .primary-text{
   color:$primary;
 }
