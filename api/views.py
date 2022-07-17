@@ -34,7 +34,7 @@ def get_book_info(request, pk):
         ],
         "readStatus":"reading", # TODO
         "readPages": 10,        # TODO
-        "series": book.series.id,
+        "series": book.series.id if book.series else None,
         "seriesEntry": book.series_number ,
         "avgRating": book.avg_rating,
         "userRating": 4.6,      # TODO
