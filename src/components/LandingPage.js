@@ -17,7 +17,7 @@ export const LandingPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get("/test/");
+        const response = await api.get("/books/");
         setRes(response.data.response);
       } catch {
         setRes("Something went wrong");

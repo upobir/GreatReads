@@ -35,7 +35,7 @@ export const  LoginPage = () => {
 
         <Modal.Body variant="dark">
 
-        <Form.Group className="mb-3" controlId="reviewText">
+        <Form.Group className="mb-3" controlId="userNameID" style={{width: "70%"}}>
           <Form.Label>Username:</Form.Label>
           <Form.Control 
             type="text"
@@ -44,10 +44,10 @@ export const  LoginPage = () => {
         </Form.Group>
 
         
-        <Form.Group className="mb-3" controlId="reviewText">
+        <Form.Group className="mb-3" controlId="passwordID"  style={{width: "70%"}}>
           <Form.Label>Password:</Form.Label>
           <Form.Control 
-              type="text" 
+              type="password"
               placeholder={_password}
               onChange={e => setPassword(e.target.value)} />
         </Form.Group>

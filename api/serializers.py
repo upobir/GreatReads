@@ -21,7 +21,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # Add custom claims
         token['username'] = user.username
         token['email'] = user.email
-        # ...
+        # print("In serializer: User = ", user.username)
+        # print("In serializer: Token = ", token)
         return token
 
 class RegisterSerializer(serializers.ModelSerializer):
