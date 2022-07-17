@@ -1,7 +1,7 @@
 import './App.scss';
 import {BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom'
 import PrivateRoute from "./utils/PrivateRoute";
-import { AuthProvider } from './context/AuthContext';
+import AuthContext, { AuthProvider } from './context/AuthContext';
 import { bookDetailsURL } from './urls';
 import GreatReadsNavbar from './components/Navbar';
 import {Container} from 'react-bootstrap'
