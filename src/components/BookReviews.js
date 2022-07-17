@@ -2,11 +2,13 @@ import React, {useEffect, useState} from 'react'
 import { Container, Stack } from 'react-bootstrap'
 import { BookReviewPreview } from '../BookReviewPreview'
 import {bookReviewsFetchUrl} from '../endpoints'
-export const BookReviews = ({bookID}) => {
+import { useParams } from 'react-router-dom'
+export const BookReviews = () => {
+  const {id} = useParams();
+
   const [reviews, setReviews] = useState([])
-  console.log('bookID', bookID)
   const getReviews= async () => { 
-    let response = await fetch(bookReviewsFetchUrl(bookID))
+    let response = await fetch(bookReviewsFetchUrl(id))
     let jreviews = await response.json()
     console.log('jreviews', jreviews)
     setReviews(jreviews)
@@ -25,7 +27,7 @@ export const BookReviews = ({bookID}) => {
       <Stack gap={2}>
         {
           reviews.map( review => {
-              return<BookReviewPreview key={review.id} bookID={bookID} review={review} shouldTruncate={true}/>
+              return<BookReviewPreview key={review.id} bookID={id} review={review} shouldTruncate={true}/>
           })
         }
       </Stack>

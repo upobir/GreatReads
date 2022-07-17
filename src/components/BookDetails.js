@@ -22,7 +22,7 @@ const BookDetails = () => {
     const [showReviewPopup, setShowReviewPopup] = useState(false);
     const handleReviewPopupShow = () => setShowReviewPopup(true);
     const handleReviewPopupClose = () => setShowReviewPopup(false);
-
+    console.log(' BookDetails id', id)
     const getAll = async () => { 
         let response = await fetch(bookFetchEndpoint(id))
         let book = await response.json()
@@ -134,7 +134,7 @@ const BookDetails = () => {
                             <Route path="/series" element={<SeriesView book={book} series={_series}/>} />
                             <Route path="/similar_books" element={<SimilarBooksView similarBooks={_similar_books}/>} />
                             <Route path="/review/:review_id/*" element={<BookReview bookID={id}/>}></Route>
-                            <Route path="/" element={<BookReviews book={book}/>} />
+                            <Route path="" element={<BookReviews book={book}/>} />
                             <Route path="/reviews" element={<BookReviews bookID={id}/>} />
                             
                         </Routes>                    

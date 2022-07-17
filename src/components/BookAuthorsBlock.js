@@ -9,7 +9,7 @@ const BookAuthorsBlock = ({book}) => {
             return (
                 <>
                     <Link to={authorDetailsURL(author.id)}
-                    key={index}
+                    key={author.id}
                     className='high-text no-text-effects'>
                     {` ${author.name}`}
                     </Link>
