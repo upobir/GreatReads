@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate, Routes, Route, Link } from "react-router-dom";
-import { authorFetchEndpoint, bookFetchEndpoint } from '../endpoints';
+import { authorFetchEndpoint, bookFetchEndpoint, seriesFetchEndpoint } from '../endpoints';
 import BookCapsule from './BookCapsule';
 import AuthorPreview from './AuthorPreview';
 import GenreBlock from './GenreBlock';
@@ -19,10 +19,13 @@ const BookDetails = () => {
     const navigate = useNavigate()
     const [book, setBook] = useState(null)
     const [author, setAuthor] = useState(null)
+    const [series, setSeries] = useState(null)
+
     const [showReviewPopup, setShowReviewPopup] = useState(false);
     const handleReviewPopupShow = () => setShowReviewPopup(true);
     const handleReviewPopupClose = () => setShowReviewPopup(false);
-    console.log(' BookDetails id', id)
+  
+
     const getAll = async () => { 
         let response = await fetch(bookFetchEndpoint(id))
         let book = await response.json()
@@ -32,6 +35,11 @@ const BookDetails = () => {
         response = await fetch(authorFetchEndpoint(book.authors[0].id))
         let author = await response.json()
         setAuthor(author)
+
+        response = await fetch(seriesFetchEndpoint(book.series))
+        let jseries = await response.json()
+        console.log('series', jseries)
+        setSeries(jseries)  
      }
     useEffect(() => {
         getAll()
@@ -125,13 +133,16 @@ const BookDetails = () => {
                         <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} className="book-details__tab-bar">
                             <Tab eventKey="reviews" title="Reviews">
                             </Tab>
-                            <Tab eventKey="series" title="Series">
-                            </Tab>
+                            {
+                                (book?.series) && <Tab eventKey="series" title="Series"></Tab>
+                            }
                             <Tab eventKey="similar_books" title="Similar Books">
                             </Tab>
                         </Tabs>
-                        <Routes>
-                            <Route path="/series" element={<SeriesView book={book} series={_series}/>} />
+                        <Routes>                            
+                            {
+                                (book?.series) && <Route path="/series" element={<SeriesView book={book} series={series} />} />
+                            }
                             <Route path="/similar_books" element={<SimilarBooksView similarBooks={_similar_books}/>} />
                             <Route path="/review/:review_id/*" element={<BookReview bookID={id}/>}></Route>
                             <Route path="" element={<BookReviews book={book}/>} />

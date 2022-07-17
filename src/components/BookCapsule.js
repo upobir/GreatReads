@@ -3,6 +3,8 @@ import { Stack,Button, Row, Col, Image, Container} from 'react-bootstrap'
 import 'holderjs'
 import { FaBookOpen, FaBookmark, FaCheck, FaStar } from 'react-icons/fa'
 import { ReviewPopup } from './ReviewPopup'
+import { bookDetailsURL } from '../urls'
+import { Link } from 'react-router-dom'
 export default function BookCapsule({book}) {
   const [showReviewPopup, setShowReviewPopup] = useState(false);
   

@@ -2,7 +2,7 @@ import {React, useState, useEffect} from 'react'
 import { Container, Stack, Row, Col } from 'react-bootstrap'
 import { BookReviewPreview } from '../BookReviewPreview'
 import { useParams } from "react-router-dom";
-import { reviewFetchUrl } from '../endpoints';
+import { reviewFetchEndpoint } from '../endpoints';
 
 export const BookReview = ({bookID}) => {
   let {review_id} = useParams();
@@ -10,7 +10,7 @@ export const BookReview = ({bookID}) => {
     const [review, setReview] = useState(null)
   
   const getReview= async () => { 
-    let response = await fetch(reviewFetchUrl(review_id))
+    let response = await fetch(reviewFetchEndpoint(review_id))
     let jreview = await response.json()
     setReview(jreview)  
   }
@@ -28,9 +28,9 @@ export const BookReview = ({bookID}) => {
         
         <Col xs={{span:10, offset:2}}>
           <Stack gap={2}>
-            {review?.comments.map(comment =>{
+            {review?.comments.map((comment, index) =>{
               return (
-              <Stack>
+              <Stack key={index}>
                 <Stack gap={1} direction="horizontal">
                   <span className="high-text">{comment.Commenter}</span>
                   <span className="light-text">{comment.TimeStamp}</span>
