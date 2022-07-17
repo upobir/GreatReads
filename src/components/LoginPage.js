@@ -20,7 +20,7 @@ export const  LoginPage = () => {
     // console.log('userName:', username)
     // console.log('password:', password)
 
-    _userName.length > 0 && loginUser(_userName, _userName);
+    _userName.length > 0 && loginUser(_userName, _password);
   };
 
   return (
