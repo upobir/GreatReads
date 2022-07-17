@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Avg
+
 
 # Create your models here.
 
@@ -22,6 +24,10 @@ class Author(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def follower_count(self):
+        return self.followers.all().count()
 
 class Publisher(models.Model):
     address = models.TextField()
@@ -61,6 +67,16 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author)
     genres = models.ManyToManyField(Genre, blank=True)
     readers = models.ManyToManyField(User, blank=True, through='BookUserStatus') #using User
+
+    @property
+    def review_count(self):
+        return Review.objects.filter(book=self).count()
+
+    @property
+    def avg_rating(self):
+        avg = Review.objects.filter(book=self).aggregate(Avg('rating'))['rating__avg']
+        print(avg)
+        return 0 if avg is None else avg
 
     def __str__(self):
         return self.title

@@ -33,9 +33,9 @@ def get_book_info(request, pk):
         "readStatus":"reading", # TODO
         "readPages": 10,        # TODO
         "seriesEntry": book.series_number ,
-        "avgRating": 4.6,       # TODO
+        "avgRating": book.avg_rating,
         "userRating": 4.6,      # TODO
-        "reviewCount": 1520,    # TODO
+        "reviewCount": book.review_count,
         "authors": [
             {
                 "id":author.id,
@@ -55,7 +55,7 @@ def get_all_books(request):
             "title" : book.title,
             "desc" : book.description,
             "authorIds" : [author.id for author in book.authors.all()],
-            "avgRating" : 4.6, # TODO
+            "avgRating" : book.avg_rating,
             "thumbnail" : None,
 
         } for book in Book.objects.all()
@@ -67,7 +67,7 @@ def get_all_books(request):
 def get_author_info(request, pk):
     author = Author.objects.get(id=pk)
     data = {
-        "followCount": 178000, # TODO
+        "followCount": author.follower_count,
         "isFollowedByUser": False, # TODO
         "description": author.description,
         "name": author.name,
@@ -96,7 +96,7 @@ def get_book_reviews(request, pk):
             "rating":4.5,
             "likes": 58,
             "commentCount": 0,
-        } for review in book.reviews.all()]
+        } for review in Review.objects.filter(book=book)]
         #         "comments": [
         #             {
         #                 "Commenter": "Tamahome",
