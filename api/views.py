@@ -1,24 +1,18 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
 
 from GreatReads.settings import SECRET_KEY
 from decouple import config
-import os
 
 from .models import *
 from .serializers import *
-
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework import generics, status
-from django.contrib.auth.models import User
-from rest_framework.permissions import AllowAny, IsAuthenticated
 
 # replace with class based views later
 @api_view(['GET'])
 def get_book_info(request, pk):
     book = Book.objects.get(id=pk)
 
-    print('user:', request.user)
+    print('user:', request.user.username)
 
     data = {
         "isbn": book.isbn,
@@ -145,21 +139,7 @@ def get_review_info(request, pk):
         }
     return Response(data)
 
-@api_view(['POST'])
-def login(request):
-    print(request)
-    # I haven't been able to get this via request.POST, most likely need to change how the response is made is react 
-    print(request.body)
-    return Response(data="ok") 
 
-
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
-
-class RegisterView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    permission_classes = (AllowAny,)
-    serializer_class = RegisterSerializer
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -169,15 +149,3 @@ def getRoutes(request):
         '/api/token/refresh/'
     ]
     return Response(routes)
-
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
-def testEndPoint(request):
-    if request.method == 'GET':
-        data = f"Congratulation {request.user}, your API just responded to GET request"
-        return Response({'response': data}, status=status.HTTP_200_OK)
-    elif request.method == 'POST':
-        text = request.POST.get('text')
-        data = f'Congratulation your API just responded to POST request with text: {text}'
-        return Response({'response': data}, status=status.HTTP_200_OK)
-    return Response({}, status.HTTP_400_BAD_REQUEST)
