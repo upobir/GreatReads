@@ -89,6 +89,14 @@ class Review(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     likers = models.ManyToManyField(User, related_name='liked_reviews', blank=True) #using User
 
+    @property
+    def like_count(self):
+        return self.likers.all().count()
+
+    @property
+    def comment_count(self):
+        return ReviewComment.objects.filter(review=self).count()
+
 class ReviewComment(models.Model):
     timestamp = models.DateField(auto_now=True)
     text = models.TextField()

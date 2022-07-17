@@ -90,21 +90,34 @@ def get_book_reviews(request, pk):
     book = Book.objects.get(id=pk)
 
     data = [{
-            "id": pk,
-            "reviewer" : "User_"+str(pk), 
+            "id": review.id,    
+            "reviewer" : review.creator.username,
             "body" : review.description,
-            "rating":4.5,
-            "likes": 58,
-            "commentCount": 0,
+            "rating": review.rating,
+            "likes": review.like_count,
+            "commentCount": review.comment_count,
         } for review in Review.objects.filter(book=book)]
-        #         "comments": [
-        #             {
-        #                 "Commenter": "Tamahome",
-        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
-        #                 "Text": "You go girl! (the audiobook is 45 hours)"
-        #             },
-        #         ]
-        #     }
+    return Response(data)
+
+@api_view(['GET'])
+def get_review_info(request, pk):
+    review = Review.objects.get(id=pk)
+    data = {
+            "id": pk,
+            "reviewer" : review.creator.username,
+            "body" : review.description,
+            "rating": review.rating,
+            "likes": review.like_count,
+            "Timestamp": review.timestamp,
+            "commentCount": review.comment_count,
+            "comments": [
+                {
+                    "Commenter": comment.creator.username,
+                    "Timestamp": comment.timestamp,
+                    "Text": comment.text
+                } for comment in ReviewComment.objects.filter(review = review)
+            ]
+        }
     return Response(data)
 
 @api_view(['POST'])
