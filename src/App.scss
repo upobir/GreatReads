@@ -224,6 +224,10 @@ $theme-colors: (
   width: 100%;
   padding: 0 3rem 3rem 3rem ;
 }
+.review-details{
+  min-height: 1000px;
+  // padding-bottom: 500px;
+}
 .primary-text{
   color:$primary;
 }

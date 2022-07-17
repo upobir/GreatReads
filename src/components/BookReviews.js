@@ -14,7 +14,10 @@ export const BookReviews = ({bookID}) => {
 
   useEffect(() => {
     getReviews()
-  })
+  }, [])
+
+  if(reviews.length <= 0)
+    return "..."
 
   return (
     <Container>

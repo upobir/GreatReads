@@ -7,21 +7,21 @@ import { reviewDetailsURL,userDetailsURL,reviewID } from './urls'
 import { FaThumbsUp, FaComment} from 'react-icons/fa'
 
 function truncateReview(review){
-  return  review.substring(0, 100);
+  return  review?.substring(0, 100);
 }
 export const TruncatedReview = ({review,bookID})=> {
   return (<>
     <Row>
-      <span>{`${truncateReview(review.body)}...`}</span>
+      <span>{`${truncateReview(review?.body)}...`}</span>
     </Row>
     <Row>
-      <Link to={reviewDetailsURL(bookID, review.id)}>See more</Link>
+      <Link to={reviewDetailsURL(bookID, review?.id)}>See more</Link>
     </Row>
   </>);
 }
 export const NormalReview = ({review,bookID})=> {
   return <Row>
-            <p>{review.body}</p>
+            <p>{review?.body}</p>
         </Row>
 }
 
@@ -42,10 +42,10 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate}) => {
           <Image className='book-review-block__reviewer_image'/>
         </Col>
         <Col>
-          <Stack gap={2} direction='horizontal' id="review-header">
-            <Link to={userDetailsURL(review.reviewer)} >{review.reviewer}</Link> 
+          <Stack gap={2} direction='horizontal'>
+            <Link to={userDetailsURL(review?.reviewer)} >{review?.reviewer}</Link> 
             <span className='inline-block'>Rated </span>
-            <RatingView rating={review.rating}></RatingView>
+            <RatingView rating={review?.rating}></RatingView>
           </Stack>
 
       <Row>
@@ -59,13 +59,13 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate}) => {
           <br />
           <Row>
             <Col xs={"auto"}>
-              <Button onClick={handleLikeToggle}> <FaThumbsUp/> {review.likes} likes</Button>
+              <Button onClick={handleLikeToggle}> <FaThumbsUp/> {review?.likes} likes</Button>
             </Col>
             <Col xs={"auto"}>
               <Button onClick={handleCommentReply}> <FaComment />  reply</Button>
             </Col>
             <Col xs={"auto"}>
-              <Link to={reviewDetailsURL(bookID, review.id)} >{`${review.commentCount} comments`}</Link> 
+              <Link to={reviewDetailsURL(bookID, review?.id)} >{`${review?.commentCount} comments`}</Link> 
             </Col>
           </Row>
           </Col>

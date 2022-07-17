@@ -21,21 +21,7 @@ const BookDetails = () => {
     const [showReviewPopup, setShowReviewPopup] = useState(false);
     const handleReviewPopupShow = () => setShowReviewPopup(true);
     const handleReviewPopupClose = () => setShowReviewPopup(false);
-    const getBook = async ()=> {        
-        let response = await fetch(bookFetchEndpoint(id))
-        let book = await response.json()
-        console.log('book', book)
-        
-        setBook(book)
-        return book
-    }
-    const getAuthor = async () => { 
-        console.log('my book', book)
-        let response = await fetch(authorFetchEndpoint(book.authors[0].id))
-        let author = await response.json()
-        console.log('author', author)
-        setAuthor(author)
-    }
+
     const getAll = async () => { 
         let response = await fetch(bookFetchEndpoint(id))
         let book = await response.json()
@@ -50,134 +36,6 @@ const BookDetails = () => {
         getAll()
     }, [])
 
-    let _book = {
-        "isbn": 1,
-        "title": "The Way of Kings",
-        "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-        "pageCount": 1011,
-        "released": "15th March, 2020", 
-        "genres": [
-            {"name": "lorem", "id":1},
-            {"name": "impsum", "id":2},
-            {"name": "sit", "id":3},
-            {"name": "dor", "id":4},
-            {"name": "amet", "id":5}
-        ],
-        "readStatus":"reading",
-        "readPages": 10,
-        "seriesEntry": 3,
-        "avgRating": 4.6,
-        "userRating": 4.6,
-        "reviewCount": 1520,
-        
-    }
-    const _reviews = [
-        {
-            "id": 1,
-            "reviewer": "Vraig",
-            "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-            "rating":4.5,
-            "likes": 58,
-            "commentCount": 19,
-            "comments": [
-                {
-                    "Commenter": "Tamahome",
-                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                    "Text": "You go girl! (the audiobook is 45 hours)"
-                },
-                {
-                    "Commenter": "Tamahome",
-                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                    "Text": "You go girl! (the audiobook is 45 hours)"
-                },
-                {
-                    "Commenter": "Tamahome",
-                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                    "Text": "You go girl! (the audiobook is 45 hours)"
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "reviewer": "Vraig",
-            "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-            "rating":4.5,
-            "likes": 58,
-            "commentCount": 19,
-            "comments": [
-                {
-                    "Commenter": "Tamahome",
-                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                    "Text": "You go girl! (the audiobook is 45 hours)"
-                },
-                {
-                    "Commenter": "Tamahome",
-                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                    "Text": "You go girl! (the audiobook is 45 hours)"
-                },
-                {
-                    "Commenter": "Tamahome",
-                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                    "Text": "You go girl! (the audiobook is 45 hours)"
-                }
-            ]
-        },{
-            "id": 3,
-            "reviewer": "Vraig",
-            "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-            "rating":4.5,
-            "likes": 58,
-            "commentCount": 19,
-            "comments": [
-                {
-                    "Commenter": "Tamahome",
-                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                    "Text": "You go girl! (the audiobook is 45 hours)"
-                },
-                {
-                    "Commenter": "Tamahome",
-                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                    "Text": "You go girl! (the audiobook is 45 hours)"
-                },
-                {
-                    "Commenter": "Tamahome",
-                    "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                    "Text": "You go girl! (the audiobook is 45 hours)"
-                }
-            ]
-        },{
-            "id": 4,
-            "reviewer": "Vraig",
-            "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-            "rating":4.5,
-            "likes": 58,
-            "commentCount": 19,
-            "comments": [
-                {
-                    "commenter": "Tamahome",
-                    "timeStamp": "Oct 05, 2010 08:10PM" ,
-                    "text": "You go girl! (the audiobook is 45 hours)"
-                },
-                {
-                    "commenter": "Tamahome",
-                    "timeStamp": "Oct 05, 2010 08:10PM" ,
-                    "text": "You go girl! (the audiobook is 45 hours)"
-                },
-                {
-                    "commenter": "Tamahome",
-                    "timeStamp": "Oct 05, 2010 08:10PM" ,
-                    "text": "You go girl! (the audiobook is 45 hours)"
-                }
-            ]
-        }
-    ]
-    let _author = {
-        "followCount": 178000,
-        "isFollowedByUser": false,
-        "description": "Duis fermentum velit orci, sit amet laoreet libero faucibus ac. Aliquam erat volutpat. Sed et rutrum orci, vitae mattis mi. Cras eget maximus lacus, id dictum neque. Quisque fermentum neque nunc, at iaculis mauris pellentesque eu. Aliquam erat volutpat. Fusce eu tellus ut tellus consequat condimentum. Aenean congue mollis turpis, quis volutpat metus sagittis malesuada. Etiam ornare leo egestas, placerat sem non, faucibus ex.",
-        "name": "Brandon Sanderson",
-        "id": 1,
-    }
     let _series =
     { 
         "name": "The Stormlight Archive",
@@ -285,11 +143,12 @@ const BookDetails = () => {
                             </Tab>
                         </Tabs>
                         <Routes>
-                            <Route path="/" element={<BookReviews bookID={id} reviews={_reviews}/>} />
-                            <Route path="/reviews" element={<BookReviews bookID={id} reviews={_reviews}/>} />
                             <Route path="/series" element={<SeriesView book={book} series={_series}/>} />
                             <Route path="/similar_books" element={<SimilarBooksView similarBooks={_similar_books}/>} />
-                            <Route path="/review/:review_id" element={<BookReview review={_reviews[0]}/>}></Route>
+                            <Route path="/review/:review_id/*" element={<BookReview bookID={id}/>}></Route>
+                            <Route path="/" element={<BookReviews book={book}/>} />
+                            <Route path="/reviews" element={<BookReviews bookID={id}/>} />
+                            
                         </Routes>                    
                     </Col>
                 </Container>
