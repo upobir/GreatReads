@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Avg
+
 
 # Create your models here.
 
@@ -20,6 +22,13 @@ class Author(models.Model):
     twitter_link = models.URLField(null=True, blank=True)
     followers = models.ManyToManyField(User, blank=True)  #using User
 
+    def __str__(self):
+        return self.name
+
+    @property
+    def follower_count(self):
+        return self.followers.all().count()
+
 class Publisher(models.Model):
     address = models.TextField()
     name = models.CharField(max_length=100)
@@ -31,14 +40,17 @@ class Series(models.Model):
 class Genre(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    followers = models.ManyToManyField(User) #using User
+    followers = models.ManyToManyField(User, blank=True) #using User
+
+    def __str__(self):
+        return self.name
 
 class Message(models.Model):
     timestamp = models.DateField(auto_now=True)
     text = models.TextField()
     from_user = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE) #using User
     to_user = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE) #using User
-    is_read = models.BooleanField()
+    is_read = models.BooleanField(default=False)
 
 
 class Book(models.Model):
@@ -56,6 +68,16 @@ class Book(models.Model):
     genres = models.ManyToManyField(Genre, blank=True)
     readers = models.ManyToManyField(User, blank=True, through='BookUserStatus') #using User
 
+    @property
+    def review_count(self):
+        return Review.objects.filter(book=self).count()
+
+    @property
+    def avg_rating(self):
+        avg = Review.objects.filter(book=self).aggregate(Avg('rating'))['rating__avg']
+        print(avg)
+        return 0 if avg is None else avg
+
     def __str__(self):
         return self.title
 
@@ -65,7 +87,15 @@ class Review(models.Model):
     description = models.TextField(blank=True)
     creator = models.ForeignKey(User, related_name='created_reviews', on_delete=models.CASCADE) #using User
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    likers = models.ManyToManyField(User, related_name='liked_reviews') #using User
+    likers = models.ManyToManyField(User, related_name='liked_reviews', blank=True) #using User
+
+    @property
+    def like_count(self):
+        return self.likers.all().count()
+
+    @property
+    def comment_count(self):
+        return ReviewComment.objects.filter(review=self).count()
 
 class ReviewComment(models.Model):
     timestamp = models.DateField(auto_now=True)

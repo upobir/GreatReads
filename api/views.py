@@ -24,19 +24,18 @@ def get_book_info(request, pk):
         "description": book.description,
         "pageCount": book.pages,
         "released": book.release_date, 
-        "genres": [             # TODO
-            {"name": "lorem", "id":1},
-            {"name": "impsum", "id":2},
-            # {"name": "sit", "id":3},
-            # {"name": "dor", "id":4},
-            # {"name": "amet", "id":5}
+        "genres": [             
+            {
+                "name": genre.name,
+                "id": genre.id ,
+            } for genre in book.genres.all()
         ],
         "readStatus":"reading", # TODO
         "readPages": 10,        # TODO
         "seriesEntry": book.series_number ,
-        "avgRating": 4.6,       # TODO
+        "avgRating": book.avg_rating,
         "userRating": 4.6,      # TODO
-        "reviewCount": 1520,    # TODO
+        "reviewCount": book.review_count,
         "authors": [
             {
                 "id":author.id,
@@ -44,22 +43,19 @@ def get_book_info(request, pk):
             } for author in book.authors.all()
         ],
         "publisherId" : book.publisher.id,
-        "reviews": [1, 2, 4], # TODO placeholder for now
-        #[review.id for review in book.reviews.all()], # NOTE actual code
     }
 
     return Response(data)
 
 @api_view(['GET'])
 def get_all_books(request):
-
     data = [
         {
             "id" : book.id,
             "title" : book.title,
             "desc" : book.description,
             "authorIds" : [author.id for author in book.authors.all()],
-            "avgRating" : 4.6, # TODO
+            "avgRating" : book.avg_rating,
             "thumbnail" : None,
 
         } for book in Book.objects.all()
@@ -71,7 +67,7 @@ def get_all_books(request):
 def get_author_info(request, pk):
     author = Author.objects.get(id=pk)
     data = {
-        "followCount": 178000, # TODO
+        "followCount": author.follower_count,
         "isFollowedByUser": False, # TODO
         "description": author.description,
         "name": author.name,
@@ -90,43 +86,38 @@ def get_publisher_info(request, pk):
     return Response(data)
 
 @api_view(['GET'])
+def get_book_reviews(request, pk):
+    book = Book.objects.get(id=pk)
+
+    data = [{
+            "id": review.id,    
+            "reviewer" : review.creator.username,
+            "body" : review.description,
+            "rating": review.rating,
+            "likes": review.like_count,
+            "commentCount": review.comment_count,
+        } for review in Review.objects.filter(book=book)]
+    return Response(data)
+
+@api_view(['GET'])
 def get_review_info(request, pk):
-    # review = Review.objects.get(id=pk)
-
-    data = { #TODO fix this
-        "id": pk,
-        "reviewer" : "User_"+str(pk), 
-        "body" : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-        "rating":4.5,
-        "likes": 58,
-        "commentCount": 0,
-        "comments": [
-
-        ],
-    }
-        #     {
-        #         "id": 1,
-        #         "reviewer": "Vraig",
-        #         "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-        #         
-        #         "comments": [
-        #             {
-        #                 "Commenter": "Tamahome",
-        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
-        #                 "Text": "You go girl! (the audiobook is 45 hours)"
-        #             },
-        #             {
-        #                 "Commenter": "Tamahome",
-        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
-        #                 "Text": "You go girl! (the audiobook is 45 hours)"
-        #             },
-        #             {
-        #                 "Commenter": "Tamahome",
-        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
-        #                 "Text": "You go girl! (the audiobook is 45 hours)"
-        #             }
-        #         ]
-        #     }
+    review = Review.objects.get(id=pk)
+    data = {
+            "id": pk,
+            "reviewer" : review.creator.username,
+            "body" : review.description,
+            "rating": review.rating,
+            "likes": review.like_count,
+            "Timestamp": review.timestamp,
+            "commentCount": review.comment_count,
+            "comments": [
+                {
+                    "Commenter": comment.creator.username,
+                    "Timestamp": comment.timestamp,
+                    "Text": comment.text
+                } for comment in ReviewComment.objects.filter(review = review)
+            ]
+        }
     return Response(data)
 
 @api_view(['POST'])
