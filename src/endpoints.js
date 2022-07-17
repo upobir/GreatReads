@@ -9,7 +9,9 @@
 export function bookFetchEndpoint(bookID){
     return  `/api/book/${bookID}/`
 }
-
+export function bookReviewsFetchUrl(bookID){
+    return  `/api/book/${bookID}/reviews/`
+}
 export function authorFetchEndpoint(authorID){
     return  `/api/author/${authorID}/`
 }

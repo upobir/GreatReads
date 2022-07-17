@@ -1,8 +1,21 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Container, Stack } from 'react-bootstrap'
 import { BookReviewPreview } from '../BookReviewPreview'
+import {bookReviewsFetchUrl} from '../endpoints'
+export const BookReviews = ({bookID}) => {
+  const [reviews, setReviews] = useState([])
+  
+  const getReviews= async () => { 
+    let response = await fetch(bookReviewsFetchUrl(bookID))
+    let jreviews = await response.json()
+    console.log('jreviews', jreviews)
+    setReviews(jreviews)
+  }
 
-export const BookReviews = ({bookID,reviews}) => {
+  useEffect(() => {
+    getReviews()
+  })
+
   return (
     <Container>
       

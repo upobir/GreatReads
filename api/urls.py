@@ -23,7 +23,7 @@ from rest_framework_simplejwt.views import (
 
 urlpatterns = [
     path('book/<int:pk>/', get_book_info, name="book"),
-    path('book/<int:pk>/reviews', get_book_reviews, name="book_reviews"),
+    path('book/<int:pk>/reviews/', get_book_reviews, name="book_reviews"),
     path('books/', get_all_books, name="all_books"),
     path('review/<int:pk>/', get_review_info, name="review"),
     path('author/<int:pk>/', get_author_info, name="author"),
