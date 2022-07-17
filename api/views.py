@@ -1,24 +1,18 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
 
 from GreatReads.settings import SECRET_KEY
 from decouple import config
-import os
 
 from .models import *
 from .serializers import *
-
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework import generics, status
-from django.contrib.auth.models import User
-from rest_framework.permissions import AllowAny, IsAuthenticated
 
 # replace with class based views later
 @api_view(['GET'])
 def get_book_info(request, pk):
     book = Book.objects.get(id=pk)
 
-    print('user:', request.user)
+    print('user:', request.user.username)
 
     data = {
         "isbn": book.isbn,
@@ -145,3 +139,13 @@ def get_review_info(request, pk):
         }
     return Response(data)
 
+
+
+@api_view(['GET'])
+def getRoutes(request):
+    routes = [
+        '/api/token/',
+        '/api/register/',
+        '/api/token/refresh/'
+    ]
+    return Response(routes)

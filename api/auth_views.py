@@ -1,10 +1,18 @@
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+
+from GreatReads.settings import SECRET_KEY
+from decouple import config
+
+from .models import *
+from .serializers import *
+
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics, status
 from django.contrib.auth.models import User
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from .serializers import *
+from rest_framework.permissions import AllowAny, IsAuthenticated
+
+
 
 @api_view(['POST'])
 def login(request):
@@ -22,14 +30,6 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
-@api_view(['GET'])
-def getRoutes(request):
-    routes = [
-        '/api/token/',
-        '/api/register/',
-        '/api/token/refresh/'
-    ]
-    return Response(routes)
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
