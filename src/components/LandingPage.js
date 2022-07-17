@@ -33,8 +33,8 @@ export const LandingPage = () => {
       
         <Container fluid className='app-body'>
           <Row>
-              <Col xs="auto"><Button variant="outline-primary" onClick={logoutUser}>Log out</Button></Col>
-              <Col xs="auto"><Button variant="primary">Join</Button></Col>
+              {/* <Col xs="auto"><Button variant="outline-primary" onClick={logoutUser}>Log out</Button></Col>
+              <Col xs="auto"><Button variant="primary">Join</Button></Col> */}
           </Row>
           {/* <LoginPopup showState={showLoginPopup} handleClose={handleLoginPopupClose} />        */}
       </Container>

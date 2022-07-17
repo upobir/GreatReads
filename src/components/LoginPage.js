@@ -35,7 +35,7 @@ export const  LoginPage = () => {
 
         <Modal.Body variant="dark">
 
-        <Form.Group className="mb-3" controlId="userNameID" style={{width: "70%"}}>
+        <Form.Group className="mb-3" controlId="userNameID">
           <Form.Label>Username:</Form.Label>
           <Form.Control 
             type="text"
@@ -44,7 +44,7 @@ export const  LoginPage = () => {
         </Form.Group>
 
         
-        <Form.Group className="mb-3" controlId="passwordID"  style={{width: "70%"}}>
+        <Form.Group className="mb-3" controlId="passwordID">
           <Form.Label>Password:</Form.Label>
           <Form.Control 
               type="password"
