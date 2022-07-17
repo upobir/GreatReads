@@ -20,7 +20,7 @@ export function authorFetchEndpoint(authorID){
     return  `/api/author/${authorID}/`
 }
 
-export function getAllBooks(){
+export function bookBrowseEndpoint(){
     return  `/api/books/`
 }
 

@@ -10,41 +10,13 @@ import BookDetails from './components/BookDetails';
 import { LandingPage } from './components/LandingPage';
 import { QueryClientProvider,QueryClient } from 'react-query';
 import { LoginPage } from './components/LoginPage';
+import { BrowseBooks } from './components/BrowseBooks';
 
-
-function GetBooksList(){
-  return <>
-    <Link to={bookDetailsURL(2)}>
-      Test book
-    </Link>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium, quisquam aliquam, labore optio error et eveniet magnam, maiores nesciunt consequuntur perspiciatis. Repudiandae, sapiente. Distinctio libero laudantium ipsa laborum nihil ex.</p>
-  </>
-}
 const queryClient = new QueryClient()
 function App() {
   return (
     <Router>
       <div className="app">
-        {/* <GreatReadsNavbar />
-        <Container fluid className='app-body'>
-          
-          <Routes>
-            <Route path="/book/:id/*" element={<BookDetails />} />
-            <Route path="/browse/" element={<GetBooksList />} />
-            <Route path="/" element={<LandingPage />} exact />
-            <PrivateRoute component={LandingPage} path="/home" exact />
-            <Route path="/login" element={<LoginPage />} />
-          </Routes>
-          </Container> */}
-                 {/* <GreatReadsNavbar />
-          <Container fluid className='app-body'>
-            
-            <Routes>
-              <Route path="/book/:id/*" element={<BookDetails />} />
-              <Route path="/browse/" element={<GetBooksList />} />
-              <Route path="/" element={<LandingPage />} />
-            </Routes> */}
-        
         <AuthProvider>
           <Container fluid className='app-body'>
             <GreatReadsNavbar />
@@ -58,7 +30,7 @@ function App() {
               </Route>
               <Route path="/login" element={<LoginPage />} />
               <Route path="/book/:id/*" element={<BookDetails />} />
-              <Route path="/browse/" element={<GetBooksList />} />
+              <Route path="/browse/*" element={<BrowseBooks />} />
               <Route path="/" element={<LandingPage />} />
             </Routes>
           </Container>

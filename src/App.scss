@@ -228,6 +228,14 @@ $theme-colors: (
   min-height: 1000px;
   // padding-bottom: 500px;
 }
+.book-search-preview{
+  min-height: 150px;
+  &__thumbnail{
+    width: 100px;  
+    height:150px;
+    background-color: $text-medium
+  }
+}
 .primary-text{
   color:$primary;
 }

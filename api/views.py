@@ -53,8 +53,11 @@ def get_all_books(request):
         {
             "id" : book.id,
             "title" : book.title,
-            "desc" : book.description,
-            "authorIds" : [author.id for author in book.authors.all()],
+            "description" : book.description,
+            "authors" : [{
+                "id":author.id,
+                "name":author.name
+            } for author in book.authors.all()],
             "avgRating" : book.avg_rating,
             "thumbnail" : None,
 

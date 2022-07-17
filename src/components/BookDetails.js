@@ -8,11 +8,12 @@ import {Row, Col, Container, Tabs, Tab, Stack, TabContainer, Navbar} from 'react
 import 'holderjs'
 import Pagination from 'react-bootstrap/Pagination';
 import { BookReviews } from './BookReviews';
-import { authorDetailsURL } from '../urls';
 import { SeriesView } from './SeriesView';
 import {SimilarBooksView} from './SimilarBooksView'
 import { BookReview } from './BookReview';
 import { ReviewPopup } from './ReviewPopup';
+import BookAuthorsBlock from './BookAuthorsBlock';
+
 const BookDetails = () => {
     let {id} = useParams();
     let navigate = useNavigate()
@@ -106,20 +107,7 @@ const BookDetails = () => {
                         
                         <Stack direction="horizontal" gap = {1}>
                         <span className='inline-block light-text'>by</span>
-                        {book?.authors.map((a, index) => {
-                            
-                            return (
-                                <>
-                                    <Link to={authorDetailsURL(a.id)}
-                                    key={index}
-                                    className='high-text no-text-effects'>
-                                    {` ${a.name}`}
-                                    </Link>
-                                    {index < (book.authors.length - 1)? ",": ""}
-                                </>
-                            )
-                        })}
-
+                            <BookAuthorsBlock book={book}/>
                         </Stack>
 
                     </Col>
