@@ -15,7 +15,9 @@ export function userDetailsURL(user){
 export function reviewDetailsURL(bookID, reviewID){
     return `${bookDetailsURL(bookID)}review/${reviewID}/#review-header`
 }
-
+export function browseAllURL(){
+    return "/browse/all"
+}
 export function authorDetailsURL(authorID){
     return `/author/${authorID}/`
 }
