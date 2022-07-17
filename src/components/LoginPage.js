@@ -13,12 +13,14 @@ export const  LoginPage = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const username = e.target.username.value;
-    const password = e.target.password.value;
-    console.log('userName:', username)
-    console.log('password:', password)
+    // const username = e.target.username.value;
+    // const password = e.target.password.value;
+    console.log('userName:', _userName)
+    console.log('password:', _password)
+    // console.log('userName:', username)
+    // console.log('password:', password)
 
-    username.length > 0 && loginUser(username, password);
+    _userName.length > 0 && loginUser(_userName, _userName);
   };
 
   return (

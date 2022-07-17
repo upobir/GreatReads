@@ -37,7 +37,12 @@ function App() {
 
         <AuthProvider>
           <Routes>
-            {/* <PrivateRoute element={<LandingPage />} path="/home" exact /> */}
+            <Route exact path='/home' element={<PrivateRoute/>}>
+              <Route exact path='/home' element={<LandingPage/>}/>
+            </Route>
+            <Route exact path='/' element={<PrivateRoute/>}>
+              <Route exact path='/' element={<LandingPage/>}/>
+            </Route>
             <Route path="/login" element={<LoginPage />} />
           </Routes>
         </AuthProvider >
