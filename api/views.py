@@ -18,6 +18,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 def get_book_info(request, pk):
     book = Book.objects.get(id=pk)
 
+    print('user:', request.user)
+
     data = {
         "isbn": book.isbn,
         "title": book.title,
@@ -32,6 +34,7 @@ def get_book_info(request, pk):
         ],
         "readStatus":"reading", # TODO
         "readPages": 10,        # TODO
+        "series": book.series.id if book.series else None,
         "seriesEntry": book.series_number ,
         "avgRating": book.avg_rating,
         "userRating": 4.6,      # TODO
@@ -85,6 +88,25 @@ def get_publisher_info(request, pk):
         "address": publisher.address,
         "name": publisher.name,
         "id": pk
+    }
+    return Response(data)
+
+@api_view(['GET'])
+def get_series_info(request, pk):
+    series = Series.objects.get(id=pk)
+
+    data = {
+        "id": series.id,
+        "name": series.name,
+        "bookCount": series.book_count,
+        "avgRating": series.avg_rating,
+        "books" : [
+            {
+                "id": book.id,
+                "title": book.title,
+                "seriesEntry": book.series_number,
+            } for book in Book.objects.filter(series = series).order_by('series_number')
+        ]
     }
     return Response(data)
 

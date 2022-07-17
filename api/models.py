@@ -37,6 +37,21 @@ class Publisher(models.Model):
 class Series(models.Model):
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
+    @property
+    def book_count(self):
+        return Book.objects.filter(series=self).count()
+
+    @property
+    def avg_rating(self):
+        book_ratings = [book.avg_rating for book in Book.objects.filter(series=self)]
+        if not book_ratings:
+            return 0
+        else:
+            return sum(book_ratings)/len(book_ratings)
+
 class Genre(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
@@ -75,7 +90,6 @@ class Book(models.Model):
     @property
     def avg_rating(self):
         avg = Review.objects.filter(book=self).aggregate(Avg('rating'))['rating__avg']
-        print(avg)
         return 0 if avg is None else avg
 
     def __str__(self):

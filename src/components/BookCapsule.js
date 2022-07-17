@@ -3,13 +3,19 @@ import { Stack,Button, Row, Col, Image, Container} from 'react-bootstrap'
 import 'holderjs'
 import { FaBookOpen, FaBookmark, FaCheck, FaStar } from 'react-icons/fa'
 import { ReviewPopup } from './ReviewPopup'
+import { bookDetailsURL } from '../urls'
+import { Link } from 'react-router-dom'
+
 export default function BookCapsule({book}) {
   const [showReviewPopup, setShowReviewPopup] = useState(false);
   
   const handleReviewPopupShow = () => setShowReviewPopup(true);
   const handleReviewPopupClose = () => setShowReviewPopup(false);
   return (
-    <Stack className='book-capsule'>  
+    <Link to={bookDetailsURL(book? book.id: "")}>
+        
+    <Stack className='book-capsule'>
+
           <Image className='book-capsule__image'/>
           <Stack className='book-capsule__rating-bar' direction='horizontal'>
             <div className='book-capsule__rating-bar__avg-rating'>
@@ -35,5 +41,7 @@ export default function BookCapsule({book}) {
           </div>
         <ReviewPopup showState={showReviewPopup} handleClose={handleReviewPopupClose} />
     </Stack>
+    </Link>
+
   )
 }

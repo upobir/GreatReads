@@ -28,6 +28,7 @@ urlpatterns = [
     path('review/<int:pk>/', get_review_info, name="review"),
     path('author/<int:pk>/', get_author_info, name="author"),
     path('publisher/<int:pk>/', get_publisher_info, name="publisher"),
+    path('series/<int:pk>/', get_series_info, name="series"),
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='auth_register'),

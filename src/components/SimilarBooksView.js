@@ -33,8 +33,8 @@ export const SimilarBooksView = ({similarBooks}) => {
                     return <Carousel.Item >
                                 <Container fluid>
                                     <Row>
-                                        {group.map((book) => {
-                                            return  <Col xs = {4}>
+                                        {group.map((book, index) => {
+                                            return  <Col xs = {4} key={index}>
                                                         <BookCapsule book={book}/>
                                                     </Col>
                                         })}
