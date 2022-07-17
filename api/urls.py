@@ -23,13 +23,13 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
-    path('book/<int:pk>/', get_book_info, name="book"),
-    path('book/<int:pk>/reviews/', get_book_reviews, name="book_reviews"),
-    path('books/', get_all_books, name="all_books"),
-    path('review/<int:pk>/', get_review_info, name="review"),
-    path('author/<int:pk>/', get_author_info, name="author"),
-    path('publisher/<int:pk>/', get_publisher_info, name="publisher"),
-    path('series/<int:pk>/', get_series_info, name="series"),
+    path('book/<int:pk>/', BookView.as_view(), name="book"),
+    path('book/<int:pk>/reviews/', BookReviewsView.as_view(), name="book_reviews"),
+    path('books/', AllBookView.as_view(), name="all_books"),
+    path('review/<int:pk>/', ReviewView.as_view(), name="review"),
+    path('author/<int:pk>/', AuthorView.as_view(), name="author"),
+    path('publisher/<int:pk>/', PublisherView.as_view(), name="publisher"),
+    path('series/<int:pk>/', SeriesView.as_view(), name="series"),
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='auth_register'),
