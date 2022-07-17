@@ -1,11 +1,19 @@
 import React from 'react'
 import {Navbar,NavDropdown,Nav, Container, Row, Col, Form,FormControl, Button} from 'react-bootstrap'
 import {myBookShelfURL, myFeedURL, homeURL} from '../urls'
+
+import { useContext } from "react";
+import UserInfo from "../components/UserInfo";
+import AuthContext from "../context/AuthContext";
+
 export default function GreatReadsNavbar() {
+  const { user } = useContext(AuthContext);
+
   return (
     <Navbar variant = "dark" fixed="top" className="top-navbar">
         <Container fluid>
             <Navbar.Brand href={homeURL}>GreatReads</Navbar.Brand>
+            <Navbar.Brand href={homeURL}> {user && <UserInfo user={user} />} </Navbar.Brand>
             <NavDropdown title="Browse" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

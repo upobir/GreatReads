@@ -17,11 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from .views import *
 
+from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+)
+
 urlpatterns = [
-    path('book/<int:pk>/', get_book_info, name="book"),
-    path('books/', get_all_books, name="all_books"),
-    path('author/<int:pk>/', get_author_info, name="author"),
-    path('publisher/<int:pk>/', get_publisher_info, name="publisher"),
-    path('review/<int:pk>/', get_review_info, name="review"),
-    path('login/', login)
+    path('test', key_test, name="book"),
+    # path('login/', login)
+    path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('register/', RegisterView.as_view(), name='auth_register'),
+    path('apitest/', testEndPoint, name='test')
 ]
