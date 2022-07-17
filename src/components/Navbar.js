@@ -34,7 +34,7 @@ export default function GreatReadsNavbar() {
                   />
               </Form>
             </Col>
-            <Navbar.Brand href={homeURL}> {user && <UserInfo user={user} />} </Navbar.Brand>
+            <Navbar.Brand href={homeURL}> {user && <UserInfo user={user} logout={logoutUser} />} </Navbar.Brand>
         </Container>
         
     </Navbar>
