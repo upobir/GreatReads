@@ -24,12 +24,11 @@ def get_book_info(request, pk):
         "description": book.description,
         "pageCount": book.pages,
         "released": book.release_date, 
-        "genres": [             # TODO
-            {"name": "lorem", "id":1},
-            {"name": "impsum", "id":2},
-            # {"name": "sit", "id":3},
-            # {"name": "dor", "id":4},
-            # {"name": "amet", "id":5}
+        "genres": [             
+            {
+                "name": genre.name,
+                "id": genre.id ,
+            } for genre in book.genres.all()
         ],
         "readStatus":"reading", # TODO
         "readPages": 10,        # TODO
@@ -44,15 +43,12 @@ def get_book_info(request, pk):
             } for author in book.authors.all()
         ],
         "publisherId" : book.publisher.id,
-        "reviews": [1, 2, 4], # TODO placeholder for now
-        #[review.id for review in book.reviews.all()], # NOTE actual code
     }
 
     return Response(data)
 
 @api_view(['GET'])
 def get_all_books(request):
-
     data = [
         {
             "id" : book.id,
@@ -90,41 +86,23 @@ def get_publisher_info(request, pk):
     return Response(data)
 
 @api_view(['GET'])
-def get_review_info(request, pk):
-    # review = Review.objects.get(id=pk)
+def get_book_reviews(request, pk):
+    book = Book.objects.get(id=pk)
 
-    data = { #TODO fix this
-        "id": pk,
-        "reviewer" : "User_"+str(pk), 
-        "body" : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-        "rating":4.5,
-        "likes": 58,
-        "commentCount": 0,
-        "comments": [
-
-        ],
-    }
-        #     {
-        #         "id": 1,
-        #         "reviewer": "Vraig",
-        #         "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-        #         
+    data = [{
+            "id": pk,
+            "reviewer" : "User_"+str(pk), 
+            "body" : review.description,
+            "rating":4.5,
+            "likes": 58,
+            "commentCount": 0,
+        } for review in book.reviews.all()]
         #         "comments": [
         #             {
         #                 "Commenter": "Tamahome",
         #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
         #                 "Text": "You go girl! (the audiobook is 45 hours)"
         #             },
-        #             {
-        #                 "Commenter": "Tamahome",
-        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
-        #                 "Text": "You go girl! (the audiobook is 45 hours)"
-        #             },
-        #             {
-        #                 "Commenter": "Tamahome",
-        #                 "TimeStamp": "Oct 05, 2010 08:10PM" ,
-        #                 "Text": "You go girl! (the audiobook is 45 hours)"
-        #             }
         #         ]
         #     }
     return Response(data)
