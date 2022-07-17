@@ -45,8 +45,10 @@ function App() {
               <Route path="/" element={<LandingPage />} />
             </Routes> */}
         
-        <Container fluid className='app-body'>
-          <AuthProvider>
+        <AuthProvider>
+          <Container fluid className='app-body'>
+            <GreatReadsNavbar />
+
             <Routes>
               <Route exact path='/home' element={<PrivateRoute/>}>
                 <Route exact path='/home' element={<LandingPage/>}/>
@@ -59,8 +61,8 @@ function App() {
               <Route path="/browse/" element={<GetBooksList />} />
               <Route path="/" element={<LandingPage />} />
             </Routes>
-          </AuthProvider >
-        </Container>
+          </Container>
+        </AuthProvider >
         </div> 
     </Router>
   );

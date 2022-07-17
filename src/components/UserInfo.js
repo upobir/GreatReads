@@ -1,8 +1,13 @@
-function UserInfo({ user }) {
+import { Stack } from 'react-bootstrap';
+import {FaUser, FaBell} from 'react-icons/fa';
+import {Button} from 'react-bootstrap';
+function UserInfo({ user, logout }) {
     return (
-      <div>
-        <h1>Hello, {user.username}</h1>
-      </div>
+      <Stack direction="horizontal" gap={2}>
+        <span><FaUser/>{user.username}</span>
+        <FaBell />
+        <Button onClick={logout}> Logout </Button>
+      </Stack>
     );
   }
   
