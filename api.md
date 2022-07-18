@@ -62,7 +62,17 @@ List of all kinds of jsons
 }
 ```
 
-6. series_detailed
+6. series_mini
+```
+{
+    "id": int,
+    "name": name,
+    "bookCount": int,
+    "avgRating": float,
+}
+```
+
+7. series_detailed
 ```
 {
     "id": int,
@@ -73,7 +83,7 @@ List of all kinds of jsons
 }
 ```
 
-7. review_mini
+8. review_mini
 ```
 {
     "id": int,
@@ -87,7 +97,7 @@ List of all kinds of jsons
 }
 ```
 
-8. review_detailed
+9. review_detailed
 ```
 {
     "id": int,
@@ -102,7 +112,7 @@ List of all kinds of jsons
 }
 ```
 
-9. comment_mini
+10. comment_mini
 ```
 {
     "id": int,
@@ -115,17 +125,24 @@ List of all kinds of jsons
 
 ## Routes
 1. GET `api/books` array of all `book_mini`
-2. GET `api/book/<id>` one `book_detailed`
-3. GET `api/book/<id>/reviews` array of `review_mini` of a book (pagination needed)
-4. GET `api/review/<id>` one `review_detailed`
-5. GET `api/author/<id>` one `author_detailed`
-6. GET `api/publisher/<id>` one `publisher_detailed`
-7. GET `api/series/<id>` one `series_detailed`
-8. GET `api/books/genre/<id>` array of `book_mini` of a genre (pagination needed)
-9. GET `api/books/new_rated` array of `book_mini` that are newly genre (pagination needed)
-10. GET `api/books/followed_author` array of `book_mini` that are from followed author
-11. GET `api/book/<id>/similar` array of `book_mini` that are similar
-12. GET `api/bookshelf/reading` array of `book_mini` that user is reading
-13. GET `api/bookshelf/read` array of `book_mini` that user has read
-14. GET `api/bookshelf/want_to_read` array of `book_mini` that user wants to read
-15. GET `api/bookshelf/`
+1. GET `api/book/<id>` one `book_detailed`
+1. GET `api/book/<id>/reviews` array of `review_mini` of a book (pagination needed)
+1. GET `api/review/<id>` one `review_detailed`
+1. GET `api/author/<id>` one `author_detailed`
+1. GET `api/publisher/<id>` one `publisher_detailed`
+1. GET `api/series/<id>` one `series_mini`
+1. GET `api/books/genre/<id>` array of `book_mini` of a genre (pagination needed)
+1. GET `api/books/new_rated` array of `book_mini` that are newly genre (pagination needed)
+1. GET `api/books/followed_author` array of `book_mini` that are from followed author (pagination needed)
+1. GET `api/book/<id>/similar` array of `book_mini` that are similar (pagination needed)
+1. GET `api/user/<id>` ????
+1. GET `api/user/<id>/reading` array of `book_mini` that user is reading (pagination needed)
+1. GET `api/user/<id>/read` array of `book_mini` that user has read (pagination needed)
+1. GET `api/user/<id>/want_to_read` array of `book_mini` that user wants to read (pagination needed)
+1. GET `api/user/<id>/reviewed` array of `book_mini` that user has reviewed (pagination needed)
+1. GET `api/user/<id>/reviews` array of `review_mini` that user has created (pagination needed)
+1. GET `api/user/<id>/messages` ????
+1. GET `api/messages` ????
+1. GET `api/author/<id>/books` array of `book_mini` (pagination needed)
+1. GET `api/author/<id>/series` array of `series_mini` (pagination needed)
+
