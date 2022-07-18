@@ -10,6 +10,7 @@ List of all kinds of jsons
     "authors": [author_mini],
     "avgRating": float,
     "thumbnail": path?,
+    "seriesEntry": int?,
 }
 ```
 
