@@ -8,12 +8,12 @@ import {Row, Col, Container, Tabs, Tab, Stack, TabContainer, Navbar} from 'react
 import 'holderjs'
 import Pagination from 'react-bootstrap/Pagination';
 import { BookReviews } from './BookReviews';
+import { _similar_books } from '../helper';
 import { SeriesView } from './SeriesView';
 import {SimilarBooksView} from './SimilarBooksView'
 import { BookReview } from './BookReview';
 import { ReviewPopup } from './ReviewPopup';
 import BookAuthorsBlock from './BookAuthorsBlock';
-
 const BookDetails = () => {
     const {id} = useParams();
     const navigate = useNavigate()
@@ -45,44 +45,7 @@ const BookDetails = () => {
         getAll()
     }, [])
 
-    let _series =
-    { 
-        "name": "The Stormlight Archive",
-        "avgRating": 4.45,    
-        "entries": [        
-            {
-                "seriesEntry" : 0,
-                "title": "lorem",
-                "readStatus": "read",
-                "avgRating" : 4,
-            },
-            {
-                "seriesEntry" : 1,
-                "title": "ipsum",
-                "readStatus": "read",
-                "avgRating" : 4
-            },
-            {
-                "seriesEntry" : 3,
-                "title": "The Way of Kings",
-                "readStatus": "reading",
-                "avgRating" : 4
-            },
-            {
-                "seriesEntry" : 4,
-                "title": "sit",
-                "readStatus": "read",
-                "avgRating" : 4
-            },
-            {
-                "seriesEntry" : 5,
-                "title": "ipsum",
-                "readStatus": "read",
-                "avgRating" : 5
-            }
-        ]
-    }
-    let _similar_books = _series.entries
+  
 
     
     const handleTabChange = (eventKey, e) => {

@@ -7,12 +7,12 @@ export const SimilarBooksView = ({similarBooks}) => {
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
     };
-    const groupBooks = (books) => { 
-        console.log('series', books)
+    const groupBooks = (series) => { 
+        console.log('series bview series', series)
         let books_grouped = []
         let groupindex = 0;
         let group = []
-        for (const seriesEntry of books) { 
+        for (const seriesEntry of series.entries) { 
             if((groupindex++) >= 3){
                 books_grouped.push(group)
                 group = []
@@ -29,7 +29,7 @@ export const SimilarBooksView = ({similarBooks}) => {
         </Row>
         <Row>
             <Carousel className='book-carousel'>
-                {groupBooks(similarBooks).map((group) => { 
+                {similarBooks && (groupBooks(similarBooks).map((group) => { 
                     return <Carousel.Item >
                                 <Container fluid>
                                     <Row>
@@ -42,7 +42,7 @@ export const SimilarBooksView = ({similarBooks}) => {
                                 </Container>
                             </Carousel.Item>
                             
-                })}
+                }))}
             </Carousel>
         </Row>
     </Container>
