@@ -12,6 +12,7 @@ export const SeriesView = ({book, series}) => {
   
     
     const groupBooks = (booksInSeries) => { 
+        console.log('sdsds')
         console.log('booksInSeries', booksInSeries)
         let books_grouped = []
         let groupindex = 0;
@@ -37,7 +38,7 @@ export const SeriesView = ({book, series}) => {
         </Row>
         <Row>
             <Carousel className='book-carousel'>
-                {series && (
+                {series && series.books && (
                     groupBooks(series.books).map((group) => { 
                     return <Carousel.Item>
                                 <Container>
