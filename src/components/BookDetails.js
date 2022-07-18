@@ -51,17 +51,17 @@ const BookDetails = () => {
      }
 
      const getIfNotLoggedIn = async () => { 
-        let response = await fetch(bookFetchEndpoint(id))     // for private api endpoints (api instead of fetch)
+        let response = await fetch(bookFetchEndpoint(id))
         let book = await response.json()
         console.log('book', book)
         setBook(book)
         
-        response = await fetch(authorFetchEndpoint(book.authors[0].id))      // for private api endpoints (api instead of fetch)
+        response = await fetch(authorFetchEndpoint(book.authors[0].id))
         let author = await response.json()
         setAuthor(author)
 
         if(book.series != null){
-            response = await fetch(seriesFetchEndpoint(book.series))      // for private api endpoints (api instead of fetch)
+            response = await fetch(seriesFetchEndpoint(book.series))
             let jseries = await response.json()
             console.log('series', jseries)
             setSeries(jseries)  
