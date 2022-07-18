@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate, Routes, Route, Link } from "react-router-dom";
 import { authorFetchEndpoint, bookFetchEndpoint, seriesFetchEndpoint } from '../endpoints';
 import BookCapsule from './BookCapsule';
@@ -14,6 +14,7 @@ import {SimilarBooksView} from './SimilarBooksView'
 import { BookReview } from './BookReview';
 import { ReviewPopup } from './ReviewPopup';
 import BookAuthorsBlock from './BookAuthorsBlock';
+import AuthContext from "../context/AuthContext";
 import useAxios from "../utils/useAxios";   // for private api endpoints
 
 const BookDetails = () => {
@@ -23,6 +24,7 @@ const BookDetails = () => {
     const [author, setAuthor] = useState(null)
     const [series, setSeries] = useState(null)
 
+    let { user } = useContext(AuthContext);
     const api = useAxios();                 // for private api endpoints
 
     const [showReviewPopup, setShowReviewPopup] = useState(false);
@@ -30,7 +32,7 @@ const BookDetails = () => {
     const handleReviewPopupClose = () => setShowReviewPopup(false);
   
 
-    const getAll = async () => { 
+    const getIfLoggedIn = async () => { 
         let response = await api(bookFetchEndpoint(id))     // for private api endpoints (api instead of fetch)
         let book = response.data
         console.log('book', book)
@@ -45,11 +47,30 @@ const BookDetails = () => {
         console.log('series', jseries)
         setSeries(jseries)  
      }
-    useEffect(() => {
-        getAll()
-    }, [])
 
-  
+     const getIfNotLoggedIn = async () => { 
+        let response = await fetch(bookFetchEndpoint(id))     // for private api endpoints (api instead of fetch)
+        let book = await response.json()
+        console.log('book', book)
+        setBook(book)
+        
+        response = await fetch(authorFetchEndpoint(book.authors[0].id))      // for private api endpoints (api instead of fetch)
+        let author = await response.json()
+        setAuthor(author)
+
+        response = await fetch(seriesFetchEndpoint(book.series))      // for private api endpoints (api instead of fetch)
+        let jseries = await response.json()
+        console.log('series', jseries)
+        setSeries(jseries)  
+     }
+
+    useEffect(() => {
+        if (user) {
+            getIfLoggedIn();
+        } else {
+            getIfNotLoggedIn();
+        }
+    }, [])
 
     
     const handleTabChange = (eventKey, e) => {
