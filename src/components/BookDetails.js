@@ -13,6 +13,7 @@ import {SimilarBooksView} from './SimilarBooksView'
 import { BookReview } from './BookReview';
 import { ReviewPopup } from './ReviewPopup';
 import BookAuthorsBlock from './BookAuthorsBlock';
+import useAxios from "../utils/useAxios";   // for private api endpoints
 
 const BookDetails = () => {
     const {id} = useParams();
@@ -21,23 +22,25 @@ const BookDetails = () => {
     const [author, setAuthor] = useState(null)
     const [series, setSeries] = useState(null)
 
+    const api = useAxios();                 // for private api endpoints
+
     const [showReviewPopup, setShowReviewPopup] = useState(false);
     const handleReviewPopupShow = () => setShowReviewPopup(true);
     const handleReviewPopupClose = () => setShowReviewPopup(false);
   
 
     const getAll = async () => { 
-        let response = await fetch(bookFetchEndpoint(id))
-        let book = await response.json()
+        let response = await api(bookFetchEndpoint(id))     // for private api endpoints (api instead of fetch)
+        let book = response.data
         console.log('book', book)
         setBook(book)
         
-        response = await fetch(authorFetchEndpoint(book.authors[0].id))
-        let author = await response.json()
+        response = await api(authorFetchEndpoint(book.authors[0].id))      // for private api endpoints (api instead of fetch)
+        let author = response.data
         setAuthor(author)
 
-        response = await fetch(seriesFetchEndpoint(book.series))
-        let jseries = await response.json()
+        response = await api(seriesFetchEndpoint(book.series))      // for private api endpoints (api instead of fetch)
+        let jseries = response.data
         console.log('series', jseries)
         setSeries(jseries)  
      }
