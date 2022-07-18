@@ -29,7 +29,7 @@ export const BrowseBooks = () => {
     }, [])
   
     if(books.length <= 0)
-      return "..."
+      return "loading..."
   
     return (
       <Container fluid>

@@ -21,7 +21,7 @@ export const TruncatedReview = ({review,bookID})=> {
 }
 export const NormalReview = ({review,bookID})=> {
   return <Row>
-            <p>{review?review.body: '...'}</p>
+            <p>{review?review.body: 'loading...'}</p>
         </Row>
 }
 
@@ -65,7 +65,7 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate}) => {
               <Button onClick={handleCommentReply}> <FaComment />  reply</Button>
             </Col>
             <Col xs={"auto"}>
-              <Link to={reviewDetailsURL(bookID, review?.id)} >{`${review?.commentCount} comments`}</Link> 
+              {review  && <Link to={reviewDetailsURL(bookID, review?.id)} >{`${review?.commentCount} comments`}</Link>}
             </Col>
           </Row>
           </Col>

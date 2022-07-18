@@ -41,11 +41,13 @@ const BookDetails = () => {
         response = await api(authorFetchEndpoint(book.authors[0].id))      // for private api endpoints (api instead of fetch)
         let author = response.data
         setAuthor(author)
-
-        response = await api(seriesFetchEndpoint(book.series))      // for private api endpoints (api instead of fetch)
-        let jseries = response.data
-        console.log('series', jseries)
-        setSeries(jseries)  
+        
+        if(book.series != null){
+            response = await api(seriesFetchEndpoint(book.series))      // for private api endpoints (api instead of fetch)
+            let jseries = response.data
+            console.log('series', jseries)
+            setSeries(jseries) 
+        } 
      }
 
      const getIfNotLoggedIn = async () => { 
@@ -58,10 +60,12 @@ const BookDetails = () => {
         let author = await response.json()
         setAuthor(author)
 
-        response = await fetch(seriesFetchEndpoint(book.series))      // for private api endpoints (api instead of fetch)
-        let jseries = await response.json()
-        console.log('series', jseries)
-        setSeries(jseries)  
+        if(book.series != null){
+            response = await fetch(seriesFetchEndpoint(book.series))      // for private api endpoints (api instead of fetch)
+            let jseries = await response.json()
+            console.log('series', jseries)
+            setSeries(jseries)  
+        }
      }
 
     useEffect(() => {

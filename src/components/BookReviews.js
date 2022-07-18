@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 export const BookReviews = () => {
   const {id} = useParams();
 
-  const [reviews, setReviews] = useState([])
+  const [reviews, setReviews] = useState(null)
   const getReviews= async () => { 
     let response = await fetch(bookReviewsFetchEndpoint(id))
     let jreviews = await response.json()
@@ -17,16 +17,18 @@ export const BookReviews = () => {
   useEffect(() => {
     getReviews()
   }, [])
-
+  if(reviews == null){
+    return "loading..."
+  }
   if(reviews.length <= 0)
-    return "..."
+    return "no reviews"
 
   return (
     <Container>
       
       <Stack gap={2}>
         {
-          reviews.map( (review, index) => {
+          reviews?.map( (review, index) => {
               return<BookReviewPreview key={index} bookID={id} review={review} shouldTruncate={true}/>
           })
         }
