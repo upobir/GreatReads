@@ -15,7 +15,7 @@ class BookView(APIView):
         book = Book.objects.get(id=pk)
         print("In BookView: user = ", request.user)
 
-        status = BookUserStatus.objects()
+        #status = BookUserStatus.objects()
 
         data = {
             "isbn": book.isbn,
