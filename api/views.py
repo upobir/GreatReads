@@ -123,7 +123,7 @@ class BookReviewsView(APIView):
 
 
 class ReviewView(APIView):
-    def get(request, pk):
+    def get(self, request, pk):
         review = Review.objects.get(id=pk)
         data = {
                 "id": pk,
