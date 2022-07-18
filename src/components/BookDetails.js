@@ -36,10 +36,12 @@ const BookDetails = () => {
         let author = await response.json()
         setAuthor(author)
 
-        response = await fetch(seriesFetchEndpoint(book.series))
-        let jseries = await response.json()
-        console.log('series', jseries)
-        setSeries(jseries)  
+        if(book.series){
+            response = await fetch(seriesFetchEndpoint(book.series))
+            let jseries = await response.json()
+            console.log('series', jseries)
+            setSeries(jseries) 
+        } 
      }
     useEffect(() => {
         getAll()
