@@ -64,10 +64,17 @@ $theme-colors: (
 @import '~bootstrap/scss/bootstrap.scss';
 
 .book-capsule { 
-  &__image{
+  &__thumbnail{
     width: 100%;  
     height: 240px;
     background-color: $text-medium;
+    display: flex;   
+    justify-content: center;
+    svg{
+      display: block;
+      margin:auto;
+      color: $body-bg;
+    }
   }
   .book-capsule-buttons{
     display: flex;
@@ -236,8 +243,8 @@ $theme-colors: (
     background-color: $text-medium
   }
 }
-.top-navbar__left-group{
-  min-width: 50%;
+.top-navbar{
+  
 }
 .primary-text{
   color:$primary;
