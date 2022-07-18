@@ -224,6 +224,21 @@ $theme-colors: (
   width: 100%;
   padding: 0 3rem 3rem 3rem ;
 }
+.review-details{
+  min-height: 1000px;
+  // padding-bottom: 500px;
+}
+.book-search-preview{
+  min-height: 150px;
+  &__thumbnail{
+    width: 100px;  
+    height:150px;
+    background-color: $text-medium
+  }
+}
+.top-navbar__left-group{
+  min-width: 50%;
+}
 .primary-text{
   color:$primary;
 }

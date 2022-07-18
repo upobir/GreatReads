@@ -6,9 +6,9 @@ export default function GenreBlock({genres}) {
     <div>
         <h3> Genre: </h3>
         <Stack gap={2} direction="horizontal">
-        {genres.map((g) => 
-                    <Col xs={"auto"}>
-                        <Button key={g.id} >
+        {genres?.map((g, index) => 
+                    <Col xs={"auto"} key={index}>
+                        <Button  >
                             {g.name}
                         </Button> 
                     </Col>

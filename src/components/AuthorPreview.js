@@ -1,8 +1,8 @@
 import React from 'react'
 import { Stack, Container, Row, Col, Image, Button } from 'react-bootstrap'
 import 'holderjs'
-
-export default function AuthorPreview({author}) {
+import { authorFetchEndpoint } from '../endpoints'
+export default function AuthorPreview({ author   }) {
   return (
     <Container className='author-preview'>
         <Row>
@@ -10,8 +10,8 @@ export default function AuthorPreview({author}) {
                 <Image className='author-preview__image'/>
             </Col>
             <Col xs={8} className='__author-name-block'>
-                <block>About:</block>
-                <h3 className='primary-text'>{author.name}</h3>
+                <div>About:</div>
+                <h3 className='primary-text'>{author?.name}</h3>
             </Col>
         </Row>
         <Row>
@@ -20,17 +20,18 @@ export default function AuthorPreview({author}) {
                                  paddingBottom: 0,
                                  marginBlockEnd:0,
                                  marginBlockStart:0  }}>
-                        {author.followCount}
+                        {author?.followCount}
                     </h3>
                     <p>Following</p>
             </Col>
             <Col>
-            <Button variant='primary'>{author.isFollowedByUser? "Unfollow": "Follow"}</Button>
+            <Button variant='primary'>
+                {author?.isFollowedByUser? "Unfollow": "Follow"}</Button>
             </Col>
      
         </Row>
         <Row>
-            <Container>{author.description}</Container>
+            <Container>{author?.description}</Container>
         </Row>
     </Container>
   )

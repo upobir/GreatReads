@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate, Routes, Route, Link } from "react-router-dom";
-import { bookFetchEndpoint } from '../endpoints';
+import { authorFetchEndpoint, bookFetchEndpoint, seriesFetchEndpoint } from '../endpoints';
 import BookCapsule from './BookCapsule';
 import AuthorPreview from './AuthorPreview';
 import GenreBlock from './GenreBlock';
@@ -8,200 +8,74 @@ import {Row, Col, Container, Tabs, Tab, Stack, TabContainer, Navbar} from 'react
 import 'holderjs'
 import Pagination from 'react-bootstrap/Pagination';
 import { BookReviews } from './BookReviews';
-import { authorDetailsURL } from '../urls';
+import { _similar_books } from '../helper';
 import { SeriesView } from './SeriesView';
 import {SimilarBooksView} from './SimilarBooksView'
 import { BookReview } from './BookReview';
 import { ReviewPopup } from './ReviewPopup';
+import BookAuthorsBlock from './BookAuthorsBlock';
+import AuthContext from "../context/AuthContext";
+import useAxios from "../utils/useAxios";   // for private api endpoints
+
 const BookDetails = () => {
-    let {id} = useParams();
-    let navigate = useNavigate()
+    const {id} = useParams();
+    const navigate = useNavigate()
     const [book, setBook] = useState(null)
-    
+    const [author, setAuthor] = useState(null)
+    const [series, setSeries] = useState(null)
+
+    let { user } = useContext(AuthContext);
+    const api = useAxios();                 // for private api endpoints
+
     const [showReviewPopup, setShowReviewPopup] = useState(false);
     const handleReviewPopupShow = () => setShowReviewPopup(true);
     const handleReviewPopupClose = () => setShowReviewPopup(false);
+  
 
-    let _book = {
-        "isbn": 1,
-        "title": "The Way of Kings",
-        "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-        "pageCount": 1011,
-        "released": "15th March, 2020", 
-        "genres": [
-            {"name": "lorem", "id":1},
-            {"name": "impsum", "id":2},
-            {"name": "sit", "id":3},
-            {"name": "dor", "id":4},
-            {"name": "amet", "id":5}
-        ],
-        "readStatus":"reading",
-        "readPages": 10,
-        "seriesEntry": 3,
-        "avgRating": 4.6,
-        "userRating": 4.6,
-        "reviewCount": 1520,
-        "reviews":[
-            {
-                "id": 1,
-                "reviewer": "Vraig",
-                "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-                "rating":4.5,
-                "likes": 58,
-                "commentCount": 19,
-                "comments": [
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    }
-                ]
-            },
-            {
-                "id": 2,
-                "reviewer": "Vraig",
-                "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-                "rating":4.5,
-                "likes": 58,
-                "commentCount": 19,
-                "comments": [
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    }
-                ]
-            },{
-                "id": 3,
-                "reviewer": "Vraig",
-                "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-                "rating":4.5,
-                "likes": 58,
-                "commentCount": 19,
-                "comments": [
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "Commenter": "Tamahome",
-                        "TimeStamp": "Oct 05, 2010 08:10PM" ,
-                        "Text": "You go girl! (the audiobook is 45 hours)"
-                    }
-                ]
-            },{
-                "id": 4,
-                "reviewer": "Vraig",
-                "body": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Porro blanditiis accusantium, nemo doloribus voluptatibus, natus autem tenetur voluptas non minima dolores suscipit tempora consequatur corrupti sint sapiente commodi voluptate corporis.",
-                "rating":4.5,
-                "likes": 58,
-                "commentCount": 19,
-                "comments": [
-                    {
-                        "commenter": "Tamahome",
-                        "timeStamp": "Oct 05, 2010 08:10PM" ,
-                        "text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "commenter": "Tamahome",
-                        "timeStamp": "Oct 05, 2010 08:10PM" ,
-                        "text": "You go girl! (the audiobook is 45 hours)"
-                    },
-                    {
-                        "commenter": "Tamahome",
-                        "timeStamp": "Oct 05, 2010 08:10PM" ,
-                        "text": "You go girl! (the audiobook is 45 hours)"
-                    }
-                ]
-            }
-        ]
-    }
-    let _author = {
-        "followCount": 178000,
-        "isFollowedByUser": false,
-        "description": "Duis fermentum velit orci, sit amet laoreet libero faucibus ac. Aliquam erat volutpat. Sed et rutrum orci, vitae mattis mi. Cras eget maximus lacus, id dictum neque. Quisque fermentum neque nunc, at iaculis mauris pellentesque eu. Aliquam erat volutpat. Fusce eu tellus ut tellus consequat condimentum. Aenean congue mollis turpis, quis volutpat metus sagittis malesuada. Etiam ornare leo egestas, placerat sem non, faucibus ex.",
-        "name": "Brandon Sanderson",
-        "id": 1,
-    }
-    let _series =
-    { 
-        "name": "The Stormlight Archive",
-        "avgRating": 4.45,    
-        "entries": [        
-            {
-                "seriesEntry" : 0,
-                "title": "lorem",
-                "readStatus": "read",
-                "avgRating" : 4,
-            },
-            {
-                "seriesEntry" : 1,
-                "title": "ipsum",
-                "readStatus": "read",
-                "avgRating" : 4
-            },
-            {
-                "seriesEntry" : 3,
-                "title": "The Way of Kings",
-                "readStatus": "reading",
-                "avgRating" : 4
-            },
-            {
-                "seriesEntry" : 4,
-                "title": "sit",
-                "readStatus": "read",
-                "avgRating" : 4
-            },
-            {
-                "seriesEntry" : 5,
-                "title": "ipsum",
-                "readStatus": "read",
-                "avgRating" : 5
-            }
-        ]
-    }
-    let _similar_books = _series.entries
-    const getBook = async ()=> {
-        console.log('id', id)
-        console.log('bookFetchEndpoint(id)', bookFetchEndpoint(id))
-
-        let response = await fetch(bookFetchEndpoint(id))
-        let book = await response.json()
-        
-
-
+    const getIfLoggedIn = async () => { 
+        let response = await api(bookFetchEndpoint(id))     // for private api endpoints (api instead of fetch)
+        let book = response.data
+        console.log('book', book)
         setBook(book)
-    }
-    
+        
+        response = await api(authorFetchEndpoint(book.authors[0].id))      // for private api endpoints (api instead of fetch)
+        let author = response.data
+        setAuthor(author)
+        
+        if(book.series != null){
+            response = await api(seriesFetchEndpoint(book.series))      // for private api endpoints (api instead of fetch)
+            let jseries = response.data
+            console.log('series', jseries)
+            setSeries(jseries) 
+        } 
+     }
+
+     const getIfNotLoggedIn = async () => { 
+        let response = await fetch(bookFetchEndpoint(id))     // for private api endpoints (api instead of fetch)
+        let book = await response.json()
+        console.log('book', book)
+        setBook(book)
+        
+        response = await fetch(authorFetchEndpoint(book.authors[0].id))      // for private api endpoints (api instead of fetch)
+        let author = await response.json()
+        setAuthor(author)
+
+        if(book.series != null){
+            response = await fetch(seriesFetchEndpoint(book.series))      // for private api endpoints (api instead of fetch)
+            let jseries = await response.json()
+            console.log('series', jseries)
+            setSeries(jseries)  
+        }
+     }
+
     useEffect(() => {
-        getBook()
+        if (user) {
+            getIfLoggedIn();
+        } else {
+            getIfNotLoggedIn();
+        }
     }, [])
+
     
     const handleTabChange = (eventKey, e) => {
         console.log('eventKey', eventKey)
@@ -213,54 +87,59 @@ const BookDetails = () => {
             <div className='book-details'>
                 <Container fluid className='book-details__left-col'>
                     <Col xs={2} className='allow-click-self book-details__left-col__inner' >
-                        <BookCapsule book={_book}/>
+                        <BookCapsule book={book}/>
                         <div className='review-summary-block'>
-                            <h1> {_book.avgRating}/5 </h1>
-                            <p>from {_book.reviewCount} reviews</p>
+                            <h1> {book?.avgRating}/5 </h1>
+                            <p>from {book?.reviewCount} reviews</p>
                             <button className='review-summary-block__write-review-btn' onClick={handleReviewPopupShow}> Write a review </button>
                         </div>
                     </Col>
                 </Container>
                 <Container fluid  className='book-details__right-col'>
                     <Col xs={{span:3,offset:9 }} className='allow-click-self'>
-                        <AuthorPreview author={_author}/>
+                        <AuthorPreview author={author}/>
                     </Col>
                 </Container>
 
                 <Container fluid  className='book-details__mid-col-top'>
                     <Col xs={{span:7,offset:2 }} className='book-details__mid-col-top-header' id='book-details-mid-header'>
-                        <h1 className='primary-text'>{_book.title}</h1>
+                        <h1 className='primary-text'>{book?.title}</h1>
+                        
+                        <Stack direction="horizontal" gap = {1}>
                         <span className='inline-block light-text'>by</span>
-                        <Link to={authorDetailsURL(_author.id)}
-                            className='high-text no-text-effects'>
-                            {` ${_author.name}`}
-                        </Link>
+                            <BookAuthorsBlock book={book}/>
+                        </Stack>
+
                     </Col>
                 </Container>
                 <Container fluid className='book-details__mid-col-bottom'>
                     <Col xs={{span:7,offset:2 }}>
      
-                        <p>{_book.description}</p>
-                        <Row><Col xs={2}className="medium-text">ISBN:</Col><Col>{_book.isbn}</Col></Row>
-                        <Row><Col xs={2}className="medium-text">Pages:</Col><Col>{_book.pageCount}</Col></Row>
-                        <Row><Col xs={2}className="medium-text">Released:</Col><Col>{_book.released}</Col></Row>
-                        {/* <p><span className="medium-text">Language:</span> {_book.isbn}</p> */}
-                        <GenreBlock genres={_book.genres}/>
+                        <p>{book?.description}</p>
+                        <Row><Col xs={2}className="medium-text">ISBN:</Col><Col>{book?.isbn}</Col></Row>
+                        <Row><Col xs={2}className="medium-text">Pages:</Col><Col>{book?.pageCount}</Col></Row>
+                        <Row><Col xs={2}className="medium-text">Released:</Col><Col>{book?.released}</Col></Row>
+                        {/* <p><span className="medium-text">Language:</span> {book.isbn}</p> */}
+                        <GenreBlock genres={book?.genres}/>
 
                         <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} className="book-details__tab-bar">
                             <Tab eventKey="reviews" title="Reviews">
                             </Tab>
-                            <Tab eventKey="series" title="Series">
-                            </Tab>
+                            {
+                                (book?.series) && <Tab eventKey="series" title="Series"></Tab>
+                            }
                             <Tab eventKey="similar_books" title="Similar Books">
                             </Tab>
                         </Tabs>
-                        <Routes>
-                            <Route path="/" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
-                            <Route path="/reviews" element={<BookReviews bookID={id} reviews={_book.reviews}/>} />
-                            <Route path="/series" element={<SeriesView book={_book} series={_series}/>} />
+                        <Routes>                            
+                            {
+                                (book?.series) && <Route path="/series" element={<SeriesView book={book} series={series} />} />
+                            }
                             <Route path="/similar_books" element={<SimilarBooksView similarBooks={_similar_books}/>} />
-                            <Route path="/review/:review_id" element={<BookReview review={_book.reviews[0]}/>}></Route>
+                            <Route path="/review/:review_id/*" element={<BookReview bookID={id}/>}></Route>
+                            <Route path="" element={<BookReviews book={book}/>} />
+                            <Route path="/reviews" element={<BookReviews bookID={id}/>} />
+                            
                         </Routes>                    
                     </Col>
                 </Container>
