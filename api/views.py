@@ -10,6 +10,8 @@ from .serializers import *
 
 class BookView(APIView):
     def get(self, request, pk):
+        print('user:', request.user.username)
+
         book = Book.objects.get(id=pk)
 
         data = {
@@ -45,7 +47,7 @@ class BookView(APIView):
 
 class AllBookView(APIView):
     def get(self, request):
-        print('user:', request.user)
+        
         data = [
             {
                 "id" : book.id,
