@@ -10,10 +10,12 @@ from .serializers import *
 
 class BookView(APIView):
     def get(self, request, pk):
-        print('user:', request.user.username)
+        print('user:', request.user.id)
 
         book = Book.objects.get(id=pk)
         print("In BookView: user = ", request.user)
+
+        status = BookUserStatus.objects()
 
         data = {
             "isbn": book.isbn,
@@ -126,7 +128,7 @@ class BookReviewsView(APIView):
 
 
 class ReviewView(APIView):
-    def get(request, pk):
+    def get(self, request, pk):
         review = Review.objects.get(id=pk)
         data = {
                 "id": pk,
