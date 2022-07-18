@@ -12,7 +12,6 @@ export const SeriesView = ({book, series}) => {
   
     
     const groupBooks = (booksInSeries) => { 
-        console.log('sdsds')
         console.log('booksInSeries', booksInSeries)
         let books_grouped = []
         let groupindex = 0;
@@ -38,19 +37,24 @@ export const SeriesView = ({book, series}) => {
         </Row>
         <Row>
             <Carousel className='book-carousel'>
-                {series && series.books && (
+                {series && (
                     groupBooks(series.books).map((group) => { 
                     return <Carousel.Item>
                                 <Container>
                                     <Row>
                                         {group.map((seriesEntry, index) => {
                                             return <Col xs = {4} key={index}>
-                                                    <Stack>
+                                                    <Stack gap={1}>
                                                         <BookCapsule book={seriesEntry}/>
-                                                        <Container className='center-text no-pad-y'>Book {seriesEntry.seriesEntry}</Container>
+                                                        <Container >
+                                                            <p>
+                                                                {seriesEntry.title} 
+                                                            </p>
+                                                            <p>{`(Book ${seriesEntry.seriesEntry})`}</p>
+                                                        </Container>
                                                     </Stack>
                                                        
-                                                        </Col>
+                                                    </Col>
                                         })}
                                     </Row>
                                 </Container>

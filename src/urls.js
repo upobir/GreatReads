@@ -24,5 +24,5 @@ export function authorDetailsURL(authorID){
 
 const myBookShelfURL = "/bookshelf/"
 const myFeedURL = "/feed/"
-const homeURL = ""
+const homeURL = "/home/"
 export {myBookShelfURL, homeURL,myFeedURL}

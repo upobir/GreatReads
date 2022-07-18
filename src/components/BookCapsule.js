@@ -1,7 +1,7 @@
 import {React, useState} from 'react'
 import { Stack,Button, Row, Col, Image, Container} from 'react-bootstrap'
 import 'holderjs'
-import { FaBookOpen, FaBookmark, FaCheck, FaStar } from 'react-icons/fa'
+import { FaBookOpen,FaBook, FaBookmark, FaCheck, FaStar } from 'react-icons/fa'
 import { ReviewPopup } from './ReviewPopup'
 import { bookDetailsURL } from '../urls'
 import { Link } from 'react-router-dom'
@@ -15,8 +15,10 @@ export default function BookCapsule({book}) {
     <Link to={bookDetailsURL(book? book.id: "")}>
         
     <Stack className='book-capsule'>
-
-          <Image className='book-capsule__image'/>
+          
+          <div className="book-capsule__thumbnail">
+            <FaBook fontSize={90}/>
+          </div>
           <Stack className='book-capsule__rating-bar' direction='horizontal'>
             <div className='book-capsule__rating-bar__avg-rating'>
               <FaStar fontSize={20}/><span>{book?.avgRating}</span>
