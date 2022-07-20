@@ -35,7 +35,7 @@ export const SimilarBooksView = ({similarBooks}) => {
                                     <Row>
                                         {group.map((book, index) => {
                                             return  <Col xs = {4} key={index}>
-                                                        <BookCapsule book={book}/>
+                                                        <BookCapsule book={book} id={book.id}/>
                                                     </Col>
                                         })}
                                 </Row>

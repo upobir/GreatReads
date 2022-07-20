@@ -12,7 +12,9 @@ export function bookFetchEndpoint(bookID){
 export function bookReviewsFetchEndpoint(bookID){
     return  `/api/book/${bookID}/reviews/`
 }
-
+export function bookReadStatusPostEndpoint(bookID){
+    return  `/api/book/${bookID}/status/post/`
+}
 export function seriesFetchEndpoint(seriesID){
     return  `/api/series/${seriesID}/`
 }

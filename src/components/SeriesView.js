@@ -2,8 +2,8 @@ import { useState, React, useEffect} from 'react'
 import {Stack,Row, Col,Container, Carousel, CarouselItem} from 'react-bootstrap'
 import BookCapsule from './BookCapsule';
 import { seriesFetchEndpoint } from '../endpoints';
+
 export const SeriesView = ({book, series}) => {
-    console.log("seriesvi", series)
     const [index, setIndex] = useState(0);
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);

@@ -57,7 +57,7 @@ const BookDetails = () => {
                 .get(seriesFetchEndpoint(_book.series))
                 .then(() => {
                     let _series = response.data
-                    console.log('______series', _series)
+                    console.log('_series', _series)
                     setSeries(_series)
                 })   // for private api endpoints (api instead of fetch)
                 .catch(error => {
@@ -83,7 +83,7 @@ const BookDetails = () => {
             <div className='book-details'>
                 <Container fluid className='book-details__left-col'>
                     <Col xs={2} className='allow-click-self book-details__left-col__inner' >
-                        <BookCapsule book={book}/>
+                        <BookCapsule book={book} id={id}/>
                         <div className='review-summary-block'>
                             <h1> {book?.avgRating}/5 </h1>
                             <p>from {book?.reviewCount} reviews</p>

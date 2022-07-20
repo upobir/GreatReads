@@ -2,7 +2,7 @@
 // define colors varables
 // If something isn't colored right, it's better to use chrom dev tools inspect to see the css affecting it
 $primary: #FFAB00;
-$secondary: #FFD740;
+$secondary: rgba(255,255,255,.68);
 $success: #3e8d63;
 $info: #7854e4;
 $warning: #b8c924;
@@ -76,20 +76,30 @@ $theme-colors: (
       color: $body-bg;
     }
   }
-  .book-capsule-buttons{
-    display: flex;
-    padding: .5rem .5rem .5rem .5rem;
-    * {
-      flex: 1 auto;
-      color: $text-medium;
-      :hover {
-        color: $text-high;
-      }
-      :active {
-        color: $primary;
+  &__btn-group{
+    :not(:first-child):not(:last-child){
+      border-radius: 0;
+    }
+    :first-child{
+      // border-bottom-left-radius: 0.25rem;
+      border-top-left-radius: 0;
+    }
+    :last-child{
+      // border-bottom-right-radius: 0.25rem;
+      border-top-right-radius: 0;
+    }  
+
+    button{
+      :active{
+        background-color: $primary;
+        color: $body-bg;
       }
     }
-
+  }
+  &__read-page-update-overlay{
+    background-color: $dp-3;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
   &__rating-container{
     display: flex;

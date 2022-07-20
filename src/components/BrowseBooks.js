@@ -8,7 +8,7 @@ function bookGallery(books){
     {
         books.map((book) => {
             return (<Col xs={3} key={book.id}>
-                <BookCapsule book={book} />
+                <BookCapsule book={book} id={book.id}/>
             </Col>)
         })
     }

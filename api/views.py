@@ -44,6 +44,7 @@ class SeriesView(APIView):
         series = Series.objects.get(id=pk)
 
         data = series_detailed(series)
+        
         return Response(data)
 
 class BookReviewsView(APIView):
@@ -59,7 +60,10 @@ class ReviewView(APIView):
         review = Review.objects.get(id=pk)
         data = review_detailed(review)
         return Response(data)
-
+@api_view(['POST'])
+def echoPostView(request,  **kwargs):
+    print(request, request.data, kwargs)
+    return Response("ok")
 
 @api_view(['GET'])
 def getRoutes(request):

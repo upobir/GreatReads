@@ -30,6 +30,7 @@ urlpatterns = [
     path('author/<int:pk>/', AuthorView.as_view(), name="author"),
     path('publisher/<int:pk>/', PublisherView.as_view(), name="publisher"),
     path('series/<int:pk>/', SeriesView.as_view(), name="series"),
+    path('book/<int:pk>/status/post/', echoPostView, name="series"),
 
     # auth
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),

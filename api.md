@@ -146,4 +146,8 @@ List of all kinds of jsons
 1. GET `api/messages` ????
 1. GET `api/author/<id>/books` array of `book_mini` (pagination needed)
 1. GET `api/author/<id>/series` array of `series_mini` (pagination needed)
+1. POST `api/book/<id>/status/post/` {
+        "readStatus": book.readStatus,
+        "pagesRead": int,
+    }
 
