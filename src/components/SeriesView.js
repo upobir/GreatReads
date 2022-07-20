@@ -32,12 +32,12 @@ export const SeriesView = ({book, series}) => {
   return (
     <Container>
         <Row>
-            <p><h5 className='inline-block text-high'>Book {book?.seriesEntry}</h5> <span>of</span></p>
+            <p><strong className='inline-block text-high'>Book {book?.seriesEntry}</strong> <span>of</span></p>
             {series && <h3 className='primary-text'>{`${series.name} (${series.bookCount} books):`}</h3>}
         </Row>
         <Row>
             <Carousel className='book-carousel'>
-                {series && (
+                {series &&  series.books (
                     groupBooks(series.books).map((group) => { 
                     return <Carousel.Item>
                                 <Container>

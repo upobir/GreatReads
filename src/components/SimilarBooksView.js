@@ -25,7 +25,7 @@ export const SimilarBooksView = ({similarBooks}) => {
   return (
     <Container>
         <Row>
-            <h5 className='text-high'>Readers also enjoyed:</h5>
+            <strong className='text-high'>Readers also enjoyed:</strong>
         </Row>
         <Row>
             <Carousel className='book-carousel'>

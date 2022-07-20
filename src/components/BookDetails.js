@@ -16,6 +16,7 @@ import { ReviewPopup } from './ReviewPopup';
 import BookAuthorsBlock from './BookAuthorsBlock';
 import AuthContext from "../context/AuthContext";
 import useAxios from "../utils/useAxios";   // for private api endpoints
+import axios from 'axios';
 
 const BookDetails = () => {
     const {id} = useParams();
@@ -24,7 +25,6 @@ const BookDetails = () => {
     const [author, setAuthor] = useState(null)
     const [series, setSeries] = useState(null)
 
-    let { user } = useContext(AuthContext);
     const api = useAxios();                 // for private api endpoints
 
     const [showReviewPopup, setShowReviewPopup] = useState(false);
@@ -32,48 +32,43 @@ const BookDetails = () => {
     const handleReviewPopupClose = () => setShowReviewPopup(false);
   
 
-    const getIfLoggedIn = async () => { 
-        let response = await api(bookFetchEndpoint(id))     // for private api endpoints (api instead of fetch)
-        let book = response.data
-        console.log('book', book)
-        setBook(book)
-        
-        response = await api(authorFetchEndpoint(book.authors[0].id))      // for private api endpoints (api instead of fetch)
-        let author = response.data
-        setAuthor(author)
-        
-        if(book.series != null){
-            response = await api(seriesFetchEndpoint(book.series))      // for private api endpoints (api instead of fetch)
-            let jseries = response.data
-            console.log('series', jseries)
-            setSeries(jseries) 
-        } 
+    const getData = async () => { 
+        axios
+        .get(bookFetchEndpoint(id))
+        .then((response) => {
+            let _book = response.data;
+            console.log('book', _book);
+            setBook( _book);
+
+            if(_book.authors && _book.authors.length > 0){
+                axios.get(authorFetchEndpoint(_book.authors[0].id))
+                .then((response) => {
+                    let _author = response.data
+                    console.log('_author', _author);
+                    setAuthor(_author)
+                })
+                .catch(error => {
+                    console.log('author fetch error', error)
+                });
+            }
+
+            if(_book.series != null){
+                axios.get(seriesFetchEndpoint(_book.series))
+                .then(() => {
+                    let _series = response.data
+                    console.log('______series', _series)
+                    setSeries(_series)
+                })   // for private api endpoints (api instead of fetch)
+                .catch(error => {
+                    console.log('series fetch error', error)
+                });
+            } 
+        })
      }
 
-     const getIfNotLoggedIn = async () => { 
-        let response = await fetch(bookFetchEndpoint(id))
-        let book = await response.json()
-        console.log('book', book)
-        setBook(book)
-        
-        response = await fetch(authorFetchEndpoint(book.authors[0].id))
-        let author = await response.json()
-        setAuthor(author)
-
-        if(book.series != null){
-            response = await fetch(seriesFetchEndpoint(book.series))
-            let jseries = await response.json()
-            console.log('series', jseries)
-            setSeries(jseries)  
-        }
-     }
 
     useEffect(() => {
-        if (user) {
-            getIfLoggedIn();
-        } else {
-            getIfNotLoggedIn();
-        }
+        getData()
     }, [])
 
     

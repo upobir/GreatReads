@@ -7,14 +7,18 @@ import AuthContext from "../context/AuthContext";
 const baseURL = "";
 
 const useAxios = () => {
-  const { authTokens, setUser, setAuthTokens } = useContext(AuthContext);
+  const { authTokens, setUser, setAuthTokens, user } = useContext(AuthContext);
 
-  const axiosInstance = axios.create({
+  const loggedInAxiosInstance = axios.create({
     baseURL,
     headers: { Authorization: `Bearer ${authTokens?.access}` }
   });
 
-  axiosInstance.interceptors.request.use(async req => {
+  const anonymousAxiosInstance = axios.create({
+    baseURL
+  });
+
+  loggedInAxiosInstance.interceptors.request.use(async req => {
     const user = jwt_decode(authTokens.access);
     const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
 
@@ -33,7 +37,15 @@ const useAxios = () => {
     return req;
   });
 
-  return axiosInstance;
+  const wrappedAPI = () => {
+    if(user){
+      return loggedInAxiosInstance;
+    }else{
+      return anonymousAxiosInstance;
+    }
+  }
+
+  return wrappedAPI;
 };
 
 export default useAxios;
