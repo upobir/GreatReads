@@ -16,7 +16,6 @@ import { ReviewPopup } from './ReviewPopup';
 import BookAuthorsBlock from './BookAuthorsBlock';
 import AuthContext from "../context/AuthContext";
 import useAxios from "../utils/useAxios";   // for private api endpoints
-import axios from 'axios';
 
 const BookDetails = () => {
     const {id} = useParams();
@@ -33,7 +32,7 @@ const BookDetails = () => {
   
 
     const getData = async () => { 
-        axios
+        api()
         .get(bookFetchEndpoint(id))
         .then((response) => {
             let _book = response.data;
@@ -41,7 +40,8 @@ const BookDetails = () => {
             setBook( _book);
 
             if(_book.authors && _book.authors.length > 0){
-                axios.get(authorFetchEndpoint(_book.authors[0].id))
+                api()
+                .get(authorFetchEndpoint(_book.authors[0].id))
                 .then((response) => {
                     let _author = response.data
                     console.log('_author', _author);
@@ -53,7 +53,8 @@ const BookDetails = () => {
             }
 
             if(_book.series != null){
-                axios.get(seriesFetchEndpoint(_book.series))
+                api()
+                .get(seriesFetchEndpoint(_book.series))
                 .then(() => {
                     let _series = response.data
                     console.log('______series', _series)
