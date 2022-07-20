@@ -7,7 +7,7 @@ import AuthContext from "../context/AuthContext";
 const baseURL = "";
 /**
  * call api() and then call get(), post()
- * @returns AxiosInstance
+ * @returns {AxiosInstance}
  */
 const useAxios = () => {
   const { authTokens, setUser, setAuthTokens, user } = useContext(AuthContext);

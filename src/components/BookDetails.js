@@ -140,7 +140,7 @@ const BookDetails = () => {
                     </Col>
                 </Container>
             </div>
-            <ReviewPopup showState={showReviewPopup} handleClose={handleReviewPopupClose} />
+            <ReviewPopup showState={showReviewPopup} bookID={id} handleClose={handleReviewPopupClose} />
         </>
 
     )

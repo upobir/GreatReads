@@ -38,8 +38,8 @@ export const SeriesView = ({book, series}) => {
         <Row>
             <Carousel className='book-carousel'>
                 {series &&  series.books (
-                    groupBooks(series.books).map((group) => { 
-                    return <Carousel.Item>
+                    groupBooks(series.books).map((group, groupIndex) => { 
+                    return <Carousel.Item key={groupIndex}>
                                 <Container>
                                     <Row>
                                         {group.map((seriesEntry, index) => {

@@ -150,4 +150,8 @@ List of all kinds of jsons
         "readStatus": book.readStatus,
         "pagesRead": int,
     }
+1. POST `/api/book/<id>/review/post/` {
+        reviewRating: reviewRating,
+        reviewText: reviewText,
+    }
 

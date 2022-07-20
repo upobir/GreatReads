@@ -18,9 +18,10 @@ export default function BookCapsule({book, id}) {
   const [showReadPageUpdateOverlay, setShowReadPageUpdateOverlay] = useState(false);
   const ReadPageUpdateOverlayTarget = useRef(null);
   const [pagesRead, setPagesRead] = useState(null)
-
+  
   const handleBookSetToWishlist = () => {
     if (book && book.readStatus !== "wishlisted"){
+      setShowReadPageUpdateOverlay(false);
       book.readStatus = "wishlisted";
       console.log('book.readStatus', book.readStatus)
     }
@@ -42,6 +43,7 @@ export default function BookCapsule({book, id}) {
   
   const handleBookSetToRead = () => {
     if (book && book.readStatus !== "read"){
+      setShowReadPageUpdateOverlay(false);
       book.readStatus = "read";
       console.log('book.readStatus', book.readStatus)
     }
@@ -72,45 +74,51 @@ export default function BookCapsule({book, id}) {
           <div className="book-capsule__thumbnail">
             <FaBook fontSize={90}/>
           </div>
-          <Stack className='book-capsule__rating-bar' direction='horizontal'>
-            <div className='book-capsule__rating-bar__avg-rating'>
-              <FaStar fontSize={20}/><span>{book?.avgRating}</span>
-            </div>
-            <Button variant='outline-primary' className='book-capsule__rating-bar__user-rating' onClick={handleReviewPopupShow}>
-            {book?.userRating
-                ? (<><FaStar fontSize={20} /><span>{book?.userRating}</span></>)
-                : (<>+ Rate</> ) 
-            }
-            </Button>            
-            {/* <div  className='book-capsule__rating-bar__user-rating'>
-              {book?.userRating
-                ? (<Button ><FaStar fontSize={20} /><span>{book?.userRating}</span></Button>)
-                : (<Button variant='outline-primary' className='book-capsule__rating-bar__btn' onClick={handleReviewPopupShow}> {"+ Rate"} </Button>) 
-              }            
-            </div> */}
-          </Stack>
       </Link>
+      <Stack className='book-capsule__rating-bar' direction='horizontal'>
+        <div className='book-capsule__rating-bar__avg-rating'>
+          <FaStar fontSize={20}/><span>{book?.avgRating}</span>
+        </div>
+        <Button variant='outline-primary' className='book-capsule__rating-bar__user-rating' onClick={handleReviewPopupShow}>
+        {book?.userRating
+            ? (<><FaStar fontSize={20} /><span>{book?.userRating}</span></>)
+            : (<>+ Rate</> ) 
+        }
+        </Button>            
+        {/* <div  className='book-capsule__rating-bar__user-rating'>
+          {book?.userRating
+            ? (<Button ><FaStar fontSize={20} /><span>{book?.userRating}</span></Button>)
+            : (<Button variant='outline-primary' className='book-capsule__rating-bar__btn' onClick={handleReviewPopupShow}> {"+ Rate"} </Button>) 
+          }            
+        </div> */}
+      </Stack>
           <ButtonGroup className='book-capsule__btn-group'>
-            <Button variant="outline-primary" onClick={handleBookSetToWishlist}>
+            <Button variant="outline-primary" 
+              onClick={handleBookSetToWishlist} 
+              active={book && book.readStatus == "wishlisted"}>
               <FaBookmark fontSize={20}/>
             </Button>
             <Button ref={ReadPageUpdateOverlayTarget} 
                     variant="outline-primary" 
-                    onClick={handleBookSetToReading}>
+                    onClick={handleBookSetToReading} 
+                    active={book && book.readStatus == "reading"}>
               <FaBookOpen  fontSize={20}/>
             </Button>
-            <Button variant="outline-primary" onClick={handleBookSetToRead}>
+            <Button variant="outline-primary" 
+                    onClick={handleBookSetToRead} 
+                    active={book && book.readStatus == "read"}>
               <FaCheck  fontSize={20}/>
             </Button>
 
           </ButtonGroup>
+          
         <Overlay 
           target={ReadPageUpdateOverlayTarget.current} 
           show={showReadPageUpdateOverlay} 
           placement="bottom"
           >
           <Tooltip>
-            <Container className='book-capsule__read-page-update-overlay'>
+            <Container className='book-capsule__read-page-update-overlay' >
               {book &&
                 <form onSubmit={updatePagesRead}>
                   <FormGroup role="form">
@@ -125,7 +133,7 @@ export default function BookCapsule({book, id}) {
             </Container>
           </Tooltip>
         </Overlay>
-        <ReviewPopup showState={showReviewPopup} handleClose={handleReviewPopupClose} />
+        <ReviewPopup showState={showReviewPopup} bookID={id} handleClose={handleReviewPopupClose} />
     </Stack>
 
   )
