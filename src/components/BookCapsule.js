@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import useAxios from '../utils/useAxios'
 import Form from 'react-bootstrap/Form';
 import { bookReadStatusPostEndpoint } from '../endpoints'
+import { useEffect } from 'react'
 
 export default function BookCapsule({book, id}) {
   const api = useAxios();
@@ -17,35 +18,54 @@ export default function BookCapsule({book, id}) {
 
   const [showReadPageUpdateOverlay, setShowReadPageUpdateOverlay] = useState(false);
   const ReadPageUpdateOverlayTarget = useRef(null);
-  const [pagesRead, setPagesRead] = useState(null)
+  const [pagesRead, setPagesRead] = useState(book && book.pagesRead?book.pagesRead: 0);
+  const [readStatus, setReadStatus] = useState(book && book.readStatus?book.readStatus: null);
+
+
+  const postBookStatus =  (_readStatus, _pagesRead) => {
+    api()
+    .post(bookReadStatusPostEndpoint(id), {
+      readStatus: _readStatus,
+      pagesRead: _pagesRead,
+    })
+    .then((response)=> {
+      console.log('read status update ok with response', response)
+    })
+    .catch(error => {
+      console.log('read status update error', error)
+    }) 
+  }
+  const setReadStatusAndPost = (status) => {
+    if(readStatus !== status){
+      setReadStatus(status)
+      postBookStatus(status, pagesRead)
+    }
+  }
   
   const handleBookSetToWishlist = () => {
-    if (book && book.readStatus !== "wishlisted"){
+    if (book && readStatus !== "wishlisted"){
       setShowReadPageUpdateOverlay(false);
-      book.readStatus = "wishlisted";
-      console.log('book.readStatus', book.readStatus)
+      setReadStatusAndPost("wishlisted")
     }
   };
   const handleBookSetToReading = () => {
     if(book){
-      console.log('book.readStatus', book.readStatus)
       if(pagesRead == null){
         setPagesRead(book.pagesRead ? book.pagesRead : 0); 
       }
-      if (book.readStatus === "reading"){
+
+      if (readStatus === "reading"){
         setShowReadPageUpdateOverlay(!showReadPageUpdateOverlay);
       }else{
-        book.readStatus = "reading";
+        setReadStatusAndPost("reading")
       }
-      
     }
   };
   
   const handleBookSetToRead = () => {
-    if (book && book.readStatus !== "read"){
+    if (book && readStatus !== "read"){
       setShowReadPageUpdateOverlay(false);
-      book.readStatus = "read";
-      console.log('book.readStatus', book.readStatus)
+      setReadStatusAndPost("read")
     }
   };
   const updatePagesRead = (e) => {
@@ -95,18 +115,18 @@ export default function BookCapsule({book, id}) {
           <ButtonGroup className='book-capsule__btn-group'>
             <Button variant="outline-primary" 
               onClick={handleBookSetToWishlist} 
-              active={book && book.readStatus == "wishlisted"}>
+              active={readStatus === "wishlisted"}>
               <FaBookmark fontSize={20}/>
             </Button>
             <Button ref={ReadPageUpdateOverlayTarget} 
                     variant="outline-primary" 
                     onClick={handleBookSetToReading} 
-                    active={book && book.readStatus == "reading"}>
+                    active={readStatus === "reading"}>
               <FaBookOpen  fontSize={20}/>
             </Button>
             <Button variant="outline-primary" 
                     onClick={handleBookSetToRead} 
-                    active={book && book.readStatus == "read"}>
+                    active={readStatus === "read"}>
               <FaCheck  fontSize={20}/>
             </Button>
 

@@ -8,7 +8,8 @@ export const SeriesView = ({book, series}) => {
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
     };
-
+    console.log('seriesView ', series )
+    console.log('seriesView book', book )
   
     
     const groupBooks = (booksInSeries) => { 
@@ -37,7 +38,7 @@ export const SeriesView = ({book, series}) => {
         </Row>
         <Row>
             <Carousel className='book-carousel'>
-                {series &&  series.books (
+                {series &&  series.books && (
                     groupBooks(series.books).map((group, groupIndex) => { 
                     return <Carousel.Item key={groupIndex}>
                                 <Container>

@@ -8,7 +8,7 @@ export const BookSearchPreview = ({book}) => {
     console.log('book', book)
     console.log('book.authors', book.authors)
     return (
-        <Stack direction='horizontal' gap ={1} class="book-search-preview">
+        <Stack direction='horizontal' gap ={1} className="book-search-preview">
             <Link to={bookDetailsURL(book.id)}>
                 <Image className='book-search-preview__thumbnail'/>
             </Link>

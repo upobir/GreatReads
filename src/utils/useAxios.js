@@ -41,7 +41,7 @@ const useAxios = () => {
   });
 
   const wrappedAPI = () => {
-    if(user){
+    if(user){ 
       return loggedInAxiosInstance;
     }else{
       return anonymousAxiosInstance;

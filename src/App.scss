@@ -97,7 +97,7 @@ $theme-colors: (
     }
   }
   &__read-page-update-overlay{
-    background-color: $dp-3;
+    background-color: $dp-4;
     padding-left: 2rem;
     padding-right: 2rem;
   }
@@ -215,8 +215,16 @@ $theme-colors: (
     pointer-events: none; 
   }
   &__left-col{
-    padding-right: .5rem;
-    padding-left: .5rem;
+    &__inner{
+      padding-left: 1rem;
+      padding-right: .5rem;
+    }
+  }
+  &__right-col{
+    &__inner{
+      padding-left: .5rem;
+      padding-right: 1rem;
+    }
   }
 }
 .book-details__tab-bar{
@@ -232,6 +240,8 @@ $theme-colors: (
 .book-details__mid-col-top-header{
   padding-left: .25rem;
   padding-right: .25rem;
+  background-color: $body-bg;
+  z-index: 2;
 }
 .top-navbar, .book-details__mid-col-top-header,.book-details__tab-bar {
   background-color: $body-bg;
