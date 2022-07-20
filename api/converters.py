@@ -71,7 +71,7 @@ def series_detailed(series):
         "name": series.name,
         "bookCount": series.book_count,
         "avgRating": series.avg_rating,
-        "books" : [ book_mini(book) for book in Book.objects.filter(series = series).order_by('series_number') ].append("?"),
+        "books" : [ book_mini(book) for book in Book.objects.filter(series = series).order_by('series_number') ],
     }
 
 def comment_mini(comment):
