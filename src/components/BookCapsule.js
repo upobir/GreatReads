@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form';
 import { bookReadStatusPostEndpoint } from '../endpoints'
 import { useEffect } from 'react'
 
-export default function BookCapsule({book, id}) {
+export default function BookCapsule({book,setBook, id}) {
   const api = useAxios();
   const [showReviewPopup, setShowReviewPopup] = useState(false);
   const handleReviewPopupShow = () => setShowReviewPopup(true);
@@ -19,8 +19,11 @@ export default function BookCapsule({book, id}) {
   const [showReadPageUpdateOverlay, setShowReadPageUpdateOverlay] = useState(false);
   const ReadPageUpdateOverlayTarget = useRef(null);
   const [pagesRead, setPagesRead] = useState(book && book.pagesRead?book.pagesRead: 0);
-  const [readStatus, setReadStatus] = useState(book && book.readStatus?book.readStatus: null);
 
+  useEffect(() => {
+    if(book && book.pagesRead)
+      setPagesRead(book.pagesRead)
+  }, [book])
 
   const postBookStatus =  (_readStatus, _pagesRead) => {
     api()
@@ -36,25 +39,26 @@ export default function BookCapsule({book, id}) {
     }) 
   }
   const setReadStatusAndPost = (status) => {
-    if(readStatus !== status){
-      setReadStatus(status)
+    if(book.readStatus !== status){
+      // setReadStatus(status)
       postBookStatus(status, pagesRead)
+      
+      let mutated_book = {...book};
+      mutated_book.readStatus = status;
+      setBook(mutated_book)
     }
   }
   
   const handleBookSetToWishlist = () => {
-    if (book && readStatus !== "wishlisted"){
+    if (book && book.readStatus !== "wishlisted"){
       setShowReadPageUpdateOverlay(false);
       setReadStatusAndPost("wishlisted")
     }
   };
   const handleBookSetToReading = () => {
     if(book){
-      if(pagesRead == null){
-        setPagesRead(book.pagesRead ? book.pagesRead : 0); 
-      }
 
-      if (readStatus === "reading"){
+      if (book.readStatus === "reading"){
         setShowReadPageUpdateOverlay(!showReadPageUpdateOverlay);
       }else{
         setReadStatusAndPost("reading")
@@ -63,7 +67,7 @@ export default function BookCapsule({book, id}) {
   };
   
   const handleBookSetToRead = () => {
-    if (book && readStatus !== "read"){
+    if (book && book.readStatus !== "read"){
       setShowReadPageUpdateOverlay(false);
       setReadStatusAndPost("read")
     }
@@ -85,6 +89,7 @@ export default function BookCapsule({book, id}) {
         console.log('read status update error', error)
       })      
     }
+    setShowReadPageUpdateOverlay(false)
   }
   return (
     
@@ -115,18 +120,18 @@ export default function BookCapsule({book, id}) {
           <ButtonGroup className='book-capsule__btn-group'>
             <Button variant="outline-primary" 
               onClick={handleBookSetToWishlist} 
-              active={readStatus === "wishlisted"}>
+              active={book && book.readStatus === "wishlisted"}>
               <FaBookmark fontSize={20}/>
             </Button>
             <Button ref={ReadPageUpdateOverlayTarget} 
                     variant="outline-primary" 
                     onClick={handleBookSetToReading} 
-                    active={readStatus === "reading"}>
+                    active={book && book.readStatus === "reading"}>
               <FaBookOpen  fontSize={20}/>
             </Button>
             <Button variant="outline-primary" 
                     onClick={handleBookSetToRead} 
-                    active={readStatus === "read"}>
+                    active={book && book.readStatus === "read"}>
               <FaCheck  fontSize={20}/>
             </Button>
 
@@ -143,7 +148,11 @@ export default function BookCapsule({book, id}) {
                 <form onSubmit={updatePagesRead}>
                   <FormGroup role="form">
                     <Form.Label>Pages read:</Form.Label>
-                    <FormControl type="number" className="form-control" onChange={(e) => setPagesRead(e.target.value)}/>
+                    <FormControl 
+                      type="number" 
+                      className="form-control" 
+                      onChange={(e) => setPagesRead(e.target.value)}
+                      placeholder={pagesRead}/>
                   </FormGroup>
                   <p className='medium-text'>Of</p>
                   <p className='high-text'>{book.pageCount}</p>

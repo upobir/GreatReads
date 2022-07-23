@@ -6,7 +6,6 @@ import AuthorPreview from './AuthorPreview';
 import GenreBlock from './GenreBlock';
 import {Row, Col, Container, Tabs, Tab, Stack, TabContainer, Navbar} from 'react-bootstrap'
 import 'holderjs'
-import Pagination from 'react-bootstrap/Pagination';
 import { BookReviews } from './BookReviews';
 import { _similar_books } from '../helper';
 import { SeriesView } from './SeriesView';
@@ -14,7 +13,6 @@ import {SimilarBooksView} from './SimilarBooksView'
 import { BookReview } from './BookReview';
 import { ReviewPopup } from './ReviewPopup';
 import BookAuthorsBlock from './BookAuthorsBlock';
-import AuthContext from "../context/AuthContext";
 import useAxios from "../utils/useAxios";   // for private api endpoints
 
 const BookDetails = () => {
@@ -83,7 +81,7 @@ const BookDetails = () => {
             <div className='book-details'>
                 <Container fluid className='book-details__left-col'>
                     <Col xs={2} className='allow-click-self book-details__left-col__inner' >
-                        <BookCapsule book={book} id={id} />
+                        <BookCapsule book={book} id={id} setBook={setBook} />
                         <div className='review-summary-block'>
                             <h1> {book?.avgRating}/5 </h1>
                             <p>from {book?.reviewCount} reviews</p>

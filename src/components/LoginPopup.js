@@ -1,10 +1,17 @@
-import { React, useState } from 'react';
+import { React, useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { loginEndpoint } from '../endpoints';
 
+import AuthContext, {AuthProvider} from "../context/AuthContext";
+/**
+ * We will not use the popup since it's redirecting upon login is easier with a normal page
+ * @param {*} param0 
+ * @returns 
+ */
 export const  LoginPopup = ({showState, handleClose}) => {
+  let { loginUser } = useContext(AuthContext);
   let [_userName, setUserName] = useState("UserName") 
   let [_password, setPassword] = useState("Password")
 
@@ -13,17 +20,7 @@ export const  LoginPopup = ({showState, handleClose}) => {
     console.log('e', e)
     console.log('userName', _userName)
     console.log('password', _password)
-    let result = fetch(loginEndpoint(), {
-        method: "POST",
-        headers: {
-            'Content-type' : 'application/json'
-        },
-        
-        body: JSON.stringify({
-            userName: _userName,
-            password: _password
-        })
-    })
+    _userName.length > 0 && loginUser(_userName, _password);
   }  
   return (
     <>

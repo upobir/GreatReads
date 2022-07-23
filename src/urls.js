@@ -21,7 +21,9 @@ export function browseAllURL(){
 export function authorDetailsURL(authorID){
     return `/author/${authorID}/`
 }
-
+export function genreBrowseURL(genreID){
+    return `/browse/genre/${genreID}/`
+}
 const myBookShelfURL = "/bookshelf/"
 const myFeedURL = "/feed/"
 const homeURL = "/home/"

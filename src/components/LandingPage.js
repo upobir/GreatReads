@@ -1,18 +1,16 @@
 import {React, useState, useContext} from 'react'
 import {Container, Col,Button, Row} from 'react-bootstrap'
 import { LoginPopup } from './LoginPopup'
-import { loginEndpoint } from '../endpoints'
-import AuthContext, {AuthProvider} from "../context/AuthContext";
-import GreatReadsNavbar from '../components/Navbar';
-
 import { useEffect } from "react";
 import useAxios from "../utils/useAxios";
+import AuthContext from "../context/AuthContext";
 
 export const LandingPage = () => {
   const { user, logoutUser } = useContext(AuthContext);
 
   const [res, setRes] = useState("");
   const api = useAxios();
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,9 +28,11 @@ export const LandingPage = () => {
   return (
     <>
         <Container fluid className='app-body'>
+          
           <Row>
+              <Col> xs={{span: 4, offset:4}}                
+              </Col>
               <Col xs="auto"><Button variant="outline-primary" onClick={logoutUser}>Log out</Button></Col>
-              <Col xs="auto"><Button variant="primary">Join</Button></Col>
           </Row>
           {/* <LoginPopup showState={showLoginPopup} handleClose={handleLoginPopupClose} />        */}
       </Container>
