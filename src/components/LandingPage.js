@@ -30,9 +30,9 @@ export const LandingPage = () => {
         <Container fluid className='app-body'>
           
           <Row>
-              <Col> xs={{span: 4, offset:4}}                
+              <Col xs={{span: 4, offset:4}}>                 
+                <Button variant="outline-primary" onClick={logoutUser}>Log out</Button> 
               </Col>
-              <Col xs="auto"><Button variant="outline-primary" onClick={logoutUser}>Log out</Button></Col>
           </Row>
           {/* <LoginPopup showState={showLoginPopup} handleClose={handleLoginPopupClose} />        */}
       </Container>
