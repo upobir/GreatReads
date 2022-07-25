@@ -30,7 +30,7 @@ function App() {
                 <Route exact path='/' element={<LandingPage/>}/>
               </Route>
               <Route path="/login" element={<LoginPage />} />
-              {/* <Route path="/register" element={<Register />} /> */}
+              <Route path="/register" element={<Register />} />
               <Route path="/book/:id/*" element={<BookDetails />} />
               <Route path="/browse/*" element={<BrowseBooks />} />
               <Route path="/user/:userID/*" element={<Bookshelf />} />
