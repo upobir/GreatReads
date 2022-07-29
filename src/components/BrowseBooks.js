@@ -4,11 +4,10 @@ import { Container, Row, Col,Stack } from 'react-bootstrap'
 import { BookSearchPreview } from './BookSearchPreview';
 import { BrowseGenre } from './BrowseGenre';
 import {Spinner} from 'react-bootstrap';
-import Nav from 'react-bootstrap/Nav';
-import Tab from 'react-bootstrap/Tab';
 import { useNavigate, Routes, Route, useParams, Link, useLocation } from 'react-router-dom';
 import { MakeVerticalTabBar } from './CustomTabs';
-
+import { BrowseNewReleases } from './BrowseNewReleases';
+import { BrowseNewlyRated } from './BrowseNewlyRated';
 const AllBooks=({books})=> {
   if(books.length <= 0){
     return <Container>
@@ -28,16 +27,7 @@ const AllBooks=({books})=> {
     </Container>
   }
 }
-const Foo =({s})=>{
-  return (<p>{s}</p>)
-}
 const tabs = [
-  {
-    tabTitle:"All",
-    tabLink:"/browse/all",
-    tabKey:"all",
-    tabContentElement: ""
-  },
   {
     tabTitle:"By Genre",
     tabLink:"/browse/genre/0",
@@ -86,23 +76,8 @@ const tabs = [
   return tabs[0].tabLink.substring(firstPart.length);
 }
 export const BrowseBooks = () => {
-    const [books, setBooks] = useState([])
-    const navigate = useNavigate();
     const loc = useLocation()
     console.log('getCategory(loc.pathname): ', getCategory(loc.pathname))
-
-    const getBooks= async () => { 
-      let response = await fetch(bookBrowseEndpoint())
-      let jBooks = await response.json()
-      console.log('jBooks', jBooks)
-      setBooks(jBooks)
-    }
-  
-    useEffect(() => {
-      getBooks()
-    }, [])
-    // if(books.length <= 0)
-      // return "loading..."
 
     return (
       <Container fluid>
@@ -110,16 +85,18 @@ export const BrowseBooks = () => {
           
         </Row>
         <Row>
-          <Col xs={{span:2}} className="ml-auto">
-            <span style={{lineHeight: "1.6rem"}}>df</span>
-            <MakeVerticalTabBar tabs={tabs} firstPart="/browse/" loc={loc} className="ml-auto"/>
+          <Col xs={{span:2}}>
+            <Container className="browse__tab-bar">
+              <MakeVerticalTabBar tabs={tabs} firstPart="/browse/" loc={loc} className="ml-auto"/>
+            </Container>
           </Col>
           <Col xs={{span:8}}>
             <Routes>
               <Route path='/genre/:genreID/' element={<BrowseGenre />} />
               {/* <Route path='/genre/' element={<BrowseGenre />} /> */}
-              <Route path='/all/' element={<AllBooks books={books} />} />
-              <Route path='' element={<AllBooks books={books} />} />
+              <Route path='/newReleases/' element={<BrowseNewReleases />} />
+              <Route path='/newlyRated/' element={<BrowseNewlyRated />} />
+              <Route path='' element={<BrowseNewReleases />}  />
             </Routes>
           </Col>
         </Row>

@@ -35,8 +35,7 @@ export default function GreatReadsNavbar() {
                         aria-label="Search"
                         />
                     </Form>
-
-                      <Navbar.Brand href={homeURL}> {user && <UserInfo user={user} logout={logoutUser} />} </Navbar.Brand>
+                    {user && <UserInfo user={user} logout={logoutUser} />} 
                     </Stack>
                 <Row><div className='primary-bg top-navbar__border-hack'></div></Row>
       </Stack>    

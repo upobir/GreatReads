@@ -22,9 +22,10 @@ $dp-4: rgba(255, 255, 255, 0.12);
 $text-light: rgba(255,255,255,.38);
 $text-medium: rgba(255,255,255,.60);
 $text-high: rgba(255,255,255,.87);
-
-$navbar-height: 56px;
-$book-details-top-height: 80px;
+$logo-font-size: 1.25rem;
+$navbar-height: $logo-font-size + 2rem;
+$book-details-top-height: calc(.67em + .67em + 1rem + 1.375rem + 1.5vw);
+$browse-header-height:1.6rem + .75rem + .75rem +.75rem;
 
 // this is used to map colors. change accordingly.
 $theme-colors: (
@@ -209,6 +210,9 @@ $theme-colors: (
 .allow-click-self{
   pointer-events: auto; 
 }
+.author-block-text{
+  font-size:1rem;
+}
 .book-details{
   &__left-col,&__mid-col-top,&__right-col{
     position: fixed;
@@ -228,7 +232,7 @@ $theme-colors: (
   }
 }
 .book-details__tab-bar{
-  top: $navbar-height + $book-details-top-height;
+  top: calc($navbar-height + $book-details-top-height);
   position: sticky;
 }
 .book-details__mid-col-bottom{
@@ -241,11 +245,19 @@ $theme-colors: (
   padding-left: .25rem;
   padding-right: .25rem;
   background-color: $body-bg;
+  height: $book-details-top-height;
   z-index: 2;
 }
 .top-navbar, .book-details__mid-col-top-header,.book-details__tab-bar {
   background-color: $body-bg;
   z-index: 1;
+}
+.navbar-brand{
+  font-size:$logo-font-size;
+}
+
+.top-navbar{
+  height: $navbar-height;
 }
 .book-carousel{
   width: 100%;
@@ -284,6 +296,52 @@ $theme-colors: (
     display: inline;
     margin-bottom: 0;
   }
+}
+.browse-genre{
+  top: $navbar-height;
+  &__header{
+    width: 100%;
+    // position: fixed;
+    background-color: $body-bg;
+    // position: relative;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top:$navbar-height;
+    hr{
+      width: 100%;
+      flex-basis: 100%;
+      display: block;
+    }
+  }
+  &__body{
+    padding-top:$browse-header-height; 
+  }
+}
+.browse-new{
+  top: $navbar-height;
+  &__header{
+    width: 100%;
+    // position: fixed;
+    background-color: $body-bg;
+    // position: relative;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top:$navbar-height;
+    hr{
+      width: 100%;
+      flex-basis: 100%;
+      display: block;
+    }
+  }
+  &__body{
+    padding-top:$browse-header-height; 
+  }
+}
+.browse__tab-bar{
+  position:sticky;
+  top:$navbar-height;
 }
 .primary-text{
   color:$primary;

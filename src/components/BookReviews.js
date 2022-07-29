@@ -3,6 +3,7 @@ import { Container, Stack } from 'react-bootstrap'
 import { BookReviewPreview } from '../BookReviewPreview'
 import {bookReviewsFetchEndpoint} from '../endpoints'
 import { useParams } from 'react-router-dom'
+import {Spinner} from 'react-bootstrap'
 export const BookReviews = () => {
   const {id} = useParams();
 
@@ -18,7 +19,7 @@ export const BookReviews = () => {
     getReviews()
   }, [])
   if(reviews == null){
-    return "loading..."
+    return <Spinner animation="border" variant="primary" />
   }
   if(reviews.length <= 0)
     return "no reviews"

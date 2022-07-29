@@ -33,21 +33,24 @@ export const BrowseGenre = () => {
     return (
         <Container fluid>
             <Row>
-                        <Stack gap={1}>
-                                <Stack direction="horizontal" gap={1}>
-                                    <GenreDropDown selectedID={genreID} />
-                                    {genreID && genre && <>
-                                        <FollowBlock followContext={genre} />
-                                        {/* <Button variant="primary"> Follow </Button> */}
-                                        </>
-                                    }
-                                </Stack>
+                        <Stack gap={1} className='browse-genre'>
+                                <div gap={0} className='browse-genre__header'>
+                                    <Stack direction="horizontal" gap={1} >
+                                        <GenreDropDown selectedID={genreID} />
+                                        {genreID && genre && <>
+                                            <FollowBlock followContext={genre} />
+                                            {/* <Button variant="primary"> Follow </Button> */}
+                                            </>
+                                        }
+                                    </Stack>
+                                    <hr style={{marginBlockStart: "0.25em",marginBlockEnd: "0.25em"}}/>
+                                </div>
                             {genreID && genre &&
-                            <>
+                            <div className='browse-genre__body'>
                                 <div><p>{genre.description}</p></div>
                                 <h3 className='primary-text'>New releases Tagged "{genre.tag}":</h3>
                                 <BookGallery books={books} booksPerRow={4}></BookGallery>
-                            </>
+                            </div>
                             }
                         </Stack>
 

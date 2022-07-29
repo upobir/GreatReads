@@ -11,7 +11,7 @@ const BookAuthorsBlock = ({book}) => {
                     <Link to={authorDetailsURL(author.id)}
                     key={author.id}
                     className='high-text no-text-effects'>
-                    {` ${author.name}`}
+                    <span className='author-block-text'>{` ${author.name}`}</span>
                     </Link>
                     {index < (book.authors.length - 1)? ",": ""}
                 </>

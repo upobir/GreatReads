@@ -4,8 +4,7 @@ import { authorFetchEndpoint, bookFetchEndpoint, seriesFetchEndpoint } from '../
 import BookCapsule from './BookCapsule';
 import AuthorPreview from './AuthorPreview';
 import GenreBlock from './GenreBlock';
-import {Row, Col, Container, Tabs, Tab, Stack, TabContainer, Navbar} from 'react-bootstrap'
-import 'holderjs'
+import {Row, Col, Container, Tabs, Tab, Stack, Button,TabContainer, Navbar} from 'react-bootstrap'
 import { BookReviews } from './BookReviews';
 import { _similar_books } from '../PlaceHolder';
 import { SeriesView } from './SeriesView';
@@ -14,6 +13,7 @@ import { BookReview } from './BookReview';
 import { ReviewPopup } from './ReviewPopup';
 import BookAuthorsBlock from './BookAuthorsBlock';
 import useAxios from "../utils/useAxios";   // for private api endpoints
+import { SpinnerWrapper } from './SpinnerWrapper';
 
 const BookDetails = () => {
     const {id} = useParams();
@@ -85,7 +85,7 @@ const BookDetails = () => {
                         <div className='review-summary-block'>
                             <h1> {book?.avgRating}/5 </h1>
                             <p>from {book?.reviewCount} reviews</p>
-                            <button className='review-summary-block__write-review-btn' onClick={handleReviewPopupShow}> Write a review </button>
+                            <Button className='review-summary-block__write-review-btn' variant="Link" onClick={handleReviewPopupShow}> Write a review </Button>
                         </div>
                     </Col>
                 </Container>
@@ -97,7 +97,8 @@ const BookDetails = () => {
 
                 <Container fluid  className='book-details__mid-col-top'>
                     <Col xs={{span:7,offset:2 }} className='book-details__mid-col-top-header' id='book-details-mid-header'>
-                        <h1 className='primary-text'>{book?.title}</h1>
+                        <SpinnerWrapper Component={<h1 className='primary-text'>{book?.title}</h1>} isLoading={book==null}/>
+                        
                         
                         <Stack direction="horizontal" gap = {1}>
                         <span className='inline-block light-text'>by</span>
