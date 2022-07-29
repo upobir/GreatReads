@@ -6,7 +6,7 @@ import { BookGallery } from './BookGallery';
 import {GenreDropDown} from './GenreDropDown'; 
 import { bookBrowseEndpoint } from '../endpoints';
 import { _genres } from '../PlaceHolder';
-
+import { FollowBlock } from './FollowBlock';
 export const BrowseGenre = () => {
     const {genreID, category} = useParams();//undefined when no genreID is in URL
     const [books, setBooks] = useState([])  
@@ -37,11 +37,8 @@ export const BrowseGenre = () => {
                                 <Stack direction="horizontal" gap={1}>
                                     <GenreDropDown selectedID={genreID} />
                                     {genreID && genre && <>
-                                        <Stack>
-                                            <h1>{genre.followerCount}</h1>
-                                            <span>Following</span>
-                                        </Stack>
-                                        <Button variant="primary"> Follow </Button>
+                                        <FollowBlock followContext={genre} />
+                                        {/* <Button variant="primary"> Follow </Button> */}
                                         </>
                                     }
                                 </Stack>

@@ -275,7 +275,14 @@ $theme-colors: (
     padding-bottom: 2px;
     padding-left: .25rem;
     padding-right: .25rem;
+  }
+}
+.follow-block{
+  display: inline-flex;
 
+  h3{
+    display: inline;
+    margin-bottom: 0;
   }
 }
 .primary-text{

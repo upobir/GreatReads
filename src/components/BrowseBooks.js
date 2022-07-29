@@ -28,6 +28,9 @@ const AllBooks=({books})=> {
     </Container>
   }
 }
+const Foo =({s})=>{
+  return (<p>{s}</p>)
+}
 const tabs = [
   {
     tabTitle:"All",
@@ -37,8 +40,26 @@ const tabs = [
   },
   {
     tabTitle:"By Genre",
-    tabLink:"/browse/genre",
+    tabLink:"/browse/genre/0",
     tabKey:"genre",
+    tabContentElement: ""
+  },
+  {
+    tabTitle:"By Followed Authors",
+    tabLink:"/browse/followedAuthors",
+    tabKey:"followedAuthors",
+    tabContentElement: ""
+  },
+  {
+    tabTitle:"New releases",
+    tabLink:"/browse/NewReleases",
+    tabKey:"NewReleases",
+    tabContentElement: ""
+  },
+  {
+    tabTitle:"Newly Rated",
+    tabLink:"/browse/NewlyRated",
+    tabKey:"NewlyRated",
     tabContentElement: ""
   },
 ]
@@ -86,13 +107,17 @@ export const BrowseBooks = () => {
     return (
       <Container fluid>
         <Row>
-          <Col xs={{span:2}}>
-          <MakeVerticalTabBar tabs={tabs} firstPart="/browse/" loc={loc}/>
+          
+        </Row>
+        <Row>
+          <Col xs={{span:2}} className="ml-auto">
+            <span style={{lineHeight: "1.6rem"}}>df</span>
+            <MakeVerticalTabBar tabs={tabs} firstPart="/browse/" loc={loc} className="ml-auto"/>
           </Col>
           <Col xs={{span:8}}>
             <Routes>
               <Route path='/genre/:genreID/' element={<BrowseGenre />} />
-              <Route path='/genre/' element={<BrowseGenre />} />
+              {/* <Route path='/genre/' element={<BrowseGenre />} /> */}
               <Route path='/all/' element={<AllBooks books={books} />} />
               <Route path='' element={<AllBooks books={books} />} />
             </Routes>

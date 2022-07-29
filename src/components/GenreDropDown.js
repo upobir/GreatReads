@@ -17,7 +17,8 @@ export const GenreDropDown = ({selectedID}) => {
     return (
         <Dropdown>
             <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                {getSelectedGenre()}
+                
+                <span style={{fontSize:"1.6rem"}}>{getSelectedGenre()}</span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
                 {_genres.map((genre)=> {
