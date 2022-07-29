@@ -11,37 +11,35 @@ export default function GreatReadsNavbar() {
   
   return (
     <Navbar variant = "dark" fixed="top" className="top-navbar">
-        <Container fluid>
-            <Stack direction="horizontal" gap={2} className="top-navbar__ left-group">
-              <Navbar.Brand href={homeURL}>GreatReads</Navbar.Brand>
-              <NavDropdown title="Browse" id="basic-nav-dropdown">
-                  <NavDropdown.Item as={Link} to={browseAllURL()}>
-                    All
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to={genreBrowseURL(1)}>
-                    Genre
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">New Releases</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.4">Followed Authors</NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.4">Newly Reviewed</NavDropdown.Item>
-                  {/* <NavDropdown.Divider /> */}
-              </NavDropdown>
-              {user && <Nav.Link href ={myBookShelfURL}>Bookshelf</Nav.Link>}
-              {user && <Nav.Link href ={myFeedURL}>My Feed</Nav.Link>}
-            </Stack>
-            <Col >
-              <Form className="d-flex">
-              <FormControl
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"  
-                  aria-label="Search"
-                  />
-              </Form>
-            </Col>
-            <Navbar.Brand href={homeURL}> {user && <UserInfo user={user} logout={logoutUser} />} </Navbar.Brand>
-        </Container>
-        
+      <Stack >
+                    <Stack direction="horizontal" gap={2} className="top-navbar__inner">
+                      <Navbar.Brand href={homeURL}>GreatReads</Navbar.Brand>
+                      <NavDropdown title="Browse" id="basic-nav-dropdown">
+                          <NavDropdown.Item as={Link} to={browseAllURL()}>
+                            All
+                          </NavDropdown.Item>
+                          <NavDropdown.Item as={Link} to={genreBrowseURL(1)}>
+                            Genre
+                          </NavDropdown.Item>
+                          <NavDropdown.Item href="#action/3.3">New Releases</NavDropdown.Item>
+                          <NavDropdown.Item href="#action/3.4">Followed Authors</NavDropdown.Item>
+                          <NavDropdown.Item href="#action/3.4">Newly Reviewed</NavDropdown.Item>
+                      </NavDropdown>
+                      {user && <Nav.Link href ={myBookShelfURL}>Bookshelf</Nav.Link>}
+                      {user && <Nav.Link href ={myFeedURL}>My Feed</Nav.Link>}
+                      <Form className="d-flex" style={{flex:"1"}}>
+                    <FormControl
+                        type="search"
+                        placeholder="Search"
+                        className="me-2"
+                        aria-label="Search"
+                        />
+                    </Form>
+
+                      <Navbar.Brand href={homeURL}> {user && <UserInfo user={user} logout={logoutUser} />} </Navbar.Brand>
+                    </Stack>
+                <Row><div className='primary-bg top-navbar__border-hack'></div></Row>
+      </Stack>    
     </Navbar>
   )
 }

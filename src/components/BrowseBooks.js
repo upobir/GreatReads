@@ -2,23 +2,21 @@ import React, {useState, useEffect} from 'react'
 import { bookBrowseEndpoint } from '../endpoints'
 import { Container, Row, Col,Stack } from 'react-bootstrap'
 import { BookSearchPreview } from './BookSearchPreview';
-import { Route, Routes } from 'react-router-dom';
 import { BrowseGenre } from './BrowseGenre';
 import {Spinner} from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Tab from 'react-bootstrap/Tab';
-import { useNavigate } from 'react-router-dom';
-const AllBooks=({books})=> {
-  const navigate = useNavigate()
+import { useNavigate, Routes, Route, useParams, Link, useLocation } from 'react-router-dom';
+import { MakeVerticalTabBar } from './CustomTabs';
 
+const AllBooks=({books})=> {
   if(books.length <= 0){
     return <Container>
       <Spinner animation="border" variant="primary" />
     </Container>
   }else{  
-    return <Row>
-        <Col xs={{span: 7, offset: 2}}>
-          <Stack gap={1}>
+    return <Container fluid>
+          <Stack gap={2}>
             {
             books.map((book) => {
                 return (
@@ -27,14 +25,51 @@ const AllBooks=({books})=> {
                 })
             }
           </Stack>
-      </Col> 
-    </Row>
+    </Container>
   }
 }
+const tabs = [
+  {
+    tabTitle:"All",
+    tabLink:"/browse/all",
+    tabKey:"all",
+    tabContentElement: ""
+  },
+  {
+    tabTitle:"By Genre",
+    tabLink:"/browse/genre",
+    tabKey:"genre",
+    tabContentElement: ""
+  },
+]
+/**
+ * Getting it via route parameters kind messes up routing so just get the url from browser
+ * and extract the cetegory from here
+ * @param {*} loc 
+ */
+ function getCategory(loc){
+  const firstPart = "/browse/"
+  if(loc.length > firstPart.length){
+    let category = loc.substring(firstPart.length)
+    
+    let endIndex = category.indexOf('/')
+    if(endIndex !== -1){
+      category = category.substring(0, endIndex)
+    }
 
+    for (let i = 0; i < tabs.length; i++) {
+      if (tabs[i].tabLink.substring(firstPart.length) === category) 
+        return category
+    }
+  }
+  return tabs[0].tabLink.substring(firstPart.length);
+}
 export const BrowseBooks = () => {
     const [books, setBooks] = useState([])
-  
+    const navigate = useNavigate();
+    const loc = useLocation()
+    console.log('getCategory(loc.pathname): ', getCategory(loc.pathname))
+
     const getBooks= async () => { 
       let response = await fetch(bookBrowseEndpoint())
       let jBooks = await response.json()
@@ -45,55 +80,24 @@ export const BrowseBooks = () => {
     useEffect(() => {
       getBooks()
     }, [])
-    const handleTabChange = (eventKey, e) => {
-      console.log('e', e)
-      navigate(eventKey); 
-    };
     // if(books.length <= 0)
       // return "loading..."
-  
+
     return (
       <Container fluid>
-        <Col sm={3}>
-          <Nav variant="pills" className="flex-column" onSelect={handleTabChange}>
-            <Nav.Item>
-              <Nav.Link eventKey="all" href="#" className="browse-genre__tab-header">
-                All
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="byGenre" href="#" className="browse-genre__tab-header">
-                By Genre
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="byFollowedAuthors" href="#" className="browse-genre__tab-header">
-                By Followed Authors
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="newReleases" href="#" className="browse-genre__tab-header">
-                New Releases
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="newlyRated" href="#" className="browse-genre__tab-header">
-                Newly Rated
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Col>
-        <Col xs={5}>
-          <Routes>
-            <Route path='/genre/:genreID/*' element={<BrowseGenre />} />
-            <Route path='/all/' element={<AllBooks books={books} />} />
-            {/* <Route path="/byGenre" element={<SimilarBooksView similarBooks={_similar_books} />} /> */}
-            {/* <Route path="/byFollowedAuthors" element={<BookReview bookID={id} />}></Route> */}
-            {/* <Route path="/newReleases" element={<BookReviews book={book} />} /> */}
-            {/* <Route path="/newlyRated" element={<BookReviews bookID={id} />} /> */}
-            {/* <Route path="" element={<BookReviews book={book} />} /> */}
-          </Routes>
-        </Col>
+        <Row>
+          <Col xs={{span:2}}>
+          <MakeVerticalTabBar tabs={tabs} firstPart="/browse/" loc={loc}/>
+          </Col>
+          <Col xs={{span:8}}>
+            <Routes>
+              <Route path='/genre/:genreID/' element={<BrowseGenre />} />
+              <Route path='/genre/' element={<BrowseGenre />} />
+              <Route path='/all/' element={<AllBooks books={books} />} />
+              <Route path='' element={<AllBooks books={books} />} />
+            </Routes>
+          </Col>
+        </Row>
 
       </Container>
     )
