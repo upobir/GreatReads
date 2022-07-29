@@ -123,6 +123,23 @@ List of all kinds of jsons
     "Text": str,
 }
 ```
+11. genre_mini
+```
+{
+    "id": int,
+    "tag": str,
+}
+```
+12. genre_detailed
+```
+{
+    "id": int,
+    "tag": str,
+    "desc": str,
+    "followerCount": int,
+    "userFollowsGenre": int,
+}
+```
 
 ## Routes
 1. GET `api/books` array of all `book_mini`
@@ -133,7 +150,8 @@ List of all kinds of jsons
 1. GET `api/publisher/<id>` one `publisher_detailed`
 1. GET `api/series/<id>` one `series_mini`
 1. GET `api/books/genre/<id>` array of `book_mini` of a genre (pagination needed)
-1. GET `api/genres` array of all `<genre, genreID>`
+1. GET `api/genres` array of all `genre_mini`
+1. GET `api/genre/ID` one `genre_detailed`
 1. GET `api/books/new_rated` array of `book_mini` that are newly genre (pagination needed)
 1. GET `api/books/followed_author` array of `book_mini` that are from followed author (pagination needed)
 1. GET `api/book/<id>/similar` array of `book_mini` that are similar (pagination needed)

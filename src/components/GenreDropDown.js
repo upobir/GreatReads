@@ -5,8 +5,6 @@ import { genreBrowseURL } from '../urls';
 import { Link } from 'react-router-dom';
 import { _genres } from '../PlaceHolder';
 export const GenreDropDown = ({selectedID}) => {
-    
-
     const getSelectedGenre= () => { 
         for(let i = 0 ; i < _genres.length;i++){
             if(_genres[i].id == selectedID)
@@ -17,8 +15,7 @@ export const GenreDropDown = ({selectedID}) => {
     return (
         <Dropdown>
             <Dropdown.Toggle variant="primary" id="dropdown-basic">
-                
-                <span style={{fontSize:"1.6rem"}}>{getSelectedGenre()}</span>
+                {getSelectedGenre()}
             </Dropdown.Toggle>
             <Dropdown.Menu>
                 {_genres.map((genre)=> {

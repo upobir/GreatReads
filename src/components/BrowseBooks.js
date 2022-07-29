@@ -29,6 +29,12 @@ const AllBooks=({books})=> {
 }
 const tabs = [
   {
+    tabTitle:"New releases",
+    tabLink:"/browse/newReleases",
+    tabKey:"newReleases",
+    tabContentElement: ""
+  },
+  {
     tabTitle:"By Genre",
     tabLink:"/browse/genre/0",
     tabKey:"genre",
@@ -41,43 +47,15 @@ const tabs = [
     tabContentElement: ""
   },
   {
-    tabTitle:"New releases",
-    tabLink:"/browse/NewReleases",
-    tabKey:"NewReleases",
-    tabContentElement: ""
-  },
-  {
     tabTitle:"Newly Rated",
-    tabLink:"/browse/NewlyRated",
-    tabKey:"NewlyRated",
+    tabLink:"/browse/newlyRated",
+    tabKey:"newlyRated",
     tabContentElement: ""
   },
 ]
-/**
- * Getting it via route parameters kind messes up routing so just get the url from browser
- * and extract the cetegory from here
- * @param {*} loc 
- */
- function getCategory(loc){
-  const firstPart = "/browse/"
-  if(loc.length > firstPart.length){
-    let category = loc.substring(firstPart.length)
-    
-    let endIndex = category.indexOf('/')
-    if(endIndex !== -1){
-      category = category.substring(0, endIndex)
-    }
 
-    for (let i = 0; i < tabs.length; i++) {
-      if (tabs[i].tabLink.substring(firstPart.length) === category) 
-        return category
-    }
-  }
-  return tabs[0].tabLink.substring(firstPart.length);
-}
 export const BrowseBooks = () => {
     const loc = useLocation()
-    console.log('getCategory(loc.pathname): ', getCategory(loc.pathname))
 
     return (
       <Container fluid>
@@ -87,7 +65,7 @@ export const BrowseBooks = () => {
         <Row>
           <Col xs={{span:2}}>
             <Container className="browse__tab-bar">
-              <MakeVerticalTabBar tabs={tabs} firstPart="/browse/" loc={loc} className="ml-auto"/>
+              <MakeVerticalTabBar tabs={tabs} firstPart="/browse/" loc={loc.pathname} className="ml-auto"/>
             </Container>
           </Col>
           <Col xs={{span:8}}>

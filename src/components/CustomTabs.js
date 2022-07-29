@@ -29,7 +29,8 @@ function getCategory(tabs, locString, firstPart){
     return tabs[0].tabLink.substring(firstPart.length);
 }
 export const MakeVerticalTabBar = ({tabs, loc, firstPart,className}) => {
-    return <Tab.Container fluid  defaultActiveKey={getCategory(tabs, loc.pathname, firstPart)} >
+    console.log(' MakeVerticalTabBar getCategory(tabs, loc, firstPart)', getCategory(tabs, loc, firstPart))
+    return <Tab.Container fluid  defaultActiveKey={getCategory(tabs, loc, firstPart)} >
         <Nav variant="pills" className={"flex-column" + (className?(" " + className):"")} >
             {tabs.map((tab, index)=> {
                 return (<Nav.Item key ={index}>
@@ -38,6 +39,21 @@ export const MakeVerticalTabBar = ({tabs, loc, firstPart,className}) => {
             })}
         </Nav>
     </Tab.Container>
+}
+
+
+export const MakeHorizontalTabBar = ({tabs, loc, firstPart,className}) => {
+    return <Tabs defaultActiveKey={getCategory(tabs, loc, firstPart)} className={className}>
+            {tabs.map((tab, index)=> {
+                return (
+                    <Tab key={index}
+                        eventKey={tab.tabKey} 
+                        as={Link} 
+                        to={tab.tabLink} 
+                        title={tab.tabTitle}>
+                    </Tab>
+                )})}
+        </Tabs>
 }
 
 export const MakeTabContent  = ({tabs, additional_class}) =>{
