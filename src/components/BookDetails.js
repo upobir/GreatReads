@@ -7,7 +7,7 @@ import GenreBlock from './GenreBlock';
 import {Row, Col, Container, Tabs, Tab, Stack, TabContainer, Navbar} from 'react-bootstrap'
 import 'holderjs'
 import { BookReviews } from './BookReviews';
-import { _similar_books } from '../helper';
+import { _similar_books } from '../PlaceHolder';
 import { SeriesView } from './SeriesView';
 import {SimilarBooksView} from './SimilarBooksView'
 import { BookReview } from './BookReview';

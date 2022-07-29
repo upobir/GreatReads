@@ -2,7 +2,8 @@ import React from 'react'
 import { Stack, Container, Row, Col, Image, Button } from 'react-bootstrap'
 import 'holderjs'
 import { authorFetchEndpoint } from '../endpoints'
-export default function AuthorPreview({ author   }) {
+import { FollowButton } from './FollowButton'
+export default function AuthorPreview({ author }) {
   return (
     <Container className='author-preview'>
         <Row>
@@ -22,12 +23,12 @@ export default function AuthorPreview({ author   }) {
                                  marginBlockStart:0  }}>
                         {author?.followCount}
                     </h3>
-                    <p>Following</p>
+                    <span className='light-text'>Following</span>
             </Col>
             <Col>
-            <Button variant='primary'>
-                {author?.isFollowedByUser? "Unfollow": "Follow"}</Button>
+                    <FollowButton isFollowedByUser={author?.isFollowedByUser}/>
             </Col>
+            
      
         </Row>
         <Row>

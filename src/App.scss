@@ -264,10 +264,25 @@ $theme-colors: (
   }
 }
 .top-navbar{
-  
+  padding-top: 2px;
+  padding-bottom: 0px;
+
+  &__border-hack{
+    background-color:$primary;
+    height: 2px;
+  }
+  &__inner{
+    padding-bottom: 2px;
+    padding-left: .25rem;
+    padding-right: .25rem;
+
+  }
 }
 .primary-text{
   color:$primary;
+}
+.primary-bg{
+  background-color:$primary;
 }
 .light-text{
   color:$text-light;
