@@ -11,6 +11,7 @@ import { LandingPage } from './components/LandingPage';
 import { QueryClientProvider,QueryClient } from 'react-query';
 import { LoginPage } from './components/LoginPage';
 import { BrowseBooks } from './components/BrowseBooks';
+import Register from "./components/RegisterPage";
 
 const queryClient = new QueryClient()
 function App() {
@@ -29,6 +30,7 @@ function App() {
                 <Route exact path='/' element={<LandingPage/>}/>
               </Route>
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/book/:id/*" element={<BookDetails />} />
               <Route path="/browse/*" element={<BrowseBooks />} />
               <Route path="/user/:userID/*" element={<Bookshelf />} />
