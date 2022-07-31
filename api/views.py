@@ -73,3 +73,13 @@ def getRoutes(request):
         '/api/token/refresh/'
     ]
     return Response(routes)
+
+@api_view(['GET'])
+def getPublisher(request, pk):
+    publisher = Publisher.objects.get(pk=pk)
+    data = {
+        "address": publisher.address,
+        "name": publisher.name,
+        "description": publisher.description
+    }
+    return Response(data)

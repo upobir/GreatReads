@@ -49,8 +49,13 @@ export const BrowseGenre = () => {
                             <>
                                 <div><p>{genre.description}</p></div>
                                 <h3 className='primary-text'>New releases Tagged "{genre.tag}":</h3>
+<<<<<<< Updated upstream
                                 <BookGallery books={books} booksPerRow={4}></BookGallery>
                             </>
+=======
+                                <BookGallery books={books} booksPerRow={4} setBooks={setBooks}></BookGallery>
+                            </div>
+>>>>>>> Stashed changes
                             }
                         </Stack>
 
