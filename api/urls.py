@@ -38,5 +38,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='auth_register'),
     path('apitest/', testEndPoint, name='test'),
-    path('', getRoutes)
+    path('', getRoutes),
+
+    path("publisherr/<int:pk>", getPublisher, name="pubbb"),
 ]

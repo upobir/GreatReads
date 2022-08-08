@@ -28,7 +28,7 @@ export const BrowseNewReleases = () => {
                   </div>
                   {books &&
                       <div className='browse-new__body'>
-                          <BookGallery books={books} booksPerRow={4}></BookGallery>
+                          <BookGallery books={books} booksPerRow={4} setBooks={setBooks}></BookGallery>
                       </div>
                   }
               </Stack>
