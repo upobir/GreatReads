@@ -20,17 +20,18 @@ export const ReviewPopup = ({bookID, showState, handleClose}) => {
   const handleReviewTextUpdate = (e) => { setReviewText(e.target.value) }
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('reviewRating', reviewRating)
+    let actualRating = reviewRating * 5;
+    console.log('reviewRating',actualRating )
     console.log('reviewText', reviewText)
     if(reviewRating != null){
       api()
       .post(reviewPostEndpoint(bookID), {
-        reviewRating: reviewRating,
+        reviewRating: actualRating,
         reviewText: reviewText,
       })
       .then((response) => {
         console.log('review post response', response);
-        
+        window.location.reload(true)
       })
       .catch((error)=> {
         console.log('review post error', error)

@@ -83,7 +83,7 @@ const BookDetails = () => {
                     <Col xs={2} className='allow-click-self book-details__left-col__inner' >
                         <BookCapsule book={book} id={id} setBook={setBook} />
                         <div className='review-summary-block'>
-                            <h1> {book?.avgRating}/5 </h1>
+                            <h1> {book?.avgRating.toFixed(2)}/5 </h1>
                             <p>from {book?.reviewCount} reviews</p>
                             <Button className='review-summary-block__write-review-btn' variant="Link" onClick={handleReviewPopupShow}> Write a review </Button>
                         </div>

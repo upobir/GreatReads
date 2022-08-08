@@ -65,6 +65,29 @@ def echoPostView(request,  **kwargs):
     print(request, request.data, kwargs)
     return Response("ok")
 
+# @api_view(['POST'])
+# def bookReviewPostView(request,book_pk):
+#     print("aaa", book_pk)
+#     print(request, request.data)
+#     # Review.objects.create(request.data)
+#     return Response("ok")
+
+@api_view(['POST'])
+def bookReviewPostView(request, book_pk):
+    print("aaaaaaaa--------------------------------------------------")
+    print("request", request.data)
+    print('user:', request.user.id)
+    user = User.objects.get(id=request.user.id);
+    book = Book.objects.get(id=book_pk)
+    # print("aaa", book_pk)
+    rating = int(request.data["reviewRating"])
+    text = str(request.data["reviewText"])
+
+    Review.objects.create(rating=rating, creator=user,description=text, book=book)
+
+    return Response("ok")
+
+
 @api_view(['GET'])
 def getRoutes(request):
     routes = [

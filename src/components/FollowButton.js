@@ -1,10 +1,10 @@
 import React from 'react'
 import { Button } from 'react-bootstrap'
 
-export const FollowButton = ({isFollowedByUser}) => {
+export const FollowButton = ({followContext}) => {
   return (
     <Button variant='primary'>  
-        {isFollowedByUser? "Unfollow": "Follow"}
+        {followContext.isFollowedByUser? "Unfollow": "Follow"}
     </Button>
   )
 }

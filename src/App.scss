@@ -342,6 +342,7 @@ $theme-colors: (
 .browse__tab-bar{
   position:sticky;
   top:$navbar-height;
+  // top:$navbar-height + $browse-header-height;
 }
 .primary-text{
   color:$primary;
