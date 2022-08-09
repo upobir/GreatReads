@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Row, Col,Container, Stack } from 'react-bootstrap';
-import { bookBrowseEndpoint } from '../endpoints';
+import { browseNewReleasesEndpoint } from '../endpoints';
 import { BookGallery } from './BookGallery';
 export const BrowseNewReleases = () => {
-    const navigate = useNavigate();
     const [books, setBooks] = useState([])
     
     const getBooks= async () => { 
-      let response = await fetch(bookBrowseEndpoint())
+      let response = await fetch(browseNewReleasesEndpoint())
       let jBooks = await response.json()
       console.log('jBooks', jBooks)
       setBooks(jBooks)

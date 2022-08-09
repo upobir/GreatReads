@@ -24,6 +24,16 @@ export function authorDetailsURL(authorID){
 export function genreBrowseURL(genreID){
     return `/browse/genre/${genreID}/`
 }
+
+export function followedAuthorBrowseURL(){
+    return `/browse/genre/followedAuthors/`
+}
+export function newReleasesAuthorBrowseURL(){
+    return `/browse/genre/newReleases/`
+}
+export function newlyRatedBrowseURL(){
+    return `/browse/genre/newlyRated/`
+}
 const myBookShelfURL = "/bookshelf/"
 const myFeedURL = "/feed/"
 const homeURL = "/home/"

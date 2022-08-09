@@ -36,7 +36,28 @@ export function bookBrowseEndpoint(){
     return  `/api/books/`
 }
 
+export function browseGenreEndpoint(genreID){
+    // return  `/api/browse/genre/${genreID}/`
+    return  `/api/books/`
+}
+
+export function browseNewReleasesEndpoint(){
+    // return  `/api/browse/newReleases/`
+    return  `/api/books/`
+
+}
+
+export function browseNewlyRatedEndpoint(){
+    // return  `/api/browse/newlyRated`
+    return  `/api/books/`
+}
+
+export function browseFollowedAuthorEndpoint(){
+    // return  `/api/browse/followedAuthors`
+    return  `/api/books/`
+}
 export function loginEndpoint(){
-    return  `/api/login/`
+    // return  `/api/login/`
+    return  `/api/books/`
 }
 

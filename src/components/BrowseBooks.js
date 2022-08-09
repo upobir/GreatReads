@@ -8,6 +8,7 @@ import { useNavigate, Routes, Route, useParams, Link, useLocation } from 'react-
 import { MakeVerticalTabBar } from './CustomTabs';
 import { BrowseNewReleases } from './BrowseNewReleases';
 import { BrowseNewlyRated } from './BrowseNewlyRated';
+import { BrowseFollowedAuthors } from './BrowseFollowedAuthors';
 const AllBooks=({books})=> {
   if(books.length <= 0){
     return <Container>
@@ -71,9 +72,9 @@ export const BrowseBooks = () => {
           <Col xs={{span:8}}>
             <Routes>
               <Route path='/genre/:genreID/' element={<BrowseGenre />} />
-              {/* <Route path='/genre/' element={<BrowseGenre />} /> */}
               <Route path='/newReleases/' element={<BrowseNewReleases />} />
               <Route path='/newlyRated/' element={<BrowseNewlyRated />} />
+              <Route path='/followedAuthors/' element={<BrowseFollowedAuthors />} />
               <Route path='' element={<BrowseNewReleases />}  />
             </Routes>
           </Col>

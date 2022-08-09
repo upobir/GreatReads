@@ -4,9 +4,10 @@ import { Container, Row,Stack, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 import { BookGallery } from './BookGallery';
 import {GenreDropDown} from './GenreDropDown'; 
-import { bookBrowseEndpoint } from '../endpoints';
+import { browseGenreEndpoint } from '../endpoints';
 import { _genres } from '../PlaceHolder';
 import { FollowBlock } from './FollowBlock';
+
 export const BrowseGenre = () => {
     const {genreID, category} = useParams();//undefined when no genreID is in URL
     const [books, setBooks] = useState([])  
@@ -19,7 +20,7 @@ export const BrowseGenre = () => {
     }, [genreID])
     const getNewBooksInGenre = async () => {
         //#TODO PROPER FETCH ONCE API DONE
-        let response = await fetch(bookBrowseEndpoint())
+        let response = await fetch(browseGenreEndpoint(genreID))
         let jBooks = await response.json()
         console.log('jBooks', jBooks)
         setBooks(jBooks)

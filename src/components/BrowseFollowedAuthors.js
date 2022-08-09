@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react'
-import { useNavigate } from 'react-router-dom';
-import { Row, Col,Container, Stack } from 'react-bootstrap';
-import { browseNewlyRatedEndpoint } from '../endpoints';
-import { BookGallery } from './BookGallery';
-export const BrowseNewlyRated = () => {
+import React, {useState, useEffect} from 'react'
+import { Container,Row,Col,Stack } from 'react-bootstrap'
+import { browseFollowedAuthorEndpoint } from '../endpoints'
+import { BookGallery } from './BookGallery'
+export const BrowseFollowedAuthors = () => {
     const [books, setBooks] = useState([])
     
     const getBooks= async () => { 
-      let response = await fetch(browseNewlyRatedEndpoint())
+      let response = await fetch(browseFollowedAuthorEndpoint())
       let jBooks = await response.json()
       console.log('jBooks', jBooks)
       setBooks(jBooks)
@@ -22,7 +21,7 @@ export const BrowseNewlyRated = () => {
           <Row>
               <Stack gap={1} className='browse-new'>
                   <div gap={0} className='browse-new__header'>
-                      <h3 className='primary-text'>Newly Rated Releases:</h3>
+                      <h3 className='primary-text'>From authors you follow:</h3>
                       <hr style={{ marginBlockStart: "0.25em", marginBlockEnd: "0.25em" }} />
                   </div>
                   {books &&
