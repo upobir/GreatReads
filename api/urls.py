@@ -34,8 +34,8 @@ urlpatterns = [
     path('genres/', AllGenreView.as_view(), name='all_genres'),
     path('genre/<int:pk>/', GenreView.as_view(), name='all_genres'),
 
-    path('book/<int:book_pk>/review/post/', bookReviewPostView, name="review"),
-    path('book/<int:pk>/status/post/', BookStatusView.as_view(), name="series"),
+    path('book/<int:pk>/review/post/', BookReviewPostView.as_view(), name="review_post"),
+    path('book/<int:pk>/status/post/', BookStatusView.as_view(), name="status_post"),
 
     # auth
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
