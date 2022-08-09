@@ -13,13 +13,18 @@ function bookReadStatusToUpdateText(bookReadStatus) {
     case 'wishlisted':
       return 'wants to read';
   }
+  
   return '';
 }
-export const BookReadUpdate = ({ bookReadUpdateData }) => {
-  console.log('bookReadUpdateData', bookReadUpdateData);
+export const BookReadUpdate = ({ bookReadUpdateData,setBookReadUpdateData }) => {
+  // console.log('bookReadUpdateData', bookReadUpdateData);
+  const setBook = (_book) => {
+    let mutatedBookReadUpdateData= bookReadUpdateData
+    mutatedBookReadUpdateData.book = _book
+    setBookReadUpdateData(mutatedBookReadUpdateData)
+  }
   return (
-  <Container fluid className="feed-item text-decoration-none link-color-unset"
-             as={Link} to={bookDetailsURL(bookReadUpdateData.book.id)}>
+  <Container fluid className="feed-item text-decoration-none link-color-unset">
     <Stack gap={1} >
       <Stack direction='horizontal' className='feed-item__header'>
         <Stack direction='horizontal' className='feed-item__header__left' gap={1}>
@@ -28,7 +33,7 @@ export const BookReadUpdate = ({ bookReadUpdateData }) => {
         </Stack>
         <span className='high-text'>{bookReadUpdateData.timeStamp}</span>
       </Stack>
-      <BookBlurb book={bookReadUpdateData.book} />
+      <BookBlurb book={bookReadUpdateData.book} setBook={setBook} />
     </Stack>
   </Container>
   );

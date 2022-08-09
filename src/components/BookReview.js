@@ -26,7 +26,7 @@ export const BookReview = ({bookID}) => {
           <BookReviewPreview bookID={bookID} review={review} shouldTruncate={false}/>
           
           <Col xs={{span:10, offset:2}} className="book-review-details__comment-container">
-              <Stack fluid gap={2}>
+              <Stack  gap={2}>
                 {review?.comments.map((comment, index) =>{
                   return (
                   <Stack key={index} className="book-review-details__comment">

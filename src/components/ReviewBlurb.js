@@ -9,11 +9,15 @@ import { BookBlurb } from './BookBlurb';
 function convertRatingTo100Scale(rating) {
   return rating * 100 / 5;
 }
-export const ReviewBlurb = ({ reviewBlurbData }) => {
-  console.log('reviewBlurbData.review.id', reviewBlurbData.review)
-  return <Container fluid className="feed-item  text-decoration-none link-color-unset" 
-  as={Link} to={reviewDetailsURL(reviewBlurbData.book.id, reviewBlurbData.review.id)}>
-    <Stack fluid gap={2} >
+export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
+  // console.log('reviewBlurbData.review.id', reviewBlurbData.review)
+  const setBook = (_book) => {
+    let mutatedReviewBlurbData= reviewBlurbData
+    mutatedReviewBlurbData.book = _book
+    setReviewBlurbData(mutatedReviewBlurbData)
+  }
+  return <Container fluid className="feed-item  text-decoration-none link-color-unset" >
+    <Stack  gap={2} >
       <Stack direction='horizontal' className='feed-item__header'>
         <Stack direction='horizontal' className='feed-item__header__left' gap={1}>
           <Link to={userDetailsURL(reviewBlurbData.user)}>{reviewBlurbData.user.name}</Link>
@@ -31,7 +35,7 @@ export const ReviewBlurb = ({ reviewBlurbData }) => {
         </Stack>
       }
       {/* </Container> */}
-      <Link to={bookDetailsURL(reviewBlurbData.book.id)} className='text-decoration-none'><BookBlurb book={reviewBlurbData.book} /></Link>
+      <BookBlurb book={reviewBlurbData.book} setBook={setBook} />
       
     </Stack>
   </Container>;

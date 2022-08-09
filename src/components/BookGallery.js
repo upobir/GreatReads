@@ -10,7 +10,7 @@ export const BookGallery = ({books, booksPerRow, setBooks})=>{
         // console.log('handlebookset', books, ' index ', index)
         // console.log('user', user)
         if(user){
-            const mutatedBooks = [...books];
+            let mutatedBooks = [...books];
             mutatedBooks[index] = book;
             setBooks(mutatedBooks);
         }
