@@ -121,6 +121,28 @@ class BookStatusView(APIView):
 
         return Response("ok")
 
+class BookReviewPostView(APIView):
+    def post(self, request, pk):
+        if not request.user.id:
+            return Response("fail")
+
+        user = User.objects.get(id=request.user.id)
+        book = Book.objects.get(id=pk)
+
+        reviews = Review.objects.filter(creator=user, book=book)
+
+        rating = request.data["reviewRating"]
+        description = request.data["reviewText"]
+
+        if reviews:
+            reviews[0].rating = rating
+            reviews[0].description = description
+            reviews[0].save()
+        else:
+            Review.objects.create(rating = rating, description = description, creator = user, book = book)
+
+        return Response("ok")
+
 @api_view(['POST'])
 def echoPostView(request,  **kwargs):
     print(request, request.data, kwargs)
@@ -133,20 +155,20 @@ def echoPostView(request,  **kwargs):
 #     # Review.objects.create(request.data)
 #     return Response("ok")
 
-@api_view(['POST'])
-def bookReviewPostView(request, book_pk):
-    print("aaaaaaaa--------------------------------------------------")
-    print("request", request.data)
-    print('user:', request.user.id)
-    user = User.objects.get(id=request.user.id)
-    book = Book.objects.get(id=book_pk)
-    # print("aaa", book_pk)
-    rating = int(request.data["reviewRating"])
-    text = str(request.data["reviewText"])
+# @api_view(['POST'])
+# def bookReviewPostView(request, book_pk):
+#     print("aaaaaaaa--------------------------------------------------")
+#     print("request", request.data)
+#     print('user:', request.user.id)
+#     user = User.objects.get(id=request.user.id)
+#     book = Book.objects.get(id=book_pk)
+#     # print("aaa", book_pk)
+#     rating = int(request.data["reviewRating"])
+#     text = str(request.data["reviewText"])
 
-    Review.objects.create(rating=rating, creator=user,description=text, book=book)
+#     Review.objects.create(rating=rating, creator=user,description=text, book=book)
 
-    return Response("ok")
+#     return Response("ok")
 
 
 @api_view(['GET'])
