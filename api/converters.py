@@ -32,7 +32,20 @@ def book_mini(book):
         "seriesEntry": book.series_number,
     }
 
-def book_detailed(book, status):
+def book_detailed(book, status, review):
+    readstatus = ""
+    readpages = -1
+    if status:
+        if status.is_read:
+            readstatus = "read"
+            readpages = -1
+        elif status.is_wishlisted:
+            readstatus = "wishlisted"
+            readpages = -1
+        elif status.read_pages != -1:
+            readstatus = "reading"
+            readpages = status.read_pages
+
     return {
         "isbn": book.isbn,
         "title": book.title,
@@ -40,12 +53,12 @@ def book_detailed(book, status):
         "pageCount": book.pages,
         "released": book.release_date, 
         "genres": [ genre_mini(genre) for genre in book.genres.all() ],
-        "readStatus":"reading", # TODO
-        "readPages": 10,        # TODO
+        "readStatus": readstatus,
+        "readPages": readpages,
         "series": book.series.id if book.series else None,
         "seriesEntry": book.series_number ,
         "avgRating": book.avg_rating,
-        "userRating": 4.6,      # TODO
+        "userRating":  review.rating if review else None,
         "reviewCount": book.review_count,
         "authors": [ author_mini(author) for author in book.authors.all() ],
         "publisherId" : book.publisher.id,

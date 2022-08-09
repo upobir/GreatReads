@@ -14,7 +14,7 @@ List of all kinds of jsons
 }
 ```
 
-2. book_detailed 
+2. book_detailed [DONE]
 ```
 {
     "id": int,
