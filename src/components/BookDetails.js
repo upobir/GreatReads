@@ -101,7 +101,7 @@ const BookDetails = () => {
                         
                         
                         <Stack direction="horizontal" gap = {1}>
-                        <span className='inline-block light-text'>by</span>
+                            <span className='inline-block light-text'>by</span>
                             <BookAuthorsBlock book={book}/>
                         </Stack>
 
@@ -110,7 +110,7 @@ const BookDetails = () => {
                 <Container fluid className='book-details__mid-col-bottom'>
                     <Col xs={{span:7,offset:2 }}>
      
-                        <p>{book?.description}</p>
+                        <p className='medium-text'>{book?.description}</p>
                         <Row><Col xs={2}className="medium-text">ISBN:</Col><Col>{book?.isbn}</Col></Row>
                         <Row><Col xs={2}className="medium-text">Pages:</Col><Col>{book?.pageCount}</Col></Row>
                         <Row><Col xs={2}className="medium-text">Released:</Col><Col>{book?.released}</Col></Row>

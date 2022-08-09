@@ -355,7 +355,7 @@ div.dropdown-menu.show {
     padding-top:$browse-header-height; 
   }
 }
-.browse__tab-bar{
+.browse__tab-bar, .feed__tab-bar{
   position:sticky;
   top:$navbar-height;
   // top:$navbar-height + $browse-header-height;

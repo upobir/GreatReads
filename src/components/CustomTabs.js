@@ -7,32 +7,31 @@ const tabs = [
         tabTitle:"Reviews",
         tabKey:"reviews",
         tabLink:"reviews",
-        tabContentElement: <BookReviews bookID={id} reviews={_book.reviews} />
     }
 ]
 */
 
-function getCategory(tabs, locString, firstPart){
-    if(locString.length > firstPart.length){
-      let category = locString.substring(firstPart.length)
+function getCategory(tabs, locString, rootURL){
+    if(locString.length > rootURL.length){
+      let category = locString.substring(rootURL.length)
       let endIndex = category.indexOf('/')
       if(endIndex !== -1){
         category = category.substring(0, endIndex)
       }
 
       for (let i = 0; i < tabs.length; i++) {
-        tabs[i].tabLink.substring(firstPart.length)
+        tabs[i].tabLink.substring(rootURL.length)
         if (tabs[i].tabKey === category) 
           return category
       }
     }
-    return tabs[0].tabLink.substring(firstPart.length);
+    return tabs[0].tabLink.substring(rootURL.length);
 }
 
 
-export const MakeVerticalTabBar = ({tabs, loc, firstPart,className}) => {
-    // console.log(' MakeVerticalTabBar getCategoPry(tabs, loc, firstPart)', getCategory(tabs, loc, firstPart))     
-    return <Tab.Container fluid  activeKey={getCategory(tabs, loc, firstPart)} >
+export const MakeVerticalTabBar = ({tabs, loc, rootURL,className}) => {
+    // console.log(' MakeVerticalTabBar getCategoPry(tabs, loc, rootURL)', getCategory(tabs, loc, rootURL))     
+    return <Tab.Container fluid  activeKey={getCategory(tabs, loc, rootURL)} >
         <Nav variant="pills" className={"flex-column" + (className?(" " + className):"")} >
 
             {tabs.map((tab, index)=> {
@@ -45,8 +44,8 @@ export const MakeVerticalTabBar = ({tabs, loc, firstPart,className}) => {
 }
 
 
-export const MakeHorizontalTabBar = ({tabs, loc, firstPart,className}) => {
-    return <Tabs defaultActiveKey={getCategory(tabs, loc, firstPart)} className={className}>
+export const MakeHorizontalTabBar = ({tabs, loc, rootURL,className}) => {
+    return <Tabs activeKey={getCategory(tabs, loc, rootURL)} className={className}>
             {tabs.map((tab, index)=> {
                 return (
                     <Tab key={index}
