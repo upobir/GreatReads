@@ -14,7 +14,7 @@ List of all kinds of jsons
 }
 ```
 
-2. book_detailed 
+2. book_detailed [DONE]
 ```
 {
     "id": int,
@@ -130,14 +130,14 @@ List of all kinds of jsons
     "tag": str,
 }
 ```
-12. genre_detailed
+12. genre_detailed [DONE]
 ```
 {
     "id": int,
     "tag": str,
     "desc": str,
     "followerCount": int,
-    "userFollowsGenre": int,
+    "userFollowsGenre": bool,
 }
 ```
 13. user_detailed
@@ -196,15 +196,15 @@ List of all kinds of jsons
 
 ## Routes
 1. GET `api/books` array of all `book_mini` [DONE]
-1. GET `api/book/<id>` one `book_detailed`
+1. GET `api/book/<id>` one `book_detailed` [DONE]
 1. GET `api/book/<id>/reviews` array of `review_mini` of a book (pagination needed) [DONE]
 1. GET `api/review/<id>` one `review_detailed` [DONE]
 1. GET `api/author/<id>` one `author_detailed` [DONE]
 1. GET `api/publisher/<id>` one `publisher_detailed` [DONE]
 1. GET `api/series/<id>` one `series_mini` [DONE]
-1. GET `api/books/genre/<id>` array of `book_mini` of a genre (pagination needed)
-1. GET `api/genres` array of all `genre_mini` sorted by whether user follows genre
-1. GET `api/genre/<id>` one `genre_detailed`
+1. GET `api/books/genre/<id>` array of `book_mini` of a genre (pagination needed) [DONE]
+1. GET `api/genres` array of all `genre_mini` sorted by whether user follows genre [DONE]
+1. GET `api/genre/<id>` one `genre_detailed` [DONE]
 1. GET `api/books/new_rated` array of `book_mini` that are newly genre (pagination needed)
 1. GET `api/books/followed_author` array of `book_mini` that are from followed author (pagination needed)
 1. GET `api/book/<id>/similar` array of `book_mini` that are similar (pagination needed)
@@ -226,7 +226,7 @@ List of all kinds of jsons
 1. POST `api/book/<id>/status/post/` {
         "readStatus": book.readStatus,
         "pagesRead": int,
-    }
+    } [DONE]
 1. POST `/api/book/<id>/review/post/` {
         reviewRating: int(0-5),
         reviewText: string,
