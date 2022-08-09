@@ -1,5 +1,25 @@
 from .models import *
 
+def get_book_status(book, userid):
+    status = book.bookuserstatus_set.filter(user_id=userid)
+
+    readstatus = None 
+    readpages = -1
+
+    if status.exists():
+        print(status.values())
+        if status[0].is_read:
+            readstatus = "read"
+            readpages = -1
+        elif status[0].is_wishlisted:
+            readstatus = "wishlisted"
+            readpages = -1
+        elif status[0].read_pages != -1:
+            readstatus = "reading"
+            readpages = status[0].read_pages
+
+    return readstatus, readpages
+
 def author_mini(author):
     return {
         "id": author.id,
@@ -30,7 +50,7 @@ def genre_detailed(genre, userid):
         "userFollowsGenre": genre.followers.filter(id=userid).exists() if userid else False,
     }
 
-def book_mini(book):
+def book_mini(book, userid):
     return {
         "id" : book.id,
         "title" : book.title,
@@ -39,21 +59,14 @@ def book_mini(book):
         "avgRating" : book.avg_rating,
         "thumbnail" : book.thumbnail.url if book.thumbnail else None,
         "seriesEntry": book.series_number,
+        "readStatus": get_book_status(book, userid)[0],
     }
 
-def book_detailed(book, status, review):
-    readstatus = ""
-    readpages = -1
-    if status:
-        if status.is_read:
-            readstatus = "read"
-            readpages = -1
-        elif status.is_wishlisted:
-            readstatus = "wishlisted"
-            readpages = -1
-        elif status.read_pages != -1:
-            readstatus = "reading"
-            readpages = status.read_pages
+def book_detailed(book, userid, review):
+    readstatus, readpages = get_book_status(book, userid)
+    # readpages = -1
+    # if status:
+    #     
 
     return {
         "isbn": book.isbn,
@@ -88,13 +101,13 @@ def series_mini(series):
         "avgRating": series.avg_rating,
     }
 
-def series_detailed(series):
+def series_detailed(series, userid):
     return {
         "id": series.id,
         "name": series.name,
         "bookCount": series.book_count,
         "avgRating": series.avg_rating,
-        "books" : [ book_mini(book) for book in Book.objects.filter(series = series).order_by('series_number') ],
+        "books" : [ book_mini(book, userid) for book in Book.objects.filter(series = series).order_by('series_number') ],
     }
 
 def comment_mini(comment):

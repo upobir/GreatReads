@@ -13,24 +13,20 @@ from django.contrib.auth.models import User
 class BookView(APIView):
     def get(self, request, pk):
         print('user:', request.user.id)
-        print('request:', request)
 
         book = Book.objects.get(id=pk)
-
-        status = BookUserStatus.objects.filter(book=book, user__id=request.user.id) if request.user.id else None
-        status = status[0] if status else None
 
         review = Review.objects.filter(book=book, creator__id=request.user.id) if request.user.id else None
         review = review[0] if review else None
 
-        data = book_detailed(book, status, review)
+        data = book_detailed(book, request.user.id, review)
 
         return Response(data)
 
 
 class AllBookView(APIView):
     def get(self, request):
-        data = [ book_mini(book) for book in Book.objects.all() ]
+        data = [ book_mini(book, request.user.id) for book in Book.objects.all() ]
         return Response(data)
     
 
@@ -52,7 +48,7 @@ class SeriesView(APIView):
     def get(self, request, pk):
         series = Series.objects.get(id=pk)
 
-        data = series_detailed(series)
+        data = series_detailed(series, request.user.id)
         
         return Response(data)
 
@@ -74,7 +70,7 @@ class  GenreBookView(APIView):
     def get(self, request, pk):
         genre = Genre.objects.get(id=pk)
 
-        data = [book_mini(book) for book in Book.objects.filter(genres=genre)] 
+        data = [book_mini(book, request.user.id) for book in Book.objects.filter(genres=genre)] 
 
         return Response(data)
 
