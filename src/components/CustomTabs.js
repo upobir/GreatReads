@@ -15,14 +15,14 @@ const tabs = [
 function getCategory(tabs, locString, firstPart){
     if(locString.length > firstPart.length){
       let category = locString.substring(firstPart.length)
-      
       let endIndex = category.indexOf('/')
       if(endIndex !== -1){
         category = category.substring(0, endIndex)
       }
-  
+
       for (let i = 0; i < tabs.length; i++) {
-        if (tabs[i].tabLink.substring(firstPart.length) === category) 
+        tabs[i].tabLink.substring(firstPart.length)
+        if (tabs[i].tabKey === category) 
           return category
       }
     }
@@ -31,8 +31,8 @@ function getCategory(tabs, locString, firstPart){
 
 
 export const MakeVerticalTabBar = ({tabs, loc, firstPart,className}) => {
-    // console.log(' MakeVerticalTabBar getCategory(tabs, loc, firstPart)', getCategory(tabs, loc, firstPart))     
-    return <Tab.Container fluid  defaultActiveKey={getCategory(tabs, loc, firstPart)} >
+    // console.log(' MakeVerticalTabBar getCategoPry(tabs, loc, firstPart)', getCategory(tabs, loc, firstPart))     
+    return <Tab.Container fluid  activeKey={getCategory(tabs, loc, firstPart)} >
         <Nav variant="pills" className={"flex-column" + (className?(" " + className):"")} >
 
             {tabs.map((tab, index)=> {

@@ -1,6 +1,8 @@
 import React, {useRef} from 'react'
 import {Navbar,NavDropdown,Nav, Container, Stack,Row, Col, Form,FormControl, Button, ButtonGroup} from 'react-bootstrap'
-import {myBookShelfURL, myFeedURL, homeURL, browseAllURL, genreBrowseURL} from '../urls'
+import {myBookShelfURL, myFeedURL, homeURL, browseAllURL,
+   genreBrowseURL, newlyRatedBrowseURL, newReleasesBrowseURL, followedAuthorBrowseURL
+  } from '../urls'
 import { Link } from 'react-router-dom';
 import { useContext } from "react";
 import UserInfo from "../components/UserInfo";
@@ -17,7 +19,7 @@ export default function GreatReadsNavbar() {
   const GenreSubmenu = () => { 
     console.log('_genres', _genres)
     return (
-      <Stack vertical
+      <Stack vertical className='genre-submenu'
       onMouseEnter={()=>setShow(true)}
       onMouseLeave={()=>setShow(false)}>
         {_genres.map((genre, index)=> {
@@ -46,9 +48,9 @@ export default function GreatReadsNavbar() {
                                   Genre
                                 </NavDropdown.Item>
                               {/* </OverlayTrigger> */}
-                              <NavDropdown.Item href="#action/3.3">New Releases</NavDropdown.Item>
-                              <NavDropdown.Item href="#action/3.4">Followed Authors</NavDropdown.Item>
-                              <NavDropdown.Item href="#action/3.4">Newly Reviewed</NavDropdown.Item>
+                              <NavDropdown.Item as={Link} to={newReleasesBrowseURL()} className="navItem">New Releases</NavDropdown.Item>
+                              <NavDropdown.Item as={Link} to={followedAuthorBrowseURL()} className="navItem">Followed Authors</NavDropdown.Item>
+                              <NavDropdown.Item as={Link} to={newlyRatedBrowseURL()} className="navItem">Newly Rated</NavDropdown.Item>
                             </Stack>
                             {show && <GenreSubmenu/>}
                             {/* <Overlay target={target.current} show={show}> */}

@@ -26,13 +26,13 @@ export function genreBrowseURL(genreID){
 }
 
 export function followedAuthorBrowseURL(){
-    return `/browse/genre/followedAuthors/`
+    return `/browse/followedAuthors/`
 }
-export function newReleasesAuthorBrowseURL(){
-    return `/browse/genre/newReleases/`
+export function newReleasesBrowseURL(){
+    return `/browse/newReleases/`
 }
 export function newlyRatedBrowseURL(){
-    return `/browse/genre/newlyRated/`
+    return `/browse/newlyRated/`
 }
 const myBookShelfURL = "/bookshelf/"
 const myFeedURL = "/feed/"

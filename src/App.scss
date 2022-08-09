@@ -318,6 +318,22 @@ $theme-colors: (
     padding-top:$browse-header-height; 
   }
 }
+.genre-submenu{
+  padding: .5rem;
+  a {
+    color: $text-high;
+    text-decoration: none;
+  }
+}
+//nav dropdown 
+div.dropdown-menu.show {
+  background-color: #1c2023; 
+  a {
+    color: $primary;
+    text-decoration: none;
+  }
+}
+
 .browse-new{
   top: $navbar-height;
   &__header{

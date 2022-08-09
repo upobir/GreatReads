@@ -13,7 +13,7 @@ export const GenreDropDown = ({selectedID}) => {
         return "Select";
     }
     return (
-        <Dropdown>
+        <Dropdown >
             <Dropdown.Toggle variant="primary" id="dropdown-basic">
                 {getSelectedGenre()}
             </Dropdown.Toggle>

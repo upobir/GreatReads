@@ -33,25 +33,21 @@ const tabs = [
     tabTitle:"New releases",
     tabLink:"/browse/newReleases",
     tabKey:"newReleases",
-    tabContentElement: ""
   },
   {
     tabTitle:"By Genre",
     tabLink:"/browse/genre/0",
     tabKey:"genre",
-    tabContentElement: ""
   },
   {
     tabTitle:"By Followed Authors",
     tabLink:"/browse/followedAuthors",
     tabKey:"followedAuthors",
-    tabContentElement: ""
   },
   {
     tabTitle:"Newly Rated",
     tabLink:"/browse/newlyRated",
     tabKey:"newlyRated",
-    tabContentElement: ""
   },
 ]
 
@@ -79,7 +75,7 @@ export const BrowseBooks = () => {
             </Routes>
           </Col>
         </Row>
-
+ 
       </Container>
     )
 }
