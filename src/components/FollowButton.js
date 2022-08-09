@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap'
 export const FollowButton = ({followContext}) => {
   return (
     <Button variant='primary'>  
-        {followContext.isFollowedByUser? "Unfollow": "Follow"}
+        {followContext && followContext.isFollowedByUser? "Unfollow": "Follow"}
     </Button>
   )
 }
