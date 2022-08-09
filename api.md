@@ -1,7 +1,7 @@
 ## JSONs
 List of all kinds of jsons
 
-1. book_mini
+1. book_mini [DONE]
 ```
 {
     "id": int,
@@ -14,7 +14,7 @@ List of all kinds of jsons
 }
 ```
 
-2. book_detailed
+2. book_detailed 
 ```
 {
     "id": int,
@@ -35,7 +35,7 @@ List of all kinds of jsons
 }
 ```
 
-3. author_mini
+3. author_mini [DONE]
 ```
 {
     "id": int,
@@ -43,7 +43,7 @@ List of all kinds of jsons
 }
 ```
 
-4. author_detailed
+4. author_detailed [DONE]
 ```
 {
     "id": int,
@@ -54,7 +54,7 @@ List of all kinds of jsons
 }
 ```
 
-5. publisher_detailed
+5. publisher_detailed [DONE]
 ```
 {
     "id": int,
@@ -63,7 +63,7 @@ List of all kinds of jsons
 }
 ```
 
-6. series_mini
+6. series_mini [DONE]
 ```
 {
     "id": int,
@@ -73,7 +73,7 @@ List of all kinds of jsons
 }
 ```
 
-7. series_detailed
+7. series_detailed [DoNE]
 ```
 {
     "id": int,
@@ -84,7 +84,7 @@ List of all kinds of jsons
 }
 ```
 
-8. review_mini
+8. review_mini [DONE]
 ```
 {
     "id": int,
@@ -98,7 +98,7 @@ List of all kinds of jsons
 }
 ```
 
-9. review_detailed
+9. review_detailed [DONE]
 ```
 {
     "id": int,
@@ -113,7 +113,7 @@ List of all kinds of jsons
 }
 ```
 
-10. comment_mini
+10. comment_mini [DONE]
 ```
 {
     "id": int,
@@ -123,7 +123,7 @@ List of all kinds of jsons
     "Text": str,
 }
 ```
-11. genre_mini
+11. genre_mini [DONE]
 ```
 {
     "id": int,
@@ -164,13 +164,13 @@ List of all kinds of jsons
 ```
 
 ## Routes
-1. GET `api/books` array of all `book_mini`
+1. GET `api/books` array of all `book_mini` [DONE]
 1. GET `api/book/<id>` one `book_detailed`
-1. GET `api/book/<id>/reviews` array of `review_mini` of a book (pagination needed)
-1. GET `api/review/<id>` one `review_detailed`
-1. GET `api/author/<id>` one `author_detailed`
-1. GET `api/publisher/<id>` one `publisher_detailed`
-1. GET `api/series/<id>` one `series_mini`
+1. GET `api/book/<id>/reviews` array of `review_mini` of a book (pagination needed) [DONE]
+1. GET `api/review/<id>` one `review_detailed` [DONE]
+1. GET `api/author/<id>` one `author_detailed` [DONE]
+1. GET `api/publisher/<id>` one `publisher_detailed` [DONE]
+1. GET `api/series/<id>` one `series_mini` [DONE]
 1. GET `api/books/genre/<id>` array of `book_mini` of a genre (pagination needed)
 1. GET `api/genres` array of all `genre_mini` sorted by whether user follows genre
 1. GET `api/genre/<id>` one `genre_detailed`
