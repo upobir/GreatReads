@@ -12,6 +12,7 @@ from .converters import *
 class BookView(APIView):
     def get(self, request, pk):
         print('user:', request.user.id)
+        print('request:', request)
 
         book = Book.objects.get(id=pk)
         status = BookUserStatus.objects.filter(book=book, user__id=request.user.id) if request.user.id else None

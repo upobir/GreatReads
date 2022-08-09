@@ -26,17 +26,19 @@ export default function BookCapsule({book,setBook, id}) {
   }, [book])
 
   const postBookStatus =  (_readStatus, _pagesRead) => {
-    api()
-    .post(bookReadStatusPostEndpoint(id), {
-      readStatus: _readStatus,
-      pagesRead: _pagesRead,
-    })
-    .then((response)=> {
-      console.log('read status update ok with response', response)
-    })
-    .catch(error => {
-      console.log('read status update error', error)
-    }) 
+    if (book) {
+      api()
+      .post(bookReadStatusPostEndpoint(id), {
+        readStatus: _readStatus,
+        pagesRead: _pagesRead,
+      })
+      .then((response) => {
+        console.log('read status update ok with response', response)
+      })
+      .catch(error => {
+        console.log('read status update error', error)
+      })
+    } 
   }
   const setReadStatusAndPost = (status) => {
     if(book.readStatus !== status){

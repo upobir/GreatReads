@@ -319,6 +319,7 @@ $theme-colors: (
   }
 }
 .genre-submenu{
+  
   padding: .5rem;
   a {
     color: $text-high;
@@ -327,7 +328,10 @@ $theme-colors: (
 }
 //nav dropdown 
 div.dropdown-menu.show {
-  background-color: #1c2023; 
+  background-color: $body-bg; 
+  border: 2px solid $primary;
+  border-top: 0px;
+  border-radius: 0;
   a {
     color: $primary;
     text-decoration: none;

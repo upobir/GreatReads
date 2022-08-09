@@ -162,6 +162,37 @@ List of all kinds of jsons
     "avgRating": float,
 }
 ```
+14. book_mid //use for search page entries and book blurbs in feed items
+```
+{
+    "id": int,
+    "title":str,
+    "authors": [author_mini],
+    "thumbnail": image,
+    "readStatus": ...,
+    "avgRating": int,
+    "description": str   
+}  
+```
+15. read_update_feed_item
+```
+{
+        "updateType": "readingUpdate",//to indicate read_updates in feed
+        "readStatus": ...,
+        "user": user_mini,
+        "timeStamp": timestamp,
+        "book": book_mid
+}
+```
+16. review_feed_item
+```
+{
+        "updateType": "review",//to indicate reviews in feed
+        "review": review_mini,
+        "timeStamp": timestamp,
+        "book": book_mid
+}
+```
 
 ## Routes
 1. GET `api/books` array of all `book_mini` [DONE]
@@ -191,6 +222,7 @@ List of all kinds of jsons
 1. GET `api/browse/followedAuthors` array of `book_detailed` by authors followed by user sorted by release date (pagination needed)
 1. GET `api/browse/newReleases` array of `book_detailed` sorted by release date (pagination needed)
 1. GET `api/browse/newlyRated` array of `book_detailed`  sorted by review timestamp (pagination needed)
+1. GET `api/feed/all` array of `feed_item`  sorted by timestamp (pagination needed)
 1. POST `api/book/<id>/status/post/` {
         "readStatus": book.readStatus,
         "pagesRead": int,

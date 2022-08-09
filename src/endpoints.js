@@ -56,6 +56,16 @@ export function browseFollowedAuthorEndpoint(){
     // return  `/api/browse/followedAuthors`
     return  `/api/books/`
 }
+
+export function feedAllEndpoint(){
+    return  `/api/feed/all`
+}
+export function feedReadUpdatesEndpoint(){
+    return  `/api/feed/readUpdates`
+}
+export function feedReviewsEndpoint(){
+    return  `/api/feed/reviews`
+}
 export function loginEndpoint(){
     // return  `/api/login/`
     return  `/api/books/`
