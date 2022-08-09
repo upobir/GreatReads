@@ -360,6 +360,40 @@ div.dropdown-menu.show {
   top:$navbar-height;
   // top:$navbar-height + $browse-header-height;
 }
+.feed-item{
+  border-radius: 5px;
+  border: 1px solid $text-light;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
+
+  &__header{
+    justify-content: space-between;
+  }
+}
+.book-blurb{
+
+  &__details{
+    height: 100%;
+  }
+}
+.link-color-unset{
+  color:unset;
+  text-decoration: none;
+}
+.link-color-unset:hover{
+  color: inherit !important;
+}
+.review-blurb__quote-block{
+  background-color: $dp-3;
+  justify-content: space-between;
+  align-content: space-between;
+  padding: .5rem;
+
+  div{
+    flex: 1;
+    padding: .5rem;
+  }
+}
 .primary-text{
   color:$primary;
 }

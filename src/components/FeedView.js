@@ -24,7 +24,7 @@ export const FeedView = ({fetchURL}) => {
     }, [])
 
     return (
-        <Stack fluid>
+        <Stack fluid gap={2}>
           {feed.map((feedItem, index) => {
             return <FeedItemToComponent key={index} feedItem={feedItem}/>
           })}

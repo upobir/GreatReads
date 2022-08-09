@@ -69,6 +69,7 @@ export const _feed = [
         },
         "timeStamp": "0 mins ago",
         "book": {
+            "id": 34,
             "title":"The way of Kings",
             "authors": [
                 {
@@ -85,6 +86,7 @@ export const _feed = [
     {
         "updateType": "review",
         "review": {
+            "id": 1,
             "rating": 5,
             "blurb":"The very concept of reading this book terrifies me.",
         },
@@ -94,6 +96,7 @@ export const _feed = [
         },
         "timeStamp": "10 mins ago",
         "book": {
+            "id": 34,
             "title":"The way of Kings",
             "authors": [
                 {
@@ -110,6 +113,7 @@ export const _feed = [
     {
         "updateType": "review",
         "review": {
+            "id": 1,
             "rating": 5,
             "blurb":"The very concept of reading this book terrifies me.",
         },
@@ -119,6 +123,7 @@ export const _feed = [
         },
         "timeStamp": "10 mins ago",
         "book": {
+            "id": 34,
             "title":"The way of Kings",
             "authors": [
                 {
