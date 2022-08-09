@@ -50,8 +50,10 @@ export const BookCarousel = ({ series, setSeries }) => {
         return books_grouped;
     };
     useEffect(() => {
-        if (series)
-            setGroupedBooks(groupBooks(series.books));
+        if (series){
+            console.log('series', series)
+            console.log('series.books', series.books)
+            setGroupedBooks(groupBooks(series.books));}
     }, [series]);
 
     return <Stack direction='horizontal' gap={.5}>

@@ -21,6 +21,7 @@ const BookDetails = () => {
     const [book, setBook] = useState(null)
     const [author, setAuthor] = useState(null)
     const [series, setSeries] = useState(null)
+    const [similarBooks, setSimilarBooks] = useState(_similar_books)
 
     const api = useAxios();                 // for private api endpoints
 
@@ -130,7 +131,7 @@ const BookDetails = () => {
                             {
                                 (book?.series) && <Route path="/series" element={<SeriesView book={book} series={series} setSeries={setSeries}/>} />
                             }
-                            <Route path="/similar_books" element={<SimilarBooksView similarBooks={_similar_books}/>} />
+                            <Route path="/similar_books" element={<SimilarBooksView similarBooks={similarBooks} setSimilarBooks={setSimilarBooks} />} />
                             <Route path="/review/:review_id/*" element={<BookReview bookID={id}/>}></Route>
                             <Route path="" element={<BookReviews book={book}/>} />
                             <Route path="/reviews" element={<BookReviews bookID={id}/>} />
