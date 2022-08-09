@@ -62,7 +62,7 @@ export const BrowseBooks = () => {
         <Row>
           <Col xs={{span:2}}>
             <Container className="browse__tab-bar">
-              <MakeVerticalTabBar tabs={tabs} firstPart="/browse/" loc={loc.pathname} className="ml-auto"/>
+              <MakeVerticalTabBar tabs={tabs} rootURL="/browse/" loc={loc.pathname} className="ml-auto"/>
             </Container>
           </Col>
           <Col xs={{span:8}}>

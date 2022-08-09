@@ -12,7 +12,7 @@ import { QueryClientProvider,QueryClient } from 'react-query';
 import { LoginPage } from './components/LoginPage';
 import { BrowseBooks } from './components/BrowseBooks';
 import Register from "./components/RegisterPage";
-
+import { FeedPage } from './components/FeedPage';
 const queryClient = new QueryClient()
 function App() {
   return (
@@ -34,7 +34,8 @@ function App() {
               <Route path="/book/:id/*" element={<BookDetails />} />
               <Route path="/browse/*" element={<BrowseBooks />} />
               <Route path="/user/:userID/*" element={<Bookshelf />} />
-              <Route path="/" element={<LandingPage />} />
+              <Route path="/feed/*" element={<FeedPage />} />
+              <Route path="/" element={<FeedPage />} />
             </Routes>
           </Container>
         </AuthProvider >
