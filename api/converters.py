@@ -6,13 +6,19 @@ def author_mini(author):
         "name": author.name,
     }
 
-def author_detailed(author):
+def author_detailed(author, userid):
     return {
         "id": author.id,
         "name": author.name,
         "followCount": author.follower_count,
-        "isFollowedByUser": False,  # TODO
+        "isFollowedByUser": author.followers.filter(id=userid).exists() if userid else False,
         "description": author.description,
+    }
+
+def genre_mini(genre):
+    return {
+        "id": genre.id,
+        "name": genre.name,
     }
 
 def book_mini(book):
@@ -26,19 +32,14 @@ def book_mini(book):
         "seriesEntry": book.series_number,
     }
 
-def book_detailed(book):
+def book_detailed(book, status):
     return {
         "isbn": book.isbn,
         "title": book.title,
         "description": book.description,
         "pageCount": book.pages,
         "released": book.release_date, 
-        "genres": [             
-            {
-                "name": genre.name,
-                "id": genre.id ,
-            } for genre in book.genres.all()
-        ],
+        "genres": [ genre_mini(genre) for genre in book.genres.all() ],
         "readStatus":"reading", # TODO
         "readPages": 10,        # TODO
         "series": book.series.id if book.series else None,

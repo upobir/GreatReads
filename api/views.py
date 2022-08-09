@@ -14,7 +14,11 @@ class BookView(APIView):
         print('user:', request.user.id)
 
         book = Book.objects.get(id=pk)
-        data = book_detailed(book)
+        status = BookUserStatus.objects.filter(book=book, user__id=request.user.id) if request.user.id else None
+        status = status[0] if status else None
+        print(status) # TODO use
+
+        data = book_detailed(book, status)
 
         return Response(data)
 
@@ -28,7 +32,7 @@ class AllBookView(APIView):
 class AuthorView(APIView):
     def get(self, request, pk):
         author = Author.objects.get(id=pk)
-        data = author_detailed(author)
+        data = author_detailed(author, request.user.id)
         return Response(data)
 
 
@@ -60,6 +64,14 @@ class ReviewView(APIView):
         review = Review.objects.get(id=pk)
         data = review_detailed(review)
         return Response(data)
+
+class GenreView(APIView):
+    def get(self, request):
+
+        data = [genre_mini(genre) for genre in Genre.objects.all()]  # TODO sort
+
+        return Response(data)
+
 @api_view(['POST'])
 def echoPostView(request,  **kwargs):
     print(request, request.data, kwargs)
@@ -77,7 +89,7 @@ def bookReviewPostView(request, book_pk):
     print("aaaaaaaa--------------------------------------------------")
     print("request", request.data)
     print('user:', request.user.id)
-    user = User.objects.get(id=request.user.id);
+    user = User.objects.get(id=request.user.id)
     book = Book.objects.get(id=book_pk)
     # print("aaa", book_pk)
     rating = int(request.data["reviewRating"])
