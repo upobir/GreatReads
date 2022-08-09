@@ -69,10 +69,26 @@ class ReviewView(APIView):
         data = review_detailed(review)
         return Response(data)
 
-class GenreView(APIView):
+class  GenreBookView(APIView):
+    def get(self, request, pk):
+        genre = Genre.objects.get(id=pk)
+
+        data = [book_mini(book) for book in Book.objects.filter(genres=genre)] 
+
+        return Response(data)
+
+class AllGenreView(APIView):
     def get(self, request):
 
         data = [genre_mini(genre) for genre in Genre.objects.all()]  # TODO sort
+
+        return Response(data)
+
+class GenreView(APIView):
+    def get(self, request, pk):
+        genre = Genre.objects.get(id=pk)
+
+        data = genre_detailed(genre, request.user.id)
 
         return Response(data)
 

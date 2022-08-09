@@ -30,7 +30,9 @@ urlpatterns = [
     path('author/<int:pk>/', AuthorView.as_view(), name="author"),
     path('publisher/<int:pk>/', PublisherView.as_view(), name="publisher"),
     path('series/<int:pk>/', SeriesView.as_view(), name="series"),
-    path('genres/', GenreView.as_view(), name='all_genres'),
+    path('books/genre/<int:pk>/', GenreBookView.as_view(), name='all_books_genre'),
+    path('genres/', AllGenreView.as_view(), name='all_genres'),
+    path('genre/<int:pk>/', GenreView.as_view(), name='all_genres'),
 
     path('book/<int:book_pk>/review/post/', bookReviewPostView, name="review"),
     path('book/<int:pk>/status/post/', BookStatusView.as_view(), name="series"),

@@ -21,6 +21,15 @@ def genre_mini(genre):
         "name": genre.name,
     }
 
+def genre_detailed(genre, userid):
+    return {
+        "id": genre.id,
+        "tag": genre.name,
+        "desc": genre.description,
+        "followerCount": genre.follower_count,
+        "userFollowsGenre": genre.followers.filter(id=userid).exists() if userid else False,
+    }
+
 def book_mini(book):
     return {
         "id" : book.id,

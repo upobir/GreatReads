@@ -72,6 +72,10 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def follower_count(self):
+        return self.followers.all().count()
+
 class Message(models.Model):
     timestamp = models.DateField(auto_now=True)
     text = models.TextField()
