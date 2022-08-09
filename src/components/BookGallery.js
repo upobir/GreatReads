@@ -5,7 +5,7 @@ import {Spinner} from 'react-bootstrap';
 import AuthContext from '../context/AuthContext';
 export const BookGallery = ({books, booksPerRow, setBooks})=>{
     const { user } = useContext(AuthContext);
-
+    console.log('books', books)
     const handleBookSet = (index, book) => {
         // console.log('handlebookset', books, ' index ', index)
         // console.log('user', user)

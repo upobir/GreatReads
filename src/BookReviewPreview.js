@@ -2,37 +2,40 @@ import React from 'react'
 import { Image,Stack, Container,Row,Col, Button } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import 'holderjs'
-import { RatingView } from './components/RatingView'
 import { reviewDetailsURL,userDetailsURL,reviewID } from './urls'
 import { FaThumbsUp, FaComment} from 'react-icons/fa'
-
+import {Spinner} from 'react-bootstrap';
+import { Rating } from 'react-simple-star-rating'
 function truncateReview(review){
   return  review?.substring(0, 100);
 }
 export const TruncatedReview = ({review,bookID})=> {
-  return (<>
-    <Row>
-      <span>{`${truncateReview(review?.body)}`}</span>
-    </Row>
-    <Row>
-      <Link to={reviewDetailsURL(bookID, review?.id)}>See more</Link>
-    </Row>
-  </>);
+  if(review)
+    return (
+    <>
+      <Row>
+        <span>{`${truncateReview(review?.body)}`}</span>
+      </Row>
+      <Row>
+        <Link to={reviewDetailsURL(bookID, review?.id)}>See more</Link>
+      </Row>
+    </>
+    );
+  else
+    return <Spinner animation="border" variant="secondary" />
 }
 export const NormalReview = ({review,bookID})=> {
   return <Row>
-            <p>{review?review.body: 'loading...'}</p>
+            {review?(<p>{review.body}</p>)
+                   : <Spinner animation="border" variant="secondary" />}
         </Row>
 }
 
-export const BookReviewPreview = ({bookID,review, shouldTruncate}) => {
+export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHandler}) => {
   const handleLikeToggle= () => {
     console.log("#TODO like toggle fetch url ")
   }
-  const handleCommentReply = () => { 
-    //#TODO
-    console.log('#TODO comnet reply navigate')
-  }
+
 
 
   return (
@@ -43,9 +46,13 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate}) => {
         </Col>
         <Col>
           <Stack gap={2} direction='horizontal'>
-            <Link to={userDetailsURL(review?.reviewer)} >{review?.reviewer}</Link> 
-            <span className='inline-block'>Rated </span>
-            <RatingView rating={review?.rating}></RatingView>
+            {review && <>
+                          <Link to={userDetailsURL(review?.reviewer)} >{review.reviewer}</Link>
+                          <span className='inline-block light-text'>Rated it</span>
+                          <Rating readonly={true} size={30} ratingValue={review.rating * 100 / 5} />
+                       </>
+            }
+
           </Stack>
 
       <Row>
@@ -57,18 +64,18 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate}) => {
           </Container>
       </Row>
           <br />
-          <Row>
+          {review && <Row>
             <Col xs={"auto"}>
-              <Button onClick={handleLikeToggle}> <FaThumbsUp/> {review?.likes} likes</Button>
+              <Button onClick={handleLikeToggle}> <FaThumbsUp /> {review?.likes} likes</Button>
             </Col>
             <Col xs={"auto"}>
-              <Button onClick={handleCommentReply}> <FaComment />  reply</Button>
+              <Button onClick={commentReplyHandler}> <FaComment />  reply</Button>
             </Col>
             <Col xs={"auto"}>
-              {review  && <Link to={reviewDetailsURL(bookID, review?.id)} >{`${review?.commentCount} comments`}</Link>}
+              {review && <Link to={reviewDetailsURL(bookID, review?.id)} >{`${review?.commentCount} comments`}</Link>}
             </Col>
-          </Row>
-          </Col>
+          </Row>}
+        </Col>
       </Row>
     </Container>
   )

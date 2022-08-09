@@ -8,17 +8,17 @@ const tabs = [
     {
       tabTitle:"All",
       tabLink:"/feed/all",
-      tabKey:"newReleases",
+      tabKey:"all",
     },
     {
       tabTitle:"Reading Updates",
       tabLink:"/feed/readingUpdates",
-      tabKey:"genre",
+      tabKey:"readingUpdates",
     },
     {
       tabTitle:"Reviews",
       tabLink:"/feed/reviews",
-      tabKey:"followedAuthors",
+      tabKey:"reviews",
     },
   ]
 export const FeedPage = () => {

@@ -97,7 +97,7 @@ export default function BookCapsule({book,setBook, id}) {
     
     <Stack className='book-capsule'>
           
-      <Link to={book? bookDetailsURL(id): "#"}>
+      <Link to={id? bookDetailsURL(id) : '#'}>
           <div className="book-capsule__thumbnail">
             <FaBook fontSize={90}/>
           </div>

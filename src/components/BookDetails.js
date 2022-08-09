@@ -128,7 +128,7 @@ const BookDetails = () => {
                         </Tabs>
                         <Routes>                            
                             {
-                                (book?.series) && <Route path="/series" element={<SeriesView book={book} series={series} />} />
+                                (book?.series) && <Route path="/series" element={<SeriesView book={book} series={series} setSeries={setSeries}/>} />
                             }
                             <Route path="/similar_books" element={<SimilarBooksView similarBooks={_similar_books}/>} />
                             <Route path="/review/:review_id/*" element={<BookReview bookID={id}/>}></Route>

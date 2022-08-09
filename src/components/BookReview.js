@@ -3,7 +3,8 @@ import { Container, Stack, Row, Col } from 'react-bootstrap'
 import { BookReviewPreview } from '../BookReviewPreview'
 import { useParams } from "react-router-dom";
 import { reviewFetchEndpoint } from '../endpoints';
-
+import { userDetailsURL } from '../urls';
+import { Link } from 'react-router-dom';
 export const BookReview = ({bookID}) => {
   let {review_id} = useParams();
   
@@ -20,28 +21,26 @@ export const BookReview = ({bookID}) => {
   }, [])
   
   return (
-    <Container id="review-header" className = "review-details">
-      <Row>
-        <BookReviewPreview bookID={bookID} review={review} shouldTruncate={false}/>
-      </Row>
-      <Row>
-        
-        <Col xs={{span:10, offset:2}}>
-          <Stack gap={2}>
-            {review?.comments.map((comment, index) =>{
-              return (
-              <Stack key={index}>
-                <Stack gap={1} direction="horizontal">
-                  <span className="high-text">{comment.Commenter}</span>
-                  <span className="light-text">{comment.TimeStamp}</span>
-                </Stack>
-                <p>{comment.Text}</p>
+    <Container id="review-header" className = "book-review-details">
+        <Stack gap={2}>
+          <BookReviewPreview bookID={bookID} review={review} shouldTruncate={false}/>
+          
+          <Col xs={{span:10, offset:2}} className="book-review-details__comment-container">
+              <Stack fluid gap={2}>
+                {review?.comments.map((comment, index) =>{
+                  return (
+                  <Stack key={index} className="book-review-details__comment">
+                    <Stack gap={1} direction="horizontal">
+                      <span as={Link} to={userDetailsURL(comment.Commenter)} className="primary-text">{comment.Commenter}</span>
+                      <span className="light-text">{comment.Timestamp}</span>
+                    </Stack>
+                    <p>{comment.Text}</p>
+                  </Stack>
+                  )
+                })}
               </Stack>
-              )
-            })}
-          </Stack>
-        </Col> 
-      </Row>
+          </Col>
+        </Stack>
     </Container>
   )
   

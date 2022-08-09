@@ -8,7 +8,7 @@ export const SimilarBooksView = ({similarBooks}) => {
         setIndex(selectedIndex);
     };
     const groupBooks = (series) => { 
-        console.log('series bview series', series)
+        console.log('series view series', series)
         let books_grouped = []
         let groupindex = 0;
         let group = []
@@ -29,8 +29,8 @@ export const SimilarBooksView = ({similarBooks}) => {
         </Row>
         <Row>
             <Carousel className='book-carousel'>
-                {similarBooks && (groupBooks(similarBooks).map((group) => { 
-                    return <Carousel.Item >
+                {similarBooks && (groupBooks(similarBooks).map((group, index) => { 
+                    return <Carousel.Item key={index} >
                                 <Container fluid>
                                     <Row>
                                         {group.map((book, index) => {

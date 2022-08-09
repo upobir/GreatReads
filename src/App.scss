@@ -182,8 +182,18 @@ $theme-colors: (
     background-color: $text-medium
   }
 }
+.book-review-details{
+  background-color: $dp-2;
+  .book-review-block{
+    background-color:  unset;
+  }
+  &__comment{
+    background-color: $dp-3;
+    padding: .5rem;
+  }
+}
 .book-review-block{
-  background-color:  $dp-3;
+  background-color:  $dp-2;
   padding-right: .75rem;
   padding-left: .75rem;
   &__reviewer_image{
@@ -260,13 +270,12 @@ $theme-colors: (
   height: $navbar-height;
 }
 .book-carousel{
-  width: 100%;
+  // width: 100%;
+  width:auto;
+
   padding: 0 3rem 3rem 3rem ;
 }
-.review-details{
-  min-height: 1000px;
-  // padding-bottom: 500px;
-}
+
 .book-search-preview{
   min-height: 150px;
   &__thumbnail{
@@ -400,6 +409,10 @@ div.dropdown-menu.show {
 }
 .primary-text{
   color:$primary;
+}
+
+.bg-text{
+  color:$body-bg;
 }
 .primary-bg{
   background-color:$primary;
