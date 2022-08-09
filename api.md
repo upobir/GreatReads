@@ -140,6 +140,28 @@ List of all kinds of jsons
     "userFollowsGenre": int,
 }
 ```
+13. user_detailed
+```
+{
+    "id": int,
+    "name": str,
+    "followerCount": int,
+    "followCount": int,
+    "followedByUser": int,
+}
+```
+13. user_stats
+```
+{
+    "numReading": int,
+    "numRead": int,
+    "numWantToRead": int,
+    "reading": int,
+    "numReviewd": int,
+    "numRated": int,
+    "avgRating": float,
+}
+```
 
 ## Routes
 1. GET `api/books` array of all `book_mini`
@@ -150,12 +172,12 @@ List of all kinds of jsons
 1. GET `api/publisher/<id>` one `publisher_detailed`
 1. GET `api/series/<id>` one `series_mini`
 1. GET `api/books/genre/<id>` array of `book_mini` of a genre (pagination needed)
-1. GET `api/genres` array of all `genre_mini`
-1. GET `api/genre/ID` one `genre_detailed`
+1. GET `api/genres` array of all `genre_mini` sorted by whether user follows genre
+1. GET `api/genre/<id>` one `genre_detailed`
 1. GET `api/books/new_rated` array of `book_mini` that are newly genre (pagination needed)
 1. GET `api/books/followed_author` array of `book_mini` that are from followed author (pagination needed)
 1. GET `api/book/<id>/similar` array of `book_mini` that are similar (pagination needed)
-1. GET `api/user/<id>` ????
+1. GET `api/user/<id>` user_detailed
 1. GET `api/user/<id>/reading` array of `book_mini` that user is reading (pagination needed)
 1. GET `api/user/<id>/read` array of `book_mini` that user has read (pagination needed)
 1. GET `api/user/<id>/want_to_read` array of `book_mini` that user wants to read (pagination needed)
@@ -170,7 +192,12 @@ List of all kinds of jsons
         "pagesRead": int,
     }
 1. POST `/api/book/<id>/review/post/` {
-        reviewRating: reviewRating,
-        reviewText: reviewText,
+        reviewRating: int(0-5),
+        reviewText: string,
     }
-
+1. POST `/api/genre/<id>/follow/post/` {//no details just toggle for cur user
+        
+    }
+1.  POST `/api/author/<id>/follow/post/` {//pranta should've done this already, please merge and update this
+        
+    }
