@@ -270,11 +270,15 @@ $theme-colors: (
   height: $navbar-height;
 }
 .book-carousel{
-  // width: 100%;
-  width:auto;
-
+  width: 100%;
+  height: auto;
+  // width:auto;
+  .carousel-control-next, .carousel-control-prev{
+    display: none;
+  }
   padding: 0 3rem 3rem 3rem ;
 }
+
 
 .book-search-preview{
   min-height: 150px;
