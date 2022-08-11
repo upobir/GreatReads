@@ -19,7 +19,7 @@ export const BookCarousel = ({ series, setSeries }) => {
 
     const decrementIndex = () => {
         if (series && groupedBooks.length > 0)
-            setIndex((carouselIndex - 1 + groupedBooks.length) % getGroupCount(groupedBooks.length));
+            setIndex((carouselIndex - 1 + groupedBooks.length) % groupedBooks.length);
     };
     // console.log('seriesView ', series )
     // console.log('seriesView book', book )

@@ -71,3 +71,6 @@ export function loginEndpoint(){
     return  `/api/books/`
 }
 
+export function genreFollowToggleEndpoint(genreID){
+    return `/api/genre/${genreID}/follow`
+}

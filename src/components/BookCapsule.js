@@ -1,4 +1,4 @@
-import {React, useState, useRef} from 'react'
+import {React, useState, useRef, useContext} from 'react'
 import { Stack,Button,ButtonGroup,Overlay, Tooltip,FormGroup,FormControl, Row, Col, Image, Container} from 'react-bootstrap'
 import 'holderjs'
 import { FaBookOpen,FaBook, FaBookmark, FaCheck, FaStar } from 'react-icons/fa'
@@ -9,9 +9,11 @@ import useAxios from '../utils/useAxios'
 import Form from 'react-bootstrap/Form';
 import { bookReadStatusPostEndpoint } from '../endpoints'
 import { useEffect } from 'react'
+import AuthContext from '../context/AuthContext'
 
 export default function BookCapsule({book,setBook, id}) {
   const api = useAxios();
+  const {user} = useContext(AuthContext)
   const [showReviewPopup, setShowReviewPopup] = useState(false);
   const handleReviewPopupShow = () => setShowReviewPopup(true);
   const handleReviewPopupClose = () => setShowReviewPopup(false);
@@ -26,7 +28,7 @@ export default function BookCapsule({book,setBook, id}) {
   }, [book])
 
   const postBookStatus =  (_readStatus, _pagesRead) => {
-    if (book) {
+    if (book && user != null) {
       api()
       .post(bookReadStatusPostEndpoint(id), {
         readStatus: _readStatus,
@@ -41,7 +43,7 @@ export default function BookCapsule({book,setBook, id}) {
     } 
   }
   const setReadStatusAndPost = (status) => {
-    if(book.readStatus !== status){
+    if(book.readStatus !== status && user != null){
       // setReadStatus(status)
       postBookStatus(status, pagesRead)
       
@@ -52,13 +54,13 @@ export default function BookCapsule({book,setBook, id}) {
   }
   
   const handleBookSetToWishlist = () => {
-    if (book && book.readStatus !== "wishlisted"){
+    if (book && book.readStatus !== "wishlisted" && user != null){
       setShowReadPageUpdateOverlay(false);
       setReadStatusAndPost("wishlisted")
     }
   };
   const handleBookSetToReading = () => {
-    if(book){
+    if(book && user != null){
 
       if (book.readStatus === "reading"){
         setShowReadPageUpdateOverlay(!showReadPageUpdateOverlay);
@@ -69,7 +71,7 @@ export default function BookCapsule({book,setBook, id}) {
   };
   
   const handleBookSetToRead = () => {
-    if (book && book.readStatus !== "read"){
+    if (book && book.readStatus !== "read" && user != null){
       setShowReadPageUpdateOverlay(false);
       setReadStatusAndPost("read")
     }
@@ -78,7 +80,7 @@ export default function BookCapsule({book,setBook, id}) {
     e.preventDefault()
     console.log('book', book)
     console.log('bookReadStatusPostEndpoint(id)', bookReadStatusPostEndpoint(id))
-    if(book && pagesRead){
+    if(book && pagesRead && user != null){
       api()
       .post(bookReadStatusPostEndpoint(id), {
         readStatus: book.readStatus,
@@ -119,19 +121,22 @@ export default function BookCapsule({book,setBook, id}) {
           }            
         </div> */}
       </Stack>
-          <ButtonGroup className='book-capsule__btn-group'>
-            <Button variant="outline-primary" 
+          <ButtonGroup className='book-capsule__btn-group' >
+            <Button variant="outline-primary"
+              disabled={book == null || user == null} 
               onClick={handleBookSetToWishlist} 
               active={book && book.readStatus === "wishlisted"}>
               <FaBookmark fontSize={20}/>
             </Button>
-            <Button ref={ReadPageUpdateOverlayTarget} 
+            <Button ref={ReadPageUpdateOverlayTarget}
+                    disabled={book == null || user == null} 
                     variant="outline-primary" 
                     onClick={handleBookSetToReading} 
                     active={book && book.readStatus === "reading"}>
               <FaBookOpen  fontSize={20}/>
             </Button>
-            <Button variant="outline-primary" 
+            <Button variant="outline-primary"
+                    disabled={book == null || user == null} 
                     onClick={handleBookSetToRead} 
                     active={book && book.readStatus === "read"}>
               <FaCheck  fontSize={20}/>

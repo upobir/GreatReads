@@ -11,7 +11,7 @@ export const BookBlurb = ({ book, setBook }) => {
       <BookCapsule book={book} setBook={setBook} id={book.id} />
     </Col>
     <Col xs={9} className='book-blurb__details'>
-      <Stack gap={1} fluid >
+      <Stack gap={1}  >
         <h1 className='primary-text'>{book?.title}</h1>
         <BookAuthorsBlock book={book} />
         <p className='medium-text'>{book?.description}</p>

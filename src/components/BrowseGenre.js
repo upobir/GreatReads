@@ -4,7 +4,7 @@ import { Container, Row,Stack, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 import { BookGallery } from './BookGallery';
 import {GenreDropDown} from './GenreDropDown'; 
-import { browseGenreEndpoint } from '../endpoints';
+import { browseGenreEndpoint, genreFollowToggleEndpoint } from '../endpoints';
 import { _genres } from '../PlaceHolder';
 import { FollowBlock } from './FollowBlock';
 
@@ -39,8 +39,10 @@ export const BrowseGenre = () => {
                                     <Stack direction="horizontal" gap={1} >
                                         <GenreDropDown selectedID={genreID} />
                                         {genreID && genre && <>
-                                            <FollowBlock followContext={genre} />
-                                            {/* <Button variant="primary"> Follow </Button> */}
+                                            <FollowBlock 
+                                                followContext={genre}
+                                                followToggleUrl={genreFollowToggleEndpoint(genreID)} 
+                                                />
                                             </>
                                         }
                                     </Stack>

@@ -78,7 +78,6 @@ export const _genres = [
         userFollowsGenre: false,
     } 
 ]
-
 export const _feed = [
     {
         "updateType": "readingUpdate",
@@ -157,4 +156,87 @@ export const _feed = [
             "description": "Roshar is a world of stone and storms. Uncanny tempests of incredible power sweep across the rocky terrain so frequently that they have shaped ecology and civilization alike. Animals hide in shells, trees pull in branches, and grass retracts into the soilless ground. Cities are built only where the topography offers shelter."   
         }  
     }
+]
+export const _feed1 = [
+
+    {
+        "updateType": "review",
+        "review": {
+            "id": 1,
+            "rating": 5,
+            "blurb":"The very concept of reading this book terrifies me.",
+        },
+        "user": {
+            "id": 0,
+            "name": "Truly Fubar",
+        },
+        "timeStamp": "10 mins ago",
+        "book": {
+            "id": 34,
+            "title":"The way of Kings",
+            "authors": [
+                {
+                    "id": 1,
+                    "name": "Brandon Sanderson",
+                }
+            ],
+            "thumbnail":"",
+            "readStatus":"read",
+            "avgRating": 4.5 ,
+            "description": "Roshar is a world of stone and storms. Uncanny tempests of incredible power sweep across the rocky terrain so frequently that they have shaped ecology and civilization alike. Animals hide in shells, trees pull in branches, and grass retracts into the soilless ground. Cities are built only where the topography offers shelter."   
+        }  
+    },
+    {
+        "updateType": "review",
+        "review": {
+            "id": 1,
+            "rating": 5,
+            "blurb":"The very concept of reading this book terrifies me.",
+        },
+        "user": {
+            "id": 1,
+            "name": "Snafubar",
+        },
+        "timeStamp": "10 mins ago",
+        "book": {
+            "id": 34,
+            "title":"The way of Kings",
+            "authors": [
+                {
+                    "id": 1,
+                    "name": "Brandon Sanderson",
+                }
+            ],
+            "thumbnail":"",
+            "readStatus":"read",
+            "avgRating": 4.5,
+            "description": "Roshar is a world of stone and storms. Uncanny tempests of incredible power sweep across the rocky terrain so frequently that they have shaped ecology and civilization alike. Animals hide in shells, trees pull in branches, and grass retracts into the soilless ground. Cities are built only where the topography offers shelter."   
+        }  
+    }
+]
+export const _feed2 = [
+    {
+        "updateType": "readingUpdate",
+        "readStatus": "read",
+        "user": {
+            "id": 0,
+            "name": "Caillin",
+        },
+        "timeStamp": "0 mins ago",
+        "book": {
+            "id": 34,
+            "title":"The way of Kings",
+            "authors": [
+                {
+                    "id": 1,
+                    "name": "Brandon Sanderson",
+                }
+            ],
+            "thumbnail":"",
+            "readStatus":"read",
+            "avgRating": 4.5,
+            "description": "Roshar is a world of stone and storms. Uncanny tempests of incredible power sweep across the rocky terrain so frequently that they have shaped ecology and civilization alike. Animals hide in shells, trees pull in branches, and grass retracts into the soilless ground. Cities are built only where the topography offers shelter."   
+        }  
+    },
+    
 ]
