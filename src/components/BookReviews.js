@@ -4,15 +4,26 @@ import { BookReviewPreview } from '../BookReviewPreview'
 import {bookReviewsFetchEndpoint} from '../endpoints'
 import { useParams } from 'react-router-dom'
 import {Spinner} from 'react-bootstrap'
-export const BookReviews = () => {
+import useAxios from '../utils/useAxios';
+/**
+ * List of all reviews a book has
+ * @returns 
+ */
+export function BookReviews ()  {
   const {id} = useParams();
-
   const [reviews, setReviews] = useState(null)
+  const api =  useAxios()
+  
   const getReviews= async () => { 
-    let response = await fetch(bookReviewsFetchEndpoint(id))
-    let jreviews = await response.json()
-    console.log('jreviews', jreviews)
-    setReviews(jreviews)
+    api()
+    .get(bookReviewsFetchEndpoint(id))
+    .then((response) => {
+      let _reviews  = response.data
+      setReviews(_reviews)  
+    })
+    .catch((error)=>{
+      console.log('reviews fetch error', error)
+    })
   }
 
   useEffect(() => {
@@ -30,7 +41,11 @@ export const BookReviews = () => {
       <Stack gap={2}>
         {
           reviews?.map( (review, index) => {
-              return<BookReviewPreview key={index} bookID={id} review={review} shouldTruncate={true}/>
+              return<BookReviewPreview key={index} 
+                bookID={id}
+                review={review}
+                shouldTruncate={true}
+                />
           })
         }
       </Stack>

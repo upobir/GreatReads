@@ -108,7 +108,11 @@ export default function BookCapsule({book,setBook, id}) {
         <div className='book-capsule__rating-bar__avg-rating'>
           <FaStar fontSize={20}/><span>{book?.avgRating.toFixed(2)}</span>
         </div>
-        <Button variant='outline-primary' className='book-capsule__rating-bar__user-rating' onClick={handleReviewPopupShow}>
+        <Button 
+          variant='outline-primary' 
+          className='book-capsule__rating-bar__user-rating' 
+          disabled={book == null || user==null  }
+          onClick={handleReviewPopupShow}>
         {book?.userRating
             ? (<><FaStar fontSize={20} /><span>{book?.userRating}</span></>)
             : (<>+ Rate</> ) 

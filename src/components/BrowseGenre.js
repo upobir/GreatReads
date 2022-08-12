@@ -7,23 +7,30 @@ import {GenreDropDown} from './GenreDropDown';
 import { browseGenreEndpoint, genreFollowToggleEndpoint } from '../endpoints';
 import { _genres } from '../PlaceHolder';
 import { FollowBlock } from './FollowBlock';
+import useAxios from '../utils/useAxios';
 
 export const BrowseGenre = () => {
     const {genreID, category} = useParams();//undefined when no genreID is in URL
     const [books, setBooks] = useState([])  
     const [genre, setGenre]  = useState(null)
-
+    const api =  useAxios()
+    
     useEffect(()=>{
         if(genreID >= 0 && genreID < _genres.length){
             setGenre(_genres[genreID])
         }
     }, [genreID])
     const getNewBooksInGenre = async () => {
-        //#TODO PROPER FETCH ONCE API DONE
-        let response = await fetch(browseGenreEndpoint(genreID))
-        let jBooks = await response.json()
-        console.log('jBooks', jBooks)
-        setBooks(jBooks)
+        api()
+        .get(browseGenreEndpoint(genreID))
+        .then((response) => {
+          let _books  = response.data
+          console.log('_books', _books)
+          setBooks(_books) 
+        })
+        .catch((error)=>{
+          console.log('books fetch error', error)
+        })
     }
     useEffect(()=> {
         getNewBooksInGenre()
