@@ -71,9 +71,7 @@ export const ReviewPopup = ({bookID, showState, handleClose}) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
+          
           <Button variant="primary" onClick={handleSubmit}>
             Submit
           </Button>

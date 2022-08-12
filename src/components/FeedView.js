@@ -16,25 +16,28 @@ export const FeedItemToComponent= ({feedItem,setFeedItem}) => {
   }
   return null;
 }
+function filter(feed, fetchURL){
+  let newFeed = []
+  feed.forEach(d => {
+    if(d.updateType === fetchURL || fetchURL == null)
+      newFeed.push(d)
+  }); 
+  return newFeed;
+}
 export const FeedView = ({fetchURL}) => {
     const [feed, setFeed] = useState(_feed)
+
     useEffect(()=> {
       
     }, [])
     const setFeedItem = (feedItem, index) => {
       let mutatedFeed = [...feed];
       mutatedFeed[index] = feedItem;
-      console.log('feedItem', feed[index])
-      console.log('mutated feedItem', feedItem)
-      console.log('index', index)
-      console.log('pre feed', feed)
       setFeed(mutatedFeed);
-      console.log('feed was gonna be mutated into', mutatedFeed)
-
     }
     return (
         <Stack  gap={2}>
-          {feed.map((feedItem, index) => {
+          {filter(feed,fetchURL).map((feedItem, index) => {
             return <FeedItemToComponent key={index} feedItem={feedItem} setFeedItem={(item) => setFeedItem(item, index)} />
           })}
       </Stack>

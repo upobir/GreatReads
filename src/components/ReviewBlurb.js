@@ -28,7 +28,7 @@ export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
       </Stack>
       {/* <Container fluid > */}
       {reviewBlurbData.review.blurb &&
-        <Stack fluid direction='horizontal' className='review-blurb__quote-block'>
+        <Stack  direction='horizontal' className='review-blurb__quote-block'>
           <FaQuoteLeft fontSize={30} />
            <div>{reviewBlurbData.review.blurb}</div>
           <FaQuoteRight fontSize={30} />

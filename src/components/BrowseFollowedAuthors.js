@@ -2,14 +2,22 @@ import React, {useState, useEffect} from 'react'
 import { Container,Row,Col,Stack } from 'react-bootstrap'
 import { browseFollowedAuthorEndpoint } from '../endpoints'
 import { BookGallery } from './BookGallery'
+import useAxios from '../utils/useAxios';
 export const BrowseFollowedAuthors = () => {
     const [books, setBooks] = useState([])
+    const api =  useAxios()
     
     const getBooks= async () => { 
-      let response = await fetch(browseFollowedAuthorEndpoint())
-      let jBooks = await response.json()
-      console.log('jBooks', jBooks)
-      setBooks(jBooks)
+      api()
+      .get(browseFollowedAuthorEndpoint())
+      .then((response) => {
+        let _books  = response.data
+        console.log('_books', _books)
+        setBooks(_books) 
+      })
+      .catch((error)=>{
+        console.log('books fetch error', error)
+      })
     }
   
     useEffect(() => {

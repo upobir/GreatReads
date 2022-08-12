@@ -4,6 +4,7 @@ import { useNavigate, Routes, Route, useParams, Link, useLocation } from 'react-
 import { MakeVerticalTabBar } from './CustomTabs';
 import { FeedView } from './FeedView';
 import { Row,Col,Container, Stack } from 'react-bootstrap';
+
 const tabs = [
     {
       tabTitle:"All",
@@ -35,10 +36,10 @@ export const FeedPage = () => {
           </Col>
           <Col xs={{span:8}}>
             <Routes>
-              <Route path='' element={<FeedView />} />
+              <Route path='' element={<FeedView  />} />
               <Route path='/all' element={<FeedView />} />
-              <Route path='/reviews/' element={<FeedView />} />
-              <Route path='/readingUpdates/' element={<FeedView />} />
+              <Route path='/reviews/' element={<FeedView fetchURL="review" />} />
+              <Route path='/readingUpdates/' element={<FeedView fetchURL="readingUpdate" />} />
             </Routes>
           </Col>
         </Row>

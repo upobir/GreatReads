@@ -99,8 +99,6 @@ const BookDetails = () => {
                 <Container fluid  className='book-details__mid-col-top'>
                     <Col xs={{span:7,offset:2 }} className='book-details__mid-col-top-header' id='book-details-mid-header'>
                         <SpinnerWrapper Component={<h1 className='primary-text'>{book?.title}</h1>} isLoading={book==null}/>
-                        
-                        
                         <Stack direction="horizontal" gap = {1}>
                             <span className='inline-block light-text'>by</span>
                             <BookAuthorsBlock book={book}/>

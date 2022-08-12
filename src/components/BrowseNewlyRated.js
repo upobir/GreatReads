@@ -3,14 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import { Row, Col,Container, Stack } from 'react-bootstrap';
 import { browseNewlyRatedEndpoint } from '../endpoints';
 import { BookGallery } from './BookGallery';
+import useAxios from '../utils/useAxios';
 export const BrowseNewlyRated = () => {
     const [books, setBooks] = useState([])
+    const api =  useAxios() 
     
     const getBooks= async () => { 
-      let response = await fetch(browseNewlyRatedEndpoint())
-      let jBooks = await response.json()
-      console.log('jBooks', jBooks)
-      setBooks(jBooks)
+   
+      api()
+      .get(browseNewlyRatedEndpoint())
+      .then((response) => {
+        let _books  = response.data
+        console.log('_books', _books)
+        setBooks(_books) 
+      })
+      .catch((error)=>{
+        console.log('books fetch error', error)
+      })
     }
   
     useEffect(() => {

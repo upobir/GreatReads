@@ -19,7 +19,7 @@ export default function GreatReadsNavbar() {
   const GenreSubmenu = () => { 
     console.log('_genres', _genres)
     return (
-      <Stack vertical className='genre-submenu'
+      <Stack  className='genre-submenu'
       onMouseEnter={()=>setShow(true)}
       onMouseLeave={()=>setShow(false)}>
         {_genres.map((genre, index)=> {
