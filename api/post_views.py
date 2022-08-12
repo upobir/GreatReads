@@ -1,6 +1,5 @@
-from urllib import request
 from rest_framework.response import Response
-from rest_framework.decorators import APIView,api_view
+from rest_framework.decorators import APIView
 
 from GreatReads.settings import SECRET_KEY
 from decouple import config
