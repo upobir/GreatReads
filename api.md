@@ -107,6 +107,7 @@ List of all kinds of jsons
     "body": str,
     "rating": int,
     "likes": int,
+    "liked": bool,
     "Timestamp": datetime,
     "commentCount": int,
     "comments": [comment_mini],
@@ -234,9 +235,15 @@ List of all kinds of jsons
 1. POST `/api/genre/<id>/follow/post/` {//no details just toggle for cur user
         
     } [DONE]
-1.  POST `/api/author/<id>/follow/post/` {//no details just toggle for cur user
+1. POST `/api/author/<id>/follow/post/` {//no details just toggle for cur user
         
     } [DONE]
 1. POST `/api/review/<id>/comment/post/` {
         commentText: string,
+    }
+1. POST `/api/comment/<id>/delete/post/` {// just delete particular comment
+
+    }
+1. POST `/api/review/<id>/like/post/` {//no details just toggle for cur user
+
     }
