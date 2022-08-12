@@ -243,7 +243,7 @@ List of all kinds of jsons
     }
 1. POST `/api/comment/<id>/delete/post/` {// just delete particular comment
 
-    }
+    } [DONE]
 1. POST `/api/review/<id>/like/post/` {//no details just toggle for cur user
 
-    }
+    } [DONE]
