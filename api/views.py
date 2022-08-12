@@ -110,8 +110,6 @@ class BookUserStatusView(APIView):
             data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages > 0]
         elif bookshelfCategory == 3:    # reviewed
             data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages > 0]
-        elif bookshelfCategory == 4:    # stats
-            data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages > 0]
 
         return Response(data)
 

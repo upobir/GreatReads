@@ -130,8 +130,8 @@ export const Bookshelf = () => {
           <Col xs={{span:10}}>
             <Routes>
               <Route path="/WantToRead" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={0} />} />
-              <Route path="/Reading" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={1} />} />
-              <Route path="/Read" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={2} />} />
+              <Route path="/Read" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={1} />} />
+              <Route path="/Reading" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={2} />} />
               <Route path="/Reviewed" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={3} />} />
             </Routes>
           </Col>
