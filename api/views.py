@@ -63,7 +63,7 @@ class BookReviewsView(APIView):
 class ReviewView(APIView):
     def get(self, request, pk):
         review = Review.objects.get(id=pk)
-        data = review_detailed(review)
+        data = review_detailed(review, request.user.id)
         return Response(data)
 
 class  GenreBookView(APIView):
@@ -89,55 +89,6 @@ class GenreView(APIView):
 
         return Response(data)
 
-class BookStatusView(APIView):
-    def post(self, request, pk):
-        if not request.user.id:
-            return Response("fail")
-        
-        book = Book.objects.get(id=pk)
-        user = User.objects.get(id=request.user.id)
-        status = BookUserStatus.objects.filter(book=book,user=user)
-        if not status:
-            status = BookUserStatus.objects.create(book=book, user=user, is_read=False, is_wishlisted=False, read_pages = -1)
-        else:
-            status = status[0]
-            status.is_read = False
-            status.is_wishlisted = False
-            status.read_pages = -1
-
-        if request.data['readStatus'] == 'read':
-            status.is_read = True
-            status.save()
-        elif request.data['readStatus'] == 'wishlisted':
-            status.is_wishlisted = True
-            status.save()
-        elif request.data['readStatus'] == 'reading':
-            status.read_pages = request.data['pagesRead']   # Sanitization?
-            status.save()
-
-        return Response("ok")
-
-class BookReviewPostView(APIView):
-    def post(self, request, pk):
-        if not request.user.id:
-            return Response("fail")
-
-        user = User.objects.get(id=request.user.id)
-        book = Book.objects.get(id=pk)
-
-        reviews = Review.objects.filter(creator=user, book=book)
-
-        rating = request.data["reviewRating"]
-        description = request.data["reviewText"]
-
-        if reviews:
-            reviews[0].rating = rating
-            reviews[0].description = description
-            reviews[0].save()
-        else:
-            Review.objects.create(rating = rating, description = description, creator = user, book = book)
-
-        return Response("ok")
 
 # virtual bookself
 class BookUserStatusView(APIView):
@@ -184,32 +135,12 @@ class BookUserStatusStats(APIView):
 
         return Response(data)
 
+
+
 @api_view(['POST'])
 def echoPostView(request,  **kwargs):
     print(request, request.data, kwargs)
     return Response("ok")
-
-# @api_view(['POST'])
-# def bookReviewPostView(request,book_pk):
-#     print("aaa", book_pk)
-#     print(request, request.data)
-#     # Review.objects.create(request.data)
-#     return Response("ok")
-
-# @api_view(['POST'])
-# def bookReviewPostView(request, book_pk):
-#     print("aaaaaaaa--------------------------------------------------")
-#     print("request", request.data)
-#     print('user:', request.user.id)
-#     user = User.objects.get(id=request.user.id)
-#     book = Book.objects.get(id=book_pk)
-#     # print("aaa", book_pk)
-#     rating = int(request.data["reviewRating"])
-#     text = str(request.data["reviewText"])
-
-#     Review.objects.create(rating=rating, creator=user,description=text, book=book)
-
-#     return Response("ok")
 
 
 @api_view(['GET'])

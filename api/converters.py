@@ -163,7 +163,7 @@ def review_mini(review):
         "Timestamp": review.timestamp,
     }
 
-def review_detailed(review):
+def review_detailed(review, userId):
     return {
         "id": review.id,
         "reviewer" : review.creator.username,
@@ -171,6 +171,7 @@ def review_detailed(review):
         "body" : review.description,
         "rating": review.rating,
         "likes": review.like_count,
+        "liked": review.likers.filter(id=userId).exists() if userId else False,
         "Timestamp": review.timestamp,
         "commentCount": review.comment_count,
         "comments": [ comment_mini(comment) for comment in ReviewComment.objects.filter(review = review)]
