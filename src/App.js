@@ -26,6 +26,9 @@ function App() {
               <Route exact path='/home' element={<PrivateRoute/>}>
                 <Route exact path='/home' element={<LandingPage/>}/>
               </Route>
+              <Route exact path='/bookshelf/*' element={<PrivateRoute/>}>
+                <Route exact path='/bookshelf/*' element={<Bookshelf/>}/>
+              </Route>
               <Route exact path='/' element={<PrivateRoute/>}>
                 <Route exact path='/' element={<LandingPage/>}/>
               </Route>
@@ -33,7 +36,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/book/:id/*" element={<BookDetails />} />
               <Route path="/browse/*" element={<BrowseBooks />} />
-              <Route path="/user/:userID/*" element={<Bookshelf />} />
+              <Route path="/user/:user_id/*" element={<Bookshelf />} />
               <Route path="/feed/*" element={<FeedPage />} />
               <Route path="/" element={<FeedPage />} />
             </Routes>

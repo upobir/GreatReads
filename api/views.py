@@ -139,6 +139,29 @@ class BookReviewPostView(APIView):
 
         return Response("ok")
 
+# virtual bookself
+class BookUserStatusView(APIView):
+    def get(self, request, userID, bookshelfCategory):
+        if not request.user.id:
+            return Response("fail")
+
+        print("User ID: ", userID, "\tCategory: ", bookshelfCategory)
+        
+        bookList = BookUserStatus.objects.filter(user=userID)
+        
+        data = []
+
+        if bookshelfCategory == 0:      # want to read
+            data = [ book_mini(iter.book, userID) for iter in bookList if iter.is_wishlisted]
+        elif bookshelfCategory == 1:    # read
+            data = [ book_mini(iter.book, userID) for iter in bookList if iter.is_read]
+        elif bookshelfCategory == 2:    # reading
+            data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages != -1]
+        elif bookshelfCategory == 3:    # reviewed
+            data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages != -1]
+
+        return Response(data)
+
 @api_view(['POST'])
 def echoPostView(request,  **kwargs):
     print(request, request.data, kwargs)

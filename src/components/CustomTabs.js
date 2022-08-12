@@ -44,6 +44,20 @@ export const MakeVerticalTabBar = ({tabs, loc, rootURL,className}) => {
 }
 
 
+export const MakeVerticalTabBarBookshelf = ({tabs, loc, rootURL,className, userID}) => {
+    // console.log(' MakeVerticalTabBar getCategoPry(tabs, loc, rootURL)', getCategory(tabs, loc, rootURL))     
+    return <Tab.Container fluid  activeKey={getCategory(tabs, loc, rootURL)} >
+        <Nav variant="pills" className={"flex-column" + (className?(" " + className):"")} >
+            {tabs.map((tab, index)=> {
+                return (<Nav.Item key ={index}>
+                    <Nav.Link eventKey={tab.tabKey} as={Link} to={"/user/"+userID+tab.tabLink}>{tab.tabTitle}  </Nav.Link>
+                </Nav.Item>)
+            })}
+        </Nav>
+    </Tab.Container>
+}
+
+
 export const MakeHorizontalTabBar = ({tabs, loc, rootURL,className}) => {
     return <Tabs activeKey={getCategory(tabs, loc, rootURL)} className={className}>
             {tabs.map((tab, index)=> {

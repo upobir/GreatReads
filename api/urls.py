@@ -37,6 +37,9 @@ urlpatterns = [
     path('book/<int:pk>/review/post/', BookReviewPostView.as_view(), name="review_post"),
     path('book/<int:pk>/status/post/', BookStatusView.as_view(), name="status_post"),
 
+    # virtual bookshelf
+    path('user/<int:userID>/<int:bookshelfCategory>/', BookUserStatusView.as_view(), name="bookuserstatus_view"),
+
     # auth
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
