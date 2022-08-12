@@ -39,6 +39,8 @@ urlpatterns = [
 
     # virtual bookshelf
     path('user/<int:userID>/<int:bookshelfCategory>/', BookUserStatusView.as_view(), name="bookuserstatus_view"),
+    path('user/<int:userID>/stats/', BookUserStatusStats.as_view(), name="bookuserstatus_stats"),
+    path('user/<int:userID>/info/', BookShelfUserInfo.as_view(), name="bookuserstatus_stats"),
 
     # auth
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),

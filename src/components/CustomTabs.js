@@ -58,18 +58,16 @@ export const MakeVerticalTabBarBookshelf = ({tabs, loc, rootURL,className, userI
 }
 
 
-export const MakeHorizontalTabBar = ({tabs, loc, rootURL,className}) => {
-    return <Tabs activeKey={getCategory(tabs, loc, rootURL)} className={className}>
-            {tabs.map((tab, index)=> {
-                return (
-                    <Tab key={index}
-                        eventKey={tab.tabKey} 
-                        as={Link} 
-                        to={tab.tabLink} 
-                        title={tab.tabTitle}>
-                    </Tab>
-                )})}
-        </Tabs>
+export const MakeHorizontalTabBar = ({tabs, loc, rootURL,className, userID}) => {
+    return <Tab.Container fluid  activeKey={getCategory(tabs, loc, rootURL)} >
+    <Nav fill variant="tabs" className={"justify-content-center" + (className?(" " + className):"")} >
+        {tabs.map((tab, index)=> {
+            return (<Nav.Item key ={index}>
+                <Nav.Link eventKey={tab.tabKey} as={Link} to={"/user/"+userID+tab.tabLink}>{tab.tabTitle}  </Nav.Link>
+            </Nav.Item>)
+        })}
+    </Nav>
+    </Tab.Container>
 }
 
 export const MakeTabContent  = ({tabs, additional_class}) =>{

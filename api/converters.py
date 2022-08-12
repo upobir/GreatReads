@@ -62,6 +62,38 @@ def book_mini(book, userid):
         "readStatus": get_book_status(book, userid)[0],
     }
 
+def bookshelf_stats(userid):
+    bookList = BookUserStatus.objects.filter(user=userid)
+    reading_count = len([iter for iter in bookList if iter.read_pages > 0])
+    read_count = len([iter for iter in bookList if iter.is_read])
+    wantToRead_count = len([iter for iter in bookList if iter.is_wishlisted])
+
+    reviewList = Review.objects.filter(creator=userid)
+
+    reviews_count = len([iter for iter in reviewList if iter.description is not None or iter.description != ""])
+    ratings_count = len([iter for iter in reviewList if iter.rating is not None or iter.rating != ""])
+
+    username = User.objects.get(id=userid).username
+
+    return {
+        "reading_count" : reading_count,
+        "read_count" : read_count,
+        "wantToRead_count" : wantToRead_count,
+        "reviews_count" : reviews_count,
+        "ratings_count" : ratings_count,
+    }
+
+def bookshelf_info(userid):
+    user_name = User.objects.get(id=userid).username
+    following_count = len(User.objects.get(id=userid).following.all())
+    follower_count = len(User.objects.get(id=userid).followers.all())
+
+    return {
+        "user_name" : user_name,
+        "follower_count" : follower_count,
+        "following_count" : following_count,
+    }
+
 def book_detailed(book, userid, review):
     readstatus, readpages = get_book_status(book, userid)
     # readpages = -1

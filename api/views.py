@@ -156,9 +156,31 @@ class BookUserStatusView(APIView):
         elif bookshelfCategory == 1:    # read
             data = [ book_mini(iter.book, userID) for iter in bookList if iter.is_read]
         elif bookshelfCategory == 2:    # reading
-            data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages != -1]
+            data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages > 0]
         elif bookshelfCategory == 3:    # reviewed
-            data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages != -1]
+            data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages > 0]
+        elif bookshelfCategory == 4:    # stats
+            data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages > 0]
+
+        return Response(data)
+
+class BookShelfUserInfo(APIView):
+    def get(self, request, userID):
+        if not request.user.id:
+            return Response("fail")
+
+        print("User ID: ", userID)        
+        data = bookshelf_info(userID)
+
+        return Response(data)
+
+class BookUserStatusStats(APIView):
+    def get(self, request, userID):
+        if not request.user.id:
+            return Response("fail")
+
+        print("User ID: ", userID)        
+        data = bookshelf_stats(userID)
 
         return Response(data)
 

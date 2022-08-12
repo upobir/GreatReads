@@ -21,6 +21,12 @@ export function reviewPostEndpoint(bookID){
 export function bookshelfViewEndpoint(userID, bookshelfCategory){
     return  `/api/user/${userID}/${bookshelfCategory}/`
 }
+export function bookshelfStatsEndpoint(userID){
+    return  `/api/user/${userID}/stats/`
+}
+export function bookshelfUserInfoEndpoint(userID){
+    return  `/api/user/${userID}/info/`
+}
 export function seriesFetchEndpoint(seriesID){
     return  `/api/series/${seriesID}/`
 }
