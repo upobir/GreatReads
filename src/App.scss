@@ -2,7 +2,7 @@
 // define colors varables
 // If something isn't colored right, it's better to use chrom dev tools inspect to see the css affecting it
 $primary: #FFAB00;
-$secondary: #FFD740;
+$secondary: rgba(255,255,255,.68);
 $success: #3e8d63;
 $info: #7854e4;
 $warning: #b8c924;
@@ -22,9 +22,10 @@ $dp-4: rgba(255, 255, 255, 0.12);
 $text-light: rgba(255,255,255,.38);
 $text-medium: rgba(255,255,255,.60);
 $text-high: rgba(255,255,255,.87);
-
-$navbar-height: 56px;
-$book-details-top-height: 80px;
+$logo-font-size: 1.25rem;
+$navbar-height: $logo-font-size + 2rem;
+$book-details-top-height: calc(.67em + .67em + 1rem + 1.375rem + 1.5vw);
+$browse-header-height:1.6rem + .75rem + .75rem +.75rem;
 
 // this is used to map colors. change accordingly.
 $theme-colors: (
@@ -76,20 +77,30 @@ $theme-colors: (
       color: $body-bg;
     }
   }
-  .book-capsule-buttons{
-    display: flex;
-    padding: .5rem .5rem .5rem .5rem;
-    * {
-      flex: 1 auto;
-      color: $text-medium;
-      :hover {
-        color: $text-high;
-      }
-      :active {
-        color: $primary;
+  &__btn-group{
+    :not(:first-child):not(:last-child){
+      border-radius: 0;
+    }
+    :first-child{
+      // border-bottom-left-radius: 0.25rem;
+      border-top-left-radius: 0;
+    }
+    :last-child{
+      // border-bottom-right-radius: 0.25rem;
+      border-top-right-radius: 0;
+    }  
+
+    button{
+      :active{
+        background-color: $primary;
+        color: $body-bg;
       }
     }
-
+  }
+  &__read-page-update-overlay{
+    background-color: $dp-4;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
   &__rating-container{
     display: flex;
@@ -171,10 +182,21 @@ $theme-colors: (
     background-color: $text-medium
   }
 }
+.book-review-details{
+  background-color: $dp-2;
+  .book-review-block{
+    background-color:  unset;
+  }
+  &__comment{
+    background-color: $dp-3;
+    padding: .5rem;
+  }
+}
 .book-review-block{
-  background-color:  $dp-3;
+  background-color:  $dp-2;
   padding-right: .75rem;
   padding-left: .75rem;
+  z-index: 0;
   &__reviewer_image{
     width: 100%;  
     height: 100px;
@@ -199,19 +221,34 @@ $theme-colors: (
 .allow-click-self{
   pointer-events: auto; 
 }
+.author-block-text{
+  font-size:1rem;
+}
 .book-details{
   &__left-col,&__mid-col-top,&__right-col{
     position: fixed;
     pointer-events: none; 
   }
+  &__mid-col-top{
+    z-index: 5;
+  }
   &__left-col{
-    padding-right: .5rem;
-    padding-left: .5rem;
+    &__inner{
+      padding-left: 1rem;
+      padding-right: .5rem;
+    }
+  }
+  &__right-col{
+    &__inner{
+      padding-left: .5rem;
+      padding-right: 1rem;
+    }
   }
 }
 .book-details__tab-bar{
-  top: $navbar-height + $book-details-top-height;
+  top: calc($navbar-height + $book-details-top-height - 2px);
   position: sticky;
+  padding-top: 2px;
 }
 .book-details__mid-col-bottom{
   // margin-top: $navbar-height + $book-details-top-height;
@@ -222,19 +259,34 @@ $theme-colors: (
 .book-details__mid-col-top-header{
   padding-left: .25rem;
   padding-right: .25rem;
+  background-color: $body-bg;
+  height: $book-details-top-height;
+  z-index: 2;
 }
 .top-navbar, .book-details__mid-col-top-header,.book-details__tab-bar {
   background-color: $body-bg;
   z-index: 1;
+
+}
+.navbar-brand{
+  font-size:$logo-font-size;
+}
+
+.top-navbar{
+  height: $navbar-height;
+  z-index: 9000;
 }
 .book-carousel{
   width: 100%;
-  padding: 0 3rem 3rem 3rem ;
+  height: auto;
+  // width:auto;
+  .carousel-control-next, .carousel-control-prev{
+    display: none;
+  }
+  padding: 0 .25rem 3rem .25rem ;
 }
-.review-details{
-  min-height: 1000px;
-  // padding-bottom: 500px;
-}
+
+
 .book-search-preview{
   min-height: 150px;
   &__thumbnail{
@@ -244,10 +296,138 @@ $theme-colors: (
   }
 }
 .top-navbar{
+  padding-top: 2px;
+  padding-bottom: 0px;
+
+  &__border-hack{
+    background-color:$primary;
+    height: 2px;
+  }
+  &__inner{
+    padding-bottom: 2px;
+    padding-left: .25rem;
+    padding-right: .25rem;
+  }
+}
+.follow-block{
+  display: inline-flex;
+
+  h3{
+    display: inline;
+    margin-bottom: 0;
+  }
+}
+.browse-genre{
+  top: $navbar-height;
+  &__header{
+    width: 100%;
+    // position: fixed;
+    background-color: $body-bg;
+    // position: relative;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top:$navbar-height;
+    hr{
+      width: 100%;
+      flex-basis: 100%;
+      display: block;
+    }
+  }
+  &__body{
+    padding-top:$browse-header-height; 
+  }
+}
+.genre-submenu{
   
+  padding: .5rem;
+  a {
+    color: $text-high;
+    text-decoration: none;
+  }
+}
+//nav dropdown 
+div.dropdown-menu.show {
+  background-color: $body-bg; 
+  border: 2px solid $primary;
+  border-top: 0px;
+  border-radius: 0;
+  z-index: 6;
+  a {
+    color: $primary;
+    text-decoration: none;
+  }
+}
+
+.browse-new{
+  top: $navbar-height;
+  &__header{
+    width: 100%;
+    // position: fixed;
+    background-color: $body-bg;
+    // position: relative;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top:$navbar-height;
+    hr{
+      width: 100%;
+      flex-basis: 100%;
+      display: block;
+    }
+  }
+  &__body{
+    padding-top:$browse-header-height; 
+  }
+}
+.browse__tab-bar, .feed__tab-bar{
+  position:sticky;
+  top:$navbar-height;
+  // top:$navbar-height + $browse-header-height;
+}
+.feed-item{
+  border-radius: 5px;
+  border: 1px solid $text-light;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
+
+  &__header{
+    justify-content: space-between;
+  }
+}
+.book-blurb{
+
+  &__details{
+    height: 100%;
+  }
+}
+.link-color-unset{
+  color:unset;
+  text-decoration: none;
+}
+.link-color-unset:hover{
+  color: inherit !important;
+}
+.review-blurb__quote-block{
+  background-color: $dp-3;
+  justify-content: space-between;
+  align-content: space-between;
+  padding: .5rem;
+
+  div{
+    flex: 1;
+    padding: .5rem;
+  }
 }
 .primary-text{
   color:$primary;
+}
+
+.bg-text{
+  color:$body-bg;
+}
+.primary-bg{
+  background-color:$primary;
 }
 .light-text{
   color:$text-light;

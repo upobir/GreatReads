@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
@@ -12,6 +13,17 @@ from django.db.models import Avg
 #     profile_picture
 #     password_hash
 #     followers
+
+# https://stackoverflow.com/questions/58794639/how-to-make-follower-following-system-with-django-model
+class UserFollowing(models.Model):
+    user_id = models.ForeignKey(User, related_name="following", on_delete=models.CASCADE)
+    following_user_id = models.ForeignKey(User, related_name="followers", on_delete=models.CASCADE)
+
+    # UserFollowing.objects.create(user_id=user.id, following_user_id=follow.id)
+
+    # def __str__(self):
+    #     f"{self.user_id} follows {self.following_user_id}"
+
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
@@ -59,6 +71,10 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def follower_count(self):
+        return self.followers.all().count()
 
 class Message(models.Model):
     timestamp = models.DateField(auto_now=True)

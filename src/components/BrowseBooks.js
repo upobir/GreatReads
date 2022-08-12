@@ -1,52 +1,81 @@
 import React, {useState, useEffect} from 'react'
 import { bookBrowseEndpoint } from '../endpoints'
 import { Container, Row, Col,Stack } from 'react-bootstrap'
-import BookCapsule from './BookCapsule';
 import { BookSearchPreview } from './BookSearchPreview';
-function bookGallery(books){
-    return <Row>
-    {
-        books.map((book) => {
-            return (<Col xs={3} key={book.id}>
-                <BookCapsule book={book} />
-            </Col>)
-        })
-    }
-    </Row>
+import { BrowseGenre } from './BrowseGenre';
+import {Spinner} from 'react-bootstrap';
+import { useNavigate, Routes, Route, useParams, Link, useLocation } from 'react-router-dom';
+import { MakeVerticalTabBar } from './CustomTabs';
+import { BrowseNewReleases } from './BrowseNewReleases';
+import { BrowseNewlyRated } from './BrowseNewlyRated';
+import { BrowseFollowedAuthors } from './BrowseFollowedAuthors';
+const AllBooks=({books})=> {
+  if(books.length <= 0){
+    return <Container>
+      <Spinner animation="border" variant="primary" />
+    </Container>
+  }else{  
+    return <Container fluid>
+          <Stack gap={2}>
+            {
+            books.map((book) => {
+                return (
+                    <BookSearchPreview book={book} key={book.id}/>
+                )
+                })
+            }
+          </Stack>
+    </Container>
+  }
 }
+const tabs = [
+  {
+    tabTitle:"New releases",
+    tabLink:"/browse/newReleases",
+    tabKey:"newReleases",
+  },
+  {
+    tabTitle:"By Genre",
+    tabLink:"/browse/genre/0",
+    tabKey:"genre",
+  },
+  {
+    tabTitle:"By Followed Authors",
+    tabLink:"/browse/followedAuthors",
+    tabKey:"followedAuthors",
+  },
+  {
+    tabTitle:"Newly Rated",
+    tabLink:"/browse/newlyRated",
+    tabKey:"newlyRated",
+  },
+]
+
 export const BrowseBooks = () => {
-    const [books, setBooks] = useState([])
-  
-    const getBooks= async () => { 
-      let response = await fetch(bookBrowseEndpoint())
-      let jBooks = await response.json()
-      console.log('jBooks', jBooks)
-      setBooks(jBooks)
-    }
-  
-    useEffect(() => {
-      getBooks()
-    }, [])
-  
-    if(books.length <= 0)
-      return "loading..."
-  
+    const loc = useLocation()
+
     return (
       <Container fluid>
-
-          <Row>
-              <Col xs={{span: 7, offset: 2}}>
-                  <Stack gap={1}>
-                    {
-                    books.map((book) => {
-                        return (
-                            <BookSearchPreview book={book} key={book.id}/>
-                        )
-                        })
-                    }
-                  </Stack>
-              </Col> 
-          </Row>
+        <Row>
+          
+        </Row>
+        <Row>
+          <Col xs={{span:2}}>
+            <Container className="browse__tab-bar">
+              <MakeVerticalTabBar tabs={tabs} rootURL="/browse/" loc={loc.pathname} className="ml-auto"/>
+            </Container>
+          </Col>
+          <Col xs={{span:8}}>
+            <Routes>
+              <Route path='/genre/:genreID/' element={<BrowseGenre />} />
+              <Route path='/newReleases/' element={<BrowseNewReleases />} />
+              <Route path='/newlyRated/' element={<BrowseNewlyRated />} />
+              <Route path='/followedAuthors/' element={<BrowseFollowedAuthors />} />
+              <Route path='' element={<BrowseNewReleases />}  />
+            </Routes>
+          </Col>
+        </Row>
+ 
       </Container>
     )
 }

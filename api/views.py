@@ -7,89 +7,40 @@ from decouple import config
 
 from .models import *
 from .serializers import *
+from .converters import *
+from django.contrib.auth.models import User
 
 class BookView(APIView):
     def get(self, request, pk):
         print('user:', request.user.id)
 
         book = Book.objects.get(id=pk)
-        print("In BookView: user = ", request.user)
 
-        #status = BookUserStatus.objects()
+        review = Review.objects.filter(book=book, creator__id=request.user.id) if request.user.id else None
+        review = review[0] if review else None
 
-        data = {
-            "isbn": book.isbn,
-            "title": book.title,
-            "description": book.description,
-            "pageCount": book.pages,
-            "released": book.release_date, 
-            "genres": [             
-                {
-                    "name": genre.name,
-                    "id": genre.id ,
-                } for genre in book.genres.all()
-            ],
-            "readStatus":"reading", # TODO
-            "readPages": 10,        # TODO
-            "series": book.series.id if book.series else None,
-            "seriesEntry": book.series_number ,
-            "avgRating": book.avg_rating,
-            "userRating": 4.6,      # TODO
-            "reviewCount": book.review_count,
-            "authors": [
-                {
-                    "id":author.id,
-                    "name":author.name
-                } for author in book.authors.all()
-            ],
-            "publisherId" : book.publisher.id,
-        }
+        data = book_detailed(book, request.user.id, review)
 
         return Response(data)
 
 
 class AllBookView(APIView):
     def get(self, request):
-        
-        data = [
-            {
-                "id" : book.id,
-                "title" : book.title,
-                "description" : book.description,
-                "authors" : [{
-                    "id":author.id,
-                    "name":author.name
-                } for author in book.authors.all()],
-                "avgRating" : book.avg_rating,
-                "thumbnail" : None,
-
-            } for book in Book.objects.all()
-        ]
-
+        data = [ book_mini(book, request.user.id) for book in Book.objects.all() ]
         return Response(data)
     
 
 class AuthorView(APIView):
     def get(self, request, pk):
         author = Author.objects.get(id=pk)
-        data = {
-            "followCount": author.follower_count,
-            "isFollowedByUser": False, # TODO
-            "description": author.description,
-            "name": author.name,
-            "id": pk
-        }
+        data = author_detailed(author, request.user.id)
         return Response(data)
 
 
 class PublisherView(APIView):
     def get(self, request, pk):
         publisher = Publisher.objects.get(id=pk)
-        data = {
-            "address": publisher.address,
-            "name": publisher.name,
-            "id": pk
-        }
+        data = publisher_detailed(publisher)
         return Response(data)
 
 
@@ -97,56 +48,97 @@ class SeriesView(APIView):
     def get(self, request, pk):
         series = Series.objects.get(id=pk)
 
-        data = {
-            "id": series.id,
-            "name": series.name,
-            "bookCount": series.book_count,
-            "avgRating": series.avg_rating,
-            "books" : [
-                {
-                    "id": book.id,
-                    "title": book.title,
-                    "seriesEntry": book.series_number,
-                } for book in Book.objects.filter(series = series).order_by('series_number')
-            ]
-        }
+        data = series_detailed(series, request.user.id)
+        
         return Response(data)
 
 class BookReviewsView(APIView):
     def get(self, request, pk):
         book = Book.objects.get(id=pk)
 
-        data = [{
-                "id": review.id,    
-                "reviewer" : review.creator.username,
-                "body" : review.description,
-                "rating": review.rating,
-                "likes": review.like_count,
-                "commentCount": review.comment_count,
-            } for review in Review.objects.filter(book=book)]
+        data = [review_mini(review) for review in Review.objects.filter(book=book)]
         return Response(data)
 
 
 class ReviewView(APIView):
     def get(self, request, pk):
         review = Review.objects.get(id=pk)
-        data = {
-                "id": pk,
-                "reviewer" : review.creator.username,
-                "body" : review.description,
-                "rating": review.rating,
-                "likes": review.like_count,
-                "Timestamp": review.timestamp,
-                "commentCount": review.comment_count,
-                "comments": [
-                    {
-                        "Commenter": comment.creator.username,
-                        "Timestamp": comment.timestamp,
-                        "Text": comment.text
-                    } for comment in ReviewComment.objects.filter(review = review)
-                ]
-            }
+        data = review_detailed(review, request.user.id)
         return Response(data)
+
+class  GenreBookView(APIView):
+    def get(self, request, pk):
+        genre = Genre.objects.get(id=pk)
+
+        data = [book_mini(book, request.user.id) for book in Book.objects.filter(genres=genre)] 
+
+        return Response(data)
+
+class AllGenreView(APIView):
+    def get(self, request):
+
+        data = [genre_mini(genre) for genre in Genre.objects.all()]  # TODO sort
+
+        return Response(data)
+
+class GenreView(APIView):
+    def get(self, request, pk):
+        genre = Genre.objects.get(id=pk)
+
+        data = genre_detailed(genre, request.user.id)
+
+        return Response(data)
+
+
+# virtual bookself
+class BookUserStatusView(APIView):
+    def get(self, request, userID, bookshelfCategory):
+        if not request.user.id:
+            return Response("fail")
+
+        print("User ID: ", userID, "\tCategory: ", bookshelfCategory)
+        
+        bookList = BookUserStatus.objects.filter(user=userID)
+        
+        data = []
+
+        if bookshelfCategory == 0:      # want to read
+            data = [ book_mini(iter.book, userID) for iter in bookList if iter.is_wishlisted]
+        elif bookshelfCategory == 1:    # read
+            data = [ book_mini(iter.book, userID) for iter in bookList if iter.is_read]
+        elif bookshelfCategory == 2:    # reading
+            data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages > 0]
+        elif bookshelfCategory == 3:    # reviewed
+            data = [ book_mini(iter.book, userID) for iter in bookList if iter.read_pages > 0]
+
+        return Response(data)
+
+class BookShelfUserInfo(APIView):
+    def get(self, request, userID):
+        if not request.user.id:
+            return Response("fail")
+
+        print("User ID: ", userID)        
+        data = bookshelf_info(userID)
+
+        return Response(data)
+
+class BookUserStatusStats(APIView):
+    def get(self, request, userID):
+        if not request.user.id:
+            return Response("fail")
+
+        print("User ID: ", userID)        
+        data = bookshelf_stats(userID)
+
+        return Response(data)
+
+
+
+@api_view(['POST'])
+def echoPostView(request,  **kwargs):
+    print(request, request.data, kwargs)
+    return Response("ok")
 
 
 @api_view(['GET'])
@@ -157,3 +149,13 @@ def getRoutes(request):
         '/api/token/refresh/'
     ]
     return Response(routes)
+
+@api_view(['GET'])
+def getPublisher(request, pk):
+    publisher = Publisher.objects.get(pk=pk)
+    data = {
+        "address": publisher.address,
+        "name": publisher.name,
+        "description": publisher.description
+    }
+    return Response(data)
