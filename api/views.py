@@ -168,6 +168,20 @@ class AuthorFollowPostView(APIView):
 
         return Response("ok")
 
+class ReviewCommentPostView(APIView):
+    def post(self, request, pk):
+        if not request.user.id:
+            return Response("fail")
+
+        review = Review.objects.get(id=pk)
+        user = User.objects.get(id=request.user.id)
+
+        commentText = request.data["commentText"]
+
+        ReviewComment.objects.create(text=commentText, creator=user, review=review)
+
+        return Response("ok")
+
 # virtual bookself
 class BookUserStatusView(APIView):
     def get(self, request, userID, bookshelfCategory):

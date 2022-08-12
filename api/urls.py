@@ -38,6 +38,7 @@ urlpatterns = [
     path('book/<int:pk>/status/post/', BookStatusView.as_view(), name="status_post"),
     path('genre/<int:pk>/follow/post/', GenreFollowPostView.as_view(), name='genre_follow_post'),
     path('author/<int:pk>/follow/post/', AuthorFollowPostView.as_view(), name='author_follow_post'),
+    path('review/<int:pk>/comment/post/', ReviewCommentPostView.as_view(), name="review_coment_post"),
 
     # virtual bookshelf
     path('user/<int:userID>/<int:bookshelfCategory>/', BookUserStatusView.as_view(), name="bookuserstatus_view"),

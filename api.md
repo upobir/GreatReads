@@ -234,6 +234,9 @@ List of all kinds of jsons
 1. POST `/api/genre/<id>/follow/post/` {//no details just toggle for cur user
         
     } [DONE]
-1.  POST `/api/author/<id>/follow/post/` {//pranta should've done this already, please merge and update this
+1.  POST `/api/author/<id>/follow/post/` {//no details just toggle for cur user
         
     } [DONE]
+1. POST `/api/review/<id>/comment/post/` {
+        commentText: string,
+    }
