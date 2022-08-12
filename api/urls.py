@@ -32,10 +32,12 @@ urlpatterns = [
     path('series/<int:pk>/', SeriesView.as_view(), name="series"),
     path('books/genre/<int:pk>/', GenreBookView.as_view(), name='all_books_genre'),
     path('genres/', AllGenreView.as_view(), name='all_genres'),
-    path('genre/<int:pk>/', GenreView.as_view(), name='all_genres'),
+    path('genre/<int:pk>/', GenreView.as_view(), name='genre'),
 
     path('book/<int:pk>/review/post/', BookReviewPostView.as_view(), name="review_post"),
     path('book/<int:pk>/status/post/', BookStatusView.as_view(), name="status_post"),
+    path('genre/<int:pk>/follow/post/', GenreFollowPostView.as_view(), name='genre_follow_post'),
+    path('author/<int:pk>/follow/post/', AuthorFollowPostView.as_view(), name='author_follow_post'),
 
     # virtual bookshelf
     path('user/<int:userID>/<int:bookshelfCategory>/', BookUserStatusView.as_view(), name="bookuserstatus_view"),

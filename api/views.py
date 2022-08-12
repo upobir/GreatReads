@@ -139,6 +139,35 @@ class BookReviewPostView(APIView):
 
         return Response("ok")
 
+
+class GenreFollowPostView(APIView):
+    def post(self, request, pk):
+        if not request.user.id:
+            return Response("fail")
+
+        genre = Genre.objects.get(id=pk)
+        
+        if genre.followers.filter(id=request.user.id).exists():
+            genre.followers.remove(User.objects.get(id=request.user.id))
+        else:
+            genre.followers.add(User.objects.get(id=request.user.id))
+
+        return Response("ok")
+
+class AuthorFollowPostView(APIView):
+    def post(self, request, pk):
+        if not request.user.id:
+            return Response("fail")
+
+        author = Author.objects.get(id=pk)
+        
+        if author.followers.filter(id=request.user.id).exists():
+            author.followers.remove(User.objects.get(id=request.user.id))
+        else:
+            author.followers.add(User.objects.get(id=request.user.id))
+
+        return Response("ok")
+
 # virtual bookself
 class BookUserStatusView(APIView):
     def get(self, request, userID, bookshelfCategory):
@@ -162,32 +191,12 @@ class BookUserStatusView(APIView):
 
         return Response(data)
 
+
+
 @api_view(['POST'])
 def echoPostView(request,  **kwargs):
     print(request, request.data, kwargs)
     return Response("ok")
-
-# @api_view(['POST'])
-# def bookReviewPostView(request,book_pk):
-#     print("aaa", book_pk)
-#     print(request, request.data)
-#     # Review.objects.create(request.data)
-#     return Response("ok")
-
-# @api_view(['POST'])
-# def bookReviewPostView(request, book_pk):
-#     print("aaaaaaaa--------------------------------------------------")
-#     print("request", request.data)
-#     print('user:', request.user.id)
-#     user = User.objects.get(id=request.user.id)
-#     book = Book.objects.get(id=book_pk)
-#     # print("aaa", book_pk)
-#     rating = int(request.data["reviewRating"])
-#     text = str(request.data["reviewText"])
-
-#     Review.objects.create(rating=rating, creator=user,description=text, book=book)
-
-#     return Response("ok")
 
 
 @api_view(['GET'])
