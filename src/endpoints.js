@@ -27,6 +27,12 @@ export function bookshelfStatsEndpoint(userID){
 export function bookshelfUserInfoEndpoint(userID){
     return  `/api/user/${userID}/info/`
 }
+export function followUserEndpoint(userID){
+    return  `/api/follow/${userID}/`
+}
+export function unFollowUserEndpoint(userID){
+    return  `/api/unfollow/${userID}/`
+}
 export function seriesFetchEndpoint(seriesID){
     return  `/api/series/${seriesID}/`
 }

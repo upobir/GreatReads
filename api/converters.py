@@ -83,15 +83,18 @@ def bookshelf_stats(userid):
         "ratings_count" : ratings_count,
     }
 
-def bookshelf_info(userid):
+def bookshelf_info(userid, loggedInUserID):
     user_name = User.objects.get(id=userid).username
     following_count = len(User.objects.get(id=userid).following.all())
     follower_count = len(User.objects.get(id=userid).followers.all())
+
+    is_followed_by_user = User.objects.get(id=loggedInUserID).following.filter(following_user_id=userid).exists()
 
     return {
         "user_name" : user_name,
         "follower_count" : follower_count,
         "following_count" : following_count,
+        "is_followed_by_user" : is_followed_by_user,
     }
 
 def book_detailed(book, userid, review):

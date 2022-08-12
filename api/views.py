@@ -119,7 +119,7 @@ class BookShelfUserInfo(APIView):
             return Response("fail")
 
         print("User ID: ", userID)        
-        data = bookshelf_info(userID)
+        data = bookshelf_info(userID, request.user.id)
 
         return Response(data)
 
@@ -133,7 +133,27 @@ class BookUserStatusStats(APIView):
 
         return Response(data)
 
+class FollowUser(APIView):
+    def get(self, request, followingUserID):
+        if not request.user.id:
+            return Response("fail")
 
+        followerUser = User.objects.get(id=request.user.id)
+        followingUser = User.objects.get(id=followingUserID)
+        UserFollowing.objects.create(user_id=followerUser, following_user_id=followingUser)
+
+        return Response({"status": "success"})
+
+class UnFollowUser(APIView):
+    def get(self, request, followingUserID):
+        if not request.user.id:
+            return Response("fail")
+
+        followerUserID = request.user.id
+        followingUser = UserFollowing.objects.get(user_id=followerUserID, following_user_id=followingUserID)
+        followingUser.delete()
+
+        return Response({"status": "success"})
 
 @api_view(['POST'])
 def echoPostView(request,  **kwargs):
