@@ -59,5 +59,8 @@ urlpatterns = [
     path('apitest/', testEndPoint, name='test'),
     path('', getRoutes),
 
+    #test
+    path('imgPostTest/', echoPostView, name='imgTest'),
+
     path("publisherr/<int:pk>", getPublisher, name="pubbb"),
 ]
