@@ -7,25 +7,24 @@ export default function ImgPostTest () {
     const [img, setImg]= useState(null)
     const api = useAxios()
     const handleSubmit =() => { 
-        console.log('img', img)
-        api()//since this url is  temporary it's not in endpoint.js
-        .post("/api/imgPostTest/",{
-            "profilePicture": img
-        })
-        .then((response)=> {
-            console.log('img post response', response)
-        })
-        .catch((err) => { console.log('img post err', err) })
+        if(img != null)
+        {
+            console.log('img', img)
+            let fd = new FormData()
+            fd.append('profilePicture', img, img.name)
+            api()//since this url is  temporary it's not in endpoint.js
+                .post("/api/imgPostTest/", fd)
+                .then((response) => {
+                    console.log('img post response', response)
+                })
+                .catch((err) => { console.log('img post err', err) })
+        }
     }
     const handleImgUpload = (e)=>{
         if (e.target.files.length > 0) 
             setImg(e.target.files[0]);
         else
             setImg(null);
-        console.log('e.target.files', e.target.files)
-        console.log('e.target.files[0]', e.target.files[0])
-        console.log('e.target.files.length', e.target.files.length)
-
     }
     return (
       <Form>
