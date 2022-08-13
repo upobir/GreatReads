@@ -59,6 +59,7 @@ export const MakeVerticalTabBarBookshelf = ({tabs, loc, rootURL,className, userI
 
 
 export const MakeHorizontalTabBar = ({tabs, loc, rootURL,className}) => {
+    console.log('getCategory(tabs, loc, rootURL)', getCategory(tabs, loc, rootURL))
     return <Tab.Container fluid  activeKey={getCategory(tabs, loc, rootURL)} >
     <Nav fill variant="tabs" className={"justify-content-center" + (className?(" " + className):"")} >
         {tabs.map((tab, index)=> {

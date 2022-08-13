@@ -37,6 +37,7 @@ function App() {
               <Route path="/book/:id/*" element={<BookDetails />} />
               <Route path="/browse/*" element={<BrowseBooks />} />
               <Route path="/user/:user_id/*" element={<Bookshelf />} />
+              <Route path="/user/" element={<Bookshelf />} />
               <Route path="/feed/*" element={<FeedPage />} />
               <Route path="/" element={<FeedPage />} />
             </Routes>

@@ -63,7 +63,7 @@ export default function GreatReadsNavbar() {
                             {/* </Overlay> */}
                           </Stack>
                       </NavDropdown>
-                      {user && <Nav.Link href ={myBookShelfURL}>Bookshelf</Nav.Link>}
+                      {user && <Nav.Link href ={myBookShelfURL(user)}>Bookshelf</Nav.Link>}
                       {user && <Nav.Link href ={myFeedURL}>My Feed</Nav.Link>}
                       <Form className="d-flex" style={{flex:"1"}}>
                     <FormControl

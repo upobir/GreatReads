@@ -35,7 +35,10 @@ export function newReleasesBrowseURL(){
 export function newlyRatedBrowseURL(){
     return `/browse/newlyRated/`
 }
-const myBookShelfURL = "/bookshelf/"
+
+export function myBookShelfURL(user){
+    return `/user/${user.user_id}/`
+}
 const myFeedURL = "/feed/"
 const homeURL = "/home/"
-export {myBookShelfURL, homeURL,myFeedURL}
+export { homeURL,myFeedURL}

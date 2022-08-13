@@ -34,7 +34,7 @@ export const Bookshelf = () => {
   const tabs = [
     {
       tabTitle:"Want To Read",
-      tabLink:`/user/${userID}/WantToRead/`,
+      tabLink:`/user/${userID}/WantToRead`,
       tabKey:"WantToRead",
     },
     {
