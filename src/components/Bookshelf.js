@@ -10,28 +10,7 @@ import { BookShelf_WantToRead } from './Bookshelf_WantToRead';
 import { BookShelf_stats } from './Bookshelf_stats';
 import { bookshelfUserInfoEndpoint, followUserEndpoint, unFollowUserEndpoint } from '../endpoints';
 
-const tabs = [
-  {
-    tabTitle:"Want To Read",
-    tabLink:"/WantToRead",
-    tabKey:"WantToRead",
-  },
-  {
-    tabTitle:"Reading",
-    tabLink:"/Reading",
-    tabKey:"Reading",
-  },
-  {
-    tabTitle:"Read",
-    tabLink:"/Read",
-    tabKey:"Read",
-  },
-  {
-    tabTitle:"Reviewed",
-    tabLink:`/Reviewed`,
-    tabKey:"Reviewed",
-  },
-]
+
 const bookshelfGallary = () => {
   
 }
@@ -52,7 +31,28 @@ export const Bookshelf = () => {
   const loc = useLocation();
   console.log('user', user)
   console.log('userID', userID)
-
+  const tabs = [
+    {
+      tabTitle:"Want To Read",
+      tabLink:`/user/${userID}/WantToRead/`,
+      tabKey:"WantToRead",
+    },
+    {
+      tabTitle:"Reading",
+      tabLink:`/user/${userID}/Reading`,
+      tabKey:"Reading",
+    },
+    {
+      tabTitle:"Read",
+      tabLink:`/user/${userID}/Read`,
+      tabKey:"Read",
+    },
+    {
+      tabTitle:"Reviewed",
+      tabLink:`/user/${userID}/Reviewed`,
+      tabKey:"Reviewed",
+    },
+  ]
   const api = useAxios();
 
   const getBookShelfUserInfo = async () => {
