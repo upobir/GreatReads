@@ -39,7 +39,7 @@ export default function AuthorPreview({ author }) {
                         <span className='light-text'>Following</span>
                 </Col>
                 <Col>
-                         (<FollowButton followContext={author} followToggleURL={authorFollowToggleEndpoint(author.id)}/>)
+                         <FollowButton followContext={author} followToggleURL={authorFollowToggleEndpoint(author.id)}/>
                 </Col>
             </Row>
         }
