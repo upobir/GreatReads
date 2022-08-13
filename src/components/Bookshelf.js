@@ -14,26 +14,22 @@ const tabs = [
   {
     tabTitle:"Want To Read",
     tabLink:"/WantToRead",
-    tabKey:"genre",
-    tabContentElement: ""
+    tabKey:"WantToRead",
   },
   {
     tabTitle:"Reading",
     tabLink:"/Reading",
-    tabKey:"genre",
-    tabContentElement: ""
+    tabKey:"Reading",
   },
   {
     tabTitle:"Read",
     tabLink:"/Read",
-    tabKey:"genre",
-    tabContentElement: ""
+    tabKey:"Read",
   },
   {
     tabTitle:"Reviewed",
-    tabLink:"/Reviewed",
-    tabKey:"genre",
-    tabContentElement: ""
+    tabLink:`/Reviewed`,
+    tabKey:"Reviewed",
   },
 ]
 const bookshelfGallary = () => {
