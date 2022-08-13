@@ -84,5 +84,16 @@ export function loginEndpoint(){
 }
 
 export function genreFollowToggleEndpoint(genreID){
-    return `/api/genre/${genreID}/follow`
+    return `/api/genre/${genreID}/follow/post/`
+}
+export function authorFollowToggleEndpoint(authorID){
+    return `/api/author/${authorID}/follow/post/`
+}
+
+export function commentPostEndpoint(reviewID){
+    return `/api/review/${reviewID}/comment/post/`
+}
+
+export function commentDeleteEndpoint(commentID){
+    return `/api/comment/${commentID}/delete/post/`
 }

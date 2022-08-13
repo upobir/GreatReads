@@ -10,8 +10,7 @@ export function bookDetailsURL(noteID){
     return  `/book/${noteID}/`
 }
 export function userDetailsURL(user){
-    // return `/user/${user}/`
-    return `#`
+    return `/user/${user.user_id}/`
 }
 export function reviewDetailsURL(bookID, reviewID){
     return `${bookDetailsURL(bookID)}review/${reviewID}/`

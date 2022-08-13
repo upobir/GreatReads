@@ -11,12 +11,13 @@ export const FollowButton = ({followContext, followToggleURL}) => {
   const {user} = useContext(AuthContext)
 
   const api = useAxios()
-  const handleSubmit = () => {
+  const handleToggle = () => {
     if(followContext != null && user != null && followToggleURL != null) {
+      setIsFollowedByUser(!isFollowedByUser)
       api()
       .post(followToggleURL)
       .then((response)=> {
-        console.log('follow post to '+ followToggleURL + ' response', response )
+        console.log('follow post to '+ followToggleURL + ' response ', response )
       }).catch(error => {
         console.log('follow post to ' + followToggleURL +  'response error', error)
       })
@@ -31,6 +32,7 @@ export const FollowButton = ({followContext, followToggleURL}) => {
     <Button variant='outline-primary'
             disabled={followContext == null} 
             active={isFollowedByUser}
+            onClick={handleToggle}
     >  
         {isFollowedByUser? "Unfollow": "Follow"}
     </Button>

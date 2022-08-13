@@ -1,8 +1,8 @@
 import {React, useState, useEffect} from 'react'
-import { Container, Stack, Row, Col, Form,  } from 'react-bootstrap'
+import { Container, Stack, Row, Col, Form,Button  } from 'react-bootstrap'
 import { BookReviewPreview } from '../BookReviewPreview'
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { reviewFetchEndpoint } from '../endpoints';
+import { commentPostEndpoint, reviewFetchEndpoint } from '../endpoints';
 import { userDetailsURL } from '../urls';
 import { Link } from 'react-router-dom';
 import useAxios from '../utils/useAxios';
@@ -27,9 +27,15 @@ export const BookReview = ({bookID}) => {
   }
 
   const handleCommentTextUpdate = (e) => { setComment(e.target.value) }
-  const handleCommentPost = () => { 
+  const handleCommentPost = () => {
+    api()
+    .post(commentPostEndpoint(review_id), {
+      "commentText": comment
+    })
+    .then((response)=>console.log('comment post response', response))
+    .catch((err)=>console.log('comment post err', err))
     setIsReplying(false)
-   }
+  }
   useEffect(() => {
     if(isReplying){
       navigate('#replyBox')
@@ -44,16 +50,20 @@ export const BookReview = ({bookID}) => {
             review={review} 
             shouldTruncate={false}
             commentReplyHandler={()=> setIsReplying(!isReplying)} />
-          {isReplying && <Form>
-            <Form.Group className="mb-3" controlId="reviewText">
-              <Form.Label>Review:</Form.Label>
+          {isReplying && (
+          <Form>
+            <Form.Group className="mb-3" controlId="comment">
               <Form.Control 
                 as="textarea" 
                 rows={10}  
-                placeholder="Enter Review Text"
+                placeholder="Enter Comment"
                 onChange={handleCommentTextUpdate}/>
             </Form.Group>
-          </Form>}
+            <Button variant="primary" onClick={handleCommentPost}>
+              Submit
+            </Button>
+          </Form>
+          )}
           <Col xs={{span:10, offset:2}} className="book-review-details__comment-container">
               <Stack  gap={2}>
                 {review?.comments.map((comment, index) =>{

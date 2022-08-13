@@ -1,7 +1,7 @@
 import React from 'react'
 import { Stack } from 'react-bootstrap'
 import { FollowButton } from './FollowButton'
-export const FollowBlock = ({followContext}) => {
+export const FollowBlock = ({followContext, followToggleURL}) => {
   return (
     <Stack direction='horizontal' gap={3}>
       <Stack className="follow-block">
@@ -13,7 +13,7 @@ export const FollowBlock = ({followContext}) => {
         </h3>
         <span className='light-text'>Following</span>
       </Stack>
-      <FollowButton followContext={followContext}/>
+      <FollowButton followContext={followContext} followToggleURL={followToggleURL}/>
     </Stack>
   )
 }
