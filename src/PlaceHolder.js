@@ -86,7 +86,7 @@ export const _feed = [
             "id": 0,
             "name": "Caillin",
         },
-        "timeStamp": "0 mins ago",
+        // "timeStamp": "0 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
@@ -107,13 +107,13 @@ export const _feed = [
         "review": {
             "id": 1,
             "rating": 5,
-            "blurb":"The very concept of reading this book terrifies me.",
+            "body":"The very concept of reading this book terrifies me.",
+            "Timestamp": "10 mins ago",
         },
         "user": {
             "id": 0,
             "name": "Truly Fubar",
         },
-        "timeStamp": "10 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
@@ -134,13 +134,13 @@ export const _feed = [
         "review": {
             "id": 1,
             "rating": 5,
-            "blurb":"The very concept of reading this book terrifies me.",
+            "body":"The very concept of reading this book terrifies me.",
+            "Timestamp": "10 mins ago",
         },
         "user": {
             "id": 1,
             "name": "Snafubar",
         },
-        "timeStamp": "10 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
@@ -164,13 +164,13 @@ export const _feed1 = [
         "review": {
             "id": 1,
             "rating": 5,
-            "blurb":"The very concept of reading this book terrifies me.",
+            "body":"The very concept of reading this book terrifies me.",
+            "Timestamp": "10 mins ago",
         },
         "user": {
             "id": 0,
             "name": "Truly Fubar",
         },
-        "timeStamp": "10 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
@@ -191,13 +191,13 @@ export const _feed1 = [
         "review": {
             "id": 1,
             "rating": 5,
-            "blurb":"The very concept of reading this book terrifies me.",
+            "body":"The very concept of reading this book terrifies me.",
+            "Timestamp": "10 mins ago",
         },
         "user": {
             "id": 1,
             "name": "Snafubar",
         },
-        "timeStamp": "10 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
@@ -222,7 +222,6 @@ export const _feed2 = [
             "id": 0,
             "name": "Caillin",
         },
-        "timeStamp": "0 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
@@ -238,5 +237,66 @@ export const _feed2 = [
             "description": "Roshar is a world of stone and storms. Uncanny tempests of incredible power sweep across the rocky terrain so frequently that they have shaped ecology and civilization alike. Animals hide in shells, trees pull in branches, and grass retracts into the soilless ground. Cities are built only where the topography offers shelter."   
         }  
     },
-    
+]
+export const _messagePreviews = [
+    {
+        "from":{
+            "id": 1,
+            "name":"snafubar",
+            "followedByUser": true,
+            "followedsUser": false,
+        },
+        "lastMessage": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 1,
+            "name":"snafubar2",
+            "followedByUser": false,
+            "followedsUser": false,
+        },
+        "lastMessage": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 1,
+            "name":"foofoobar",
+            "followedByUser": false,
+            "followedsUser": false,
+        },
+        "lastMessage": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 1,
+            "name":"barfoo",
+            "followedByUser": true,
+            "followsUser": true,
+        },
+        "lastMessage": {
+            "timestamp": "5 mins ago",
+            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 1,
+            "name":"barbar",
+            "followedByUser": true,
+            "followedsUser": true,
+        },
+        "lastMessage": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    }
 ]

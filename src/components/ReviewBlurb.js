@@ -9,6 +9,9 @@ import { BookBlurb } from './BookBlurb';
 function convertRatingTo100Scale(rating) {
   return rating * 100 / 5;
 }
+function spliceReviewText(text){
+  text?.substring(0, 40);
+}
 export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
   // console.log('reviewBlurbData.review.id', reviewBlurbData.review)
   const setBook = (_book) => {
@@ -24,13 +27,13 @@ export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
           <span className='light-text'>reviewed</span>
           <Rating readonly={true} size={30} ratingValue={convertRatingTo100Scale(reviewBlurbData.review.rating)} />
         </Stack>
-        <span className='text-medium'>{reviewBlurbData.timeStamp}</span>
+        <span className='text-medium'>{reviewBlurbData.review.Timestamp}</span>
       </Stack>
       {/* <Container fluid > */}
-      {reviewBlurbData.review.blurb &&
+      {spliceReviewText(reviewBlurbData.review.body) &&
         <Stack  direction='horizontal' className='review-blurb__quote-block'>
           <FaQuoteLeft fontSize={30} />
-           <div>{reviewBlurbData.review.blurb}</div>
+           <div>{reviewBlurbData.review.body}</div>
           <FaQuoteRight fontSize={30} />
         </Stack>
       }

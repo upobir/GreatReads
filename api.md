@@ -190,7 +190,6 @@ List of all kinds of jsons
 {
         "updateType": "review",//to indicate reviews in feed
         "review": review_mini,
-        "timeStamp": timestamp,
         "book": book_mid
 }
 ```
