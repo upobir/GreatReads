@@ -10,6 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 from pathlib import Path
 from decouple import config
 import os
@@ -46,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist', # for auth
     'corsheaders',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [

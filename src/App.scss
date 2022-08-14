@@ -250,6 +250,15 @@ $theme-colors: (
   position: sticky;
   padding-top: 2px;
 }
+.book-review-details__comment{
+  &__delete-btn{
+    margin-left: auto;
+    text-align: right;
+    text-decoration:none;
+    flex:1;
+    color: $danger;
+  }
+}
 .book-details__mid-col-bottom{
   // margin-top: $navbar-height + $book-details-top-height;
   padding-top:  $book-details-top-height;

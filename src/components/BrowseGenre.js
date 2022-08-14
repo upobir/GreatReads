@@ -48,7 +48,7 @@ export const BrowseGenre = () => {
                                         {genreID && genre && <>
                                             <FollowBlock 
                                                 followContext={genre}
-                                                followToggleUrl={genreFollowToggleEndpoint(genreID)} 
+                                                followToggleURL={genreFollowToggleEndpoint(genreID)} 
                                                 />
                                             </>
                                         }

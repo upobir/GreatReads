@@ -9,9 +9,8 @@
 export function bookDetailsURL(noteID){
     return  `/book/${noteID}/`
 }
-export function userDetailsURL(user){
-    // return `/user/${user}/`
-    return `#`
+export function userDetailsURL(userID){
+    return `/user/${userID}/`
 }
 export function reviewDetailsURL(bookID, reviewID){
     return `${bookDetailsURL(bookID)}review/${reviewID}/`
@@ -35,7 +34,10 @@ export function newReleasesBrowseURL(){
 export function newlyRatedBrowseURL(){
     return `/browse/newlyRated/`
 }
-const myBookShelfURL = "/bookshelf/"
+
+export function myBookShelfURL(user){
+    return `/user/${user.user_id}/`
+}
 const myFeedURL = "/feed/"
 const homeURL = "/home/"
-export {myBookShelfURL, homeURL,myFeedURL}
+export { homeURL,myFeedURL}

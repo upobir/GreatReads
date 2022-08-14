@@ -48,12 +48,19 @@ urlpatterns = [
     path('user/<int:userID>/stats/', BookUserStatusStats.as_view(), name="bookuserstatus_stats"),
     path('user/<int:userID>/info/', BookShelfUserInfo.as_view(), name="bookuserstatus_stats"),
 
+    # follow/unfollow user
+    path('follow/<int:followingUserID>/', FollowUser.as_view(), name="follow_user"),
+    path('unfollow/<int:followingUserID>/', UnFollowUser.as_view(), name="unfollow_user"),
+
     # auth
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='auth_register'),
     path('apitest/', testEndPoint, name='test'),
     path('', getRoutes),
+
+    #test
+    path('imgPostTest/', echoPostView, name='imgTest'),
 
     path("publisherr/<int:pk>", getPublisher, name="pubbb"),
 ]

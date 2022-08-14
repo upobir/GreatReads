@@ -27,11 +27,18 @@ export function bookshelfStatsEndpoint(userID){
 export function bookshelfUserInfoEndpoint(userID){
     return  `/api/user/${userID}/info/`
 }
+export function followUserEndpoint(userID){
+    return  `/api/follow/${userID}/`
+}
+export function unFollowUserEndpoint(userID){
+    return  `/api/unfollow/${userID}/`
+}
 export function seriesFetchEndpoint(seriesID){
     return  `/api/series/${seriesID}/`
 }
 
 export function reviewFetchEndpoint(reviewID){
+    console.log('reviewID', reviewID)
     return  `/api/review/${reviewID}/`
 }
 export function authorFetchEndpoint(authorID){
@@ -78,5 +85,16 @@ export function loginEndpoint(){
 }
 
 export function genreFollowToggleEndpoint(genreID){
-    return `/api/genre/${genreID}/follow`
+    return `/api/genre/${genreID}/follow/post/`
+}
+export function authorFollowToggleEndpoint(authorID){
+    return `/api/author/${authorID}/follow/post/`
+}
+
+export function commentPostEndpoint(reviewID){
+    return `/api/review/${reviewID}/comment/post/`
+}
+
+export function commentDeleteEndpoint(commentID){
+    return `/api/comment/${commentID}/delete/post/`
 }
