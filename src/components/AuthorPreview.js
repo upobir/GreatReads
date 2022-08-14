@@ -14,7 +14,7 @@ export default function AuthorPreview({ author }) {
         <Container>
             <Row>
                 <Col xs={4}>
-                    <Image className='author-preview__image'/>
+                    <Image fluid src={author?.picture_url} className='author-preview__image'/>
                 </Col>
                 <Col xs={8} className='__author-name-block'>
                     <div>About:</div>
