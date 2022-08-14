@@ -98,3 +98,11 @@ export function commentPostEndpoint(reviewID){
 export function commentDeleteEndpoint(commentID){
     return `/api/comment/${commentID}/delete/post/`
 }
+
+export function genresFetchEndpoint(){
+    return '/api/genres/'
+}
+
+export function genreFetchEndpoint(genreID){
+    return `/api/genre/${genreID}/`
+}

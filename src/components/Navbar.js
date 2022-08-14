@@ -33,7 +33,7 @@ export default function GreatReadsNavbar() {
       <Stack >
                     <Stack direction="horizontal" gap={2} className="top-navbar__inner">
                       <Navbar.Brand href={homeURL}>GreatReads</Navbar.Brand>
-                      <NavDropdown title="Browse" >
+                      <NavDropdown title="Browse" className='top-navbar__browse__dropdown'>
                           <Stack direction='horizontal'>
                             <Stack>
                               {/* <OverlayTrigger
