@@ -33,6 +33,7 @@ def author_detailed(author, userid):
         "followCount": author.follower_count,
         "isFollowedByUser": author.followers.filter(id=userid).exists() if userid else False,
         "description": author.description,
+        "picture_url": author.picture.url if author.picture else None,
     }
 
 def genre_mini(genre):
