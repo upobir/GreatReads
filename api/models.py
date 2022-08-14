@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
-
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -26,7 +26,8 @@ class UserFollowing(models.Model):
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
-    picture = models.FileField(null=True, blank=True)  # TODO ImageField? updload path?
+    #picture = models.FileField(null=True, blank=True)  # TODO ImageField? updload path?
+    picture = CloudinaryField('image', default=None, null=True, blank=True)
     description = models.TextField(blank=True)
     birth_date = models.DateField()
     website = models.URLField(null=True, blank=True)

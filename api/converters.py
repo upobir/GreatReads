@@ -24,6 +24,7 @@ def author_mini(author):
     return {
         "id": author.id,
         "name": author.name,
+        "picture_url": author.picture.url ,
     }
 
 def author_detailed(author, userid):
