@@ -98,13 +98,18 @@ def bookshelf_info(userid, loggedInUserID):
         "is_followed_by_user" : is_followed_by_user,
     }
 
-def book_detailed(book, userid, review):
+def book_detailed(book, userid):
+
+    reviews = book.review_set.filter(creator__id=userid)
+    if reviews.exists():
+        review = reviews[0]
+    else:
+        review = None
+
     readstatus, readpages = get_book_status(book, userid)
-    # readpages = -1
-    # if status:
-    #     
 
     return {
+        "id": book.id, 
         "isbn": book.isbn,
         "title": book.title,
         "description": book.description,

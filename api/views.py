@@ -1,3 +1,4 @@
+from msilib.schema import AppId
 from rest_framework.response import Response
 from rest_framework.decorators import APIView,api_view
 
@@ -13,12 +14,9 @@ class BookView(APIView):
     def get(self, request, pk):
         print('user:', request.user.id)
 
-        book = Book.objects.get(id=pk)
+        book = Book.objects.prefetch_related('review_set').get(id=pk)
 
-        review = Review.objects.filter(book=book, creator__id=request.user.id) if request.user.id else None
-        review = review[0] if review else None
-
-        data = book_detailed(book, request.user.id, review)
+        data = book_detailed(book, request.user.id)
 
         return Response(data)
 
@@ -88,6 +86,42 @@ class GenreView(APIView):
 
         return Response(data)
 
+
+class BrowseByGenreView(APIView):
+    def get(self, request, pk):
+        books = Book.objects.prefetch_related('review_set').filter(genres__id=pk).order_by("-release_date")  # TODO nulls
+
+        data = [book_detailed(book, request.user.id) for book in books]
+        return Response(data)
+
+class BrowseNewReleaseView(APIView):
+    def get(self, request):
+        books = Book.objects.prefetch_related('review_set').all().order_by("-release_date")  # TODO nulls
+
+        data = [book_detailed(book, request.user.id) for book in books]
+        return Response(data)
+
+
+class BrowseFollowedAuthorsView(APIView):
+    def get(self, request):
+        books = Book.objects.prefetch_related('review_set').filter(authors__followers__id=request.user.id).order_by("-release_date")  # TODO nulls
+
+        data = [book_detailed(book, request.user.id) for book in books]
+        return Response(data)
+
+class AuthorBooksView(APIView):
+    def get(self, request, pk):
+        books = Book.objects.filter(authors__id=pk)
+
+        data = [book_mini(book, request.user.id) for book in books]
+        return Response(data)
+
+class AuthorSeriesView(APIView):
+    def get(self, request, pk):
+        seriess = Series.objects.filter(book__authors__id=pk).distinct()
+
+        data = [series_mini(series) for series in seriess]
+        return Response(data)
 
 # virtual bookself
 class BookUserStatusView(APIView):
