@@ -8,7 +8,8 @@ import useAxios from '../utils/useAxios';
 import { genresFetchEndpoint } from '../endpoints';
 import { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
-export const GenreDropDown = ({selectedGenre, setGenreID}) => {
+import {DropdownButton} from 'react-bootstrap';
+export const GenreDropDown = ({selectedGenre}) => {
     const [genres, setGenres] = useState(null)
     const [selectedGenreIndex, setSelectedGenreIndex] = useState(null)
     const api = useAxios()
@@ -33,35 +34,28 @@ export const GenreDropDown = ({selectedGenre, setGenreID}) => {
         getGenres()
     }, [])
     return (
-        <Dropdown className='browse-genre__header__dropdown'>
-            {genres 
-            ? (
-                <>
-                    <Dropdown.Toggle variant="primary" >
-                        {selectedGenreIndex != null
-                        ? genres[selectedGenreIndex].name
-                        : selectedGenre==null
-                            ?"Select"
-                            :selectedGenre.tag
-                            }
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu >
-                        {
-                            genres.map((genre, index)=> {
-                                return <Dropdown.Item  
-                                            key={genre.id}
-                                            as={Link} to={genreBrowseURL(genre.id)}
-                                            onClick={() => handleGenreSelect(index)}
-                                            >
-                                        {genre.name}
-                                    </Dropdown.Item>})
-                        }
-                    </Dropdown.Menu>
-                </>
-            )
-            :(<Spinner animation="border" variant="primary" />)}
-             
- 
-        </Dropdown>
+        <DropdownButton
+            className='browse-genre__header__dropdown'
+            variant="primary"
+            title={genres && selectedGenreIndex != null
+                ? genres[selectedGenreIndex].name
+                : selectedGenre == null
+                    ? "Select"
+                    : selectedGenre.tag
+            }
+            disabled={genres == null}
+        >
+            {
+                genres && genres.map((genre, index) => {
+                    return <Dropdown.Item
+                        key={genre.id}
+                        as={Link} to={genreBrowseURL(genre.id)}
+                        onClick={() => handleGenreSelect(index)}
+                    >
+                        {genre.name}
+                    </Dropdown.Item>
+                })
+            }
+        </DropdownButton>
     )
 }

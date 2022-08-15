@@ -65,8 +65,9 @@ $theme-colors: (
 @import '~bootstrap/scss/bootstrap.scss';
 
 .book-capsule { 
+  max-width: 15vw;
   &__mini{
-    max-width: 15vw;
+    max-width: 12vw;
   }
   &__thumbnail{
     background-color: $text-medium;
@@ -362,9 +363,6 @@ $theme-colors: (
       display: block;
     }
   }
-  &__body{
-    padding-top:$browse-header-height; 
-  }
 }
 .genre-submenu{
   
@@ -416,6 +414,7 @@ $theme-colors: (
   &__dropdown{
     div.dropdown-menu.show{
       background-color: $primary;
+      z-index: 3;
       // background-color: $body-bg; 
       // border: 2px solid $primary;
       // border-radius: 0;
@@ -424,6 +423,7 @@ $theme-colors: (
       //   color: $primary;
       // }
     }
+
     
   }
 }

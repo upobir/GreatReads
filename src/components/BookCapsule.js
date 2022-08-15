@@ -102,15 +102,6 @@ export default function BookCapsule({book,setBook, id, mini}) {
     <Stack className={'book-capsule'+(mini?' book-capsule__mini':'')}>
           
       <Link to={id? bookDetailsURL(id) : '#'}>
-        {/* {book && book.thumbnail
-          ? (<div className="book-capsule__thumbnail">
-              <Image fluid src={placeholderBookImage}/>
-              <div className='book-capsule__thumbnail__idk'>
-                <FaBook/>
-              </div>
-            </div>)
-          : <Image fluid src={book?.thumbnail}/>
-        } */}
         {
         book?.thumbnail
         ? <Image fluid src={book.thumbnail} />
