@@ -300,3 +300,4 @@ export const _messagePreviews = [
         }
     }
 ]
+export const placeholderBookImage ="https://via.placeholder.com/325x500"

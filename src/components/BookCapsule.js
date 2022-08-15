@@ -10,8 +10,8 @@ import Form from 'react-bootstrap/Form';
 import { bookReadStatusPostEndpoint } from '../endpoints'
 import { useEffect } from 'react'
 import AuthContext from '../context/AuthContext'
-
-export default function BookCapsule({book,setBook, id}) {
+import { placeholderBookImage } from '../PlaceHolder'
+export default function BookCapsule({book,setBook, id, mini}) {
   const api = useAxios();
   const {user} = useContext(AuthContext)
   const [showReviewPopup, setShowReviewPopup] = useState(false);
@@ -25,6 +25,7 @@ export default function BookCapsule({book,setBook, id}) {
   useEffect(() => {
     if(book && book.pagesRead)
       setPagesRead(book.pagesRead)
+    
   }, [book])
 
   const postBookStatus =  (_readStatus, _pagesRead) => {
@@ -95,14 +96,36 @@ export default function BookCapsule({book,setBook, id}) {
     }
     setShowReadPageUpdateOverlay(false)
   }
+  
   return (
     
-    <Stack className='book-capsule'>
+    <Stack className={'book-capsule'+(mini?' book-capsule__mini':'')}>
           
       <Link to={id? bookDetailsURL(id) : '#'}>
-          <div className="book-capsule__thumbnail">
+        {/* {book && book.thumbnail
+          ? (<div className="book-capsule__thumbnail">
+              <Image fluid src={placeholderBookImage}/>
+              <div className='book-capsule__thumbnail__idk'>
+                <FaBook/>
+              </div>
+            </div>)
+          : <Image fluid src={book?.thumbnail}/>
+        } */}
+        {
+        book?.thumbnail
+        ? <Image fluid src={book.thumbnail} />
+        : (<div className="book-capsule__thumbnail">
+              <Image fluid src={placeholderBookImage} />
+              <div className='book-capsule__thumbnail__placeholder'>
+                <FaBook />
+              </div>
+            </div>)
+        }
+
+          
+          {/* <div className="book-capsule__thumbnail">
             <FaBook fontSize={90}/>
-          </div>
+          </div> */}
       </Link>
       <Stack className='book-capsule__rating-bar' direction='horizontal'>
         <div className='book-capsule__rating-bar__avg-rating'>
@@ -130,20 +153,20 @@ export default function BookCapsule({book,setBook, id}) {
               disabled={book == null || user == null} 
               onClick={handleBookSetToWishlist} 
               active={book && book.readStatus === "wishlisted"}>
-              <FaBookmark fontSize={20}/>
+              <FaBookmark fontSize="1.4rem"/>
             </Button>
             <Button ref={ReadPageUpdateOverlayTarget}
                     disabled={book == null || user == null} 
                     variant="outline-primary" 
                     onClick={handleBookSetToReading} 
                     active={book && book.readStatus === "reading"}>
-              <FaBookOpen  fontSize={20}/>
+              <FaBookOpen  fontSize="1.4rem"/>
             </Button>
             <Button variant="outline-primary"
                     disabled={book == null || user == null} 
                     onClick={handleBookSetToRead} 
                     active={book && book.readStatus === "read"}>
-              <FaCheck  fontSize={20}/>
+              <FaCheck  fontSize="1.4rem"/>
             </Button>
 
           </ButtonGroup>

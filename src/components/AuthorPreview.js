@@ -7,6 +7,7 @@ import { FollowBlock } from './FollowBlock'
 import { authorFollowToggleEndpoint } from '../endpoints'
 import {Spinner} from 'react-bootstrap'
 export default function AuthorPreview({ author }) {
+    console.log('author', author)
   return (
     <Stack className='author-preview' gap={0}>
         {author

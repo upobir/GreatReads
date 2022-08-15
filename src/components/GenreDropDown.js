@@ -27,7 +27,7 @@ export const GenreDropDown = ({selectedGenre, setGenreID}) => {
         console.log('gerne set index',  index)
         console.log('genres[index]', genres[index])
         setSelectedGenreIndex(index)
-        setGenreID(genres[index].id)
+        // setGenreID(genres[index].id)
     }
     useEffect(()=> {
         getGenres()
@@ -51,7 +51,7 @@ export const GenreDropDown = ({selectedGenre, setGenreID}) => {
                                 return <Dropdown.Item  
                                             key={genre.id}
                                             as={Link} to={genreBrowseURL(genre.id)}
-                                            // onClick={() => handleGenreSelect(index)}
+                                            onClick={() => handleGenreSelect(index)}
                                             >
                                         {genre.name}
                                     </Dropdown.Item>})

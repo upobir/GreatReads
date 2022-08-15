@@ -20,7 +20,7 @@ export const BrowseGenre = () => {
     const getNewBooksInGenre = async () => {
         console.log('genre fetch')
         api()
-        .get(browseGenreEndpoint(genreID))
+        .get(browseGenreEndpoint(genre_id))
         .then((response) => {
           let _books  = response.data
           console.log('_books', _books)
@@ -31,9 +31,9 @@ export const BrowseGenre = () => {
         })
     }
     const getGenreDetails = ()=> {
-        console.log('genre fetch',genreID)
+        console.log('genre fetch',genre_id)
         api()
-        .get(genreFetchEndpoint(genreID))
+        .get(genreFetchEndpoint(genre_id))
         .then((response)=>{
             let _genre = response.data;
             console.log('genreFetch response', response.data)
@@ -46,7 +46,7 @@ export const BrowseGenre = () => {
         getGenreDetails()
         setBooks(null)
         getNewBooksInGenre()
-    }, [genreID])
+    }, [genre_id])
     
 
     console.log('genre', genre)
@@ -61,7 +61,7 @@ export const BrowseGenre = () => {
                                             {genreID && genre && <>
                                                 <FollowBlock
                                                     followContext={genre}
-                                                    followToggleURL={genreFollowToggleEndpoint(genreID)}
+                                                    followToggleURL={genreFollowToggleEndpoint(genre_id)}
                                                 />
                                             </>
                                             }
@@ -69,10 +69,14 @@ export const BrowseGenre = () => {
                                         <hr style={{ marginBlockStart: "0.25em", marginBlockEnd: "0.25em" }} />
                                     </>
                             </div>
-                            {genreID && genre &&
+                            {genre_id && 
                             <div className='browse-genre__body'>
-                                <div><p>{genre.desc}</p></div>
-                                <h3 className='primary-text'>New releases Tagged "{genre.tag}":</h3>
+                                {genre &&
+                                    <>
+                                        <div><p>{genre.desc}</p></div>
+                                        <h3 className='primary-text'>New releases Tagged "{genre.tag}":</h3>
+                                    </>
+                                }
                                 <BookGallery books={books} booksPerRow={4} setBooks={setBooks}></BookGallery>
                             </div>
                             }

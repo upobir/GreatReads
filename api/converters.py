@@ -112,6 +112,7 @@ def book_detailed(book, userid):
         "id": book.id, 
         "isbn": book.isbn,
         "title": book.title,
+        "thumbnail" : book.thumbnail.url if book.thumbnail else None,
         "description": book.description,
         "pageCount": book.pages,
         "released": book.release_date, 
