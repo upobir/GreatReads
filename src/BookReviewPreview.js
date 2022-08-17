@@ -36,7 +36,7 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHa
     console.log("#TODO like toggle fetch url ")
   }
 
-
+  console.log('review', review)
 
   return (
     <Container className='book-review-block'>
@@ -47,7 +47,7 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHa
         <Col>
           <Stack gap={2} direction='horizontal'>
             {review && <>
-                          <Link to={userDetailsURL(review?.reviewer)} >{review.reviewer}</Link>
+                          <Link to={userDetailsURL(review?.reviewerId)} >{review.reviewer}</Link>
                           <span className='inline-block light-text'>Rated it</span>
                           <Rating readonly={true} size={30} ratingValue={review.rating * 100 / 5} />
                        </>

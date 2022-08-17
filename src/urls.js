@@ -10,7 +10,12 @@ export function bookDetailsURL(noteID){
     return  `/book/${noteID}/`
 }
 export function userDetailsURL(userID){
-    return `/user/${userID}/`
+    if(userID != null)
+        return `/user/${userID}/`
+    return '#'
+}
+export function loginURL(){
+    return '/login/'
 }
 export function reviewDetailsURL(bookID, reviewID){
     return `${bookDetailsURL(bookID)}review/${reviewID}/`
@@ -37,6 +42,9 @@ export function newlyRatedBrowseURL(){
 
 export function myBookShelfURL(user){
     return `/user/${user.user_id}/`
+}
+export function registerURL(){
+    return `/register/`
 }
 const myFeedURL = "/feed/"
 const homeURL = "/home/"

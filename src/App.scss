@@ -199,10 +199,17 @@ $theme-colors: (
   background-color: $dp-2;
   .book-review-block{
     background-color:  unset;
+
   }
   &__comment{
     background-color: $dp-3;
     padding: .5rem;
+  }
+}
+.review-summary-block{
+  &__avgRating{
+    color: $primary;
+    font-size: 3.25rem;
   }
 }
 .book-review-block{
@@ -345,6 +352,9 @@ $theme-colors: (
     display: inline;
     margin-bottom: 0;
   }
+}
+.nav-search-bar{
+  margin-right: auto;
 }
 .browse-genre{
   top: $navbar-height;

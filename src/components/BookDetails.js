@@ -83,11 +83,12 @@ const BookDetails = () => {
                 <Container fluid className='book-details__left-col'>
                     <Col xs={2} className='allow-click-self book-details__left-col__inner' >
                         <BookCapsule book={book} id={id} setBook={setBook} />
-                        <div className='review-summary-block'>
-                            <h1> {book?.avgRating.toFixed(2)}/5 </h1>
-                            <p>from {book?.reviewCount} reviews</p>
+                        { book && <div className='review-summary-block'>
+                            <span className='review-summary-block__avgRating'> {book.avgRating >= 5? 5 : book.avgRating.toFixed(2)}/5 </span>
+                            <p className='light-text'>from {book?.reviewCount} reviews</p>
                             <Button className='review-summary-block__write-review-btn' variant="Link" onClick={handleReviewPopupShow}> Write a review </Button>
                         </div>
+                        }
                     </Col>
                 </Container>
                 <Container fluid  className='book-details__right-col'>
@@ -110,9 +111,9 @@ const BookDetails = () => {
                     <Col xs={{span:7,offset:2 }}>
      
                         <p className='medium-text'>{book?.description}</p>
-                        <Row><Col xs={2}className="medium-text">ISBN:</Col><Col>{book?.isbn}</Col></Row>
-                        <Row><Col xs={2}className="medium-text">Pages:</Col><Col>{book?.pageCount}</Col></Row>
-                        <Row><Col xs={2}className="medium-text">Released:</Col><Col>{book?.released}</Col></Row>
+                        <Row><Col xs={2}>ISBN:</Col ><Col className="medium-text">{book?.isbn}</Col></Row>
+                        <Row><Col xs={2}>Pages:</Col ><Col className="medium-text">{book?.pageCount}</Col></Row>
+                        <Row><Col xs={2}>Released:</Col ><Col className="medium-text">{book?.released}</Col></Row>
                         {/* <p><span className="medium-text">Language:</span> {book.isbn}</p> */}
                         <GenreBlock genres={book?.genres}/>
 

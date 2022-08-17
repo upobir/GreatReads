@@ -1,7 +1,7 @@
 import React, {useRef} from 'react'
 import {Navbar,NavDropdown,Nav, Container, Stack,Row, Col, Form,FormControl, Button, ButtonGroup} from 'react-bootstrap'
 import {myBookShelfURL, myFeedURL, homeURL, browseAllURL,
-   genreBrowseURL, newlyRatedBrowseURL, newReleasesBrowseURL, followedAuthorBrowseURL
+   genreBrowseURL, newlyRatedBrowseURL, newReleasesBrowseURL, followedAuthorBrowseURL, loginURL, registerURL
   } from '../urls'
 import { Link } from 'react-router-dom';
 import { useContext } from "react";
@@ -69,10 +69,12 @@ export default function GreatReadsNavbar() {
                     <FormControl
                         type="search"
                         placeholder="Search"
-                        className="me-2"
+                        className="me-2 nav-search-bar"
                         aria-label="Search"
                         />
                     </Form>
+                    {(user == null) && <Link to={loginURL()} className='no-text-effects'>Login</Link>}
+                    {(user == null) && <Button variant="primary" as={Link} to={registerURL()} >Sign Up </Button>}
                     {user && <UserInfo user={user} logout={logoutUser} />} 
                     </Stack>
                 <Row><div className='primary-bg top-navbar__border-hack'></div></Row>

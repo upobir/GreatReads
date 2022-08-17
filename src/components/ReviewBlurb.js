@@ -13,7 +13,7 @@ function spliceReviewText(text){
   text?.substring(0, 40);
 }
 export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
-  // console.log('reviewBlurbData.review.id', reviewBlurbData.review)
+  // console.log('reviewBlurbData', reviewBlurbData)
   const setBook = (_book) => {
     let mutatedReviewBlurbData= reviewBlurbData
     mutatedReviewBlurbData.book = _book
@@ -23,7 +23,7 @@ export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
     <Stack  gap={2} >
       <Stack direction='horizontal' className='feed-item__header'>
         <Stack direction='horizontal' className='feed-item__header__left' gap={1}>
-          <Link to={userDetailsURL(reviewBlurbData.user)}>{reviewBlurbData.user.name}</Link>
+          <Link to={userDetailsURL(reviewBlurbData.user.id)}>{reviewBlurbData.user.name}</Link>
           <span className='light-text'>reviewed</span>
           <Rating readonly={true} size={30} ratingValue={convertRatingTo100Scale(reviewBlurbData.review.rating)} />
         </Stack>

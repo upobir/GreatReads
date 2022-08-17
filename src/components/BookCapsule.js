@@ -20,11 +20,10 @@ export default function BookCapsule({book,setBook, id, mini}) {
 
   const [showReadPageUpdateOverlay, setShowReadPageUpdateOverlay] = useState(false);
   const ReadPageUpdateOverlayTarget = useRef(null);
-  const [pagesRead, setPagesRead] = useState(book && book.pagesRead?book.pagesRead: 0);
-
+  const [pagesRead, setPagesRead] = useState(book && book.readPages?book.readPages: 0);
   useEffect(() => {
-    if(book && book.pagesRead)
-      setPagesRead(book.pagesRead)
+    if(book && book.readPages)
+      setPagesRead(book.readPages)
     
   }, [book])
 
@@ -79,8 +78,6 @@ export default function BookCapsule({book,setBook, id, mini}) {
   };
   const updatePagesRead = (e) => {
     e.preventDefault()
-    console.log('book', book)
-    console.log('bookReadStatusPostEndpoint(id)', bookReadStatusPostEndpoint(id))
     if(book && pagesRead && user != null){
       api()
       .post(bookReadStatusPostEndpoint(id), {

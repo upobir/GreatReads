@@ -36,7 +36,7 @@ const tabs = [
   },
   {
     tabTitle:"By Genre",
-    tabLink:"/browse/genre/0",
+    tabLink:"/browse/genre/1",
     tabKey:"genre",
   },
   {
