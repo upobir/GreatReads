@@ -46,6 +46,7 @@ urlpatterns = [
     path('browse/newReleases/', BrowseNewReleaseView.as_view(), name="browse_new_release"),
     path('browse/genre/<int:pk>/', BrowseByGenreView.as_view(), name="browse_genre"),
     path('browse/followedAuthors/', BrowseFollowedAuthorsView.as_view(), name='browse_followed_author'),
+    path('browse/newlyRated/', BrowseNewlyRatedView.as_view(), name='browse_newly_rated'),
 
     path('author/<int:pk>/books/', AuthorBooksView.as_view(), name='author_books'),
     path('author/<int:pk>/series/', AuthorSeriesView.as_view(), name='author_series'),
