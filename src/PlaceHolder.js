@@ -301,4 +301,4 @@ export const _messagePreviews = [
     }
 ]
 export const placeholderBookImage ="https://via.placeholder.com/325x500"
-export const placeholderUserImage ="https://via.placeholder.com/100x100"
+export const placeholderUserImage ="https://via.placeholder.com/200x200"
