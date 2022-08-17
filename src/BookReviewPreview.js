@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Image,Stack, Container,Row,Col, Button } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import 'holderjs'
-import { reviewDetailsURL,userDetailsURL,reviewID } from './urls'
+import { reviewDetailsURL,userDetailsURL,reviewID, reviewReplyURL } from './urls'
 import { FaThumbsUp, FaComment} from 'react-icons/fa'
 import {Spinner} from 'react-bootstrap';
 import { Rating } from 'react-simple-star-rating'
@@ -48,7 +48,6 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHa
 
   }, [review])
 
-  console.log('review', review)
 
   return (
     <Container className='book-review-block'>
@@ -81,10 +80,10 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHa
               <BookReviewLikeButton review={review}/>
             </Col>
             <Col xs={"auto"}>
-              <Button onClick={commentReplyHandler}> <FaComment />  reply</Button>
+              <Button as={Link} to={reviewReplyURL(bookID, review.id)}> <FaComment />  reply</Button>
             </Col>
             <Col xs={"auto"}>
-              {review && <Link to={reviewDetailsURL(bookID, review?.id)} >{`${review?.commentCount} comments`}</Link>}
+              {review && <Link to={reviewDetailsURL(bookID, review.id)} >{`${review?.commentCount} comments`}</Link>}
             </Col>
           </Row>}
         </Col>

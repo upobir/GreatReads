@@ -145,7 +145,8 @@ const BookDetails = () => {
                                 (book?.series) && <Route path="/series" element={<SeriesView book={book} series={series} setSeries={setSeries}/>} />
                             }
                             <Route path="/similar_books" element={<SimilarBooksView similarBooks={similarBooks} setSimilarBooks={setSimilarBooks} />} />
-                            <Route path="/review/:review_id/*" element={<BookReview bookID={id}/>}></Route>
+                            <Route path="/review/:review_id/:reply" element={<BookReview bookID={id}/>}></Route>
+                            <Route path="/review/:review_id/" element={<BookReview bookID={id}/>}></Route>
                             <Route path="" element={<BookReviews book={book}/>} />
                             <Route path="/reviews" element={<BookReviews bookID={id}/>} />
                             

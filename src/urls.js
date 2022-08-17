@@ -20,6 +20,9 @@ export function loginURL(){
 export function reviewDetailsURL(bookID, reviewID){
     return `${bookDetailsURL(bookID)}review/${reviewID}/`
 }
+export function reviewReplyURL(bookID, reviewID){
+    return `${bookDetailsURL(bookID)}review/${reviewID}/reply/`
+}
 export function browseAllURL(){
     return "/browse/all"
 }
