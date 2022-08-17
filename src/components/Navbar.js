@@ -11,23 +11,42 @@ import {OverlayTrigger} from 'react-bootstrap';
 import { useState } from 'react';
 import { Overlay } from 'react-bootstrap';
 import { _genres } from '../PlaceHolder';
+import useAxios from '../utils/useAxios';
+import { SimpleSpinner } from './SpinnerWrapper';
+import { genresFetchEndpoint } from '../endpoints';
+const GenreSubmenu = () => { 
+  const[genres,setGenres] = useState(null) 
+  const api = useAxios()
+  console.log('_genres', _genres)
+  useState(()=>{
+    api()
+        .get(genresFetchEndpoint())
+        .then((response)=>{
+            let _genres = response.data
+            console.log('nav genres', _genres)
+            setGenres(_genres)
+        })
+        .catch((err)=> console.log('genres fetcg err', err))
+  },[])
+  return (
+    <Stack  className='genre-submenu'>
+      <h4>Genre</h4>
+      {genres
+        ? (genres.map((genre, index)=> {
+          return <Link to={genreBrowseURL(genre.id)}>{genre.name}</Link>
+        }))
+        : <SimpleSpinner />
+      }
+      {}
+    </Stack>
+  )
+}
 
 export default function GreatReadsNavbar() {
   const { user, logoutUser } = useContext(AuthContext);
   const target = useRef(null);
   const [show,setShow] = useState(false)
-  const GenreSubmenu = () => { 
-    console.log('_genres', _genres)
-    return (
-      <Stack  className='genre-submenu'
-      onMouseEnter={()=>setShow(true)}
-      onMouseLeave={()=>setShow(false)}>
-        {_genres.map((genre, index)=> {
-          return <Link to={genreBrowseURL(genre.id)}>{genre.tag}</Link>
-        })}
-      </Stack>
-    )
-  }
+
   return (
     <Navbar variant = "dark" fixed="top" className="top-navbar">
       <Stack >
@@ -35,31 +54,14 @@ export default function GreatReadsNavbar() {
                       <Navbar.Brand href={homeURL}>GreatReads</Navbar.Brand>
                       <NavDropdown title="Browse" className='top-navbar__browse__dropdown'>
                           <Stack direction='horizontal'>
-                            <Stack>
-                              {/* <OverlayTrigger
-                                onEnter={()=>setShow(true)}
-                                onExit={()=>setShow(false)}
-                                overlay={()=> ""}
-                                > */}
-                                <NavDropdown.Item as={Link} to={genreBrowseURL(1)}
-                                     onMouseEnter={()=>setShow(true)}
-                                     onMouseLeave={()=>setShow(false)}
-                                >
-                                  Genre
-                                </NavDropdown.Item>
-                              {/* </OverlayTrigger> */}
+                            <Stack className='top-navbar__browse__dropdown__left-menu'>
                               <NavDropdown.Item as={Link} to={newReleasesBrowseURL()} className="navItem">New Releases</NavDropdown.Item>
                               <NavDropdown.Item as={Link} to={followedAuthorBrowseURL()} className="navItem">Followed Authors</NavDropdown.Item>
                               <NavDropdown.Item as={Link} to={newlyRatedBrowseURL()} className="navItem">Newly Rated</NavDropdown.Item>
                             </Stack>
-                            {show && <GenreSubmenu/>}
-                            {/* <Overlay target={target.current} show={show}> */}
-                                {/* <div> */}
-                                {/* <ButtonGroup vertical>
-                                  <Button>Button</Button>
-                                  <Button>Button</Button>
-                                </ButtonGroup> */}
-                                {/* </div> */}
+                            {/* <Stack className='top-navbar__browse__dropdown__genre-menu'> */}
+                            <GenreSubmenu/>
+                            {/* </Stack> */}
                             {/* </Overlay> */}
                           </Stack>
                       </NavDropdown>

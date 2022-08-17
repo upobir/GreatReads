@@ -398,19 +398,13 @@ $theme-colors: (
     }
   }
 }
-.genre-submenu{
-  
-  padding: .5rem;
-  a {
-    color: $text-high;
-    text-decoration: none;
-  }
-}
+
 
 //nav dropdown 
 .top-navbar__browse__dropdown{
+  
   div.dropdown-menu.show {
-    background-color: $body-bg; 
+    background-color: $body-bg;
     border: 2px solid $primary;
     border-top: 0px;
     border-radius: 0;
@@ -419,8 +413,21 @@ $theme-colors: (
       color: $primary;
       text-decoration: none;
     }
+    padding:0;
   }
-  
+  &__left-menu{
+    background-color: $dp-3;
+
+  }
+  .genre-submenu{
+    background-color: $body-bg;
+    padding: 1rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    a {
+      text-decoration: none;
+    }
+  }
 }
 
 .browse-new{
