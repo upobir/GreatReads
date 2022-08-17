@@ -14,7 +14,7 @@ import { ReviewPopup } from './ReviewPopup';
 import BookAuthorsBlock from './BookAuthorsBlock';
 import useAxios from "../utils/useAxios";   // for private api endpoints
 import { SpinnerWrapper } from './SpinnerWrapper';
-
+import {PlaceholderMiniBlockWrapper, PlaceholderParagraphWrapper} from './PlaceholderBlockWrapper';
 const BookDetails = () => {
     const {id} = useParams();
     const navigate = useNavigate()
@@ -99,23 +99,37 @@ const BookDetails = () => {
 
                 <Container fluid  className='book-details__mid-col-top'>
                     <Col xs={{span:7,offset:2 }} className='book-details__mid-col-top-header' id='book-details-mid-header'>
-                        <SpinnerWrapper Component={<h1 className='primary-text'>{book?.title}</h1>} isLoading={book==null}/>
-                        <Stack direction="horizontal" gap = {1}>
-                            <span className='inline-block light-text'>by</span>
-                            <BookAuthorsBlock book={book}/>
-                        </Stack>
+                        {/* <SpinnerWrapper Component={<h1 className='primary-text'>{book?.title}</h1>} isLoading={book==null}/> */}
+                        <PlaceholderMiniBlockWrapper 
+                            Component={<>
+                                    <h1 className='primary-text'>
+                                        {book?.title}
+                                    </h1>
+                                    <Stack direction="horizontal" gap = {1}>
+                                        <span className='inline-block light-text'>by</span>
+                                        <BookAuthorsBlock book={book}/>
+                                    </Stack>
+                                </>} 
+                            isLoading={book==null}
+                            cols={6}/>
+
 
                     </Col>
                 </Container>
                 <Container fluid className='book-details__mid-col-bottom'>
                     <Col xs={{span:7,offset:2 }}>
-     
+                    <PlaceholderParagraphWrapper
+                    Component={<>
                         <p className='medium-text'>{book?.description}</p>
                         <Row><Col xs={2}>ISBN:</Col ><Col className="medium-text">{book?.isbn}</Col></Row>
                         <Row><Col xs={2}>Pages:</Col ><Col className="medium-text">{book?.pageCount}</Col></Row>
                         <Row><Col xs={2}>Released:</Col ><Col className="medium-text">{book?.released}</Col></Row>
                         {/* <p><span className="medium-text">Language:</span> {book.isbn}</p> */}
-                        <GenreBlock genres={book?.genres}/>
+                        <GenreBlock genres={book?.genres} />
+                    </>
+                    }
+                    isLoading={book==null}
+                    />
 
                         <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} className="book-details__tab-bar">
                             <Tab eventKey="reviews" title="Reviews">

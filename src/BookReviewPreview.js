@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Image,Stack, Container,Row,Col, Button } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import 'holderjs'
@@ -6,6 +6,8 @@ import { reviewDetailsURL,userDetailsURL,reviewID } from './urls'
 import { FaThumbsUp, FaComment} from 'react-icons/fa'
 import {Spinner} from 'react-bootstrap';
 import { Rating } from 'react-simple-star-rating'
+import { useEffect } from 'react'
+import { Placeholder } from 'react-bootstrap'
 function truncateReview(review){
   return  review?.substring(0, 100);
 }
@@ -22,7 +24,12 @@ export const TruncatedReview = ({review,bookID})=> {
     </>
     );
   else
-    return <Spinner animation="border" variant="secondary" />
+    return <Placeholder  animation="glow">
+    <Placeholder xs={12} size="lg" />
+    <Placeholder xs={12} size="lg" />
+    <Placeholder xs={12} size="lg" />
+    <Placeholder xs={4} size="lg" />
+</Placeholder>
 }
 export const NormalReview = ({review,bookID})=> {
   return <Row>
@@ -32,9 +39,13 @@ export const NormalReview = ({review,bookID})=> {
 }
 
 export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHandler}) => {
+  const [userLikesReview, setUserLikesReview] = useState(false)
   const handleLikeToggle= () => {
-    console.log("#TODO like toggle fetch url ")
+    
   }
+  useEffect(()=> {
+
+  }, [review])
 
   console.log('review', review)
 
