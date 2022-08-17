@@ -54,13 +54,13 @@ class BookReviewsView(APIView):
     def get(self, request, pk):
         book = Book.objects.get(id=pk)
 
-        data = [review_mini(review) for review in Review.objects.filter(book=book)]
+        data = [review_mini(review, request.user.id) for review in Review.objects.prefetch_related('likers').filter(book=book)]
         return Response(data)
 
 
 class ReviewView(APIView):
     def get(self, request, pk):
-        review = Review.objects.get(id=pk)
+        review = Review.objects.prefetch_related('likers').get(id=pk)
         data = review_detailed(review, request.user.id)
         return Response(data)
 

@@ -161,7 +161,7 @@ def comment_mini(comment):
         "Text": comment.text,
     }
 
-def review_mini(review):
+def review_mini(review, userId):
     return {
         "id": review.id,
         "reviewer" : review.creator.username,
@@ -169,6 +169,7 @@ def review_mini(review):
         "body" : review.description,
         "rating": review.rating,
         "likes": review.like_count,
+        "liked": review.likers.filter(id=userId).exists() if userId else False,
         "commentCount": review.comment_count,
         "Timestamp": review.timestamp,
     }
@@ -178,6 +179,7 @@ def review_detailed(review, userId):
         "id": review.id,
         "reviewer" : review.creator.username,
         "reviewerId" : review.creator.id,
+        "bookId": review.book.id,
         "body" : review.description,
         "rating": review.rating,
         "likes": review.like_count,
