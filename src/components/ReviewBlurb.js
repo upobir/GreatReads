@@ -10,10 +10,9 @@ function convertRatingTo100Scale(rating) {
   return rating * 100 / 5;
 }
 function spliceReviewText(text){
-  text?.substring(0, 40);
+  return text?.substring(0, 200);
 }
 export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
-  // console.log('reviewBlurbData', reviewBlurbData)
   const setBook = (_book) => {
     let mutatedReviewBlurbData= reviewBlurbData
     mutatedReviewBlurbData.book = _book
@@ -30,10 +29,10 @@ export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
         <span className='text-medium'>{reviewBlurbData.review.Timestamp}</span>
       </Stack>
       {/* <Container fluid > */}
-      {spliceReviewText(reviewBlurbData.review.body) &&
+      { reviewBlurbData.review.body &&
         <Stack  direction='horizontal' className='review-blurb__quote-block'>
           <FaQuoteLeft fontSize={30} />
-           <div>{reviewBlurbData.review.body}</div>
+           <div>{ spliceReviewText(reviewBlurbData.review.body)}</div>
           <FaQuoteRight fontSize={30} />
         </Stack>
       }
