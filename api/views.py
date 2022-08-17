@@ -9,6 +9,7 @@ from .models import *
 from .serializers import *
 from .converters import *
 from django.contrib.auth.models import User
+from django.db.models import Max
 
 class BookView(APIView):
     def get(self, request, pk):
@@ -105,6 +106,13 @@ class BrowseNewReleaseView(APIView):
 class BrowseFollowedAuthorsView(APIView):
     def get(self, request):
         books = Book.objects.prefetch_related('review_set').filter(authors__followers__id=request.user.id).order_by("-release_date")  # TODO nulls
+
+        data = [book_detailed(book, request.user.id) for book in books]
+        return Response(data)
+
+class BrowseNewlyRatedView(APIView):
+    def get(self, request):
+        books = Book.objects.prefetch_related('review_set').all().annotate(max_update_time=Max('review__timestamp')).order_by("-max_update_time")  # TODO nulls
 
         data = [book_detailed(book, request.user.id) for book in books]
         return Response(data)
