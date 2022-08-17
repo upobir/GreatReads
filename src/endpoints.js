@@ -38,8 +38,10 @@ export function seriesFetchEndpoint(seriesID){
 }
 
 export function reviewFetchEndpoint(reviewID){
-    console.log('reviewID', reviewID)
     return  `/api/review/${reviewID}/`
+}
+export function reviewLikeToggleEndpoint(reviewID){
+    return `/api/review/${reviewID}/like/post/`
 }
 export function authorFetchEndpoint(authorID){
     return  `/api/author/${authorID}/`

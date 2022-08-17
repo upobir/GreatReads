@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { genreBrowseURL } from '../urls'
 
 export default function GenreBlock({genres}) {
-  console.log('genres', genres)
   return (
     <div>
         <h3> Genre: </h3>

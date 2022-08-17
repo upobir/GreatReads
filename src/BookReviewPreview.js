@@ -8,6 +8,7 @@ import {Spinner} from 'react-bootstrap';
 import { Rating } from 'react-simple-star-rating'
 import { useEffect } from 'react'
 import { Placeholder } from 'react-bootstrap'
+import BookReviewLikeButton from './components/BookReviewLikeButton'
 function truncateReview(review){
   return  review?.substring(0, 100);
 }
@@ -24,12 +25,12 @@ export const TruncatedReview = ({review,bookID})=> {
     </>
     );
   else
-    return <Placeholder  animation="glow">
-    <Placeholder xs={12} size="lg" />
-    <Placeholder xs={12} size="lg" />
-    <Placeholder xs={12} size="lg" />
-    <Placeholder xs={4} size="lg" />
-</Placeholder>
+    return (<Placeholder  animation="glow">
+      <Placeholder xs={12} size="lg" />
+      <Placeholder xs={12} size="lg" />
+      <Placeholder xs={12} size="lg" />
+      <Placeholder xs={4} size="lg" />
+  </Placeholder>)
 }
 export const NormalReview = ({review,bookID})=> {
   return <Row>
@@ -77,7 +78,7 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHa
           <br />
           {review && <Row>
             <Col xs={"auto"}>
-              <Button onClick={handleLikeToggle}> <FaThumbsUp /> {review?.likes} likes</Button>
+              <BookReviewLikeButton review={review}/>
             </Col>
             <Col xs={"auto"}>
               <Button onClick={commentReplyHandler}> <FaComment />  reply</Button>
