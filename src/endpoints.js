@@ -62,8 +62,7 @@ export function browseNewReleasesEndpoint(){
 }
 
 export function browseNewlyRatedEndpoint(){
-    // return  `/api/browse/newlyRated`
-    return  `/api/books/`
+    return  `/api/browse/newlyRated/`
 }
 
 export function browseFollowedAuthorEndpoint(){

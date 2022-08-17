@@ -14,7 +14,6 @@ export const BrowseNewlyRated = () => {
       .get(browseNewlyRatedEndpoint())
       .then((response) => {
         let _books  = response.data
-        console.log('_books', _books)
         setBooks(_books) 
       })
       .catch((error)=>{

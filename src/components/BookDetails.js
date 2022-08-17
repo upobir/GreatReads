@@ -15,6 +15,7 @@ import BookAuthorsBlock from './BookAuthorsBlock';
 import useAxios from "../utils/useAxios";   // for private api endpoints
 import { SpinnerWrapper } from './SpinnerWrapper';
 import {PlaceholderMiniBlockWrapper, PlaceholderParagraphWrapper} from './PlaceholderBlockWrapper';
+
 const BookDetails = () => {
     const {id} = useParams();
     const navigate = useNavigate()
@@ -85,7 +86,7 @@ const BookDetails = () => {
                         <BookCapsule book={book} id={id} setBook={setBook} />
                         { book && <div className='review-summary-block'>
                             <span className='review-summary-block__avgRating'> {book.avgRating >= 5? 5 : book.avgRating.toFixed(2)}/5 </span>
-                            <p className='light-text'>from {book?.reviewCount} reviews</p>
+                            <p className='light-text'>from {book?.reviewCount} ratings</p>
                             <Button className='review-summary-block__write-review-btn' variant="Link" onClick={handleReviewPopupShow}> Write a review </Button>
                         </div>
                         }
