@@ -1,4 +1,3 @@
-from msilib.schema import AppId
 from rest_framework.response import Response
 from rest_framework.decorators import APIView,api_view
 
