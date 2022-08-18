@@ -77,7 +77,7 @@ export const Bookshelf = () => {
     if ( isFollowedByUser )
     {
       api()
-      .get(unFollowUserEndpoint(userID), {
+      .post(unFollowUserEndpoint(userID), {
       })
       .then((response) => {
           console.log('Unfollowed: ', response.data);
@@ -96,7 +96,7 @@ export const Bookshelf = () => {
     else
     {
       api()
-      .get(followUserEndpoint(userID), {
+      .post(followUserEndpoint(userID), {
       })
       .then((response) => {
           console.log('Followed: ', response.data);

@@ -192,7 +192,7 @@ class BookShelfViewReviews(APIView):
         return Response(data)
 
 class FollowUser(APIView):
-    def get(self, request, followingUserID):
+    def post(self, request, followingUserID):
         if not request.user.id:
             return Response("fail")
 
@@ -203,7 +203,7 @@ class FollowUser(APIView):
         return Response({"status": "success"})
 
 class UnFollowUser(APIView):
-    def get(self, request, followingUserID):
+    def post(self, request, followingUserID):
         if not request.user.id:
             return Response("fail")
 
