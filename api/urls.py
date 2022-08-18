@@ -55,6 +55,7 @@ urlpatterns = [
     path('user/<int:userID>/<int:bookshelfCategory>/', BookUserStatusView.as_view(), name="bookuserstatus_view"),
     path('user/<int:userID>/stats/', BookUserStatusStats.as_view(), name="bookuserstatus_stats"),
     path('user/<int:userID>/info/', BookShelfUserInfo.as_view(), name="bookuserstatus_stats"),
+    path('user/<int:userID>/reviews/', BookShelfViewReviews.as_view(), name="bookshelf_viewreviews"),
 
     # follow/unfollow user
     path('follow/<int:followingUserID>/', FollowUser.as_view(), name="follow_user"),

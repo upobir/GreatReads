@@ -174,6 +174,23 @@ class BookUserStatusStats(APIView):
 
         return Response(data)
 
+class BookShelfViewReviews(APIView):
+    def get(self, request, userID):
+        review_creator = User.objects.get(id=userID)
+        print("Preparing review_feed_item...")
+
+        data = []
+
+        for reviewIter in Review.objects.filter(creator=review_creator):
+            review_mini_data = review_mini(reviewIter, userID)  # field review_mini of review_feed_item
+            timestamp = reviewIter.timestamp    # field timestamp of review_feed_item
+            book = book_mid(reviewIter.book, review_creator)    # field book of review_feed_item
+            user = user_mini(userID)
+
+            data.append(review_feed_item(review_mini_data, timestamp, book, user))
+
+        return Response(data)
+
 class FollowUser(APIView):
     def get(self, request, followingUserID):
         if not request.user.id:

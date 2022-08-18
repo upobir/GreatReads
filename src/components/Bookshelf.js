@@ -9,7 +9,7 @@ import { MakeVerticalTabBarBookshelf, MakeHorizontalTabBar } from './CustomTabs'
 import { BookShelf_WantToRead } from './Bookshelf_WantToRead';
 import { BookShelf_stats } from './Bookshelf_stats';
 import { bookshelfUserInfoEndpoint, followUserEndpoint, unFollowUserEndpoint } from '../endpoints';
-
+import { BookShelf_ViewReviews} from './Bookshelf_reviews';
 
 const bookshelfGallary = () => {
   
@@ -154,7 +154,7 @@ export const Bookshelf = () => {
               <Route path="/WantToRead" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={0} />} />
               <Route path="/Read" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={1} />} />
               <Route path="/Reading" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={2} />} />
-              <Route path="/Reviewed" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={3} />} />
+              <Route path="/Reviewed" element={<BookShelf_ViewReviews userID={userID} />} />
             </Routes>
           </Col>
           <Col xs={{span:2}}>
