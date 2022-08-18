@@ -182,7 +182,7 @@ class BookShelfViewReviews(APIView):
         data = []
 
         for reviewIter in Review.objects.filter(creator=review_creator):
-            review_mini_data = review_mini(reviewIter)  # field review_mini of review_feed_item
+            review_mini_data = review_mini(reviewIter, userID)  # field review_mini of review_feed_item
             timestamp = reviewIter.timestamp    # field timestamp of review_feed_item
             book = book_mid(reviewIter.book, review_creator)    # field book of review_feed_item
             user = user_mini(userID)
