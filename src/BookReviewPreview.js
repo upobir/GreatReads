@@ -50,7 +50,7 @@ if(review)
 }
 
 export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHandler}) => {
-  console.log('review', review)
+  // console.log('review', review)
   return (
     <Container className='book-review-block'>
       <Row>
@@ -87,7 +87,11 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHa
               <BookReviewLikeButton review={review}/>
             </Col>
             <Col xs={"auto"}>
-              <Button as={Link} to={reviewReplyURL(bookID, review.id)}> <FaComment />  reply</Button>
+              {shouldTruncate
+              ? <Button as={Link} to={reviewReplyURL(bookID, review.id)}> <FaComment />  reply</Button>
+              : <Button onClick={commentReplyHandler}> <FaComment />  reply</Button>
+              }
+              
             </Col>
             <Col xs={"auto"}>
               {review && <Link to={reviewDetailsURL(bookID, review.id)} >{`${review?.commentCount} comments`}</Link>}

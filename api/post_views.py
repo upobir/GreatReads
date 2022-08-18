@@ -99,9 +99,9 @@ class ReviewCommentPostView(APIView):
 
         commentText = request.data["commentText"]
 
-        ReviewComment.objects.create(text=commentText, creator=user, review=review)
-
-        return Response("ok")
+        comment =ReviewComment.objects.create(text=commentText, creator=user, review=review)
+        # print(comment)
+        return Response({"status":"ok", "commentID": comment.id})
 
 class CommentDeletePostView(APIView):
     def post(self, request, pk):

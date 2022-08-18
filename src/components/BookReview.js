@@ -64,8 +64,15 @@ export const BookReview = ({bookID}) => {
         .then((response) => {
           console.log('comment post response', response)
           let mutatedComments = review.comments;
-          mutatedComments.push(comment);
-          setReview({ comments: mutatedComments })
+          let mutatedReview = review;
+          mutatedReview.comments.push({
+            "CommenterId": user.user_id,
+            "Commenter": user.username,
+            "Text": comment,
+            "id": response.data.commentID
+          });
+          console.log('mutatedReview', mutatedReview)
+          setReview(mutatedReview)
         })
         .catch((err) => console.log('comment post err', err))
         .finally(() => {
@@ -79,9 +86,9 @@ export const BookReview = ({bookID}) => {
     .post(commentDeleteEndpoint(review.comments[index].id))
     .then((response) => {
       console.log('Comment no:', review.comments[index].id , ' delete post response:', response)
-      let mutatedComments = review.comments;
-      mutatedComments.splice(index, 1)
-      setReview({ comments: mutatedComments })
+      let mutatedReview = review;
+      mutatedReview.comments.splice(index, 1);
+      setReview(mutatedReview)
     })
     .catch((err)=> {
       console.log('Comment no:', review.comments[index].id , ' delete post err:', err)
@@ -98,7 +105,7 @@ export const BookReview = ({bookID}) => {
             bookID={bookID} 
             review={review} 
             shouldTruncate={false}
-            commentReplyHandler={()=> setIsReplying(!isReplying)} />
+            commentReplyHandler={()=> {console.log('isReplying', isReplying);setIsReplying(!isReplying)}} />
           {review && isReplying && (
           <Col xs={{span:10, offset:2}}>
             <Form>

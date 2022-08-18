@@ -197,9 +197,9 @@ class FollowUser(APIView):
 
         followerUser = User.objects.get(id=request.user.id)
         followingUser = User.objects.get(id=followingUserID)
-        UserFollowing.objects.create(user_id=followerUser, following_user_id=followingUser)
+        comment = UserFollowing.objects.create(user_id=followerUser, following_user_id=followingUser)
 
-        return Response({"status": "success"})
+        return Response({"status": "success", "comment":comment})
 
 class UnFollowUser(APIView):
     def post(self, request, followingUserID):
