@@ -35,7 +35,7 @@ export default function BookReviewLikeButton({review}) {
             active={liked}
             onClick={handleLikeToggle}
             >
-            <FaThumbsUp /> {review?.likes} likes
+            <FaThumbsUp /> {review?.likes + ((!review.liked && liked)? 1: 0) + ((review.liked && !liked)? -1: 0)} likes
         </Button>
     )
 }
