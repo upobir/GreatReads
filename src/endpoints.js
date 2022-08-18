@@ -27,6 +27,9 @@ export function bookshelfStatsEndpoint(userID){
 export function bookshelfUserInfoEndpoint(userID){
     return  `/api/user/${userID}/info/`
 }
+export function bookshelfViewReviewsEndpoint(userID){
+    return  `/api/user/${userID}/reviews/`
+}
 export function followUserEndpoint(userID){
     return  `/api/follow/${userID}/`
 }

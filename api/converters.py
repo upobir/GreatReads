@@ -179,3 +179,27 @@ def review_detailed(review, userId):
         "commentCount": review.comment_count,
         "comments": [ comment_mini(comment) for comment in ReviewComment.objects.filter(review = review)]
     }
+
+def book_mid(book, userid):
+    readstatus, readpages = get_book_status(book, userid)
+    # readpages = -1
+    # if status:
+    #     
+
+    return {
+        "id": book.id,
+        "title": book.title,
+        "authors": [ author_mini(author) for author in book.authors.all() ],
+        # "thumbnail": book.thumbnail,
+        "readStatus": readstatus,
+        "avgRating": book.avg_rating,
+        "description": book.description,
+    }
+
+def review_feed_item(review_mini_data, timestamp, book_mid_data):
+    return {
+        "updateType": "review",
+        "review": review_mini_data,
+        "timeStamp": timestamp,
+        "book": book_mid_data,
+    }
