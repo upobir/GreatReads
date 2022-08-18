@@ -2,8 +2,9 @@ import { React, useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import AuthContext, {AuthProvider} from "../context/AuthContext";
-import { Container, Row, Col } from 'react-bootstrap';
-
+import { Container, Row, Col, Stack } from 'react-bootstrap';
+import { registerURL } from '../urls';
+import { Link } from 'react-router-dom';
 export const  LoginPage = () => {
   let { loginUser } = useContext(AuthContext);
   let [_userName, setUserName] = useState("UserName") 
@@ -40,12 +41,14 @@ export const  LoginPage = () => {
                   onChange={e => setPassword(e.target.value)} />
               </Form.Group>
 
-              <Button variant="primary" type="submit" >
-                Login
-              </Button>
-              <Button variant="outline-primary" >
-                Sign up
-              </Button>
+              <Stack direction="horizontal" gap={2}>
+                <Button variant="primary" type="submit" >
+                  Login
+                </Button>
+                <Button variant="outline-primary" as={Link} to={registerURL()} >
+                  Sign up
+                </Button>
+              </Stack>
             </form>
 
           </Col>

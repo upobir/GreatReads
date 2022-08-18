@@ -41,8 +41,10 @@ export function seriesFetchEndpoint(seriesID){
 }
 
 export function reviewFetchEndpoint(reviewID){
-    console.log('reviewID', reviewID)
     return  `/api/review/${reviewID}/`
+}
+export function reviewLikeToggleEndpoint(reviewID){
+    return `/api/review/${reviewID}/like/post/`
 }
 export function authorFetchEndpoint(authorID){
     return  `/api/author/${authorID}/`
@@ -53,24 +55,22 @@ export function bookBrowseEndpoint(){
 }
 
 export function browseGenreEndpoint(genreID){
-    // return  `/api/browse/genre/${genreID}/`
-    return  `/api/books/`
+    return  `/api/browse/genre/${genreID}/`
+    // return  `/api/books/`
 }
 
 export function browseNewReleasesEndpoint(){
-    // return  `/api/browse/newReleases/`
-    return  `/api/books/`
+    return  `/api/browse/newReleases/`
 
 }
 
 export function browseNewlyRatedEndpoint(){
-    // return  `/api/browse/newlyRated`
-    return  `/api/books/`
+    return  `/api/browse/newlyRated/`
 }
 
 export function browseFollowedAuthorEndpoint(){
-    // return  `/api/browse/followedAuthors`
-    return  `/api/books/`
+    return  `/api/browse/followedAuthors`
+    // return  `/api/books/`
 }
 
 export function feedAllEndpoint(){
@@ -100,4 +100,12 @@ export function commentPostEndpoint(reviewID){
 
 export function commentDeleteEndpoint(commentID){
     return `/api/comment/${commentID}/delete/post/`
+}
+
+export function genresFetchEndpoint(){
+    return '/api/genres/'
+}
+
+export function genreFetchEndpoint(genreID){
+    return `/api/genre/${genreID}/`
 }

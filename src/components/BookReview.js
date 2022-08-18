@@ -30,15 +30,16 @@ export const BookReviewComment = ({comment, userID, handleCommentDeleted}) => {
   )
 }
 export const BookReview = ({bookID}) => {
-  let {review_id} = useParams();
+  const {review_id} = useParams();
+  const {reply} = useParams()
   const {user} = useContext(AuthContext)
   const api =  useAxios()
   const navigate = useNavigate();
-  const [isReplying, setIsReplying] = useState(false)
+  const [isReplying, setIsReplying] = useState(reply?true: false)
   const [comment, setComment] = useState(null) 
   const [isCommentPostLoading, setIsCommentPostLoading] = useState(false);
   const [review, setReview] = useState(null)
-  
+  // console.log('(reply?1:0)', (reply?1:0), reply)
   const getReview= async () => { 
     api()
     .get(reviewFetchEndpoint(review_id))
@@ -98,7 +99,7 @@ export const BookReview = ({bookID}) => {
             review={review} 
             shouldTruncate={false}
             commentReplyHandler={()=> setIsReplying(!isReplying)} />
-          {isReplying && (
+          {review && isReplying && (
           <Col xs={{span:10, offset:2}}>
             <Form>
               <Form.Group className="mb-3" controlId="comment">

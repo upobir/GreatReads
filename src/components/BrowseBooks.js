@@ -36,7 +36,7 @@ const tabs = [
   },
   {
     tabTitle:"By Genre",
-    tabLink:"/browse/genre/0",
+    tabLink:"/browse/genre/1",
     tabKey:"genre",
   },
   {
@@ -67,7 +67,7 @@ export const BrowseBooks = () => {
           </Col>
           <Col xs={{span:8}}>
             <Routes>
-              <Route path='/genre/:genreID/' element={<BrowseGenre />} />
+              <Route path='/genre/:genre_id/' element={<BrowseGenre />} />
               <Route path='/newReleases/' element={<BrowseNewReleases />} />
               <Route path='/newlyRated/' element={<BrowseNewlyRated />} />
               <Route path='/followedAuthors/' element={<BrowseFollowedAuthors />} />

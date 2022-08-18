@@ -24,7 +24,12 @@ export const BookGallery = ({books, booksPerRow, setBooks})=>{
     {
         books.map((book, index) => {
             return (<Col xs={12/booksPerRow} key={index}>
-                <BookCapsule book={book} id={book.id} setBook={(book) => handleBookSet(index, book)}/>
+                <BookCapsule 
+                    book={book} 
+                    id={book.id} 
+                    setBook={(book) => handleBookSet(index, book)}
+                    mini={true}
+                    />
             </Col>)
         })
     }

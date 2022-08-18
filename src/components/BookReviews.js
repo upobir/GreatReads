@@ -5,6 +5,9 @@ import {bookReviewsFetchEndpoint} from '../endpoints'
 import { useParams } from 'react-router-dom'
 import {Spinner} from 'react-bootstrap'
 import useAxios from '../utils/useAxios';
+function filterEmptyReviewsOut(reviews){
+  return reviews.filter((r)=> r.body != null && r.body.length !== 0)
+}
 /**
  * List of all reviews a book has
  * @returns 
@@ -19,7 +22,7 @@ export function BookReviews ()  {
     .get(bookReviewsFetchEndpoint(id))
     .then((response) => {
       let _reviews  = response.data
-      setReviews(_reviews)  
+      setReviews(filterEmptyReviewsOut(_reviews))  
     })
     .catch((error)=>{
       console.log('reviews fetch error', error)

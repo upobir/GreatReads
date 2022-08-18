@@ -17,7 +17,8 @@ function bookReadStatusToUpdateText(bookReadStatus) {
   return '';
 }
 export const BookReadUpdate = ({ bookReadUpdateData,setBookReadUpdateData }) => {
-  // console.log('bookReadUpdateData', bookReadUpdateData);
+  console.log('bookReadUpdateData', bookReadUpdateData);
+  console.log('bookReadUpdateData.user.id', bookReadUpdateData.user.id)
   const setBook = (_book) => {
     let mutatedBookReadUpdateData= bookReadUpdateData
     mutatedBookReadUpdateData.book = _book
@@ -28,7 +29,7 @@ export const BookReadUpdate = ({ bookReadUpdateData,setBookReadUpdateData }) => 
     <Stack gap={1} >
       <Stack direction='horizontal' className='feed-item__header'>
         <Stack direction='horizontal' className='feed-item__header__left' gap={1}>
-          <Link to={userDetailsURL(bookReadUpdateData.user)}>{bookReadUpdateData.user.name}</Link>
+          <Link to={userDetailsURL(bookReadUpdateData.user.id)}>{bookReadUpdateData.user.name}</Link>
           <span className='light-text'>{bookReadStatusToUpdateText(bookReadUpdateData.readStatus)}</span>
         </Stack>
         <span className='high-text'>{bookReadUpdateData.timeStamp}</span>

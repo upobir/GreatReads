@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
-
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -26,7 +26,8 @@ class UserFollowing(models.Model):
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
-    picture = models.FileField(null=True, blank=True)  # TODO ImageField? updload path?
+    #picture = models.FileField(null=True, blank=True)  # TODO ImageField? updload path?
+    picture = CloudinaryField('image', default=None, null=True, blank=True)
     description = models.TextField(blank=True)
     birth_date = models.DateField()
     website = models.URLField(null=True, blank=True)
@@ -90,7 +91,8 @@ class Book(models.Model):
     release_date = models.DateField(null=True, blank=True)
     language = models.CharField(max_length=100, default='English')
     description = models.TextField(default="sit dor amet")
-    thumbnail = models.FileField(null=True, blank=True)  # TODO ImageField? updload path?
+    #thumbnail = models.FileField(null=True, blank=True)  # TODO ImageField? updload path?
+    thumbnail = CloudinaryField('image', default=None, null=True, blank=True)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     series = models.ForeignKey(Series, null=True, blank=True, on_delete=models.SET_NULL)
     series_number = models.IntegerField(null=True, blank=True) # TODO add validator?

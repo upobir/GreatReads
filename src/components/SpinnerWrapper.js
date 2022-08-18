@@ -7,3 +7,4 @@ export const SpinnerWrapper = ({Component, isLoading}) => {
     else
         return Component
 }
+export const SimpleSpinner = ()=> <Spinner animation="border" variant="primary" />

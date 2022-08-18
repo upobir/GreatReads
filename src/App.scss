@@ -65,19 +65,31 @@ $theme-colors: (
 @import '~bootstrap/scss/bootstrap.scss';
 
 .book-capsule { 
+  max-width: 15vw;
+  &__mini{
+    max-width: 12vw;
+  }
   &__thumbnail{
-    width: 100%;  
-    height: 240px;
     background-color: $text-medium;
-    display: flex;   
-    justify-content: center;
+    position: relative;
+    // display: flex;   
+    // justify-content: center;
+    &__placeholder{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      bottom: 0;
+      top: 0;
+    }
     svg{
-      display: block;
       margin:auto;
+      font-size: 10vw;
       color: $body-bg;
     }
   }
   &__btn-group{
+    width: 100%;
     :not(:first-child):not(:last-child){
       border-radius: 0;
     }
@@ -89,7 +101,7 @@ $theme-colors: (
       // border-bottom-right-radius: 0.25rem;
       border-top-right-radius: 0;
     }  
-
+    
     button{
       :active{
         background-color: $primary;
@@ -125,6 +137,7 @@ $theme-colors: (
     border: 0;
   }
   &__rating-bar{
+    width: 100%;
     justify-content: space-between;
     &__avg-rating{
       width: 50%;
@@ -182,14 +195,35 @@ $theme-colors: (
     background-color: $text-medium
   }
 }
+.book-review-block{
+  background-color:  $dp-3;
+  &__thumbnail{
+    position: relative;
+    // display: flex;   
+    // justify-content: center;
+    padding: .5rem;
+    svg{
+      padding: .5rem;
+      width: 100%;
+      height: auto;
+      margin:auto;
+      color: $body-bg;
+      background-color: $secondary;
+    }
+  }
+}
 .book-review-details{
   background-color: $dp-2;
-  .book-review-block{
-    background-color:  unset;
-  }
+
   &__comment{
     background-color: $dp-3;
     padding: .5rem;
+  }
+}
+.review-summary-block{
+  &__avgRating{
+    color: $primary;
+    font-size: 3.25rem;
   }
 }
 .book-review-block{
@@ -257,6 +291,10 @@ $theme-colors: (
     text-decoration:none;
     flex:1;
     color: $danger;
+    :focus{
+      outline: none;
+      box-shadow: none;
+    }
   }
 }
 .book-details__mid-col-bottom{
@@ -293,9 +331,22 @@ $theme-colors: (
     display: none;
   }
   padding: 0 .25rem 3rem .25rem ;
+  &__book-group{
+    justify-content: space-between;
+  }
 }
-
-
+.space-contents-between{
+  justify-content: space-between;
+}
+.book-review-block__reviewer_image{
+  // display: flex;
+  padding: .5rem;
+  svg {
+    margin:auto;
+    // font-size: 5vw;
+    color: $body-bg;
+  }
+}
 .book-search-preview{
   min-height: 150px;
   &__thumbnail{
@@ -326,6 +377,9 @@ $theme-colors: (
     margin-bottom: 0;
   }
 }
+.nav-search-bar{
+  margin-right: auto;
+}
 .browse-genre{
   top: $navbar-height;
   &__header{
@@ -343,28 +397,36 @@ $theme-colors: (
       display: block;
     }
   }
-  &__body{
-    padding-top:$browse-header-height; 
-  }
 }
-.genre-submenu{
-  
-  padding: .5rem;
-  a {
-    color: $text-high;
-    text-decoration: none;
-  }
-}
+
+
 //nav dropdown 
-div.dropdown-menu.show {
-  background-color: $body-bg; 
-  border: 2px solid $primary;
-  border-top: 0px;
-  border-radius: 0;
-  z-index: 6;
-  a {
-    color: $primary;
-    text-decoration: none;
+.top-navbar__browse__dropdown{
+  
+  div.dropdown-menu.show {
+    background-color: $body-bg;
+    border: 2px solid $primary;
+    border-top: 0px;
+    border-radius: 0;
+    z-index: 6;
+    a {
+      color: $primary;
+      text-decoration: none;
+    }
+    padding:0;
+  }
+  &__left-menu{
+    background-color: $dp-3;
+
+  }
+  .genre-submenu{
+    background-color: $body-bg;
+    padding: 1rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    a {
+      text-decoration: none;
+    }
   }
 }
 
@@ -387,6 +449,23 @@ div.dropdown-menu.show {
   }
   &__body{
     padding-top:$browse-header-height; 
+  }
+}
+.browse-genre__header{
+  &__dropdown{
+    div.dropdown-menu.show{
+      background-color: $primary;
+      z-index: 3;
+      // background-color: $body-bg; 
+      // border: 2px solid $primary;
+      // border-radius: 0;
+      // color: $body-bg;
+      // .dropdown-item{
+      //   color: $primary;
+      // }
+    }
+
+    
   }
 }
 .browse__tab-bar, .feed__tab-bar{
