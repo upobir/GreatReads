@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { bookshelfViewReviewsEndpoint } from '../endpoints';
 import useAxios from "../utils/useAxios";
 import { ReviewBlurb } from './ReviewBlurb';
+import {Spinner} from 'react-bootstrap';
 
 function convertRatingTo100Scale(rating) {
     return rating * 100 / 5;
@@ -44,6 +45,12 @@ export const BookShelf_ViewReviews = ({userID}) => {
         let mutatedReviewFeed = [...reviewFeedItems];
         mutatedReviewFeed[index] = feedItem;
         setReviewFeedItems(mutatedReviewFeed);
+    }
+
+    if ( spinner )  { // ( books == null || books.length <= 0){
+        return <Container>
+            <Spinner animation="border" variant="primary" />
+        </Container>
     }
 
     return (
