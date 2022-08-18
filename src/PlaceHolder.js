@@ -241,7 +241,7 @@ export const _feed2 = [
 export const _messagePreviews = [
     {
         "from":{
-            "id": 1,
+            "id": 2,
             "username":"snafubar",
             "followedByUser": true,
             "followsUser": false,
@@ -253,7 +253,7 @@ export const _messagePreviews = [
     },
     {
         "from":{
-            "id": 1,
+            "id": 3,
             "username":"snafubar2",
             "followedByUser": false,
             "followsUser": false,
@@ -265,7 +265,7 @@ export const _messagePreviews = [
     },
     {
         "from":{
-            "id": 1,
+            "id": 4,
             "username":"foofoobar",
             "followedByUser": false,
             "followsUser": false,
@@ -284,6 +284,68 @@ export const _messagePreviews = [
         },
         "lastMessage": {
             "timestamp": "5 mins ago",
+            "text": "1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 5,
+            "username":"barbar",
+            "followedByUser": true,
+            "followsUser": true,
+        },
+        "lastMessage": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    }
+]
+export const _messages = [
+    {
+        "from":{
+            "id": 1,
+            "username":"snafubar",
+            "followedByUser": true,
+            "followsUser": false,
+        },
+        "message": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 1,
+            "username":"snafubar2",
+            "followedByUser": false,
+            "followsUser": false,
+        },
+        "message": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 1,
+            "username":"foofoobar",
+            "followedByUser": false,
+            "followsUser": false,
+        },
+        "message": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 1,
+            "username":"foofoobar",
+            "followedByUser": false,
+            "followsUser": false,
+        },
+        "message": {
+            "timestamp": "5 mins ago",
             "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
         }
     },
@@ -294,7 +356,7 @@ export const _messagePreviews = [
             "followedByUser": true,
             "followsUser": true,
         },
-        "lastMessage": {
+        "message": {
             "timestamp": "5 mins ago",
             "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
         }
