@@ -40,6 +40,12 @@ export const BookShelf_ViewReviews = ({userID}) => {
 
     console.log('userID in BookShelf_ViewReviews: ', userID)
 
+    const setReviewBlurbData = (feedItem, index) => {
+        let mutatedReviewFeed = [...reviewFeedItems];
+        mutatedReviewFeed[index] = feedItem;
+        setReviewFeedItems(mutatedReviewFeed);
+    }
+
     return (
         <Container fluid>
             <Row>
@@ -51,33 +57,8 @@ export const BookShelf_ViewReviews = ({userID}) => {
                         <Stack gap={2}>
                         {
                             reviewFeedItems?.map( (reviewFeedItem, index) => {
-                                return <ReviewBlurb reviewBlurbData={reviewFeedItem} />
+                                return <ReviewBlurb reviewBlurbData={reviewFeedItem} setReviewBlurbData={setReviewBlurbData} />
                             })
-
-                            // reviews?.map( (review, index) => {
-                            //     return <Container fluid className="feed-item  text-decoration-none link-color-unset" >
-                            //     <Stack  gap={2} >
-
-                            //       <Stack direction='horizontal' className='feed-item__header'>
-                            //         <Stack direction='horizontal' className='feed-item__header__left' gap={1}>
-                            //           <Link to={userDetailsURL(review.user)}>{review.user.name}</Link>
-                            //           <span className='light-text'>reviewed</span>
-                            //           <Rating readonly={true} size={30} ratingValue={convertRatingTo100Scale(review.review.rating)} />
-                            //         </Stack>
-                            //         <span className='text-medium'>{review.timeStamp}</span>
-                            //       </Stack>
-
-                            //       {/* <Container fluid > */}
-                            //       {review.review.blurb &&
-                            //         <Stack  direction='horizontal' className='review-blurb__quote-block'>
-                            //           <FaQuoteLeft fontSize={30} />
-                            //            <div>{review.review.blurb}</div>
-                            //           <FaQuoteRight fontSize={30} />
-                            //         </Stack>
-                            //       }                                  
-                            //     </Stack>
-                            //   </Container>;
-                            // })
                         }
                         </Stack>
                     </div>
