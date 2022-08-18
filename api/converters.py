@@ -196,10 +196,17 @@ def book_mid(book, userid):
         "description": book.description,
     }
 
-def review_feed_item(review_mini_data, timestamp, book_mid_data):
+def user_mini(userID):
+    return {
+        "id": userID,
+        "username": User.objects.get(id=userID).username,
+    }
+
+def review_feed_item(review_mini_data, timestamp, book_mid_data, reviewCreator):
     return {
         "updateType": "review",
         "review": review_mini_data,
         "timeStamp": timestamp,
         "book": book_mid_data,
+        "user": reviewCreator,
     }
