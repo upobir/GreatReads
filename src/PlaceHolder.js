@@ -244,7 +244,7 @@ export const _messagePreviews = [
             "id": 1,
             "name":"snafubar",
             "followedByUser": true,
-            "followedsUser": false,
+            "followsUser": false,
         },
         "lastMessage": {
             "timestamp": "5 mins ago",
@@ -256,7 +256,7 @@ export const _messagePreviews = [
             "id": 1,
             "name":"snafubar2",
             "followedByUser": false,
-            "followedsUser": false,
+            "followsUser": false,
         },
         "lastMessage": {
             "timestamp": "5 mins ago",
@@ -268,7 +268,7 @@ export const _messagePreviews = [
             "id": 1,
             "name":"foofoobar",
             "followedByUser": false,
-            "followedsUser": false,
+            "followsUser": false,
         },
         "lastMessage": {
             "timestamp": "5 mins ago",
@@ -292,7 +292,7 @@ export const _messagePreviews = [
             "id": 1,
             "name":"barbar",
             "followedByUser": true,
-            "followedsUser": true,
+            "followsUser": true,
         },
         "lastMessage": {
             "timestamp": "5 mins ago",

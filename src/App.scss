@@ -507,6 +507,20 @@ $theme-colors: (
     padding: .5rem;
   }
 }
+.message-preview{
+  background-color: $dp-2;
+  border: none;
+  :hover{
+    color: unset;
+    background-color: unset;
+  }
+  &__body{
+    text-align: left;
+  }
+  :active{
+    border-right: solid 2px $primary;
+  }
+}
 .primary-text{
   color:$primary;
 }

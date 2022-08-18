@@ -49,6 +49,9 @@ export function myBookShelfURL(user){
 export function registerURL(){
     return `/register/`
 }
+export function viewMessagesFromUserUrl(userID){
+    return `/messages/${userID}`
+}
 const myFeedURL = "/feed/"
 const homeURL = "/home/"
 export { homeURL,myFeedURL}

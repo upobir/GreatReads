@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { _messagePreviews } from '../PlaceHolder'
 import { MakeHorizontalTabBar } from './CustomTabs'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import React from 'react'
 import {Tabs, Tab} from 'react-bootstrap'
 import { Container, Row, Col,Stack, Form } from 'react-bootstrap'
+import { viewMessagesFromUserUrl } from '../urls'
+import {Button} from 'react-bootstrap'
 const messagePreviewTabs = [
     {
         tabTitle:"New",
@@ -18,51 +20,41 @@ const messagePreviewTabs = [
       },
 ]
 export function showNonArchivedMessages(messagePreviews) {
-    return messagePreviews.filter((m) => m.followedByUser && m.followsUser)
+    return messagePreviews.filter((m) => m.from.followedByUser && m.from.followsUser)
 }
 
 export function showArchivedMessages(messagePreviews) {
-    return messagePreviews.filter((m) => !m.followedByUser || !m.followsUser)
+    return messagePreviews.filter((m) => !m.from.followedByUser || !m.from.followsUser)
 }
 
 
 export function MessagesPreviewList({messagePreviews, filter}){
+    const {messages_from_id} = useParams();
+    console.log('filter(messagePreviews)', filter(messagePreviews)   )
     return <Stack gap={1}>
-        {filter(messagePreviews).map((m, index)=>{
-            <Stack gap={1}>
-                <Stack direction='horizontal'>
-                    <span>{m.from.name}</span>
-                    <span>{m.lastMessage.timestamp}</span>
-                </Stack>
-                <p>{m.text.splice(100)}</p>
-            </Stack>    
-        } )}
-    </Stack>
+            {filter(messagePreviews).map((m, index)=>{
+                return <Button 
+                active={messages_from_id === m.from.id}
+                            variant='link'
+                            className='message-preview no-text-effects'>
+                    <Stack gap={1}>
+                        <Stack direction='horizontal' className='space-contents-between'>
+                            <span>{m.from.name}</span>
+                            <span className='light-text'>{m.lastMessage.timestamp}</span>
+                        </Stack>
+                        <p className='message-preview__medium-text'>{m.lastMessage.text?.substring(0,100)}</p>
+                    </Stack>
+                </Button>
+            } )}
+        </Stack>
 }
-// export function MessagesPreview({messagePreviews}) {
-//     const loc = useLocation()
-//     return (
-//         <Container>
-//             <Row>
-//                 <MakeHorizontalTabBar tabs={tabs} loc={loc} rootURL="/messages/" />
-//             </Row>
-//             <Row>
-//             <Routes>
-//               <Route path='/archived' element={<BrowseGenre />} />
-//               <Route path='/new' element={<BrowseNewReleases />}  />
-//               <Route path='' element={<BrowseNewReleases />}  />
-//             </Routes>
-//             </Row>
-//         </Container>
-//     )
-// }
 
 
 export function MessagesList({messages,filter}){
     return <Stack gap={1}>
         {filter(messages).map((m, index)=>{
-            <Stack gap={1}>
-                <Stack direction='horizontal'>
+            <Stack gap={1} className={messages}>
+                <Stack direction='horizontal' gap={1} className="idk">
                     <span>{m.from.name}</span>
                     <span>{m.lastMessage.timestamp}</span>
                 </Stack>
@@ -80,7 +72,7 @@ export function PostMessageTextBox(){
 export function MessagesPreview({messagePreviews}) {
     return (
         <Tabs
-            defaultActiveKey="New"
+            defaultActiveKey="new"
         >
         <Tab eventKey="new" title="New">
             <MessagesPreviewList messagePreviews={messagePreviews} filter={showNonArchivedMessages}/>
@@ -93,13 +85,18 @@ export function MessagesPreview({messagePreviews}) {
 }
 
 export default function Messenger() {
-    const  messagePreviews = useState(_messagePreviews) 
+    const  [messagePreviews, setMessagePreviews] = useState(_messagePreviews) 
+    console.log('_messagePreviews', messagePreviews)
     return (
-        <Container>
+        <Container fluid>
             <Row>
-                <Col xs={2}>
+                <Col xs={3}>
                     <MessagesPreview messagePreviews={messagePreviews}/>
                 </Col>
+                <Col xs={6}>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quisquam modi, magnam consequatur illum porro eaque nihil repellendus doloremque? Blanditiis, minima consectetur laborum maiores rem recusandae velit. Nulla, vero assumenda?
+                </Col>
+                <Col xs={3}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse necessitatibus eos error pariatur nam neque soluta dolor laborum vero, sint at officia fugit quo. Odit neque inventore incidunt quod similique!</Col>
             </Row>
         </Container>
     )
