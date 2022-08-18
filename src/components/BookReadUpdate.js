@@ -29,7 +29,7 @@ export const BookReadUpdate = ({ bookReadUpdateData,setBookReadUpdateData }) => 
     <Stack gap={1} >
       <Stack direction='horizontal' className='feed-item__header'>
         <Stack direction='horizontal' className='feed-item__header__left' gap={1}>
-          <Link to={userDetailsURL(bookReadUpdateData.user.id)}>{bookReadUpdateData.user.name}</Link>
+          <Link to={userDetailsURL(bookReadUpdateData.user.id)}>{bookReadUpdateData.user.username}</Link>
           <span className='light-text'>{bookReadStatusToUpdateText(bookReadUpdateData.readStatus)}</span>
         </Stack>
         <span className='high-text'>{bookReadUpdateData.timeStamp}</span>

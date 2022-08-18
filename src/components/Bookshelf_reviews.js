@@ -6,7 +6,7 @@ import { bookshelfViewReviewsEndpoint } from '../endpoints';
 import useAxios from "../utils/useAxios";
 import { ReviewBlurb } from './ReviewBlurb';
 import {Spinner} from 'react-bootstrap';
-
+import { SimpleSpinner } from './SpinnerWrapper';
 function convertRatingTo100Scale(rating) {
     return rating * 100 / 5;
 }
@@ -60,14 +60,16 @@ export const BookShelf_ViewReviews = ({userID}) => {
                     {
                     <div className='bookshelf-viewreviews__body'>
                         <h3 className='primary-text'>Reviews by this user:</h3>
-                        
-                        <Stack gap={2}>
+                        {reviewFeedItems
+                        ? <Stack gap={2}>
                         {
                             reviewFeedItems?.map( (reviewFeedItem, index) => {
                                 return <ReviewBlurb reviewBlurbData={reviewFeedItem} setReviewBlurbData={setReviewBlurbData} />
                             })
                         }
                         </Stack>
+                        : <SimpleSpinner/>}
+                        
                     </div>
                     }
                 </Stack>

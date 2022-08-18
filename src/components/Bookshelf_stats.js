@@ -45,23 +45,23 @@ export const BookShelf_stats = ({userID}) => {
 
     console.log('userID in BookShelf_Stats: ', userID)
     return (
-        <Container fluid>
+        <Container fluid className='bookshelf-stats'>
             <Row>
-                <Stack gap={1} className='bookshelf-stats'>
+                <Stack gap={1}>
                     {
-                    <div className='bookshelf-stats__body'>
-                        <h5 className='primary-text'>Stats</h5>
-                        <p>Books currently reading:</p>
-                        <p>{reading_count}</p>
-                        <p>Books already read:</p>
-                        <p>{read_count}</p>
-                        <p>Books to be read:</p>
-                        <p>{wantToRead_count}</p>
-                        <p>Reviews:</p>
-                        <p>{reviews_count}</p>
-                        <p>Ratings:</p>
-                        <p>{ratings_count}</p>
-                    </div>
+                    <Stack gap={2} className='bookshelf-stats__body'>
+                        <h3 className='primary-text'>Stats</h3>
+                        <h5 className='medium-text'>Currently reading:</h5>
+                        <h5 className='high-text'>{reading_count}</h5>
+                        <h5 className='medium-text'>Read:</h5>
+                        <h5>{read_count}</h5>
+                        <h5 className='medium-text'>Want to read:</h5>
+                        <h5>{wantToRead_count}</h5>
+                        <h5 className='medium-text'>Reviewed:</h5>
+                        <h5>{reviews_count}</h5>
+                        <h5 className='medium-text'>Rated:</h5>
+                        <h5>{ratings_count}</h5>
+                    </Stack>
                     }
                 </Stack>
             </Row>

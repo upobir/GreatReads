@@ -10,7 +10,7 @@ import { BookShelf_WantToRead } from './Bookshelf_WantToRead';
 import { BookShelf_stats } from './Bookshelf_stats';
 import { bookshelfUserInfoEndpoint, followUserEndpoint, unFollowUserEndpoint } from '../endpoints';
 import { BookShelf_ViewReviews} from './Bookshelf_reviews';
-
+import { SpinnerWrapper } from './SpinnerWrapper';
 const bookshelfGallary = () => {
   
 }
@@ -120,47 +120,51 @@ export const Bookshelf = () => {
   return (
     <Container fluid>
         <Row>
-          <Container className="userprofile-bar" fluid>
-            <Stack gap={1} className='userprofile'>
-                {
-                <div className='userprofile__body'>
-                    <h3 className='primary-text'>{ user_name }</h3>
-                    { (user.username !== user_name) &&
-                      <Button variant='outline-primary'
-                              // disabled={followContext == null} 
-                              active={isFollowedByUser}
-                              onClick={handleSubmit}>  
-                          {isFollowedByUser? "Unfollow": "Follow"}
-                      </Button>
-                    }
-                    <p>{follower_count} Followers, {following_count} Following</p>
-                </div>
-                }
-            </Stack>
-          </Container>
+          
         </Row>
 
         <Row>
           <Col xs={{span:10}}>
-            <Container className="bookself__tab-bar" alignment="center">
-              <MakeHorizontalTabBar tabs={tabs} rootURL={"/user/" + userID + "/"} loc={loc.pathname} className="ml-auto" userID={userID} />
-            </Container>
+            
           </Col>
         </Row>
 
         <Row>
-          <Col xs={{span:10}}>
+          <Col xs={{span:8, offset:2}}>
+          <Container className="userprofile-bar" fluid>
+            <Stack gap={1} className='userprofile'>
+                <SpinnerWrapper Component={user_name && <Stack className='userprofile__body' direction='vertical' gap={2}>
+                    <Stack direction='horizontal' gap={2  }>
+                      <h3 className='primary-text'>{ user_name }</h3>
+                      { (user.username !== user_name) &&
+                        <div>
+                          <Button variant='outline-primary'
+                                  // disabled={followContext == null}
+                                  active={isFollowedByUser}
+                                  onClick={handleSubmit}>
+                              {isFollowedByUser? "Unfollow": "Follow"}
+                          </Button>
+                        </div>
+                      }
+                    </Stack>
+                    <div className='light-text'>{follower_count} Followers, {following_count} Following</div>
+                </Stack>}
+                isLoading={user_name==null}></SpinnerWrapper>
+            </Stack>
+          </Container>
+          <Container className="bookself__tab-bar" alignment="center">
+              <MakeHorizontalTabBar tabs={tabs} rootURL={"/user/" + userID + "/"} loc={loc.pathname} className="ml-auto" userID={userID} />
+            </Container>
             <Routes>
               <Route path="/WantToRead" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={0} />} />
+              <Route path="/" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={0} />} />
               <Route path="/Read" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={1} />} />
               <Route path="/Reading" element={<BookShelf_WantToRead userID={userID} bookshelfCategory={2} />} />
               <Route path="/Reviewed" element={<BookShelf_ViewReviews userID={userID} />} />
             </Routes>
           </Col>
           <Col xs={{span:2}}>
-            <Container className="bookself__stats">
               <BookShelf_stats userID={userID} />
-            </Container>
           </Col>
         </Row>
  

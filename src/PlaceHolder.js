@@ -8,7 +8,7 @@ export const _similar_books =
             "authors": [
                 {
                     "id": 2,
-                    "name": "Dan Brown"
+                    "username": "Dan Brown"
                 }
             ],
             "avgRating": 5.0,
@@ -21,7 +21,7 @@ export const _similar_books =
             "authors": [
                 {
                     "id": 2,
-                    "name": "Dan Brown"
+                    "username": "Dan Brown"
                 }
             ],
             "avgRating": 0,
@@ -34,7 +34,7 @@ export const _similar_books =
             "authors": [
                 {
                     "id": 2,
-                    "name": "Dan Brown"
+                    "username": "Dan Brown"
                 }
             ],
             "avgRating": 0,
@@ -47,7 +47,7 @@ export const _similar_books =
             "authors": [
                 {
                     "id": 2,
-                    "name": "Dan Brown"
+                    "username": "Dan Brown"
                 }
             ],
             "avgRating": 0,
@@ -84,7 +84,7 @@ export const _feed = [
         "readStatus": "read",
         "user": {
             "id": 0,
-            "name": "Caillin",
+            "username": "Caillin",
         },
         // "timeStamp": "0 mins ago",
         "book": {
@@ -93,7 +93,7 @@ export const _feed = [
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -112,7 +112,7 @@ export const _feed = [
         },
         "user": {
             "id": 0,
-            "name": "Truly Fubar",
+            "username": "Truly Fubar",
         },
         "book": {
             "id": 34,
@@ -120,7 +120,7 @@ export const _feed = [
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -139,7 +139,7 @@ export const _feed = [
         },
         "user": {
             "id": 1,
-            "name": "Snafubar",
+            "username": "Snafubar",
         },
         "book": {
             "id": 34,
@@ -147,7 +147,7 @@ export const _feed = [
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -169,7 +169,7 @@ export const _feed1 = [
         },
         "user": {
             "id": 0,
-            "name": "Truly Fubar",
+            "username": "Truly Fubar",
         },
         "book": {
             "id": 34,
@@ -177,7 +177,7 @@ export const _feed1 = [
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -196,7 +196,7 @@ export const _feed1 = [
         },
         "user": {
             "id": 1,
-            "name": "Snafubar",
+            "username": "Snafubar",
         },
         "book": {
             "id": 34,
@@ -204,7 +204,7 @@ export const _feed1 = [
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -220,7 +220,7 @@ export const _feed2 = [
         "readStatus": "read",
         "user": {
             "id": 0,
-            "name": "Caillin",
+            "username": "Caillin",
         },
         "book": {
             "id": 34,
@@ -228,7 +228,7 @@ export const _feed2 = [
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -242,7 +242,7 @@ export const _messagePreviews = [
     {
         "from":{
             "id": 1,
-            "name":"snafubar",
+            "username":"snafubar",
             "followedByUser": true,
             "followsUser": false,
         },
@@ -254,7 +254,7 @@ export const _messagePreviews = [
     {
         "from":{
             "id": 1,
-            "name":"snafubar2",
+            "username":"snafubar2",
             "followedByUser": false,
             "followsUser": false,
         },
@@ -266,7 +266,7 @@ export const _messagePreviews = [
     {
         "from":{
             "id": 1,
-            "name":"foofoobar",
+            "username":"foofoobar",
             "followedByUser": false,
             "followsUser": false,
         },
@@ -278,7 +278,7 @@ export const _messagePreviews = [
     {
         "from":{
             "id": 1,
-            "name":"barfoo",
+            "username":"barfoo",
             "followedByUser": true,
             "followsUser": true,
         },
@@ -290,7 +290,7 @@ export const _messagePreviews = [
     {
         "from":{
             "id": 1,
-            "name":"barbar",
+            "username":"barbar",
             "followedByUser": true,
             "followsUser": true,
         },
