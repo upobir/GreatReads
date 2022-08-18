@@ -9,8 +9,10 @@ import { BookBlurb } from './BookBlurb';
 function convertRatingTo100Scale(rating) {
   return rating * 100 / 5;
 }
+function spliceReviewText(text){
+  return text?.substring(0, 200);
+}
 export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
-  // console.log('reviewBlurbData.review.id', reviewBlurbData.review)
   const setBook = (_book) => {
     let mutatedReviewBlurbData= reviewBlurbData
     mutatedReviewBlurbData.book = _book
@@ -20,17 +22,17 @@ export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
     <Stack  gap={2} >
       <Stack direction='horizontal' className='feed-item__header'>
         <Stack direction='horizontal' className='feed-item__header__left' gap={1}>
-          <Link to={userDetailsURL(reviewBlurbData.user)}>{reviewBlurbData.user.name}</Link>
+          <Link to={userDetailsURL(reviewBlurbData.user.id)}>{reviewBlurbData.user.username}</Link>
           <span className='light-text'>reviewed</span>
           <Rating readonly={true} size={30} ratingValue={convertRatingTo100Scale(reviewBlurbData.review.rating)} />
         </Stack>
-        <span className='text-medium'>{reviewBlurbData.timeStamp}</span>
+        <span className='text-medium'>{reviewBlurbData.review.Timestamp}</span>
       </Stack>
       {/* <Container fluid > */}
-      {reviewBlurbData.review.blurb &&
+      { reviewBlurbData.review.body &&
         <Stack  direction='horizontal' className='review-blurb__quote-block'>
           <FaQuoteLeft fontSize={30} />
-           <div>{reviewBlurbData.review.blurb}</div>
+           <div>{ spliceReviewText(reviewBlurbData.review.body)}</div>
           <FaQuoteRight fontSize={30} />
         </Stack>
       }

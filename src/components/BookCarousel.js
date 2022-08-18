@@ -66,11 +66,10 @@ export const BookCarousel = ({ series, setSeries }) => {
                     return <Carousel.Item key={groupIndex}>
                         <Container fluid>
                             <Row>
-
                                 {group.map((seriesEntry, index) => {
                                     return <Col xs={4} key={index}>
-                                        <Stack gap={1}>
-                                            <BookCapsule book={seriesEntry} id={seriesEntry.id} setBook={(b) => setBook(b, groupIndex, index)} />
+                                        <Stack gap={1} className='book-carousel__book-group'>
+                                            <BookCapsule mini book={seriesEntry} id={seriesEntry.id} setBook={(b) => setBook(b, groupIndex, index)} />
                                             {seriesEntry.seriesEntry && <Container>
                                                 <p>
                                                     {seriesEntry.title}

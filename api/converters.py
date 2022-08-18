@@ -98,15 +98,21 @@ def bookshelf_info(userid, loggedInUserID):
         "is_followed_by_user" : is_followed_by_user,
     }
 
-def book_detailed(book, userid, review):
+def book_detailed(book, userid):
+
+    reviews = book.review_set.filter(creator__id=userid)
+    if reviews.exists():
+        review = reviews[0]
+    else:
+        review = None
+
     readstatus, readpages = get_book_status(book, userid)
-    # readpages = -1
-    # if status:
-    #     
 
     return {
+        "id": book.id, 
         "isbn": book.isbn,
         "title": book.title,
+        "thumbnail" : book.thumbnail.url if book.thumbnail else None,
         "description": book.description,
         "pageCount": book.pages,
         "released": book.release_date, 
@@ -155,7 +161,7 @@ def comment_mini(comment):
         "Text": comment.text,
     }
 
-def review_mini(review):
+def review_mini(review, userId):
     return {
         "id": review.id,
         "reviewer" : review.creator.username,
@@ -163,6 +169,7 @@ def review_mini(review):
         "body" : review.description,
         "rating": review.rating,
         "likes": review.like_count,
+        "liked": review.likers.filter(id=userId).exists() if userId else False,
         "commentCount": review.comment_count,
         "Timestamp": review.timestamp,
     }
@@ -172,6 +179,7 @@ def review_detailed(review, userId):
         "id": review.id,
         "reviewer" : review.creator.username,
         "reviewerId" : review.creator.id,
+        "bookId": review.book.id,
         "body" : review.description,
         "rating": review.rating,
         "likes": review.like_count,
@@ -179,4 +187,35 @@ def review_detailed(review, userId):
         "Timestamp": review.timestamp,
         "commentCount": review.comment_count,
         "comments": [ comment_mini(comment) for comment in ReviewComment.objects.filter(review = review)]
+    }
+
+def book_mid(book, userid):
+    readstatus, readpages = get_book_status(book, userid)
+    # readpages = -1
+    # if status:
+    #     
+
+    return {
+        "id": book.id,
+        "title": book.title,
+        "authors": [ author_mini(author) for author in book.authors.all() ],
+        # "thumbnail": book.thumbnail,
+        "readStatus": readstatus,
+        "avgRating": book.avg_rating,
+        "description": book.description,
+    }
+
+def user_mini(userID):
+    return {
+        "id": userID,
+        "username": User.objects.get(id=userID).username,
+    }
+
+def review_feed_item(review_mini_data, timestamp, book_mid_data, reviewCreator):
+    return {
+        "updateType": "review",
+        "review": review_mini_data,
+        "timeStamp": timestamp,
+        "book": book_mid_data,
+        "user": reviewCreator,
     }

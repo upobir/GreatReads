@@ -43,10 +43,19 @@ urlpatterns = [
     path('comment/<int:pk>/delete/post/', CommentDeletePostView.as_view(), name="comment_delete_post"),
     path('review/<int:pk>/like/post/', ReviewLikePostView.as_view(), name="review_like_post"),
 
+    path('browse/newReleases/', BrowseNewReleaseView.as_view(), name="browse_new_release"),
+    path('browse/genre/<int:pk>/', BrowseByGenreView.as_view(), name="browse_genre"),
+    path('browse/followedAuthors/', BrowseFollowedAuthorsView.as_view(), name='browse_followed_author'),
+    path('browse/newlyRated/', BrowseNewlyRatedView.as_view(), name='browse_newly_rated'),
+
+    path('author/<int:pk>/books/', AuthorBooksView.as_view(), name='author_books'),
+    path('author/<int:pk>/series/', AuthorSeriesView.as_view(), name='author_series'),
+
     # virtual bookshelf
     path('user/<int:userID>/<int:bookshelfCategory>/', BookUserStatusView.as_view(), name="bookuserstatus_view"),
     path('user/<int:userID>/stats/', BookUserStatusStats.as_view(), name="bookuserstatus_stats"),
     path('user/<int:userID>/info/', BookShelfUserInfo.as_view(), name="bookuserstatus_stats"),
+    path('user/<int:userID>/reviews/', BookShelfViewReviews.as_view(), name="bookshelf_viewreviews"),
 
     # follow/unfollow user
     path('follow/<int:followingUserID>/', FollowUser.as_view(), name="follow_user"),

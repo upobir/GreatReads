@@ -8,7 +8,7 @@ export const _similar_books =
             "authors": [
                 {
                     "id": 2,
-                    "name": "Dan Brown"
+                    "username": "Dan Brown"
                 }
             ],
             "avgRating": 5.0,
@@ -21,7 +21,7 @@ export const _similar_books =
             "authors": [
                 {
                     "id": 2,
-                    "name": "Dan Brown"
+                    "username": "Dan Brown"
                 }
             ],
             "avgRating": 0,
@@ -34,7 +34,7 @@ export const _similar_books =
             "authors": [
                 {
                     "id": 2,
-                    "name": "Dan Brown"
+                    "username": "Dan Brown"
                 }
             ],
             "avgRating": 0,
@@ -47,7 +47,7 @@ export const _similar_books =
             "authors": [
                 {
                     "id": 2,
-                    "name": "Dan Brown"
+                    "username": "Dan Brown"
                 }
             ],
             "avgRating": 0,
@@ -84,16 +84,16 @@ export const _feed = [
         "readStatus": "read",
         "user": {
             "id": 0,
-            "name": "Caillin",
+            "username": "Caillin",
         },
-        "timeStamp": "0 mins ago",
+        // "timeStamp": "0 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -107,20 +107,20 @@ export const _feed = [
         "review": {
             "id": 1,
             "rating": 5,
-            "blurb":"The very concept of reading this book terrifies me.",
+            "body":"The very concept of reading this book terrifies me.",
+            "Timestamp": "10 mins ago",
         },
         "user": {
             "id": 0,
-            "name": "Truly Fubar",
+            "username": "Truly Fubar",
         },
-        "timeStamp": "10 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -134,20 +134,20 @@ export const _feed = [
         "review": {
             "id": 1,
             "rating": 5,
-            "blurb":"The very concept of reading this book terrifies me.",
+            "body":"The very concept of reading this book terrifies me.",
+            "Timestamp": "10 mins ago",
         },
         "user": {
             "id": 1,
-            "name": "Snafubar",
+            "username": "Snafubar",
         },
-        "timeStamp": "10 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -164,20 +164,20 @@ export const _feed1 = [
         "review": {
             "id": 1,
             "rating": 5,
-            "blurb":"The very concept of reading this book terrifies me.",
+            "body":"The very concept of reading this book terrifies me.",
+            "Timestamp": "10 mins ago",
         },
         "user": {
             "id": 0,
-            "name": "Truly Fubar",
+            "username": "Truly Fubar",
         },
-        "timeStamp": "10 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -191,20 +191,20 @@ export const _feed1 = [
         "review": {
             "id": 1,
             "rating": 5,
-            "blurb":"The very concept of reading this book terrifies me.",
+            "body":"The very concept of reading this book terrifies me.",
+            "Timestamp": "10 mins ago",
         },
         "user": {
             "id": 1,
-            "name": "Snafubar",
+            "username": "Snafubar",
         },
-        "timeStamp": "10 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -220,16 +220,15 @@ export const _feed2 = [
         "readStatus": "read",
         "user": {
             "id": 0,
-            "name": "Caillin",
+            "username": "Caillin",
         },
-        "timeStamp": "0 mins ago",
         "book": {
             "id": 34,
             "title":"The way of Kings",
             "authors": [
                 {
                     "id": 1,
-                    "name": "Brandon Sanderson",
+                    "username": "Brandon Sanderson",
                 }
             ],
             "thumbnail":"",
@@ -238,5 +237,68 @@ export const _feed2 = [
             "description": "Roshar is a world of stone and storms. Uncanny tempests of incredible power sweep across the rocky terrain so frequently that they have shaped ecology and civilization alike. Animals hide in shells, trees pull in branches, and grass retracts into the soilless ground. Cities are built only where the topography offers shelter."   
         }  
     },
-    
 ]
+export const _messagePreviews = [
+    {
+        "from":{
+            "id": 1,
+            "username":"snafubar",
+            "followedByUser": true,
+            "followsUser": false,
+        },
+        "lastMessage": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 1,
+            "username":"snafubar2",
+            "followedByUser": false,
+            "followsUser": false,
+        },
+        "lastMessage": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 1,
+            "username":"foofoobar",
+            "followedByUser": false,
+            "followsUser": false,
+        },
+        "lastMessage": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 1,
+            "username":"barfoo",
+            "followedByUser": true,
+            "followsUser": true,
+        },
+        "lastMessage": {
+            "timestamp": "5 mins ago",
+            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    },
+    {
+        "from":{
+            "id": 1,
+            "username":"barbar",
+            "followedByUser": true,
+            "followsUser": true,
+        },
+        "lastMessage": {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    }
+]
+export const placeholderBookImage ="https://via.placeholder.com/325x500"
+export const placeholderUserImage ="https://via.placeholder.com/200x200"

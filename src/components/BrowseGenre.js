@@ -4,25 +4,23 @@ import { Container, Row,Stack, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 import { BookGallery } from './BookGallery';
 import {GenreDropDown} from './GenreDropDown'; 
-import { browseGenreEndpoint, genreFollowToggleEndpoint } from '../endpoints';
+import { browseGenreEndpoint, genreFetchEndpoint, genreFollowToggleEndpoint } from '../endpoints';
 import { _genres } from '../PlaceHolder';
 import { FollowBlock } from './FollowBlock';
 import useAxios from '../utils/useAxios';
+import Placeholder from 'react-bootstrap/Placeholder';
 
 export const BrowseGenre = () => {
-    const {genreID, category} = useParams();//undefined when no genreID is in URL
+    const {genre_id, category} = useParams();//undefined when no genreID is in URL
     const [books, setBooks] = useState([])  
     const [genre, setGenre]  = useState(null)
+    
     const api =  useAxios()
     
-    useEffect(()=>{
-        if(genreID >= 0 && genreID < _genres.length){
-            setGenre(_genres[genreID])
-        }
-    }, [genreID])
     const getNewBooksInGenre = async () => {
+        console.log('genre fetch')
         api()
-        .get(browseGenreEndpoint(genreID))
+        .get(browseGenreEndpoint(genre_id))
         .then((response) => {
           let _books  = response.data
           console.log('_books', _books)
@@ -32,37 +30,50 @@ export const BrowseGenre = () => {
           console.log('books fetch error', error)
         })
     }
+    const getGenreDetails = ()=> {
+        api()
+        .get(genreFetchEndpoint(genre_id))
+        .then((response)=>{
+            let _genre = response.data;
+            console.log('genreFetch response', response.data)
+            setGenre(_genre)
+        })
+        .catch((err)=> {console.log('genre fetch err', err)})
+    }
     useEffect(()=> {
+        setGenre(null)
+        getGenreDetails()
+        setBooks(null)
         getNewBooksInGenre()
-    }, [])
+    }, [genre_id])
     
 
-    console.log('category', category)
+    console.log('genre', genre)
     return (
         <Container fluid>
             <Row>
-                        <Stack gap={1} className='browse-genre'>
-                                <div gap={0} className='browse-genre__header'>
-                                    <Stack direction="horizontal" gap={1} >
-                                        <GenreDropDown selectedID={genreID} />
-                                        {genreID && genre && <>
-                                            <FollowBlock 
-                                                followContext={genre}
-                                                followToggleURL={genreFollowToggleEndpoint(genreID)} 
-                                                />
-                                            </>
-                                        }
-                                    </Stack>
-                                    <hr style={{marginBlockStart: "0.25em",marginBlockEnd: "0.25em"}}/>
-                                </div>
-                            {genreID && genre &&
-                            <div className='browse-genre__body'>
-                                <div><p>{genre.description}</p></div>
+                <Stack gap={1} className='browse-genre'>
+                    <Stack direction="horizontal" gap={2} >
+                        <GenreDropDown selectedGenre={genre}  />
+                        {genre
+                        && (<FollowBlock
+                                followContext={genre}
+                                followToggleURL={genreFollowToggleEndpoint(genre_id)}
+                            />)
+                        }
+                    </Stack>
+                    {genre
+                    ?(<div className='browse-genre__body'>
+                            <div><p>{genre.desc}</p></div>
                                 <h3 className='primary-text'>New releases Tagged "{genre.tag}":</h3>
-                                <BookGallery books={books} booksPerRow={4} setBooks={setBooks}></BookGallery>
-                            </div>
-                            }
-                        </Stack>
+                            <BookGallery books={books} booksPerRow={4} setBooks={setBooks}></BookGallery>
+                        </div>)
+                    :(<Placeholder  animation="glow">
+                        <Placeholder xs={12} size="lg" />
+                        <Placeholder xs={4} size="lg" />
+                    </Placeholder>)
+                    }
+                </Stack>
 
             </Row>
         </Container>
