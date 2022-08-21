@@ -34,6 +34,7 @@ urlpatterns = [
     path('books/genre/<int:pk>/', GenreBookView.as_view(), name='all_books_genre'),
     path('genres/', AllGenreView.as_view(), name='all_genres'),
     path('genre/<int:pk>/', GenreView.as_view(), name='genre'),
+    path('book/<int:pk>/similar/', SimilarBookView.as_view(), name='similar_books'),
 
     path('book/<int:pk>/review/post/', BookReviewPostView.as_view(), name="review_post"),
     path('book/<int:pk>/status/post/', BookStatusView.as_view(), name="status_post"),
