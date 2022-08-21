@@ -205,9 +205,7 @@ List of all kinds of jsons
 1. GET `api/books/genre/<id>` array of `book_mini` of a genre (pagination needed) [DONE]
 1. GET `api/genres` array of all `genre_mini` sorted by whether user follows genre [DONE]
 1. GET `api/genre/<id>` one `genre_detailed` [DONE]
-1. GET `api/books/new_rated` array of `book_mini` that are newly genre (pagination needed)
-1. GET `api/books/followed_author` array of `book_mini` that are from followed author (pagination needed)
-1. GET `api/book/<id>/similar` array of `book_mini` that are similar (pagination needed)
+1. GET `api/book/<id>/similar` array of `book_mini` that are similar (pagination needed) [DONE]
 1. GET `api/user/<id>` user_detailed
 1. GET `api/user/<id>/reading` array of `book_mini` that user is reading (pagination needed)
 1. GET `api/user/<id>/read` array of `book_mini` that user has read (pagination needed)
@@ -221,7 +219,7 @@ List of all kinds of jsons
 1. GET `api/browse/genre/<id>` array of `book_detailed` in genre sorted by release date (pagination needed) [DONE]
 1. GET `api/browse/followedAuthors` array of `book_detailed` by authors followed by user sorted by release date (pagination needed) [DONE]
 1. GET `api/browse/newReleases` array of `book_detailed` sorted by release date (pagination needed) [DONE]
-1. GET `api/browse/newlyRated` array of `book_detailed`  sorted by review timestamp (pagination needed)
+1. GET `api/browse/newlyRated` array of `book_detailed`  sorted by review timestamp (pagination needed) [DONE]
 1. GET `api/feed/all` array of `feed_item`  sorted by timestamp (pagination needed)
 1. POST `api/book/<id>/status/post/` {
         "readStatus": book.readStatus,

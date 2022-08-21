@@ -86,6 +86,15 @@ class GenreView(APIView):
 
         return Response(data)
 
+class SimilarBookView(APIView):
+    def get(self, request, pk):
+        book = Book.objects.get(id=pk)
+
+        #genres = [genre.id for genre in book.genres]
+
+        data = [book_mini(book,request.user.id) for book in Book.objects.filter(genres__id__in=book.genres.all()).exclude(id=pk)]
+        return Response(data)
+
 
 class BrowseByGenreView(APIView):
     def get(self, request, pk):
