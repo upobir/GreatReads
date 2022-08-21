@@ -94,6 +94,7 @@ export const BookReview = ({bookID}) => {
       console.log('Comment no:', review.comments[index].id , ' delete post err:', err)
     })
   }
+  const commentReplyHandler = ()=> {console.log('isReplying', isReplying);setIsReplying(!isReplying)}
   useEffect(() => {
     getReview()
   }, [])
@@ -105,7 +106,7 @@ export const BookReview = ({bookID}) => {
             bookID={bookID} 
             review={review} 
             shouldTruncate={false}
-            commentReplyHandler={()=> {console.log('isReplying', isReplying);setIsReplying(!isReplying)}} />
+            commentReplyHandler={commentReplyHandler} />
           {review && isReplying && (
           <Col xs={{span:10, offset:2}}>
             <Form>

@@ -246,7 +246,7 @@ export const _messagePreviews = [
             "followedByUser": true,
             "followsUser": false,
         },
-        "lastMessage": {
+        "message": {
             "timestamp": "5 mins ago",
             "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
         }
@@ -258,7 +258,7 @@ export const _messagePreviews = [
             "followedByUser": false,
             "followsUser": false,
         },
-        "lastMessage": {
+        "message": {
             "timestamp": "5 mins ago",
             "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
         }
@@ -270,7 +270,7 @@ export const _messagePreviews = [
             "followedByUser": false,
             "followsUser": false,
         },
-        "lastMessage": {
+        "message": {
             "timestamp": "5 mins ago",
             "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
         }
@@ -282,7 +282,7 @@ export const _messagePreviews = [
             "followedByUser": true,
             "followsUser": true,
         },
-        "lastMessage": {
+        "message": {
             "timestamp": "5 mins ago",
             "text": "1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
         }
@@ -294,73 +294,45 @@ export const _messagePreviews = [
             "followedByUser": true,
             "followsUser": true,
         },
-        "lastMessage": {
-            "timestamp": "5 mins ago",
-            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
-        }
-    }
-]
-export const _messages = [
-    {
-        "from":{
-            "id": 1,
-            "username":"snafubar",
-            "followedByUser": true,
-            "followsUser": false,
-        },
-        "message": {
-            "timestamp": "5 mins ago",
-            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
-        }
-    },
-    {
-        "from":{
-            "id": 1,
-            "username":"snafubar2",
-            "followedByUser": false,
-            "followsUser": false,
-        },
-        "message": {
-            "timestamp": "5 mins ago",
-            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
-        }
-    },
-    {
-        "from":{
-            "id": 1,
-            "username":"foofoobar",
-            "followedByUser": false,
-            "followsUser": false,
-        },
-        "message": {
-            "timestamp": "5 mins ago",
-            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
-        }
-    },
-    {
-        "from":{
-            "id": 1,
-            "username":"foofoobar",
-            "followedByUser": false,
-            "followsUser": false,
-        },
-        "message": {
-            "timestamp": "5 mins ago",
-            "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
-        }
-    },
-    {
-        "from":{
-            "id": 1,
-            "username":"barbar",
-            "followedByUser": true,
-            "followsUser": true,
-        },
         "message": {
             "timestamp": "5 mins ago",
             "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
         }
     }
 ]
+export const _conversationWithUser = {
+    "with":{//going to be done via another fetch
+        "id": 1,
+        "username":"snafubar",
+        "followedByUser": true,
+        "followsUser": false,
+    },
+    "messages": [//messages_min
+        {
+            "from": 1,
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        },
+        {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        },
+        {
+            "from": 1,
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        },
+        {
+            "from": 1,
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+        ,
+        {
+            "timestamp": "5 mins ago",
+            "text": "    Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat ducimus similique tempore laborum obcaecati mollitia nihil nostrum sapiente reiciendis, illum ut explicabo provident in debitis voluptatem minima dignissimos necessitatibus velit"
+        }
+    ]
+}
 export const placeholderBookImage ="https://via.placeholder.com/325x500"
 export const placeholderUserImage ="https://via.placeholder.com/200x200"

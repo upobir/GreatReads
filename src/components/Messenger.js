@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { _messagePreviews, _messages } from '../PlaceHolder'
+import { _messagePreviews, _conversationWithUser } from '../PlaceHolder'
 import { MakeHorizontalTabBar } from './CustomTabs'
 import { Link, useLocation, useParams, Routes, Route } from 'react-router-dom'
 import React from 'react'
@@ -8,6 +8,10 @@ import { Container, Row, Col,Stack, Form } from 'react-bootstrap'
 import { viewMessagesFromUserUrl } from '../urls'
 import {Button} from 'react-bootstrap'
 import { userDetailsURL } from '../urls'
+import { useContext } from 'react'
+import AuthContext from '../context/AuthContext'
+import useAxios from '../utils/useAxios'
+import { messagePostEndpoint } from '../endpoints'
 const messagePreviewTabs = [
     {
         tabTitle:"New",
@@ -61,10 +65,11 @@ export function MessagesPreviewList({messagePreviews, filter}){
                     className={'message-preview no-text-effects ' + ((m.from.id == messages_from_id)? 'message-preview__active':'')}>
             <Stack gap={1}>
                 <Stack direction='horizontal' className='space-contents-between'>
-                    <Link to={userDetailsURL(m.from.id)} className='primary-text'>{m.from.username}</Link>
-                    <span className='light-text'>{m.lastMessage.timestamp}</span>
+                    <span  className='primary-text'>{m.from.username}</span>
+                    {/* <Link to={userDetailsURL(m.from.id)} className='primary-text'>{m.from.username}</Link> */}
+                    <span className='light-text'>{m.message.timestamp}</span>
                 </Stack>
-                <p className='message-preview__medium-text'>{m.lastMessage.text?.substring(0,100)}</p>
+                <p className='message-preview__medium-text'>{m.message.text?.substring(0,100)}</p>
             </Stack>
         </Container>
     } )}
@@ -72,20 +77,43 @@ export function MessagesPreviewList({messagePreviews, filter}){
 }
 
 
-export function MessagesList({messages}){
+
+export function MessagesList({messages, archived}){
     return <Stack gap={1}>
-        {messages.map((m, index)=>{
-            <Stack gap={1} className={messages}>
-                <Stack direction='horizontal' gap={1} className="idk">
-                    <span>{m.from.username}</span>
-                    <span>{m.message.timestamp}</span>
-                </Stack>
-                <p>{m.message.text}</p>
-            </Stack>    
+        {messages.map((m, index)=>{ return (
+            <div key={index}
+                 className={"message-align" + (m.from?'__self':'__other')}>
+                <Container className="message">
+                    <Stack gap={2} >
+                        <Stack direction='horizontal' gap={1} className="idk">
+                            <span className='light-text'>{m.timestamp}</span>
+                        </Stack>
+                        <p>{m.text} </p>
+                    </Stack>
+                </Container>
+            </div>)    
         } )}
     </Stack>
 }
 export function PostMessageTextBox(){
+    const {messages_from_id} = useParams()
+    const api = useAxios()
+    const [message, setMessage] = useState(null)
+    const postMesage = ()=> {
+        if (message && message.legnth > 0) {
+            api()
+                .post(messagePostEndpoint(messages_from_id), {
+                    messageText: message,
+                })
+                .then((response) => {
+                    console.log('rmessage  post response', response);
+                    window.location.reload(true)
+                })
+                .catch((error) => {
+                    console.log('message post error', error)
+                });
+        }
+    }
     return (
         <Form></Form>
     )
@@ -108,7 +136,8 @@ export function MessagesPreview({messagePreviews}) {
 
 export default function Messenger() {
     const  [messagePreviews, setMessagePreviews] = useState(_messagePreviews) 
-    const  [messages, setMessages] = useState(_messages) 
+    const  [messagesBetweenUser, setMessagesBetweenUser] = useState(_conversationWithUser.messages)
+     
     console.log('_messagePreviews', messagePreviews)
     return (
         <Container fluid>
@@ -121,8 +150,7 @@ export default function Messenger() {
                     
                 </Col>
                 <Col xs={6}>
-                    <MessagesList messages={messages}/>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quisquam modi, magnam consequatur illum porro eaque nihil repellendus doloremque? Blanditiis, minima consectetur laborum maiores rem recusandae velit. Nulla, vero assumenda?
+                    <MessagesList messages={_conversationWithUser}/>
                 </Col>
                 <Col xs={3}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse necessitatibus eos error pariatur nam neque soluta dolor laborum vero, sint at officia fugit quo. Odit neque inventore incidunt quod similique!</Col>
             </Row>

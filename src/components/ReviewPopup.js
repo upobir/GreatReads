@@ -7,11 +7,12 @@ import useAxios from '../utils/useAxios';
 import { useContext } from 'react';
 import { reviewPostEndpoint } from '../endpoints';
 import { Navigate } from 'react-router-dom';
+
 export const ReviewPopup = ({bookID, showState, handleClose}) => {
   const [reviewText, setReviewText] = useState("")
   const [reviewRating, setReviewRating] = useState(null)
   const api = useAxios()
-  
+
   const handleRatingUpdate = (ratingVal) => {
     console.log('ratingVal', ratingVal)
     console.log('ratingVal/100', ratingVal/100)

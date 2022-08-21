@@ -149,6 +149,7 @@ List of all kinds of jsons
     "followerCount": int,
     "followCount": int,
     "followedByUser": int,
+    "followsUser": bool,
 }
 ```
 13. user_stats
@@ -193,7 +194,35 @@ List of all kinds of jsons
         "book": book_mid
 }
 ```
-
+17. message_detailed
+```
+{
+    "from":{
+        "id": int,
+        "username":str,
+        //we need this to filter archived messages in frontend
+        "followedByUser": str,
+        //same as above, you could just send archived status but I already coded it to determin based on these 2 bools
+        "followsUser": str,
+    },
+    "message": {
+        "timestamp": timestamp,
+        "text": str
+    }
+}
+```
+//we really don't need to pass all of "from" data when the user is the logged in one
+//also, we don't need anything but from.userID to identify if a message belongs which user
+//follow status can be sent once as part of conversation
+//hence, this should be separate from mesage_detailed
+17. message_mini 
+```
+{
+    "from": int?,//not present if this message is for logged in user
+    "timestamp": timestamp,
+    "text": str
+}
+```
 ## Routes
 1. GET `api/books` array of all `book_mini` [DONE]
 1. GET `api/book/<id>` one `book_detailed` [DONE]
@@ -223,6 +252,9 @@ List of all kinds of jsons
 1. GET `api/browse/newReleases` array of `book_detailed` sorted by release date (pagination needed) [DONE]
 1. GET `api/browse/newlyRated` array of `book_detailed`  sorted by review timestamp (pagination needed)
 1. GET `api/feed/all` array of `feed_item`  sorted by timestamp (pagination needed)
+1. GET `/api/messages/` array of `message_detailed` sorted by timestamp 
+1. GET `/api/messages/<userID>` array of all `message_mini` for conversation between logged user and this user sorted by timestamp. BE SURE TO UPDATE USER_DETAILED TO CONTAIN followsUser field  
+
 1. POST `api/book/<id>/status/post/` {
         "readStatus": book.readStatus,
         "pagesRead": int,
@@ -246,3 +278,7 @@ List of all kinds of jsons
 1. POST `/api/review/<id>/like/post/` {//no details just toggle for cur user
 
     } [DONE]
+1. POST `/api/message/<id>/post/` {//post message for logged in user
+    text: messageText,
+}
+
