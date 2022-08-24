@@ -61,6 +61,9 @@ export function authorSeriesFetchEndpoint(authorID){
 export function bookBrowseEndpoint(){
     return  `/api/books/`
 }
+export function similarBooksEndpoint(bookID){
+    return `/api/book/${bookID}/similar/`
+}
 
 export function browseGenreEndpoint(genreID){
     return  `/api/browse/genre/${genreID}/`

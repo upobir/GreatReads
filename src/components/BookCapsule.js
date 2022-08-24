@@ -26,7 +26,6 @@ export default function BookCapsule({book,setBook, id, mini}) {
       setPagesRead(book.readPages)
     
   }, [book])
-
   const postBookStatus =  (_readStatus, _pagesRead) => {
     if (book && user != null) {
       api()

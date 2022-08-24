@@ -21,7 +21,7 @@ export const BookCarousel = ({ series, setSeries }) => {
         if (series && groupedBooks.length > 0)
             setIndex((carouselIndex - 1 + groupedBooks.length) % groupedBooks.length);
     };
-    // console.log('seriesView ', series )
+    console.log('carousel   seriesView ', series )
     // console.log('seriesView book', book )
     const setBook = (book, groupIndex, indexInGroup) => {
         let index = groupIndex * numInGroup + indexInGroup;
@@ -53,9 +53,18 @@ export const BookCarousel = ({ series, setSeries }) => {
         if (series){
             console.log('series', series)
             console.log('series.books', series.books)
-            setGroupedBooks(groupBooks(series.books));}
+            setGroupedBooks(groupBooks(series.books?series.books: series));
+        }//hack
     }, [series]);
-
+    if(groupedBooks && groupedBooks.length > 0){
+        groupedBooks.map((g, index)=> {
+            console.log('g', g)
+            g.map((b, bindex)=>{
+                console.log('bindex', bindex)
+                console.log('b', b)
+            })
+        })
+    }
     return <Stack direction='horizontal' gap={.5}>
         {groupedBooks.length > 1 && <Button onClick={decrementIndex}>
             <FaArrowLeft fontSize="1.4rem" />
@@ -69,7 +78,11 @@ export const BookCarousel = ({ series, setSeries }) => {
                                 {group.map((seriesEntry, index) => {
                                     return <Col xs={4} key={index}>
                                         <Stack gap={1} className='book-carousel__book-group'>
-                                            <BookCapsule mini book={seriesEntry} id={seriesEntry.id} setBook={(b) => setBook(b, groupIndex, index)} />
+                                            <BookCapsule 
+                                                mini 
+                                                book={seriesEntry} 
+                                                id={seriesEntry.id} 
+                                                setBook={(b) => setBook(b, groupIndex, index)} />
                                             {seriesEntry.seriesEntry && <Container>
                                                 <p>
                                                     {seriesEntry.title}
