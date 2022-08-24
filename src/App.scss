@@ -25,7 +25,7 @@ $text-high: rgba(255,255,255,.87);
 $logo-font-size: 1.25rem;
 $navbar-height: $logo-font-size + 2rem;
 $book-details-top-height: calc(.67em + .67em + 1rem + 1.375rem + 1.5vw);
-$author-details-top-height: calc(.67em + .67em + 1rem + 1.375rem );
+$author-details-top-height: calc(.67em + .67em + 1rem);
 $browse-header-height:1.6rem + .75rem + .75rem +.75rem;
 
 // this is used to map colors. change accordingly.
@@ -264,6 +264,15 @@ $theme-colors: (
 .author-block-text{
   font-size:1rem;
 }
+.author-details{
+  &__left-col{
+    &__inner{
+      .follow-block{
+        text-align: center;
+      }
+    }
+  }
+}
 .book-details, .author-details{
   &__left-col,&__mid-col-top,&__right-col{
     position: fixed;
@@ -296,7 +305,7 @@ $theme-colors: (
   position: sticky;
   padding-top: 2px;
 }
-.authot-details__tab-bar{
+.author-details__tab-bar{
   top: calc($navbar-height + $author-details-top-height - 2px);
   position: sticky;
   padding-top: 2px;
@@ -567,6 +576,9 @@ $theme-colors: (
 }
 .inline-block{
   display: inline-block;
+}
+.inline-only{
+  display: inline;
 }
 .no-text-effects{
   text-decoration: none;

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Stack } from 'react-bootstrap'
 import { FollowButton } from './FollowButton'
 export const FollowBlock = ({followContext,followedByUser, followToggleURL, vertical,className}) => {
-  const [followCount, setFollowCount] = useState(followContext?followContext.followerCount:0)
+  const [followCount, setFollowCount] = useState(followContext?followContext.followCount:0)
   const handleFollowToggle = (isFollowing) => { 
     if (followContext) {
       if (!followedByUser && isFollowing) {

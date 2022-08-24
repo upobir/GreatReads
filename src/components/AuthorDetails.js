@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate, Routes, Route, Link } from "react-router-dom";
-import { authorBooksFetchEndpoint, authorFetchEndpoint, authorFollowToggleEndpoint, bookFetchEndpoint, seriesFetchEndpoint } from '../endpoints';
+import { authorBooksFetchEndpoint, authorFetchEndpoint, authorFollowToggleEndpoint, authorSeriesFetchEndpoint, bookFetchEndpoint, seriesFetchEndpoint } from '../endpoints';
 import GenreBlock from './GenreBlock';
 import {Row, Col, Container, Tabs, Tab, Stack, Button,TabContainer, Navbar, Image} from 'react-bootstrap'
 import { FollowBlock } from './FollowBlock';
 import useAxios from "../utils/useAxios";   // for private api endpoints
-import { SpinnerWrapper } from './SpinnerWrapper';
+import { SimpleSpinner, SpinnerWrapper } from './SpinnerWrapper';
 import {PlaceholderMiniBlockWrapper, PlaceholderParagraphWrapper} from './PlaceholderBlockWrapper';
 import { MakeHorizontalTabBar } from './CustomTabs';
 import { authorDetailsURL, bookDetailsURL } from '../urls';
@@ -57,10 +57,11 @@ export const AuthorSerieses = ({author_id}) => {
     } 
     useEffect(() => {
         api()
-        .get(authorBooksFetchEndpoint(author_id))
+        .get(authorSeriesFetchEndpoint(author_id))
         .then(response =>{
             let _series = response.data
-            let dummySeries = _series
+            let dummySeries = []
+            console.log('_series', _series)
             dummySeries.push(_series)
             dummySeries.push(_series)
             dummySeries.push(_series)
@@ -69,6 +70,8 @@ export const AuthorSerieses = ({author_id}) => {
         })
         .catch((err)=>console.log('author series fetch err', err))
     }, [])
+    if(serieses == null)
+        return <SimpleSpinner/>
     return (<Stack gap={2}>
         {serieses?.map((series,index) => {
             return (
@@ -131,10 +134,10 @@ const AuthorDetails = () => {
                 <Container fluid  className='author-details__right-col'>
                     <Col xs={{span:3,offset:9 }} className='allow-click-self author-details__right-col__inner'>
                         <Stack gap={2}>
-                            <Row><Col xs={2}>Born:{author?.born}</Col></Row>
-                            <Row><Col xs={2}>Born:{author?.website}</Col></Row>
-                            <Row><Col xs={2}>Born:{author?.booksWritten}</Col></Row>
-                            <Row><Col xs={2}>Born:{author?.avgRating}</Col></Row>
+                            <Row><Col xs={2}><h5>Born:</h5><span className='medium-text'>{author?.born}</span></Col></Row>
+                            <Row><Col xs={2}><h5>Website:</h5><Link to={author?author.website: '#'}>{author?.website}</Link></Col></Row>
+                            <Row><Col xs={2}><h5>Books Written:</h5><h2 className='primary-text'>{author?.booksWritten}</h2></Col></Row>
+                            <Row><Col xs={2}><h5 className='high-text '>Avg. Rating:</h5><h2  className='primary-text'>{author?.avgRating}</h2></Col></Row>
                             <GenreBlock genres={author?.genres} />
                         </Stack>
                     </Col>
