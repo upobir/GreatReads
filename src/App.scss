@@ -25,6 +25,7 @@ $text-high: rgba(255,255,255,.87);
 $logo-font-size: 1.25rem;
 $navbar-height: $logo-font-size + 2rem;
 $book-details-top-height: calc(.67em + .67em + 1rem + 1.375rem + 1.5vw);
+$author-details-top-height: calc(.67em + .67em + 1rem + 1.375rem );
 $browse-header-height:1.6rem + .75rem + .75rem +.75rem;
 
 // this is used to map colors. change accordingly.
@@ -263,7 +264,7 @@ $theme-colors: (
 .author-block-text{
   font-size:1rem;
 }
-.book-details{
+.book-details, .author-details{
   &__left-col,&__mid-col-top,&__right-col{
     position: fixed;
     pointer-events: none; 
@@ -275,6 +276,12 @@ $theme-colors: (
     &__inner{
       padding-left: 1rem;
       padding-right: .5rem;
+
+      .follow-block{
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
   }
   &__right-col{
@@ -286,6 +293,11 @@ $theme-colors: (
 }
 .book-details__tab-bar{
   top: calc($navbar-height + $book-details-top-height - 2px);
+  position: sticky;
+  padding-top: 2px;
+}
+.authot-details__tab-bar{
+  top: calc($navbar-height + $author-details-top-height - 2px);
   position: sticky;
   padding-top: 2px;
 }
@@ -315,7 +327,21 @@ $theme-colors: (
   height: $book-details-top-height;
   z-index: 2;
 }
-.top-navbar, .book-details__mid-col-top-header,.book-details__tab-bar {
+.author-details__mid-col-bottom{
+  // margin-top: $navbar-height + $book-details-top-height;
+  padding-top:  $author-details-top-height;
+  margin-left: .5rem;//book-details__mid-col-top-header has  some issues covering wholething
+  margin-right: .5rem;
+}
+.author-details__mid-col-top-header{
+  padding-left: .25rem;
+  padding-right: .25rem;
+  background-color: $body-bg;
+  height: $author-details-top-height;
+  z-index: 2;
+}
+.top-navbar, .book-details__mid-col-top-header,.book-details__tab-bar
+, .author-details__mid-col-top-header,.author-details__tab-bar {
   background-color: $body-bg;
   z-index: 1;
 

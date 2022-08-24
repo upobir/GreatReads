@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { Stack } from 'react-bootstrap'
 import { FollowButton } from './FollowButton'
-export const FollowBlock = ({followContext,followedByUser, followToggleURL}) => {
+export const FollowBlock = ({followContext,followedByUser, followToggleURL, vertical,className}) => {
   const [followCount, setFollowCount] = useState(followContext?followContext.followerCount:0)
   const handleFollowToggle = (isFollowing) => { 
     if (followContext) {
@@ -14,7 +14,7 @@ export const FollowBlock = ({followContext,followedByUser, followToggleURL}) => 
     }
   }
   return (
-    <Stack direction='horizontal' gap={3}>
+    <Stack direction={vertical? 'vertical':'horizontal'} gap={3} className={className?className:''}>
       <Stack className="follow-block">
         <h3 style={{ paddingTop: 0,
               paddingBottom: 0,

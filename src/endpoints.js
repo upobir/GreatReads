@@ -49,7 +49,15 @@ export function reviewLikeToggleEndpoint(reviewID){
 export function authorFetchEndpoint(authorID){
     return  `/api/author/${authorID}/`
 }
-
+export function authorDetailsFetchEndpoint(authorID){
+    return  `/api/author/${authorID}/details`
+}
+export function authorBooksFetchEndpoint(authorID){
+    return  `/api/browse/newReleases/`
+}
+export function authorSeriesFetchEndpoint(authorID){
+    return  `/api/series/1/`
+}
 export function bookBrowseEndpoint(){
     return  `/api/books/`
 }
