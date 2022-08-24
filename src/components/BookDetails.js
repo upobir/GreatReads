@@ -15,7 +15,9 @@ import BookAuthorsBlock from './BookAuthorsBlock';
 import useAxios from "../utils/useAxios";   // for private api endpoints
 import { SpinnerWrapper } from './SpinnerWrapper';
 import {PlaceholderMiniBlockWrapper, PlaceholderParagraphWrapper} from './PlaceholderBlockWrapper';
-
+import { MakeHorizontalTabBar } from './CustomTabs';
+import { bookDetailsURL } from '../urls';
+import { useLocation } from 'react-router-dom';
 const BookDetails = () => {
     const {id} = useParams();
     const navigate = useNavigate()
@@ -25,11 +27,32 @@ const BookDetails = () => {
     const [similarBooks, setSimilarBooks] = useState(_similar_books)
 
     const api = useAxios();                 // for private api endpoints
+    const loc = useLocation()
 
     const [showReviewPopup, setShowReviewPopup] = useState(false);
     const handleReviewPopupShow = () => setShowReviewPopup(true);
     const handleReviewPopupClose = () => setShowReviewPopup(false);
-  
+    const bookURL = bookDetailsURL(id)
+    let tabs = [
+        {
+          tabTitle:"Reviews",
+          tabLink:"reviews",
+          tabKey:"reviews",
+        },
+        {
+          tabTitle:"Similar Books",
+          tabLink:"similar_books",
+          tabKey:"similar_books",
+        },
+    ]
+    if(book?.series){
+        tabs.push({
+            tabTitle:"Series",
+            tabLink:"series",
+            tabKey:"series",
+          })
+    }
+      
 
     const getData = async () => { 
         api()
@@ -132,7 +155,7 @@ const BookDetails = () => {
                     isLoading={book==null}
                     />
 
-                        <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} className="book-details__tab-bar">
+                        {/* <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} className="book-details__tab-bar">
                             <Tab eventKey="reviews" title="Reviews">
                             </Tab>
                             {
@@ -140,7 +163,8 @@ const BookDetails = () => {
                             }
                             <Tab eventKey="similar_books" title="Similar Books">
                             </Tab>
-                        </Tabs>
+                        </Tabs> */}
+                        <MakeHorizontalTabBar tabs={tabs} loc={loc.pathname} rootURL={bookURL} className="book-details__tab-bar"/>
                         <Routes>                            
                             {
                                 (book?.series) && <Route path="/series" element={<SeriesView book={book} series={series} setSeries={setSeries}/>} />

@@ -17,12 +17,12 @@ import {FaUser, FaPaperPlane} from 'react-icons/fa'
 const messagePreviewTabs = [
     {
         tabTitle:"New",
-        tabLink:"/messages/new",
+        tabLink:"new",
         tabKey:"new",
       },
       {
         tabTitle:"Archived",
-        tabLink:"/messages/archived",
+        tabLink:"archived",
         tabKey:"archived",
       },
 ]
