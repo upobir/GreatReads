@@ -6,35 +6,36 @@ import { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 import useAxios from '../utils/useAxios'
 
-export const FollowButton = ({followContext, followToggleURL}) => {
-  const [isFollowedByUser, setIsFollowedByUser] = useState(false)
+export const FollowButton = ({followContext,followedByUser,followsUser, followToggleURL, followToggleCallback}) => {
+  const [isFollowedByUser, setIsFollowedByUser] = useState(followedByUser)
   const {user} = useContext(AuthContext)
 
   const api = useAxios()
   const handleToggle = () => {
     if(followContext != null && user != null && followToggleURL != null) {
-      setIsFollowedByUser(!isFollowedByUser)
+      let willFollowUser = !isFollowedByUser//state updates are not synchronous. We want correct val when we call callback 
+      setIsFollowedByUser(willFollowUser)
       api()
       .post(followToggleURL)
       .then((response)=> {
         console.log('follow post to '+ followToggleURL + ' response ', response )
+        if(followToggleCallback)
+          followToggleCallback(willFollowUser)
       }).catch(error => {
         console.log('follow post to ' + followToggleURL +  'response error', error)
       })
     }
   }
-  useEffect(()=>{
-    if(followContext)
-      setIsFollowedByUser(followContext?.isFollowedByUser);
-  }, [followContext])
-
   return (
-    <Button variant='outline-primary'
-            disabled={followContext == null} 
-            active={isFollowedByUser}
-            onClick={handleToggle}
-    >  
-        {isFollowedByUser? "Unfollow": "Follow"}
-    </Button>
+    <>
+      {followsUser != null && <span className='light-text'>{followsUser?"following you":"not following you"} </span>}
+      <Button variant='outline-primary'
+              disabled={followContext == null}
+              active={isFollowedByUser}
+              onClick={handleToggle}
+      >
+          {isFollowedByUser? "Unfollow": "Follow"}
+      </Button>
+    </>
   )
 }

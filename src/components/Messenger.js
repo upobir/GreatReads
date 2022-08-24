@@ -11,7 +11,9 @@ import { userDetailsURL } from '../urls'
 import { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 import useAxios from '../utils/useAxios'
-import { messagePostEndpoint } from '../endpoints'
+import { followUserEndpoint, messagePostEndpoint } from '../endpoints'
+import { FollowButton } from './FollowButton'
+import {FaUser} from 'react-icons/fa'
 const messagePreviewTabs = [
     {
         tabTitle:"New",
@@ -106,8 +108,7 @@ export function PostMessageTextBox(){
                     messageText: message,
                 })
                 .then((response) => {
-                    console.log('rmessage  post response', response);
-                    window.location.reload(true)
+                    console.log('message  post response', response);
                 })
                 .catch((error) => {
                     console.log('message post error', error)
@@ -115,7 +116,9 @@ export function PostMessageTextBox(){
         }
     }
     return (
-        <Form></Form>
+        <Form>
+            
+        </Form>
     )
 }
 
@@ -135,10 +138,9 @@ export function MessagesPreview({messagePreviews}) {
 }
 
 export default function Messenger() {
-    const  [messagePreviews, setMessagePreviews] = useState(_messagePreviews) 
-    const  [messagesBetweenUser, setMessagesBetweenUser] = useState(_conversationWithUser.messages)
-     
-    console.log('_messagePreviews', messagePreviews)
+    const [messagePreviews, setMessagePreviews] = useState(_messagePreviews) 
+    const [messagesBetweenUser, setMessagesBetweenUser] = useState(_conversationWithUser.messages)
+    const [otherUser, setOtherUser] = useState(_conversationWithUser.with)
     return (
         <Container fluid>
             <Row>
@@ -150,9 +152,24 @@ export default function Messenger() {
                     
                 </Col>
                 <Col xs={6}>
-                    <MessagesList messages={_conversationWithUser}/>
+                    <MessagesList messages={messagesBetweenUser}/>
                 </Col>
-                <Col xs={3}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse necessitatibus eos error pariatur nam neque soluta dolor laborum vero, sint at officia fugit quo. Odit neque inventore incidunt quod similique!</Col>
+                <Col xs={3}>
+                    <Container>
+                        {otherUser && <Stack gap={2} className="align-center">
+                                <FaUser fontSize={80}/>
+                            <h2 as={Link} to={userDetailsURL(otherUser.id)}>{otherUser.username}</h2>
+                            <FollowButton 
+                                followContext={otherUser}
+                                followsUser={otherUser.followsUser}
+                                followedByUser={otherUser.followedByUser}
+                                followToggleURL={followUserEndpoint(otherUser.id)}
+                                />
+                        </Stack>
+                        }
+                    </Container>
+
+                </Col>
             </Row>
         </Container>
     )

@@ -343,6 +343,11 @@ $theme-colors: (
 .space-contents-between{
   justify-content: space-between;
 }
+.align-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .book-review-block__reviewer_image{
   // display: flex;
   padding: .5rem;
