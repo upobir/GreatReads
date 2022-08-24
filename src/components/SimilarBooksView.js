@@ -30,7 +30,7 @@ export const SimilarBooksView = ({bookID}) => {
                 <h3 className='text-high'>Readers also enjoyed:</h3>
             </Row>
             <Row>
-                <BookCarousel series={similarBooks} setSeries={handleSeriesUpdate}></BookCarousel>
+                <BookCarousel books={similarBooks} setBooks={handleSeriesUpdate}></BookCarousel>
             </Row>
         </Container>
   )

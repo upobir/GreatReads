@@ -12,16 +12,19 @@ export const SeriesView = ({book, series, setSeries}) => {
     
     return (
         <Container>
-            <Row>
-            {series &&
-                <>
-                    {book && <p><strong className='inline-block text-high'>Book {book.seriesEntry}</strong> <span>of</span></p>}
-                    <h3 className='primary-text'>{`${series.name} (${series.bookCount} books):`}</h3>
-                </>}
-            </Row>
-            <Row>
-                <BookCarousel series={series} setSeries={handleSeriesUpdate}/>     
-            </Row>
+            {series && <>
+                <Row>
+                        {book && <p><strong className='inline-block text-high'>Book {book.seriesEntry}</strong> <span>of</span></p>}
+                        <h3 className='primary-text'>{`${series.name} (${series.bookCount} books):`}</h3>
+                </Row>
+                <Row>
+                    <BookCarousel 
+                        books={series?.books} 
+                        setBooks={handleSeriesUpdate}
+                        showSeriesEntry/>
+                </Row>
+            </>
+            }
         </Container>
     )
 }
