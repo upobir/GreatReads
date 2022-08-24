@@ -533,8 +533,31 @@ $theme-colors: (
   }
 }
 .message{
+  &__container{
+    &__self{
+      padding-left: 50%;
+    }
+    &__other{
+      padding-right: 50%;
+    }
+  }
   background-color: $dp-3;
   border-radius: 4px;
+  &__timestamp{
+    display: block;
+    .span{
+      margin-left: auto;
+      
+    }      
+    &__self{
+      text-align: right;
+    }
+  }
+  &__self{
+    background-color: $primary;
+    color: $body-bg;
+
+  }
 }
 .primary-text{
   color:$primary;
