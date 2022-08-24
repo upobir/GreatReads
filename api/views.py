@@ -139,6 +139,40 @@ class AuthorSeriesView(APIView):
         data = [series_mini(series) for series in seriess]
         return Response(data)
 
+class SearchView(APIView):
+    def get(self, request):
+        pattern = request.GET.get('pattern', '')
+        type = request.GET.get('type', 'book')
+
+        data = {}
+
+        if pattern:
+            if type == 'book':
+                data = self.search_books(pattern, request.user.id)
+
+            elif type == 'author':
+                data = self.search_authors(pattern, request.user.id)
+
+            elif type == 'series':
+                data = self.search_series(pattern, request.user.id)
+        
+        return Response(data)
+
+    def search_books(self, pattern, userid):
+        books = Book.objects.prefetch_related('review_set').filter(title__icontains=pattern)
+
+        return [book_mini(book, userid) for book in books]
+
+    def search_authors(self, pattern, userid):
+        authors = Author.objects.filter(name__icontains=pattern)
+
+        return [author_mini(author) for author in authors]
+
+    def search_series(self, pattern, userid):
+        seriess = Series.objects.filter(name__icontains=pattern)
+
+        return [series_mini(series) for series in seriess]
+
 # virtual bookself
 class BookUserStatusView(APIView):
     def get(self, request, userID, bookshelfCategory):
