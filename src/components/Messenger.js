@@ -168,14 +168,14 @@ export default function Messenger() {
     return (
         <Container fluid className='messenger-container'>
             <Row style={{height:"100%"}}>
-                <Col xs={3}>
+                <Col xs={3} className='messenger-left'>
                     <Routes>
                         <Route path='/:messages_from_id' element={<MessagesPreview messagePreviews={messagePreviews}/>}/>
                         <Route path='/' element={<MessagesPreview messagePreviews={messagePreviews}/>}/>
                     </Routes>
                     
                 </Col>
-                <Col xs={{span:6}} className='messages-mid'>
+                <Col xs={{span:6}} className='messenger-mid'>
                     <MessagesList messages={messagesBetweenUser}/>
 
                     <PostMessageTextBox />

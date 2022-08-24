@@ -517,6 +517,38 @@ $theme-colors: (
     padding: .5rem;
   }
 }
+
+.primary-text{
+  color:$primary;
+}
+.userprofile__body{
+
+}
+.bg-text{
+  color:$body-bg;
+}
+.primary-bg{
+  background-color:$primary;
+}
+.light-text{
+  color:$text-light;
+}
+.medium-text{
+  color:$text-medium;
+}
+.high-text{
+  color: $text-high;
+}
+.inline-block{
+  display: inline-block;
+}
+.no-text-effects{
+  text-decoration: none;
+}
+.messenger-left{
+  position: relative;
+  height: 100%;
+}
 .message-preview{
   background-color: $dp-2;
   border: none;
@@ -524,7 +556,7 @@ $theme-colors: (
 
   &__container{
     height: 100%;
-    width: inherit;
+    max-width: inherit;
     overflow-y: scroll;
     position: absolute;
   }
@@ -567,51 +599,23 @@ $theme-colors: (
 
   }
 }
-.primary-text{
-  color:$primary;
-}
-.userprofile__body{
-
-}
-.bg-text{
-  color:$body-bg;
-}
-.primary-bg{
-  background-color:$primary;
-}
-.light-text{
-  color:$text-light;
-}
-.medium-text{
-  color:$text-medium;
-}
-.high-text{
-  color: $text-high;
-}
-.inline-block{
-  display: inline-block;
-}
-.no-text-effects{
-  text-decoration: none;
-}
-.messages-mid{
+.messenger-mid{
   // position: fixed;
   position: relative;
   height: 100%;
-  background-color: green;
-  border: 5px orange solid;
 
 }
 .messages-list{
-  overflow-y: auto;
-  
-
+  overflow-y: scroll;
+  position: absolute;
+  height: 100%;  
+  padding-bottom: 20vh;
   top:0
 }
 .messenger-container{
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: calc(100% - $navbar-height);
 }
 .message-post-textbox{
   bottom: 0;
