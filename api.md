@@ -207,7 +207,8 @@ List of all kinds of jsons
     },
     "message": {
         "timestamp": timestamp,
-        "text": str
+        "text": str,
+        "isRead":bool
     }
 }
 ```
@@ -220,7 +221,8 @@ List of all kinds of jsons
 {
     "from": int?,//not present if this message is for logged in user
     "timestamp": timestamp,
-    "text": str
+    "text": str,
+    "isRead":bool
 }
 ```
 ## Routes
