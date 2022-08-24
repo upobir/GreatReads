@@ -117,6 +117,9 @@ export function PostMessageTextBox(){
                 })
                 .catch((error) => {
                     console.log('message post error', error)
+                })
+                .finally(()=>{
+                    setMessage(null)
                 });
         }
     }
