@@ -89,7 +89,7 @@ function Register() {
               onChange={e => setPassword2(e.target.value)} />
           </Form.Group>
 
-          <Button variant="outline-primary" >
+          <Button variant="outline-primary" type="submit" >
             Sign up
           </Button>
         </form>
