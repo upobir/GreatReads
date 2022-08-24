@@ -13,7 +13,7 @@ import AuthContext from '../context/AuthContext'
 import useAxios from '../utils/useAxios'
 import { followUserEndpoint, messagePostEndpoint } from '../endpoints'
 import { FollowButton } from './FollowButton'
-import {FaUser} from 'react-icons/fa'
+import {FaUser, FaPaperPlane} from 'react-icons/fa'
 const messagePreviewTabs = [
     {
         tabTitle:"New",
@@ -104,8 +104,9 @@ export function PostMessageTextBox(){
     const {messages_from_id} = useParams()
     const api = useAxios()
     const [message, setMessage] = useState(null)
-    const postMesage = ()=> {
-        if (message && message.legnth > 0) {
+    const postMessage = (e)=> {
+        if (message && message.length > 0) {
+            console.log('post message ', message )
             api()
                 .post(messagePostEndpoint(messages_from_id), {
                     messageText: message,
@@ -120,7 +121,16 @@ export function PostMessageTextBox(){
     }
     return (
         <Form>
-            
+            <Stack direction='horizontal' gap={2}>
+                <Form.Control
+                    as="textarea"
+                    rows={1}
+                    placeholder="Enter Message"
+                    onChange={e => setMessage(e.target.value)}/>
+                <Button variant="primary" onClick={postMessage}>
+                    <FaPaperPlane fontSize={25}/>
+                </Button>
+            </Stack>
         </Form>
     )
 }
@@ -156,6 +166,7 @@ export default function Messenger() {
                 </Col>
                 <Col xs={6}>
                     <MessagesList messages={messagesBetweenUser}/>
+                    <PostMessageTextBox />
                 </Col>
                 <Col xs={3}>
                     <Container>

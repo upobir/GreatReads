@@ -535,10 +535,10 @@ $theme-colors: (
 .message{
   &__container{
     &__self{
-      padding-left: 50%;
+      padding-left: 25%;
     }
     &__other{
-      padding-right: 50%;
+      padding-right: 25%;
     }
   }
   background-color: $dp-3;
