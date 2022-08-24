@@ -253,7 +253,7 @@ List of all kinds of jsons
 1. GET `api/browse/newlyRated` array of `book_detailed`  sorted by review timestamp (pagination needed) [DONE]
 1. GET `api/feed/all` array of `feed_item`  sorted by timestamp (pagination needed)
 1. GET `/api/messages/` array of `message_detailed` sorted by timestamp 
-1. GET `/api/messages/<userID>` array of all `message_mini` for conversation between logged user and this user sorted by timestamp. BE SURE TO UPDATE USER_DETAILED TO CONTAIN followsUser field  
+1. GET `/api/messages/<userID>` array of all `message_mini` for conversation between logged user and this user sorted by timestamp. BE SURE TO UPDATE USER_DETAILED TO CONTAIN followsUser field. Also, marke these messages as read   
 
 1. POST `api/book/<id>/status/post/` {
         "readStatus": book.readStatus,
