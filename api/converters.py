@@ -36,6 +36,15 @@ def author_detailed(author, userid):
         "picture_url": author.picture.url if author.picture else None,
     }
 
+def author_extra(author):
+    return {
+        "birth_date": author.birth_date,
+        "website": author.website,
+        "booksWritten": author.book_count,
+        "avgRating": author.avg_rating,
+        "genres": [genre_mini(genre) for genre in Genre.objects.filter(book__authors=author).distinct()]
+    }
+
 def genre_mini(genre):
     return {
         "id": genre.id,

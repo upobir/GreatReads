@@ -51,6 +51,7 @@ urlpatterns = [
 
     path('author/<int:pk>/books/', AuthorBooksView.as_view(), name='author_books'),
     path('author/<int:pk>/series/', AuthorSeriesView.as_view(), name='author_series'),
+    path('author/<int:pk>/extra/', AuthorExtraView.as_view(), name='author_extra'),
 
     path('search/', SearchView.as_view(), name='search'),
 

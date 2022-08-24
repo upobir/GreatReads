@@ -41,6 +41,18 @@ class Author(models.Model):
     def follower_count(self):
         return self.followers.all().count()
 
+    @property
+    def book_count(self):
+        return self.book_set.all().count()
+
+    @property
+    def avg_rating(self):
+        book_ratings = [book.avg_rating for book in Book.objects.filter(authors=self)]
+        if not book_ratings:
+            return 0
+        else:
+            return sum(book_ratings)/len(book_ratings)
+
 class Publisher(models.Model):
     address = models.TextField()
     name = models.CharField(max_length=100)
@@ -79,6 +91,7 @@ class Genre(models.Model):
     @property
     def follower_count(self):
         return self.followers.all().count()
+        
 
 class Message(models.Model):
     timestamp = models.DateTimeField(auto_now=True)

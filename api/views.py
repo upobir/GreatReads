@@ -139,6 +139,15 @@ class AuthorSeriesView(APIView):
         data = [series_mini(series) for series in seriess]
         return Response(data)
 
+class AuthorExtraView(APIView):
+    def get(self, request, pk):
+        author = Author.objects.get(id=pk)
+
+        data = author_extra(author)
+
+        return Response(data)
+
+
 class SearchView(APIView):
     def get(self, request):
         pattern = request.GET.get('pattern', '')
