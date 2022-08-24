@@ -97,7 +97,7 @@ const AuthorDetails = () => {
         .then((response) => {
             let _author = response.data
             console.log('_author', _author);
-            _author.born= "Cosmere"
+            _author.birth_date= "Cosmere"
             _author.website="foo.bar.baz"
             _author.booksWritten=33
             _author.avgRating=4.55
@@ -134,7 +134,7 @@ const AuthorDetails = () => {
                 <Container fluid  className='author-details__right-col'>
                     <Col xs={{span:3,offset:9 }} className='allow-click-self author-details__right-col__inner'>
                         <Stack gap={2}>
-                            <Row><Col xs={2}><h5>Born:</h5><span className='medium-text'>{author?.born}</span></Col></Row>
+                            <Row><Col xs={2}><h5>Born:</h5><span className='medium-text'>{author?.birth_date}</span></Col></Row>
                             <Row><Col xs={2}><h5>Website:</h5><Link to={author?author.website: '#'}>{author?.website}</Link></Col></Row>
                             <Row><Col xs={2}><h5>Books Written:</h5><h2 className='primary-text'>{author?.booksWritten}</h2></Col></Row>
                             <Row><Col xs={2}><h5 className='high-text '>Avg. Rating:</h5><h2  className='primary-text'>{author?.avgRating}</h2></Col></Row>

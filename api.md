@@ -216,7 +216,7 @@ List of all kinds of jsons
 //also, we don't need anything but from.userID to identify if a message belongs which user
 //follow status can be sent once as part of conversation
 //hence, this should be separate from mesage_detailed
-17. message_mini 
+18. message_mini 
 ```
 {
     "from": int?,//not present if this message is for logged in user
@@ -225,12 +225,25 @@ List of all kinds of jsons
     "isRead":bool
 }
 ```
+19. author_extra
+```
+{
+    "birth_date": timestamp,
+    "website": str,
+    "booksWritten": int,
+    "avgRating": float,
+    "genres": [genre_mini]
+}
+```
 ## Routes
 1. GET `api/books` array of all `book_mini` [DONE]
 1. GET `api/book/<id>` one `book_detailed` [DONE]
 1. GET `api/book/<id>/reviews` array of `review_mini` of a book (pagination needed) [DONE]
 1. GET `api/review/<id>` one `review_detailed` [DONE]
 1. GET `api/author/<id>` one `author_detailed` [DONE]
+1. GET `api/author/<id>/extra` one `author_extra` [DONE]
+1. GET `api/author/<id>/books` array of all `book_mini` written by author [DONE]
+1. GET `api/author/<id>/series` array of all `series_mini` with at least one book written by author [DONE]
 1. GET `api/publisher/<id>` one `publisher_detailed` [DONE]
 1. GET `api/series/<id>` one `series_mini` [DONE]
 1. GET `api/books/genre/<id>` array of `book_mini` of a genre (pagination needed) [DONE]
