@@ -12,8 +12,8 @@ const tabs = [
 */
 
 function getCategory(tabs, locString, rootURL){
-    console.log('locString', locString)
-    console.log('rootURL', rootURL)
+    // console.log('locString', locString)
+    // console.log('rootURL', rootURL)
     if(locString.length > rootURL.length){
       let category = locString.substring(rootURL.length)
       let endIndex = category.indexOf('/')
@@ -62,7 +62,7 @@ export const MakeVerticalTabBarBookshelf = ({tabs, loc, rootURL,className, userI
 
 export const MakeHorizontalTabBar = ({tabs, loc, rootURL,className}) => {
     // console.log('loc', loc)
-    console.log('getCategory(tabs, loc, rootURL)', getCategory(tabs, loc, rootURL))
+    // console.log('getCategory(tabs, loc, rootURL)', getCategory(tabs, loc, rootURL))
     return <Tab.Container fluid  activeKey={getCategory(tabs, loc, rootURL)} >
     <Nav fill variant="tabs" className={"justify-content-center" + (className?(" " + className):"")} >
         {tabs.map((tab, index)=> {

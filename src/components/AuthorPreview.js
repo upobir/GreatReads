@@ -26,7 +26,6 @@ export default function AuthorPreview({ author }) {
                     isLoading={author==null}
                     cols={6}
                     />
-
                 </Col>
             </Row>
         </Container>
@@ -45,8 +44,7 @@ export default function AuthorPreview({ author }) {
                 <Col>
                     <FollowButton 
                         followContext={author} 
-                        followedByUser={author?.followedByUser} 
-                        followToggleURL={authorFollowToggleEndpoint(author.id)}/>
+                        followedByUser={author?.followedByUser} followToggleURL={authorFollowToggleEndpoint(author.id)}/>
                 </Col>
             </Row>
         }

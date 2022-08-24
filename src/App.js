@@ -14,6 +14,7 @@ import { BrowseBooks } from './components/BrowseBooks';
 import Register from "./components/RegisterPage";
 import { FeedPage } from './components/FeedPage';
 import ImgPostTest from './components/imgPostTest';
+import AuthorDetails from './components/AuthorDetails';
 import Messenger from './components/Messenger';
 const queryClient = new QueryClient()
 function App() {
@@ -37,13 +38,13 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<Register />} />
               <Route path="/book/:id/*" element={<BookDetails />} />
+              <Route path="/author/:author_id/*" element={<AuthorDetails />} />
               <Route path="/browse/*" element={<BrowseBooks />} />
               <Route path="/user/:user_id/*" element={<Bookshelf />} />
               <Route path="/user/" element={<Bookshelf />} />
               <Route path="/feed/*" element={<FeedPage />} />
               <Route path="/" element={<FeedPage />} />
               <Route path="/messages/*" element={<Messenger />} />
-              <Route path="/imgPostTest/*" element={<ImgPostTest/>}></Route>
             </Routes>
           </Container>
         </AuthProvider >

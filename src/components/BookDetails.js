@@ -95,12 +95,6 @@ const BookDetails = () => {
         getData()
     }, [])
 
-    
-    const handleTabChange = (eventKey, e) => {
-        console.log('eventKey', eventKey)
-        console.log('e', e)
-        navigate(eventKey); // "/home/firsttab" <-> "/home/secondtab"
-      };
     return (
         <>
             <div className='book-details'>
@@ -154,16 +148,6 @@ const BookDetails = () => {
                     }
                     isLoading={book==null}
                     />
-
-                        {/* <Tabs defaultActiveKey="reviews" onSelect={handleTabChange} className="book-details__tab-bar">
-                            <Tab eventKey="reviews" title="Reviews">
-                            </Tab>
-                            {
-                                (book?.series) && <Tab eventKey="series" title="Series"></Tab>
-                            }
-                            <Tab eventKey="similar_books" title="Similar Books">
-                            </Tab>
-                        </Tabs> */}
                         <MakeHorizontalTabBar tabs={tabs} loc={loc.pathname} rootURL={bookURL} className="book-details__tab-bar"/>
                         <Routes>                            
                             {
@@ -172,8 +156,8 @@ const BookDetails = () => {
                             <Route path="/similar_books" element={<SimilarBooksView similarBooks={similarBooks} setSimilarBooks={setSimilarBooks} />} />
                             <Route path="/review/:review_id/:reply" element={<BookReview bookID={id}/>}></Route>
                             <Route path="/review/:review_id/" element={<BookReview bookID={id}/>}></Route>
-                            <Route path="" element={<BookReviews book={book}/>} />
                             <Route path="/reviews" element={<BookReviews bookID={id}/>} />
+                            <Route path="" element={<BookReviews book={book}/>} />
                             
                         </Routes>                    
                     </Col>
