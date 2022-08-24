@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
 from cloudinary.models import CloudinaryField
+from django.utils import timezone
 
 # Create your models here.
 
@@ -26,7 +27,6 @@ class UserFollowing(models.Model):
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
-    #picture = models.FileField(null=True, blank=True)  # TODO ImageField? updload path?
     picture = CloudinaryField('image', default=None, null=True, blank=True)
     description = models.TextField(blank=True)
     birth_date = models.DateField()
@@ -81,7 +81,7 @@ class Genre(models.Model):
         return self.followers.all().count()
 
 class Message(models.Model):
-    timestamp = models.DateField(auto_now=True)
+    timestamp = models.DateTimeField(auto_now=True)
     text = models.TextField()
     from_user = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE) #using User
     to_user = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE) #using User
@@ -95,7 +95,6 @@ class Book(models.Model):
     release_date = models.DateField(null=True, blank=True)
     language = models.CharField(max_length=100, default='English')
     description = models.TextField(default="sit dor amet")
-    #thumbnail = models.FileField(null=True, blank=True)  # TODO ImageField? updload path?
     thumbnail = CloudinaryField('image', default=None, null=True, blank=True)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     series = models.ForeignKey(Series, null=True, blank=True, on_delete=models.SET_NULL)
@@ -117,7 +116,7 @@ class Book(models.Model):
         return self.title
 
 class Review(models.Model):
-    timestamp = models.DateField(auto_now=True)
+    timestamp = models.DateTimeField()
     rating = models.IntegerField() # TODO add validator?
     description = models.TextField(blank=True)
     creator = models.ForeignKey(User, related_name='created_reviews', on_delete=models.CASCADE) #using User
@@ -133,12 +132,13 @@ class Review(models.Model):
         return ReviewComment.objects.filter(review=self).count()
 
 class ReviewComment(models.Model):
-    timestamp = models.DateField(auto_now=True)
+    timestamp = models.DateTimeField(auto_now=True)
     text = models.TextField()
     creator = models.ForeignKey(User, on_delete=models.CASCADE) #using User
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
 
 class BookUserStatus(models.Model):
+    timestamp = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE) #using User
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     is_read = models.BooleanField()

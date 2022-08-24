@@ -1,3 +1,5 @@
+from sqlite3 import Timestamp
+from time import time
 from rest_framework.response import Response
 from rest_framework.decorators import APIView
 
@@ -8,6 +10,7 @@ from .models import *
 from .serializers import *
 from .converters import *
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class BookStatusView(APIView):
@@ -19,12 +22,13 @@ class BookStatusView(APIView):
         user = User.objects.get(id=request.user.id)
         status = BookUserStatus.objects.filter(book=book,user=user)
         if not status:
-            status = BookUserStatus.objects.create(book=book, user=user, is_read=False, is_wishlisted=False, read_pages = -1)
+            status = BookUserStatus.objects.create(book=book, user=user, is_read=False, is_wishlisted=False, read_pages = -1, timestamp=timezone.now())
         else:
             status = status[0]
             status.is_read = False
             status.is_wishlisted = False
             status.read_pages = -1
+            status.timestamp = timezone.now()
 
         if request.data['readStatus'] == 'read':
             status.is_read = True
@@ -54,9 +58,10 @@ class BookReviewPostView(APIView):
         if reviews:
             reviews[0].rating = rating
             reviews[0].description = description
+            reviews[0].timestamp = timezone.now()
             reviews[0].save()
         else:
-            Review.objects.create(rating = rating, description = description, creator = user, book = book)
+            Review.objects.create(rating = rating, description = description, creator = user, book = book, timestamp=timezone.now())
 
         return Response("ok")
 
@@ -99,7 +104,7 @@ class ReviewCommentPostView(APIView):
 
         commentText = request.data["commentText"]
 
-        comment =ReviewComment.objects.create(text=commentText, creator=user, review=review)
+        comment =ReviewComment.objects.create(text=commentText, creator=user, review=review, timestamp=timezone.now())
         # print(comment)
         return Response({"status":"ok", "commentID": comment.id})
 
