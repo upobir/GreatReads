@@ -182,6 +182,28 @@ class SearchView(APIView):
 
         return [series_mini(series) for series in seriess]
 
+class FeedView(APIView):
+    def get(self, request):
+        if not request.user.id:
+            return Response({})
+
+        reviews = Review.objects.filter(creator__followers__user_id=request.user.id)
+
+        updates = BookUserStatus.objects.filter(user__followers__user_id=request.user.id)
+
+        data = []
+
+        for review in reviews:
+            data.append(feed_item_review(review, request.user.id))
+
+        for status in updates:
+            data.append(feed_read_update(status, request.user.id))
+
+        data.sort(key=lambda d: d['timeStamp'])
+        data.reverse()
+
+        return Response(data)
+
 # virtual bookself
 class BookUserStatusView(APIView):
     def get(self, request, userID, bookshelfCategory):

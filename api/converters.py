@@ -1,22 +1,26 @@
 from .models import *
 
 def get_book_status(book, userid):
-    status = book.bookuserstatus_set.filter(user_id=userid)
+    status_set = book.bookuserstatus_set.filter(user_id=userid)
 
+    if status_set.exists():
+        return convert_book_status(status_set[0])
+    else:
+        return None, -1
+
+def convert_book_status(status):
     readstatus = None 
     readpages = -1
 
-    if status.exists():
-        print(status.values())
-        if status[0].is_read:
-            readstatus = "read"
-            readpages = -1
-        elif status[0].is_wishlisted:
-            readstatus = "wishlisted"
-            readpages = -1
-        elif status[0].read_pages != -1:
-            readstatus = "reading"
-            readpages = status[0].read_pages
+    if status.is_read:
+        readstatus = "read"
+        readpages = -1
+    elif status.is_wishlisted:
+        readstatus = "wishlisted"
+        readpages = -1
+    elif status.read_pages != -1:
+        readstatus = "reading"
+        readpages = status.read_pages
 
     return readstatus, readpages
 
@@ -218,6 +222,32 @@ def user_mini(userID):
     return {
         "id": userID,
         "username": User.objects.get(id=userID).username,
+    }
+
+def user_mini_alter(user):
+    return {
+        "id": user.id,
+        "username": user.username
+    }
+
+def feed_item_review(review, userId):
+    return {
+        "updateType": "review",
+        "timeStamp" : review.timestamp,
+        "review" : review_mini(review, userId),
+        "book": book_mid(review.book, userId)
+    }
+
+def feed_read_update(status, userId):
+    readstatus, readpages = convert_book_status(status)
+
+    return {
+        "updateType": "readingUpdate",
+        "readStatus": readstatus,
+        "readpages": readpages,
+        "user": user_mini_alter(status.user),
+        "timeStamp": status.timestamp,
+        "book": book_mid(status.book, userId)
     }
 
 def review_feed_item(review_mini_data, timestamp, book_mid_data, reviewCreator):
