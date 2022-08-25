@@ -650,6 +650,8 @@ $theme-colors: (
     max-width: inherit;
     overflow-y: scroll;
     position: absolute;
+    padding-left: 0;
+    // padding-right: 0;
   }
   
   &__active{

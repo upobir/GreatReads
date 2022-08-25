@@ -29,7 +29,6 @@ export function MessagesPreviewList({ messagePreviews, filter, className }) {
     
     return <Stack gap={1} className={className? className:''}> 
         {(filter?filter(messagePreviews):messagePreviews).map((m, index) => {
-            console.log('index', index, m.from.id, messages_from_id, (m.from.id == messages_from_id));
             return <MessagePreview key={index} m={m} messages_from_id={messages_from_id}/>
         })}
     </Stack>;

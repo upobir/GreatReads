@@ -44,7 +44,8 @@ function App() {
               <Route path="/user/" element={<Bookshelf />} />
               <Route path="/feed/*" element={<FeedPage />} />
               <Route path="/" element={<FeedPage />} />
-              <Route path="/messages/*" element={<Messenger />} />
+              <Route path="/messages/:messages_from_id" element={<Messenger />} />
+              <Route path="/messages/" element={<Messenger />} />
             </Routes>
           </Container>
         </AuthProvider >

@@ -18,7 +18,7 @@ export const BookShelf_ViewReviews = ({userID}) => {
     const [spinner, setSpinner] = useState(true)
 
     const loc = useLocation();
-
+    console.log('reviewFeedItems', reviewFeedItems)
     const getReviewFeedItemList = async () => {
         api()
         .get(bookshelfViewReviewsEndpoint(userID), {

@@ -15,6 +15,7 @@ import { FollowButton } from './FollowButton'
 import {FaUser, FaPaperPlane} from 'react-icons/fa'
 import { MessagesPreviewList } from './MessagesPreviewList'
 import { MessagesList } from './MessagesList'
+import { useEffect } from 'react'
 const messagePreviewTabs = [
     {
         tabTitle:"New",
@@ -36,13 +37,18 @@ export function showArchivedMessages(messagePreviews) {
 }
 
 
-export function PostMessageTextBox(){
+export function PostMessageTextBox({messages, setMessages, archived}){
     const {messages_from_id} = useParams()
     const api = useAxios()
     const [message, setMessage] = useState(null)
     const postMessage = (e)=> {
-        if (message && message.length > 0) {
+        if (message && message.length > 0 && !archived) {
             console.log('post message ', message )
+            
+            let mutatedMessages =  messages
+            mutatedMessages.push(setMessage)
+            setMessages(mutatedMessages);
+
             api()
                 .post(messagePostEndpoint(messages_from_id), {
                     messageText: message,
@@ -66,9 +72,11 @@ export function PostMessageTextBox(){
                         <Form.Control
                             as="textarea"
                             rows={1}
-                            placeholder="Enter Message"
+                            placeholder={archived?"(Archived)":"Enter Message"}
                             onChange={e => setMessage(e.target.value)}/>
-                        <Button variant="primary" onClick={postMessage}>
+                        <Button variant="primary" 
+                                onClick={postMessage}
+                                disabled={archived}>
                             <FaPaperPlane fontSize={25}/>
                         </Button>
                     </Stack>
@@ -85,14 +93,14 @@ export function MessagesPreview({messagePreviews}) {
                 defaultActiveKey="new"
             >
             <Tab eventKey="new" title="New">
-                <div className="message-preview__container">
+                <Container fluid className="message-preview__container">
                     <MessagesPreviewList     messagePreviews={messagePreviews} filter={showNonArchivedMessages}/>
-                </div>
+                </Container>
             </Tab>
             <Tab eventKey="archived" title="Archived">
-                <div className="message-preview__container">
+                <Container fluid className="message-preview__container">
                 <MessagesPreviewList messagePreviews={messagePreviews} filter={showArchivedMessages}/>
-                </div>
+                </Container>
             </Tab>
                   </Tabs>
         
@@ -100,9 +108,36 @@ export function MessagesPreview({messagePreviews}) {
 }
 
 export default function Messenger() {
+    const {messages_from_id} = useParams()
     const [messagePreviews, setMessagePreviews] = useState(_messagePreviews) 
     const [messagesBetweenUser, setMessagesBetweenUser] = useState(_conversationWithUser.messages)
     const [otherUser, setOtherUser] = useState(_conversationWithUser.with)
+    const [archived, setArchived] = useState(false)
+    const handleFollowToggle = (otherUserID, isFollowingOtherUser) => { 
+        console.log('folllow toggle handle otherUserID', otherUserID)
+        
+        let mutatedOtherUser = otherUser
+        mutatedOtherUser.followedByUser = isFollowingOtherUser
+        setOtherUser(mutatedOtherUser)
+        
+        let mutatedMessagePreviews = messagePreviews
+        mutatedMessagePreviews.forEach((m, index, messagePreviews) => {
+            if(m.from.id === otherUserID){
+                m.from.followedByUser = isFollowingOtherUser
+                console.log('m.from.followedByUser', m.from.followedByUser)
+            }
+        })
+        setMessagePreviews(mutatedMessagePreviews)
+        console.log('mutatedMessagePreviews', mutatedMessagePreviews)
+    }
+    useEffect(()=> {
+        let willBeArchived = !otherUser || !otherUser.followsUser || !otherUser.followedByUser;
+            // const isArchivedConversation = () => !otherUser || !otherUser.followsUser || !otherUser.followedByUser; 
+    console.log('otherUser',otherUser,'willBeArchived', willBeArchived, 'otherUser.followsUser', otherUser.followsUser,
+    'otherUser.followedByUser', otherUser.followedByUser)
+        setArchived(willBeArchived)
+    }, [messages_from_id])
+
     return (
         <Container fluid className='messenger-container'>
             <Row style={{height:"100%"}}>
@@ -114,9 +149,12 @@ export default function Messenger() {
                     
                 </Col>
                 <Col xs={{span:6}} className='messenger-mid'>
-                    <MessagesList messages={messagesBetweenUser}/>
+                    <MessagesList messages={messagesBetweenUser} archived={archived} />
 
-                    <PostMessageTextBox />
+                    <PostMessageTextBox 
+                        archived={archived} 
+                        messages={messagesBetweenUser}
+                        setMessages={setMessagesBetweenUser}/>
 
                 </Col>
                 <Col xs={3}>
@@ -129,6 +167,7 @@ export default function Messenger() {
                                 followsUser={otherUser.followsUser}
                                 followedByUser={otherUser.followedByUser}
                                 followToggleURL={followUserEndpoint(otherUser.id)}
+                                followToggleCallback= {(willFollowUser) => {handleFollowToggle(otherUser.id, willFollowUser)}}
                                 />
                         </Stack>
                         }

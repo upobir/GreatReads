@@ -33,7 +33,7 @@ const GenreSubmenu = () => {
       <h4>Genre</h4>
       {genres
         ? (genres.map((genre, index)=> {
-          return <Link to={genreBrowseURL(genre.id)}>{genre.name}</Link>
+          return <Link key={index} to={genreBrowseURL(genre.id)}>{genre.name}</Link>
         }))
         : <SimpleSpinner />
       }
