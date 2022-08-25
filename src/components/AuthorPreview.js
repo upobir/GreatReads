@@ -32,23 +32,30 @@ export default function AuthorPreview({ author }) {
             </Row>
         </Container>
         <Container>
-        {author &&
-            <Row>
-                <Col xs = "auto">
-                        <h3 style={{ paddingTop: 0,
-                                     paddingBottom: 0,
-                                     marginBlockEnd:0,
-                                     marginBlockStart:0  }}>
-                            {author?.followCount}
-                        </h3>
-                        <span className='light-text'>Following</span>
-                </Col>
-                <Col>
-                    <FollowButton 
-                        followContext={author} 
-                        followedByUser={author?.followedByUser} followToggleURL={authorFollowToggleEndpoint(author.id)}/>
-                </Col>
-            </Row>
+        {author &&(
+            <FollowBlock 
+                followContext={author} 
+                followedByUser={author.isFollowedByUser}
+                followToggleURL={authorFollowToggleEndpoint(author.id)}
+            
+                     />
+            // <Row>
+            //     <Col xs = "auto">
+            //             <h3 style={{ paddingTop: 0,
+            //                          paddingBottom: 0,
+            //                          marginBlockEnd:0,
+            //                          marginBlockStart:0  }}>
+            //                 {author.followCount}
+            //             </h3>
+            //             <span className='light-text'>Following</span>
+            //     </Col>
+            //     <Col>
+            //         <FollowButton 
+            //             followContext={author} 
+            //             followedByUser={author?.followedByUser} followToggleURL={authorFollowToggleEndpoint(author.id)}/>
+            //     </Col>
+            // </Row>
+        )
         }
         </Container>
         <Container>

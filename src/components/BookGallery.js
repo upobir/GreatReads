@@ -15,7 +15,7 @@ export const BookGallery = ({books, booksPerRow, setBooks})=>{
             setBooks(mutatedBooks);
         }
     } 
-    if( books == null || books.length <= 0){
+    if( books == null || books.length < 0){
         return <Container>
             <Spinner animation="border" variant="primary" />
         </Container>

@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 import { Placeholder } from 'react-bootstrap'
 import BookReviewLikeButton from './components/BookReviewLikeButton'
 import {FaUser} from 'react-icons/fa';
+import { timestampToString } from './utils/TimestampHelper'
 import { placeholderUserImage } from './PlaceHolder'
 function truncateReview(review){
   return  review?.substring(0, 100);
@@ -56,11 +57,11 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHa
       <Row>
         <Col xs = {2}>
         
-        <div className="book-review-block__thumbnail">
-              <div className='book-review-block__thumbnail__placeholder'>
-                <FaUser />
-              </div>
-        </div>
+          <div className="book-review-block__thumbnail">
+                <div className='book-review-block__thumbnail__placeholder'>
+                  <FaUser />
+                </div>
+          </div>
         </Col>
         <Col>
           {review && <Stack gap={2} direction='horizontal' className='space-contents-between'>
@@ -69,7 +70,7 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHa
                 <span className='inline-block light-text'>Rated it</span>
                 <Rating readonly={true} size={30} ratingValue={review.rating * 100 / 5} />
               </Stack>
-              <span className='medium-text'>{review.Timestamp}</span>
+              <span className='medium-text'>{timestampToString(review.Timestamp)}</span>
             </Stack>
           }
 
