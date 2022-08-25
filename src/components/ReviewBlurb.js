@@ -22,7 +22,7 @@ export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
     <Stack  gap={2} >
       <Stack direction='horizontal' className='feed-item__header'>
         <Stack direction='horizontal' className='feed-item__header__left' gap={1}>
-          <Link to={userDetailsURL(reviewBlurbData.user.id)}>{reviewBlurbData.user.username}</Link>
+          <Link to={userDetailsURL(reviewBlurbData.review.reviewerId)}>{reviewBlurbData.review.reviewer}</Link>
           <span className='light-text'>reviewed</span>
           <Rating readonly={true} size={30} ratingValue={convertRatingTo100Scale(reviewBlurbData.review.rating)} />
         </Stack>
