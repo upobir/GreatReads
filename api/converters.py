@@ -212,7 +212,7 @@ def book_mid(book, userid):
         "id": book.id,
         "title": book.title,
         "authors": [ author_mini(author) for author in book.authors.all() ],
-        # "thumbnail": book.thumbnail,
+        "thumbnail": book.thumbnail.url if book.thumbnail else None,
         "readStatus": readstatus,
         "avgRating": book.avg_rating,
         "description": book.description,
