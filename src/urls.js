@@ -54,6 +54,9 @@ export function registerURL(){
 export function viewMessagesFromUserUrl(userID){
     return `/messages/${userID}`
 }
+export function viewMessagesUrl(){
+    return `/messages/`
+}
 const myFeedURL = "/feed/"
 const homeURL = "/home/"
 export { homeURL,myFeedURL}

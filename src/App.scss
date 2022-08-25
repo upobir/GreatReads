@@ -422,6 +422,54 @@ $theme-colors: (
     margin-bottom: 0;
   }
 }
+.navbar-user-submenu{
+  background-color: $body-bg;
+  border: 2px solid $primary;
+  .navbar-messages-list{
+    max-width: 20vw;
+  }
+  &__notification{
+    position: relative;
+    display: inline;
+  }
+  &__unread-indicator{
+    // background-color: $primary;
+    // color: $body-bg;
+    // color: $body-bg;
+
+    // background-color: $body-bg;
+    // color: $primary;
+    // border: 2px solid $primary;
+
+    color: $text-high;
+
+    border-radius: 50%;
+    width: 1.4rem;
+    height: 1.4rem;
+    padding: .2rem;
+    position: absolute;
+    top: -0.4rem;
+    right: -.75rem;
+    font-size: .7rem;
+    text-align: center ;
+  }
+  &__btn{
+    flex: 1;
+  }
+  &__footer{
+    display: flex;
+  }
+  &__toggle__btn{
+    background-color: $body-bg;
+    :active{
+      background-color: $primary;    
+      color: $body-bg;
+    }
+  }
+  .popover-header{
+    background-color: $body-bg;
+  }
+}
 .nav-search-bar{
   margin-right: auto;
 }
@@ -596,7 +644,7 @@ $theme-colors: (
   background-color: $dp-2;
   border: none;
   padding:.5rem;
-
+  width: 100%;
   &__container{
     height: 100%;
     max-width: inherit;

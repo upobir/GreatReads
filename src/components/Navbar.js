@@ -59,10 +59,7 @@ export default function GreatReadsNavbar() {
                               <NavDropdown.Item as={Link} to={followedAuthorBrowseURL()} className="navItem">Followed Authors</NavDropdown.Item>
                               <NavDropdown.Item as={Link} to={newlyRatedBrowseURL()} className="navItem">Newly Rated</NavDropdown.Item>
                             </Stack>
-                            {/* <Stack className='top-navbar__browse__dropdown__genre-menu'> */}
                             <GenreSubmenu/>
-                            {/* </Stack> */}
-                            {/* </Overlay> */}
                           </Stack>
                       </NavDropdown>
                       {user && <Nav.Link href ={myBookShelfURL(user)}>Bookshelf</Nav.Link>}
