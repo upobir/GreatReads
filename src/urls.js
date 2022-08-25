@@ -27,7 +27,9 @@ export function browseAllURL(){
     return "/browse/all"
 }
 export function authorDetailsURL(authorID){
-    return `/author/${authorID}/`
+    if(authorID != null)
+        return `/author/${authorID}/`
+    return '#'
 }
 export function genreBrowseURL(genreID){
     return `/browse/genre/${genreID}/`

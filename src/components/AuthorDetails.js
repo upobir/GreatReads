@@ -60,13 +60,13 @@ export const AuthorSerieses = ({author_id}) => {
         .get(authorSeriesFetchEndpoint(author_id))
         .then(response =>{
             let _series = response.data
-            let dummySeries = []
-            // console.log('_series', _series)
-            dummySeries.push(_series)
-            dummySeries.push(_series)
-            dummySeries.push(_series)
-            dummySeries.push(_series)
-            setSerieses(dummySeries)
+            console.log('author _series', _series)
+            // let dummySeries = []
+            // dummySeries.push(_series)
+            // dummySeries.push(_series)
+            // dummySeries.push(_series)
+            // dummySeries.push(_series)
+            setSerieses(_series)
         })
         .catch((err)=>console.log('author series fetch err', err))
     }, [])
@@ -75,7 +75,10 @@ export const AuthorSerieses = ({author_id}) => {
     return (<Stack gap={2}>
         {serieses?.map((series,index) => {
             return (
-                <SeriesView series={series} setSeries={(s)=>handleSeriesSet(index, s)}/>
+                <SeriesView 
+                    key={index}
+                    series={series} 
+                    setSeries={(s)=>handleSeriesSet(index, s)}/>
             )
         })}
     </Stack>
@@ -96,17 +99,11 @@ const AuthorDetails = () => {
         .then((response) => {
             let _author = response.data
             setAuthor(_author)
-            console.log("chain req")
+            
             api()
             .get(authorExtraFetchEndpoint(author_id))
             .then((response)=> {
                 let extra = response.data
-                console.log('author extra data', extra)
-                // _author.birth_date= "Cosmere"
-                // _author.website="foo.bar.baz"
-                // _author.booksWritten=33
-                // _author.avgRating=4.55
-                // _author.genres = _genres
                 let mutatedAuthor = author
                 mutatedAuthor.birth_date = extra.birth_date
                 mutatedAuthor.website = extra.website
@@ -117,13 +114,12 @@ const AuthorDetails = () => {
 
                 setAuthor(mutatedAuthor)
 
-            })
+            }).catch((err)=> console.log('author extea fetch err', err))
         })
         .catch(error => {
             console.log('author fetch error', error)
         }); 
      }
-    console.log('final author', author)
 
     useEffect(() => {
         getData()

@@ -136,7 +136,7 @@ class AuthorSeriesView(APIView):
     def get(self, request, pk):
         seriess = Series.objects.filter(book__authors__id=pk).distinct()
 
-        data = [series_mini(series) for series in seriess]
+        data = [series_detailed(series, request.user.id) for series in seriess]
         return Response(data)
 
 class AuthorExtraView(APIView):

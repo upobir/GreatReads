@@ -2,13 +2,15 @@ import React from 'react'
 import { Stack, Container, Row, Col, Image, Button } from 'react-bootstrap'
 import 'holderjs'
 import { authorFetchEndpoint } from '../endpoints'
+import { Link } from 'react-router-dom'
 import { FollowButton } from './FollowButton'
 import { FollowBlock } from './FollowBlock'
 import { authorFollowToggleEndpoint } from '../endpoints'
 import {Spinner} from 'react-bootstrap'
 import { PlaceholderMiniBlockWrapper,PlaceholderParagraphWrapper } from './PlaceholderBlockWrapper'
+import { authorDetailsURL } from '../urls'
 export default function AuthorPreview({ author }) {
-    console.log('author', author)
+    // console.log('author', author)
   return (
     <Stack className='author-preview' gap={0}>
         <Container>
@@ -20,7 +22,7 @@ export default function AuthorPreview({ author }) {
                 <Col xs={8} className='__author-name-block'>
                     <PlaceholderMiniBlockWrapper Component={ <>
                         <div>About:</div>
-                        <h3 className='primary-text'>{author?.name}</h3>
+                        <h3 as={Link} to={authorDetailsURL(author?.id)} className='primary-text'>{author?.name}</h3>
                     </>
                     }
                     isLoading={author==null}
