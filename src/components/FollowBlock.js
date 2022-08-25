@@ -4,8 +4,10 @@ import { Stack } from 'react-bootstrap'
 import { FollowButton } from './FollowButton'
 export const FollowBlock = ({followContext,followedByUser, followToggleURL, vertical,className}) => {
   const [followCount, setFollowCount] = useState(followContext?followContext.followCount:0)
+  console.log('true followedByUser', followedByUser)
   const handleFollowToggle = (isFollowing) => { 
     if (followContext) {
+      console.log('followedByUser ', followedByUser,' isFollowing ', isFollowing )
       if (!followedByUser && isFollowing) {
         setFollowCount(followContext.followCount + 1);
       } else if (followedByUser && !isFollowing) {
