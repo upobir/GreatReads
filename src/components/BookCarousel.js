@@ -21,7 +21,7 @@ export const BookCarousel = ({ books, setBooks, showSeriesEntry }) => {
         if (books && groupedBooks.length > 0)
             setIndex((carouselIndex - 1 + groupedBooks.length) % groupedBooks.length);
     };
-    console.log('carousel   seriesView ', books )
+    // console.log('carousel   seriesView ', books )
     // console.log('seriesView book', book )
     const setBook = (book, groupIndex, indexInGroup) => {
         let index = groupIndex * numInGroup + indexInGroup;
@@ -32,7 +32,7 @@ export const BookCarousel = ({ books, setBooks, showSeriesEntry }) => {
     };
 
     const groupBooks = (booksToGroup) => {
-        console.log('booksInSeries', booksToGroup);
+        // console.log('booksInSeries', booksToGroup);
         let books_grouped = [];
         let numInCurGroup = 0;
         let group = [];
@@ -46,12 +46,12 @@ export const BookCarousel = ({ books, setBooks, showSeriesEntry }) => {
         if (books_grouped.length === 0) {
             books_grouped.push(group);
         }
-        console.log('books_grouped', books_grouped);
+        // console.log('books_grouped', books_grouped);
         return books_grouped;
     };
     useEffect(() => {
         if (books){
-            console.log('books', books)
+            // console.log('books', books)
             setGroupedBooks(groupBooks( books));
         }//hack
     }, [books]);
