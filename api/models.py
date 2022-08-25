@@ -21,8 +21,8 @@ class UserFollowing(models.Model):
 
     # UserFollowing.objects.create(user_id=user.id, following_user_id=follow.id)
 
-    # def __str__(self):
-    #     f"{self.user_id} follows {self.following_user_id}"
+    def __str__(self):
+        return f"{self.user_id.username} follows {self.following_user_id.username}"
 
 
 class Author(models.Model):

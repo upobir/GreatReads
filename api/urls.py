@@ -54,6 +54,7 @@ urlpatterns = [
     path('author/<int:pk>/extra/', AuthorExtraView.as_view(), name='author_extra'),
 
     path('search/', SearchView.as_view(), name='search'),
+    path('feed/all/', FeedView.as_view(), name='feed'),
 
     # virtual bookshelf
     path('user/<int:userID>/<int:bookshelfCategory>/', BookUserStatusView.as_view(), name="bookuserstatus_view"),
