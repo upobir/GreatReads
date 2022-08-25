@@ -5,7 +5,7 @@ import { Rating } from 'react-simple-star-rating';
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 import { Container, Stack } from 'react-bootstrap';
 import { BookBlurb } from './BookBlurb';
-
+import { timestampToString } from '../utils/TimestampHelper';
 function convertRatingTo100Scale(rating) {
   return rating * 100 / 5;
 }
@@ -26,7 +26,7 @@ export const ReviewBlurb = ({ reviewBlurbData, setReviewBlurbData }) => {
           <span className='light-text'>reviewed</span>
           <Rating readonly={true} size={30} ratingValue={convertRatingTo100Scale(reviewBlurbData.review.rating)} />
         </Stack>
-        <span className='text-medium'>{reviewBlurbData.review.Timestamp}</span>
+        <span className='text-medium'>{timestampToString(reviewBlurbData.review.Timestamp)}</span>
       </Stack>
       {/* <Container fluid > */}
       { reviewBlurbData.review.body &&

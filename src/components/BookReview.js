@@ -9,12 +9,13 @@ import useAxios from '../utils/useAxios';
 import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import {FaTrashAlt} from 'react-icons/fa'
+import { timestampToString } from '../utils/TimestampHelper';
 export const BookReviewComment = ({comment, userID, handleCommentDeleted}) => {
   return (
   <Stack className="book-review-details__comment">
     <Stack gap={1} direction="horizontal">
       <span as={Link} to={userDetailsURL(comment.Commenter)} className="primary-text">{comment.Commenter}</span>
-      <span className="light-text">{comment.Timestamp}</span>
+      <span className="light-text">{timestampToString(comment.Timestamp)}</span>
       {(comment.CommenterId === userID) && (
         <Button 
           className='book-review-details__comment__delete-btn'

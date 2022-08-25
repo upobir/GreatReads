@@ -4,6 +4,7 @@ import { userDetailsURL } from '../urls';
 import { Stack, Container } from 'react-bootstrap';
 import { BookBlurb } from './BookBlurb';
 import { bookDetailsURL } from '../urls';
+import { timestampToString } from '../utils/TimestampHelper';
 function bookReadStatusToUpdateText(bookReadStatus) {
   switch (bookReadStatus) {
     case 'read':
@@ -32,7 +33,7 @@ export const BookReadUpdate = ({ bookReadUpdateData,setBookReadUpdateData }) => 
           <Link to={userDetailsURL(bookReadUpdateData.user.id)}>{bookReadUpdateData.user.username}</Link>
           <span className='light-text'>{bookReadStatusToUpdateText(bookReadUpdateData.readStatus)}</span>
         </Stack>
-        <span className='high-text'>{bookReadUpdateData.timeStamp}</span>
+        <span className='high-text'>{timestampToString(bookReadUpdateData.timeStamp)}</span>
       </Stack>
       <BookBlurb book={bookReadUpdateData.book} setBook={setBook} />
     </Stack>
