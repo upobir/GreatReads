@@ -66,8 +66,8 @@ export function PostMessageTextBox({messages, setMessages, archived}){
     }
     return (
         // <Col >
-            <Container fluid>
-                <Form className='message-post-textbox' >
+            <Container fluid className='message-post-textbox'>
+                <Form  >
                     <Stack direction='horizontal' gap={2}>
                         <Form.Control
                             as="textarea"
@@ -133,8 +133,8 @@ export default function Messenger() {
     useEffect(()=> {
         let willBeArchived = !otherUser || !otherUser.followsUser || !otherUser.followedByUser;
             // const isArchivedConversation = () => !otherUser || !otherUser.followsUser || !otherUser.followedByUser; 
-    console.log('otherUser',otherUser,'willBeArchived', willBeArchived, 'otherUser.followsUser', otherUser.followsUser,
-    'otherUser.followedByUser', otherUser.followedByUser)
+    // console.log('otherUser',otherUser,'willBeArchived', willBeArchived, 'otherUser.followsUser', otherUser.followsUser,
+    // 'otherUser.followedByUser', otherUser.followedByUser)
         setArchived(willBeArchived)
     }, [messages_from_id])
 
@@ -150,12 +150,13 @@ export default function Messenger() {
                 </Col>
                 <Col xs={{span:6}} className='messenger-mid'>
                     <MessagesList messages={messagesBetweenUser} archived={archived} />
-
                     <PostMessageTextBox 
                         archived={archived} 
                         messages={messagesBetweenUser}
                         setMessages={setMessagesBetweenUser}/>
-
+                    {archived && <Container fluid className='messages-list__archived'>
+                        <h1> Archived </h1>
+                    </Container>}
                 </Col>
                 <Col xs={3}>
                     <Container>
