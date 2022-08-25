@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useNavigate, Routes, Route, Link } from "react-router-dom";
-import { authorBooksFetchEndpoint, authorFetchEndpoint, authorFollowToggleEndpoint, authorSeriesFetchEndpoint, bookFetchEndpoint, seriesFetchEndpoint } from '../endpoints';
+import { authorBooksFetchEndpoint, authorExtraFetchEndpoint, authorFetchEndpoint, authorFollowToggleEndpoint, authorSeriesFetchEndpoint, bookFetchEndpoint, seriesFetchEndpoint } from '../endpoints';
 import GenreBlock from './GenreBlock';
 import {Row, Col, Container, Tabs, Tab, Stack, Button,TabContainer, Navbar, Image} from 'react-bootstrap'
 import { FollowBlock } from './FollowBlock';
@@ -61,7 +61,7 @@ export const AuthorSerieses = ({author_id}) => {
         .then(response =>{
             let _series = response.data
             let dummySeries = []
-            console.log('_series', _series)
+            // console.log('_series', _series)
             dummySeries.push(_series)
             dummySeries.push(_series)
             dummySeries.push(_series)
@@ -85,7 +85,6 @@ export const AuthorSerieses = ({author_id}) => {
 const AuthorDetails = () => {
     const {author_id} = useParams();
     const [author, setAuthor] = useState(null)
-
     const api = useAxios();                 // for private api endpoints
     const loc = useLocation()
 
@@ -96,19 +95,35 @@ const AuthorDetails = () => {
         .get(authorFetchEndpoint(author_id))
         .then((response) => {
             let _author = response.data
-            console.log('_author', _author);
-            _author.birth_date= "Cosmere"
-            _author.website="foo.bar.baz"
-            _author.booksWritten=33
-            _author.avgRating=4.55
-            _author.genres = _genres
             setAuthor(_author)
+            console.log("chain req")
+            api()
+            .get(authorExtraFetchEndpoint(author_id))
+            .then((response)=> {
+                let extra = response.data
+                console.log('author extra data', extra)
+                // _author.birth_date= "Cosmere"
+                // _author.website="foo.bar.baz"
+                // _author.booksWritten=33
+                // _author.avgRating=4.55
+                // _author.genres = _genres
+                let mutatedAuthor = author
+                mutatedAuthor.birth_date = extra.birth_date
+                mutatedAuthor.website = extra.website
+                mutatedAuthor.booksWritten = extra.booksWritten
+                mutatedAuthor.avgRating = extra.avgRating
+                mutatedAuthor.genres = extra.genres
+                mutatedAuthor.fullyFetched = extra.fullyFetched
+
+                setAuthor(mutatedAuthor)
+
+            })
         })
         .catch(error => {
             console.log('author fetch error', error)
         }); 
      }
-
+    console.log('final author', author)
 
     useEffect(() => {
         getData()
@@ -132,23 +147,31 @@ const AuthorDetails = () => {
                     </Col>
                 </Container>
                 <Container fluid  className='author-details__right-col'>
-                    <Col xs={{span:3,offset:9 }} className='allow-click-self author-details__right-col__inner'>
-                        <Stack gap={2}>
-                            <Row><Col xs={2}><h5>Born:</h5><span className='medium-text'>{author?.birth_date}</span></Col></Row>
-                            <Row><Col xs={2}><h5>Website:</h5><Link to={author?author.website: '#'}>{author?.website}</Link></Col></Row>
-                            <Row><Col xs={2}><h5>Books Written:</h5><h2 className='primary-text'>{author?.booksWritten}</h2></Col></Row>
-                            <Row><Col xs={2}><h5 className='high-text '>Avg. Rating:</h5><h2  className='primary-text'>{author?.avgRating}</h2></Col></Row>
-                            <GenreBlock genres={author?.genres} />
-                        </Stack>
-                    </Col>
-                </Container>
+                            <Col xs={{span:3,offset:9 }} className='allow-click-self author-details__right-col__inner'>
+                <SpinnerWrapper 
+                    isLoading={author==null || !author.fullyFetched}
+                    Component={
 
+                                <Stack gap={2}>
+                                    <Row><Col xs={2}><h5>Born:</h5><span className='medium-text'>{author?.birth_date}</span></Col></Row>
+                                    {author && author.website && (
+                                        <Row><Col xs={2}><h5>Website:</h5><Link to={author?author.website: '#'}>{author?.website}</Link></Col></Row>
+                                    )}
+                                    <Row><Col xs={2}><h5>Books Written:</h5><h2 className='primary-text'>{author?.booksWritten}</h2></Col></Row>
+                                    <Row><Col xs={2}><h5 className='high-text '>Avg. Rating:</h5><h2  className='primary-text'>{author?.avgRating}</h2></Col></Row>
+                                    <GenreBlock genres={author?.genres} />
+                                </Stack>
+
+                        }
+                />
+                            </Col>
+                        </Container>
                 <Container fluid  className='author-details__mid-col-top'>
                     <Col xs={{span:7,offset:2 }} className='author-details__mid-col-top-header' id='author-details-mid-header'>
                         {/* <SpinnerWrapper Component={<h1 className='primary-text'>{book?.title}</h1>} isLoading={book==null}/> */}
                         <PlaceholderMiniBlockWrapper Component={<h3 className='primary-text'>{author?.name}</h3>}
                         isLoading={author==null}
-                        cols={6}
+                        cols={2}
                         />
 
                     </Col>
