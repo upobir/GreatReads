@@ -17,6 +17,8 @@ export const BookShelf_ViewReviews = ({userID}) => {
 
     const [spinner, setSpinner] = useState(true)
 
+    const [displayMessage, setDisplayMessage] = useState("No reviews are here, yet. Try reviewing some books!")  
+
     const loc = useLocation();
     console.log('reviewFeedItems', reviewFeedItems)
     const getReviewFeedItemList = async () => {
@@ -28,10 +30,12 @@ export const BookShelf_ViewReviews = ({userID}) => {
             let reviewFeedItemList = response.data
             setReviewFeedItems(reviewFeedItemList)
             setSpinner(false)
+            setDisplayMessage("No reviews are here, yet. Try reviewing some books!")
         })
         .catch((error)=> {
             console.log('Error during fetch viewReviews:', error)
             setSpinner(false)
+            setDisplayMessage("Ops, error fetching reviews. Please try again later!")
         });
     }
 
@@ -62,7 +66,7 @@ export const BookShelf_ViewReviews = ({userID}) => {
                     <div className='bookshelf-viewreviews__body'>
                         <h3 className='primary-text'>Reviews by this user:</h3>
 
-                        {(reviewFeedItems.length <= 0 && !spinner) && <h5 className='primary-text'>No reviews are here, yet. Try reviewing some books!</h5>}
+                        {(reviewFeedItems.length <= 0 && !spinner) && <h5 className='primary-text'>{ displayMessage }</h5>}
                         
                         {reviewFeedItems
                         ? <Stack gap={2}>
