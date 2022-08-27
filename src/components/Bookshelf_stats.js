@@ -7,11 +7,11 @@ import { bookshelfStatsEndpoint } from '../endpoints';
 import useAxios from "../utils/useAxios";
 
 export const BookShelf_stats = ({userID}) => {
-    const [reading_count, setReading_count] = useState("updating...")  
-    const [read_count, setRead_count] = useState("updating...") 
-    const [wantToRead_count, setWantToRead_count] = useState("updating...") 
-    const [reviews_count, setReviews_count] = useState("updating...") 
-    const [ratings_count, setRatings_count] = useState("updating...")
+    const [reading_count, setReading_count] = useState("loading...")  
+    const [read_count, setRead_count] = useState("loading...") 
+    const [wantToRead_count, setWantToRead_count] = useState("loading...") 
+    const [reviews_count, setReviews_count] = useState("loading...") 
+    const [ratings_count, setRatings_count] = useState("loading...")
 
     const api = useAxios();
 
