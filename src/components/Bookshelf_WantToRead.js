@@ -26,6 +26,7 @@ export const BookShelf_WantToRead = ({userID, bookshelfCategory}) => {
         })
         .catch((error)=> {
             console.log('Error during fetch wantToReadBooks:', error)
+            setSpinner(false)
         });
     }
 
@@ -46,6 +47,7 @@ export const BookShelf_WantToRead = ({userID, bookshelfCategory}) => {
                         {(bookshelfCategory === 1) && <h3 className='primary-text'>Books in already-read list</h3>}
                         {(bookshelfCategory === 2) && <h3 className='primary-text'>Books in currently reading list</h3>}
                         {(bookshelfCategory === 3) && <h3 className='primary-text'>Reviews</h3>}
+                        {(books.length <= 0 && !spinner) && <h5 className='primary-text'>No books are here, yet. Try adding some books!</h5>}
                         <BookShelfBookGallery books={books} booksPerRow={4} setBooks={setBooks} spinner={spinner} setSpinner={setSpinner}></BookShelfBookGallery>
                     </div>
                     }

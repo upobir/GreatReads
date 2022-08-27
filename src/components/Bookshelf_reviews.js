@@ -31,6 +31,7 @@ export const BookShelf_ViewReviews = ({userID}) => {
         })
         .catch((error)=> {
             console.log('Error during fetch viewReviews:', error)
+            setSpinner(false)
         });
     }
 
@@ -60,6 +61,9 @@ export const BookShelf_ViewReviews = ({userID}) => {
                     {
                     <div className='bookshelf-viewreviews__body'>
                         <h3 className='primary-text'>Reviews by this user:</h3>
+
+                        {(reviewFeedItems.length <= 0 && !spinner) && <h5 className='primary-text'>No reviews are here, yet. Try reviewing some books!</h5>}
+                        
                         {reviewFeedItems
                         ? <Stack gap={2}>
                         {
