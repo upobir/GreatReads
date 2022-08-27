@@ -54,8 +54,9 @@ export default function GreatReadsNavbar() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('pattern:', searchString)
+    console.log('pattern: ', searchString)
 
+    let pattern = searchString
     let type = "book"
 
     if(authorSelected)
@@ -71,7 +72,7 @@ export default function GreatReadsNavbar() {
     else
       console.log('type: Book')
 
-    navigate('/search',{state:{pattern:searchString, type:type}});
+    navigate('/search/',{state:{type:type, pattern:pattern}});
   };
 
   const handleRadioSelection = (type) => {

@@ -153,6 +153,8 @@ class SearchView(APIView):
         pattern = request.GET.get('pattern', '')
         type = request.GET.get('type', 'book')
 
+        print("In SearchView, pattern: ", pattern,", type: ", type)
+
         data = {}
 
         if pattern:

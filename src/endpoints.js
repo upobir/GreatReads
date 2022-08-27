@@ -125,6 +125,7 @@ export function messagePostEndpoint(toUserID){
     return `/api/message/${toUserID}/post/`
 }
 
-export function searchEndpoint(){
-    return  `/api/search/`
+export function searchEndpoint(pattern, type){
+    //return  `/api/search/`
+    return  `/api/search?pattern=${pattern}&type=${type}`
 }
