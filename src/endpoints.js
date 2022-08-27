@@ -124,3 +124,7 @@ export function genreFetchEndpoint(genreID){
 export function messagePostEndpoint(toUserID){
     return `/api/message/${toUserID}/post/`
 }
+
+export function searchEndpoint(){
+    return  `/api/search/`
+}

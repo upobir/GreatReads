@@ -3,7 +3,7 @@ import {Navbar,NavDropdown,Nav, Container, Stack,Row, Col, Form,FormControl, But
 import {myBookShelfURL, myFeedURL, homeURL, browseAllURL,
    genreBrowseURL, newlyRatedBrowseURL, newReleasesBrowseURL, followedAuthorBrowseURL, loginURL, registerURL
   } from '../urls'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from "react";
 import UserInfo from "../components/UserInfo";
 import AuthContext from "../context/AuthContext";
@@ -44,8 +44,48 @@ const GenreSubmenu = () => {
 
 export default function GreatReadsNavbar() {
   const { user, logoutUser } = useContext(AuthContext);
-  const target = useRef(null);
-  const [show,setShow] = useState(false)
+
+  const navigate = useNavigate();
+
+  let [searchString, setSearchString] = useState("Search")
+  let [bookSelected, setBookSelected] = useState(true);
+  let [authorSelected, setAuthorSelected] = useState(false);
+  let [seriesSelected, setSeriesSelected] = useState(false);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('pattern:', searchString)
+
+    let type = "book"
+
+    if(authorSelected)
+    {
+      console.log('type: Author')
+      type = "author"
+    }
+    else if(seriesSelected)
+    {
+      console.log('type: Series')
+      type = "series"
+    }
+    else
+      console.log('type: Book')
+
+    navigate('/search',{state:{pattern:searchString, type:type}});
+  };
+
+  const handleRadioSelection = (type) => {
+    setAuthorSelected(false)
+    setBookSelected(false)
+    setSeriesSelected(false)
+
+    if(type === "author")
+      setAuthorSelected(true)
+    else if(type === "series")
+      setSeriesSelected(true)
+    else
+      setBookSelected(true)
+  };
 
   return (
     <Navbar variant = "dark" fixed="top" className="top-navbar">
@@ -64,14 +104,41 @@ export default function GreatReadsNavbar() {
                       </NavDropdown>
                       {user && <Nav.Link href ={myBookShelfURL(user)}>Bookshelf</Nav.Link>}
                       {user && <Nav.Link href ={myFeedURL}>My Feed</Nav.Link>}
-                      <Form className="d-flex" style={{flex:"1"}}>
-                    <FormControl
-                        type="search"
-                        placeholder="Search"
-                        className="me-2 nav-search-bar"
-                        aria-label="Search"
-                        />
-                    </Form>
+                      <Form className="d-flex" style={{flex:"1"}} onSubmit={handleSubmit}>
+                        <FormControl
+                            type="search"
+                            placeholder={searchString}
+                            className="me-2 nav-search-bar"
+                            aria-label="Search"
+                            onChange={e => setSearchString(e.target.value)} />
+
+                          <Form.Check
+                          inline
+                          label="Book"
+                          name="group1"
+                          type="radio"
+                          id={`book_radio_button`}
+                          onChange={() => handleRadioSelection("book")}
+                           />
+
+                        <Form.Check
+                          inline
+                          label="Author"
+                          name="group1"
+                          type="radio"
+                          id={`author_radio_button`}
+                          onChange={() => handleRadioSelection("author")}
+                           />
+
+                        <Form.Check
+                          inline
+                          label="Series"
+                          name="group1"
+                          type="radio"
+                          id={`series_radio_button`}
+                          onChange={() => handleRadioSelection("series")}
+                           />
+                     </Form>
                     {(user == null) && <Link to={loginURL()} className='no-text-effects'>Login</Link>}
                     {(user == null) && <Button variant="primary" as={Link} to={registerURL()} >Sign Up </Button>}
                     {user && <UserInfo user={user} logout={logoutUser} />} 

@@ -16,6 +16,7 @@ import { FeedPage } from './components/FeedPage';
 import ImgPostTest from './components/imgPostTest';
 import AuthorDetails from './components/AuthorDetails';
 import Messenger from './components/Messenger';
+import Search from './components/SearchPage';
 const queryClient = new QueryClient()
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
               <Route path="/" element={<FeedPage />} />
               <Route path="/messages/:messages_from_id" element={<Messenger />} />
               <Route path="/messages/" element={<Messenger />} />
+              <Route path="/search/" element={<Search />} />
             </Routes>
           </Container>
         </AuthProvider >
