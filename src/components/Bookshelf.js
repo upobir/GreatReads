@@ -11,6 +11,7 @@ import { BookShelf_stats } from './Bookshelf_stats';
 import { bookshelfUserInfoEndpoint, followUserEndpoint, unFollowUserEndpoint } from '../endpoints';
 import { BookShelf_ViewReviews} from './Bookshelf_reviews';
 import { SpinnerWrapper } from './SpinnerWrapper';
+import { viewMessagesFromUserUrl } from '../urls';
 const tabs = [
   {
     tabTitle:"Want To Read",
@@ -142,6 +143,7 @@ export const Bookshelf = () => {
                                   onClick={handleSubmit}>
                               {isFollowedByUser? "Unfollow": "Follow"}
                           </Button>
+                          <Button as={Link} to={viewMessagesFromUserUrl(userID)}></Button>
                         </div>
                       }
                     </Stack>

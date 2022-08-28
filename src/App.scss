@@ -206,6 +206,10 @@ $theme-colors: (
     height: 100%;
     background-color: $text-medium
   }
+  &__name-block__name{
+    text-decoration: none;
+    font-size: 2rem;
+  }
 }
 .book-review-block{
   background-color:  $dp-3;

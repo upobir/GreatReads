@@ -15,7 +15,7 @@ class MessageCountView(APIView):
         if not request.user.id:
             return Response({})
 
-        count = Message.objects.filter(to_user = request.user.id, is_read = False).count()
+        count = Message.objects.filter(to_user = request.user.id, is_read = False).distinct("from_user").count()
 
         return Response({"count": count})
 
@@ -240,6 +240,7 @@ class UserMessagesView(APIView):
         messages = Message.objects.filter(Q(from_user = pk, to_user=request.user.id)|Q(to_user = pk, from_user=request.user.id)).order_by("-timestamp")
 
         data = [message_mini(message, request.user.id) for message in messages]
+        print("read_msg", read_msg, "pk", pk)
 
         if read_msg == 'true':
             messages.filter(to_user=request.user.id).update(is_read = True)
