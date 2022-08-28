@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import { reviewPostEndpoint } from '../endpoints';
 import { useNavigate } from 'react-router-dom';
 import { reviewDetailsURL } from '../urls';
+import { bookReviewsURL } from '../urls';
 export const ReviewPopup = ({bookID, showState, handleClose}) => {
   const [reviewText, setReviewText] = useState("")
   const [reviewRating, setReviewRating] = useState(null)
@@ -33,7 +34,10 @@ export const ReviewPopup = ({bookID, showState, handleClose}) => {
       .then((response) => {
         let rd = response.data
         console.log('review post response', rd);
-        navigate(reviewDetailsURL(bookID,rd.reviewID))
+        if(reviewText && reviewText.length > 0)
+          navigate(reviewDetailsURL(bookID,rd.reviewID))
+        else
+          navigate(bookReviewsURL(bookID))
         // window.location.reload(true)
       })
       .catch((error)=> {

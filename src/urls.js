@@ -9,6 +9,9 @@
 export function bookDetailsURL(bookID){
     return  `/book/${bookID}/`
 }
+export function bookReviewsURL(bookID){
+    return  `/book/${bookID}/reviews/`
+}
 export function userDetailsURL(userID){
     if(userID != null)
         return `/user/${userID}/`
