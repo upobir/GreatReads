@@ -47,7 +47,7 @@ class Author(models.Model):
 
     @property
     def avg_rating(self):
-        book_ratings = [book.avg_rating for book in Book.objects.filter(authors=self)]
+        book_ratings = [book.avg_rating for book in self.book_set.all()] # Book.objects.filter(authors=self)]
         if not book_ratings:
             return 0
         else:
@@ -121,11 +121,11 @@ class Book(models.Model):
 
     @property
     def review_count(self):
-        return Review.objects.filter(book=self).count()
+        return self.review_set.count() # Review.objects.filter(book=self).count()
 
     @property
     def avg_rating(self):
-        avg = Review.objects.filter(book=self).aggregate(Avg('rating'))['rating__avg']
+        avg = self.review_set.aggregate(Avg('rating'))['rating__avg']  #Review.objects.filter(book=self).aggregate(Avg('rating'))['rating__avg']
         return 0 if avg is None else avg
 
     def __str__(self):
@@ -145,7 +145,7 @@ class Review(models.Model):
 
     @property
     def comment_count(self):
-        return ReviewComment.objects.filter(review=self).count()
+        return self.reviewcomment_set.count() # ReviewComment.objects.filter(review=self).count()
 
 class ReviewComment(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
