@@ -95,7 +95,8 @@ export const BookReviewPreview = ({bookID,review, shouldTruncate, commentReplyHa
               
             </Col>
             <Col xs={"auto"}>
-              {review && <Link to={reviewDetailsURL(bookID, review.id)} >{`${review?.commentCount} comments`}</Link>}
+              {review && <Link to={reviewDetailsURL(bookID, review.id)} >
+                {`${review.comments?(review.comments.length):(review.commentCount)} comments`}</Link>}
             </Col>
           </Row>}
         </Col>

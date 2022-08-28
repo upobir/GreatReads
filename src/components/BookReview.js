@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import {FaTrashAlt} from 'react-icons/fa'
 import { timestampToString } from '../utils/TimestampHelper';
+import { Modal } from 'react-bootstrap';
 export const BookReviewComment = ({comment, userID, handleCommentDeleted}) => {
   return (
   <Stack className="book-review-details__comment">
@@ -40,6 +41,11 @@ export const BookReview = ({bookID}) => {
   const [comment, setComment] = useState(null) 
   const [isCommentPostLoading, setIsCommentPostLoading] = useState(false);
   const [review, setReview] = useState(null)
+
+  const [deletionIndex, setDeletionIndex] = useState(null)
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const handleClose = () => setShowDeleteConfirmation(false);
+
   // console.log('(reply?1:0)', (reply?1:0), reply)
   const getReview= async () => { 
     api()
@@ -64,13 +70,14 @@ export const BookReview = ({bookID}) => {
         })
         .then((response) => {
           console.log('comment post response', response)
-          let mutatedComments = review.comments;
+          let mutatedComments = [...review.comments];
           let mutatedReview = review;
           mutatedReview.comments.push({
             "CommenterId": user.user_id,
             "Commenter": user.username,
             "Text": comment,
-            "id": response.data.commentID
+            "id": response.data.commentID,
+            "Timestamp": new Date()
           });
           console.log('mutatedReview', mutatedReview)
           setReview(mutatedReview)
@@ -83,18 +90,29 @@ export const BookReview = ({bookID}) => {
     }
   }
   const handleCommentDeleted = (index) => {
+    setShowDeleteConfirmation(true)
+    setDeletionIndex(index)
+  }
+  const actuallyDelete = (index) => {
+    let deleteID = review.comments[index].id
+    let mutatedReview = {...review};
+    mutatedReview.comments.splice(index, 1);
+    setReview(mutatedReview);
+
     api()
-    .post(commentDeleteEndpoint(review.comments[index].id))
+    .post(commentDeleteEndpoint(deleteID))
     .then((response) => {
-      console.log('Comment no:', review.comments[index].id , ' delete post response:', response)
-      let mutatedReview = review;
-      mutatedReview.comments.splice(index, 1);
-      setReview(mutatedReview)
+      console.log('Comment no:', deleteID, ' delete post response:', response)
     })
     .catch((err)=> {
-      console.log('Comment no:', review.comments[index].id , ' delete post err:', err)
+      console.log('Comment no:', deleteID , ' delete post err:', err)
     })
   }
+  const handleDeleteConfirm = () => {
+    setShowDeleteConfirmation(false);
+    actuallyDelete(deletionIndex)
+  }
+
   const commentReplyHandler = ()=> {console.log('isReplying', isReplying);setIsReplying(!isReplying)}
   useEffect(() => {
     getReview()
@@ -139,6 +157,25 @@ export const BookReview = ({bookID}) => {
               </Stack>
           </Col>
         </Stack>
+        <Modal
+        show={showDeleteConfirmation}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+      <Modal.Header closeButton>
+          <Modal.Title>Please confirm</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this comment?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDeleteConfirm}>Confirm</Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   )
   

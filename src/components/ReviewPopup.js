@@ -9,7 +9,7 @@ import { reviewPostEndpoint } from '../endpoints';
 import { useNavigate } from 'react-router-dom';
 import { reviewDetailsURL } from '../urls';
 import { bookReviewsURL } from '../urls';
-export const ReviewPopup = ({bookID, showState, handleClose}) => {
+export const ReviewPopup = ({bookID, showState, setShowState, handleClose}) => {
   const [reviewText, setReviewText] = useState("")
   const [reviewRating, setReviewRating] = useState(null)
   const api = useAxios()
@@ -38,6 +38,7 @@ export const ReviewPopup = ({bookID, showState, handleClose}) => {
           navigate(reviewDetailsURL(bookID,rd.reviewID))
         else
           navigate(bookReviewsURL(bookID))
+        setShowState(false)
         // window.location.reload(true)
       })
       .catch((error)=> {
