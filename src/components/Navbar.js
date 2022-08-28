@@ -17,7 +17,7 @@ import { genresFetchEndpoint } from '../endpoints';
 const GenreSubmenu = () => { 
   const[genres,setGenres] = useState(null) 
   const api = useAxios()
-  console.log('_genres', genres)
+  console.log('_genresubmenu ', genres)
   useState(()=>{
     api()
         .get(genresFetchEndpoint())

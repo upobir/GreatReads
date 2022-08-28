@@ -10,7 +10,6 @@ import {Spinner} from 'react-bootstrap'
 import { PlaceholderMiniBlockWrapper,PlaceholderParagraphWrapper } from './PlaceholderBlockWrapper'
 import { authorDetailsURL } from '../urls'
 export default function AuthorPreview({ author }) {
-    // console.log('author', author)
   return (
     <Stack className='author-preview' gap={0}>
         <Container>
@@ -19,16 +18,16 @@ export default function AuthorPreview({ author }) {
                     <Image fluid src={author?.picture_url} className='author-preview__image'/>
                 </Col>
 
-                <Col xs={8} className='__author-name-block'>
+                <Col xs={8} className='author-preview__name-block'>
                     <PlaceholderMiniBlockWrapper Component={ <>
                         <div>About:</div>
-                        <h3 as={Link} to={authorDetailsURL(author?.id)} className='primary-text'>{author?.name}</h3>
+                        <Link  to={authorDetailsURL(author?.id)} className='primary-text author-preview__name-block__name'>{author?.name}</Link>
                     </>
                     }
                     isLoading={author==null}
                     cols={6}
                     />
-                </Col>
+            </Col>
             </Row>
         </Container>
         <Container>
