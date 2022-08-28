@@ -126,18 +126,46 @@ export function MessagesPreview({messagePreviews}) {
 
 export default function Messenger() {
     const {messages_from_id} = useParams()
-    const [messagePreviews, setMessagePreviews] = useState([]) 
-    let [messagesBetweenUser, setMessagesBetweenUser] = useState([])
+    const [messagePreviews, setMessagePreviews] = useState(null) 
+    const [messagesBetweenUser, setMessagesBetweenUser] = useState(null)
     const [otherUser, setOtherUser] = useState(null)
     const [archived, setArchived] = useState(false)
     const api = useAxios()
 
     useEffect(()=> {
+  
+    }, [])
+
+    const handleFollowToggle = (otherUserID, isFollowingOtherUser) => { 
+        console.log('folllow toggle handle otherUserID', otherUserID)
+        
+        let mutatedOtherUser = otherUser
+        mutatedOtherUser.followedByUser = isFollowingOtherUser
+        setOtherUser(mutatedOtherUser)
+        
+        let mutatedMessagePreviews = messagePreviews
+        mutatedMessagePreviews.forEach((m, index, messagePreviews) => {
+            if(m.from.id === otherUserID){
+                m.from.followedByUser = isFollowingOtherUser
+                console.log('m.from.followedByUser', m.from.followedByUser)
+            }
+        })
+        setMessagePreviews(mutatedMessagePreviews)
+        console.log('mutatedMessagePreviews', mutatedMessagePreviews)
+    }
+    useEffect(()=> {
+        if(messagePreviews != [])
+            setMessagePreviews(null)
+        if(messagePreviews)
+            setMessagesBetweenUser(null)
+        if(otherUser)
+            setOtherUser(null)
         api()
         .get(messagesFetchEndpoint())
         .then((response)=>{
             let _messages = response.data;
             console.log('messages fetch response.data',_messages);
+            
             setMessagePreviews(_messages)
         } )
         .catch(err => console.log('messages fetch err', err))
@@ -160,35 +188,13 @@ export default function Messenger() {
                 .catch((err)=> console.log('message with user err', err))
             })
             .catch((err) => console.log('user fetch fail err', err))
-
-        }
-    }, [])
-
-    const handleFollowToggle = (otherUserID, isFollowingOtherUser) => { 
-        console.log('folllow toggle handle otherUserID', otherUserID)
-        
-        let mutatedOtherUser = otherUser
-        mutatedOtherUser.followedByUser = isFollowingOtherUser
-        setOtherUser(mutatedOtherUser)
-        
-        let mutatedMessagePreviews = messagePreviews
-        mutatedMessagePreviews.forEach((m, index, messagePreviews) => {
-            if(m.from.id === otherUserID){
-                m.from.followedByUser = isFollowingOtherUser
-                console.log('m.from.followedByUser', m.from.followedByUser)
-            }
-        })
-        setMessagePreviews(mutatedMessagePreviews)
-        console.log('mutatedMessagePreviews', mutatedMessagePreviews)
-    }
-    useEffect(()=> {
-        let willBeArchived = !otherUser || !otherUser.followsUser || !otherUser.followedByUser;
+            let willBeArchived = !otherUser || !otherUser.followsUser || !otherUser.followedByUser;
             // const isArchivedConversation = () => !otherUser || !otherUser.followsUser || !otherUser.followedByUser; 
-    // console.log('otherUser',otherUser,'willBeArchived', willBeArchived, 'otherUser.followsUser', otherUser.followsUser,
-    // 'otherUser.followedByUser', otherUser.followedByUser)
-        setArchived(willBeArchived)
+            // console.log('otherUser',otherUser,'willBeArchived', willBeArchived, 'otherUser.followsUser', otherUser.followsUser,
+            // 'otherUser.followedByUser', otherUser.followedByUser)
+            setArchived(willBeArchived)
+        }
     }, [messages_from_id])
-    console.log("messenger rerender", messagesBetweenUser)
 
     return (
         <Container fluid className='messenger-container'>
@@ -205,8 +211,8 @@ export default function Messenger() {
                     <PostMessageTextBox 
                         archived={archived} 
                         messages={messagesBetweenUser}
-                        setMessages={(sm) =>{console.log('sm', sm) ;setMessagesBetweenUser(sm);}}/>
-                    {archived && <Container fluid className='messages-list__archived'>
+                        setMessages={setMessagesBetweenUser}/>
+                    {messagesBetweenUser && otherUser && archived && <Container fluid className='messages-list__archived'>
                         <h1> Archived </h1>
                     </Container>}
                 </Col>
