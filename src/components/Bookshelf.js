@@ -143,7 +143,7 @@ export const Bookshelf = () => {
                                   onClick={handleSubmit}>
                               {isFollowedByUser? "Unfollow": "Follow"}
                           </Button>
-                          <Button as={Link} to={viewMessagesFromUserUrl(userID)}></Button>
+                          <Button as={Link} to={viewMessagesFromUserUrl(userID, true)}></Button>
                         </div>
                       }
                     </Stack>
