@@ -69,6 +69,7 @@ export const Search = () => {
         })
         .catch((error)=> {
             console.log('Error during fetch search results:', error)
+            setSpinner(false)
             setDisplayBookRelatedMessage("Ops, error fetching books. Please try again later!")
             setDisplayAuthorRelatedMessage("Ops, error fetching authors. Please try again later!")
             setDisplaySeriesRelatedMessage("Ops, error fetching series. Please try again later!")

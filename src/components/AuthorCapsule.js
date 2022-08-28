@@ -26,7 +26,7 @@ export default function AuthorCapsule({author, id}) {
       </Link>
       <Stack className='author-capsule__author-name' direction='horizontal'>
         <div className='author-capsule__author-name-div'>
-          {author.name}
+            <h3 className='primary-text'>{author.name}</h3>
         </div>
       </Stack>
     </Stack>
