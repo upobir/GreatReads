@@ -10,10 +10,17 @@ from .converters import *
 from django.contrib.auth.models import User
 from django.db.models import Max, Q
 
+class MessageCountView(APIView):
+    def get(self, request):
+        if not request.user.id:
+            return Response({})
+
+        count = Message.objects.filter(to_user = request.user.id, is_read = False).count()
+
+        return Response({"count": count})
+
 class BookView(APIView):
     def get(self, request, pk):
-        print('user:', request.user.id)
-
         book = Book.objects.prefetch_related('review_set').get(id=pk)
 
         data = book_detailed(book, request.user.id)
