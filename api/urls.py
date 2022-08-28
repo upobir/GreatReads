@@ -57,6 +57,7 @@ urlpatterns = [
     path('feed/all/', FeedView.as_view(), name='feed'),
 
     path('messages/', AllMessageView.as_view(), name='all_messages'),
+    path('messages/<int:pk>/', UserMessagesView.as_view(), name='user_messages'),
 
     # virtual bookshelf
     path('user/<int:userID>/<int:bookshelfCategory>/', BookUserStatusView.as_view(), name="bookuserstatus_view"),

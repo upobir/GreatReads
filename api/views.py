@@ -217,6 +217,23 @@ class AllMessageView(APIView):
 
         return Response(data)
 
+class UserMessagesView(APIView):
+    def get(self, request, pk):
+
+        if not request.user.id:
+            return Response({})
+
+        read_msg = request.GET.get('read', 'false')
+
+        messages = Message.objects.filter(Q(from_user = pk, to_user=request.user.id)|Q(to_user = pk, from_user=request.user.id)).order_by("-timestamp")
+
+        data = [message_mini(message, request.user.id) for message in messages]
+
+        if read_msg == 'true':
+            messages.update(is_read = True)
+
+        return Response(data)
+
 # virtual bookself
 class BookUserStatusView(APIView):
     def get(self, request, userID, bookshelfCategory):

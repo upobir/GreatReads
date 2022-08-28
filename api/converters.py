@@ -273,3 +273,15 @@ def message_detailed(message, userID):
         "isRead": message.is_read
     }
 }
+
+def message_mini(message, userID):
+    res = {
+        "timestamp": message.timestamp,
+        "text": message.text,
+        "isRead": message.is_read,
+    }
+
+    if message.from_user.id != userID:
+        res['from'] = message.from_user.id
+
+    return res
