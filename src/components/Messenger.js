@@ -10,12 +10,13 @@ import { userDetailsURL } from '../urls'
 import { useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 import useAxios from '../utils/useAxios'
-import { followUserEndpoint, messagePostEndpoint } from '../endpoints'
+import { followUserEndpoint, messagePostEndpoint,messagesFetchEndpoint, messagesWithUserFetchEndpoint, userDetailsEndpoint } from '../endpoints'
 import { FollowButton } from './FollowButton'
 import {FaUser, FaPaperPlane} from 'react-icons/fa'
 import { MessagesPreviewList } from './MessagesPreviewList'
 import { MessagesList } from './MessagesList'
 import { useEffect } from 'react'
+import { timestampToString } from '../utils/TimestampHelper'
 const messagePreviewTabs = [
     {
         tabTitle:"New",
@@ -39,19 +40,34 @@ export function showArchivedMessages(messagePreviews) {
 
 export function PostMessageTextBox({messages, setMessages, archived}){
     const {messages_from_id} = useParams()
+    const {user} = useContext(AuthContext)
     const api = useAxios()
     const [message, setMessage] = useState(null)
     const postMessage = (e)=> {
-        if (message && message.length > 0 && !archived) {
-            console.log('post message ', message )
+        if (message && message.length > 0 ) {
+
+
+            let timestamp = new Date()
+            console.log('timestamp', timestamp)
+
+            let _message = {
+                // "from": user.user_id,
+                "isRead":false,
+                "text": message,
+                "timestamp": timestamp,
+            };
+
+            console.log('post message ', _message )
             
-            let mutatedMessages =  messages
-            mutatedMessages.push(setMessage)
+            let mutatedMessages =  [...messages]
+            mutatedMessages.push(_message)
             setMessages(mutatedMessages);
+
+            console.log('mutatedMessages', mutatedMessages)
 
             api()
                 .post(messagePostEndpoint(messages_from_id), {
-                    messageText: message,
+                    text: message,
                 })
                 .then((response) => {
                     console.log('message  post response', response);
@@ -76,7 +92,8 @@ export function PostMessageTextBox({messages, setMessages, archived}){
                             onChange={e => setMessage(e.target.value)}/>
                         <Button variant="primary" 
                                 onClick={postMessage}
-                                disabled={archived}>
+                                // disabled={archived}
+                        >
                             <FaPaperPlane fontSize={25}/>
                         </Button>
                     </Stack>
@@ -109,10 +126,44 @@ export function MessagesPreview({messagePreviews}) {
 
 export default function Messenger() {
     const {messages_from_id} = useParams()
-    const [messagePreviews, setMessagePreviews] = useState(_messagePreviews) 
-    const [messagesBetweenUser, setMessagesBetweenUser] = useState(_conversationWithUser.messages)
-    const [otherUser, setOtherUser] = useState(_conversationWithUser.with)
+    const [messagePreviews, setMessagePreviews] = useState([]) 
+    let [messagesBetweenUser, setMessagesBetweenUser] = useState([])
+    const [otherUser, setOtherUser] = useState(null)
     const [archived, setArchived] = useState(false)
+    const api = useAxios()
+
+    useEffect(()=> {
+        api()
+        .get(messagesFetchEndpoint())
+        .then((response)=>{
+            let _messages = response.data;
+            console.log('messages fetch response.data',_messages);
+            setMessagePreviews(_messages)
+        } )
+        .catch(err => console.log('messages fetch err', err))
+
+        console.log('messages_from_id', messages_from_id)
+        if(messages_from_id){
+            api()
+            .get(userDetailsEndpoint(messages_from_id))
+            .then((response) => {
+                let _user = response.data
+                console.log('setother user _user', _user)
+                setOtherUser(_user)
+                api()
+                .get(messagesWithUserFetchEndpoint(messages_from_id))
+                .then((response)=> {
+                    let _messages = response.data;
+                    console.log('message with user response', _messages)
+                    setMessagesBetweenUser(_messages.reverse())
+                })
+                .catch((err)=> console.log('message with user err', err))
+            })
+            .catch((err) => console.log('user fetch fail err', err))
+
+        }
+    }, [])
+
     const handleFollowToggle = (otherUserID, isFollowingOtherUser) => { 
         console.log('folllow toggle handle otherUserID', otherUserID)
         
@@ -137,6 +188,7 @@ export default function Messenger() {
     // 'otherUser.followedByUser', otherUser.followedByUser)
         setArchived(willBeArchived)
     }, [messages_from_id])
+    console.log("messenger rerender", messagesBetweenUser)
 
     return (
         <Container fluid className='messenger-container'>
@@ -153,7 +205,7 @@ export default function Messenger() {
                     <PostMessageTextBox 
                         archived={archived} 
                         messages={messagesBetweenUser}
-                        setMessages={setMessagesBetweenUser}/>
+                        setMessages={(sm) =>{console.log('sm', sm) ;setMessagesBetweenUser(sm);}}/>
                     {archived && <Container fluid className='messages-list__archived'>
                         <h1> Archived </h1>
                     </Container>}
@@ -162,7 +214,7 @@ export default function Messenger() {
                     <Container>
                         {otherUser && <Stack gap={2} className="align-center">
                                 <FaUser fontSize={80}/>
-                            <h2 as={Link} to={userDetailsURL(otherUser.id)}>{otherUser.username}</h2>
+                            <h2 as={Link} to={userDetailsURL(otherUser.id)}>{otherUser.name}</h2>
                             <FollowButton 
                                 followContext={otherUser}
                                 followsUser={otherUser.followsUser}
