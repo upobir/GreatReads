@@ -7,7 +7,7 @@ import useAxios from '../utils/useAxios';
 import { useContext } from 'react';
 import { reviewPostEndpoint } from '../endpoints';
 import { Navigate } from 'react-router-dom';
-
+import { reviewDetailsURL } from '../urls';
 export const ReviewPopup = ({bookID, showState, handleClose}) => {
   const [reviewText, setReviewText] = useState("")
   const [reviewRating, setReviewRating] = useState(null)
@@ -31,8 +31,10 @@ export const ReviewPopup = ({bookID, showState, handleClose}) => {
         reviewText: reviewText,
       })
       .then((response) => {
-        console.log('review post response', response);
-        window.location.reload(true)
+        let rd = response.data
+        console.log('review post response', rd);
+        Navigate(reviewDetailsURL(rd.reviewID))
+        // window.location.reload(true)
       })
       .catch((error)=> {
         console.log('review post error', error)

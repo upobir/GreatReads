@@ -124,7 +124,7 @@ export default function BookCapsule({book,setBook, id, mini}) {
       </Link>
       <Stack className='book-capsule__rating-bar' direction='horizontal'>
         <div className='book-capsule__rating-bar__avg-rating'>
-          <FaStar fontSize={17}/><span>{book?.avgRating.toFixed(2)}</span>
+          <FaStar fontSize={17}/><span fontSize={17}>{book?.avgRating.toFixed(2)}</span>
         </div>
         <Button 
           variant='outline-primary' 
