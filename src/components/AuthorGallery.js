@@ -3,15 +3,16 @@ import { Row, Col, Container } from 'react-bootstrap'
 import AuthorCapsule from './AuthorCapsule'
 import {Spinner} from 'react-bootstrap';
 
-export const AuthorGallery = ({authors, authorsPerRow})=>{
+export const AuthorGallery = ({authors, authorsPerRow, spinner})=>{
 
     console.log('authors: ', authors)
     
-    if( authors == null || authors.length < 0){
+    if ( spinner )  { // ( books == null || books.length <= 0){
         return <Container>
             <Spinner animation="border" variant="primary" />
         </Container>
     }
+    
     return <Row>
     {
         authors.map((author, index) => {
