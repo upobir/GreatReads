@@ -93,7 +93,6 @@ export default function GreatReadsNavbar() {
     else
       setBookSelected(true)
   };
-  console.log('searchString', searchString)
   return (
     <Navbar variant = "dark" fixed="top" className="top-navbar">
       <Stack >
