@@ -1,5 +1,5 @@
 import {React, useState, useRef, useContext} from 'react'
-import { Stack,Button,ButtonGroup,Overlay, Tooltip,FormGroup,FormControl, Row, Col, Image, Container} from 'react-bootstrap'
+import { Stack,Button,ButtonGroup,Overlay, Tooltip,FormGroup,FormControl,OverlayTrigger, Row, Col, Image, Container} from 'react-bootstrap'
 import 'holderjs'
 import { FaBookOpen,FaBook, FaBookmark, FaCheck, FaStar } from 'react-icons/fa'
 import { ReviewPopup } from './ReviewPopup'
@@ -11,6 +11,14 @@ import { bookReadStatusPostEndpoint } from '../endpoints'
 import { useEffect } from 'react'
 import AuthContext from '../context/AuthContext'
 import { placeholderBookImage } from '../PlaceHolder'
+function capsuleButtonTooltip (text){
+  return (
+    <Tooltip>
+      {text}
+    </Tooltip>
+  );
+}
+
 export default function BookCapsule({book,setBook, id, mini}) {
   const api = useAxios();
   const {user} = useContext(AuthContext)
@@ -116,7 +124,7 @@ export default function BookCapsule({book,setBook, id, mini}) {
       </Link>
       <Stack className='book-capsule__rating-bar' direction='horizontal'>
         <div className='book-capsule__rating-bar__avg-rating'>
-          <FaStar fontSize={20}/><span>{book?.avgRating.toFixed(2)}</span>
+          <FaStar fontSize={17}/><span>{book?.avgRating.toFixed(2)}</span>
         </div>
         <Button 
           variant='outline-primary' 
@@ -124,8 +132,8 @@ export default function BookCapsule({book,setBook, id, mini}) {
           disabled={book == null || user==null  }
           onClick={handleReviewPopupShow}>
         {book?.userRating
-            ? (<><FaStar fontSize={20} /><span>{book?.userRating}</span></>)
-            : (<>+ Rate</> ) 
+            ? (<><FaStar fontSize={17} /><span style={{fontSize:17}}>{book?.userRating}</span></>)
+            : (<span style={{fontSize:17}}>+ Rate</span> ) 
         }
         </Button>            
         {/* <div  className='book-capsule__rating-bar__user-rating'>
@@ -136,12 +144,26 @@ export default function BookCapsule({book,setBook, id, mini}) {
         </div> */}
       </Stack>
           <ButtonGroup className='book-capsule__btn-group' >
-            <Button variant="outline-primary"
+            {/* <Button variant="outline-primary"
               disabled={book == null || user == null} 
               onClick={handleBookSetToWishlist} 
               active={book && book.readStatus === "wishlisted"}>
               <FaBookmark fontSize="1.4rem"/>
-            </Button>
+              
+            </Button> */}
+            <OverlayTrigger
+              placement="bottom"
+              delay={{ hide: 100 }}
+              overlay={<Tooltip>Add to Reading list</Tooltip>}
+            >
+              <Button variant="outline-primary"
+                disabled={book == null || user == null}
+                onClick={handleBookSetToWishlist}
+                active={book && book.readStatus === "wishlisted"}>
+                <FaBookmark fontSize="1.4rem" />
+
+              </Button>
+            </OverlayTrigger>
             <Button ref={ReadPageUpdateOverlayTarget}
                     disabled={book == null || user == null} 
                     variant="outline-primary" 

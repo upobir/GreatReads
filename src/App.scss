@@ -67,6 +67,7 @@ $theme-colors: (
 
 .book-capsule { 
   max-width: 15vw;
+
   &__mini{
     max-width: 12vw;
   }
@@ -216,6 +217,7 @@ $theme-colors: (
       color: $body-bg;
       background-color: $secondary;
     }
+
   }
 }
 .book-review-details{
@@ -535,6 +537,7 @@ $theme-colors: (
     display: flex;
     flex-direction: column;
     top:$navbar-height;
+    z-index: 3;
     hr{
       width: 100%;
       flex-basis: 100%;

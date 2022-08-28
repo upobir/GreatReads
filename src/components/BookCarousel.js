@@ -41,6 +41,7 @@ export const BookCarousel = ({ books, setBooks, showSeriesEntry }) => {
             if ((++numInCurGroup) >= numInGroup) {
                 books_grouped.push(group);
                 group = [];
+                numInCurGroup = 0;
             }
         }
         if (books_grouped.length === 0) {

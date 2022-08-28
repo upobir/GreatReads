@@ -34,9 +34,8 @@ function UserInfo({ user, logout }) {
         setMessagePreviews(_messages)
     } )
     .catch(err => console.log('messages fetch err', err))
-  })
+  },[])
 
-  console.log('unreadCount', unreadCount)
     return (
       <Stack direction='horizontal' gap={1}>
         <span><FaUser/>{user.username}</span>
