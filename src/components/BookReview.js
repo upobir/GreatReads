@@ -64,13 +64,14 @@ export const BookReview = ({bookID}) => {
         })
         .then((response) => {
           console.log('comment post response', response)
-          let mutatedComments = review.comments;
+          let mutatedComments = [...review.comments];
           let mutatedReview = review;
           mutatedReview.comments.push({
             "CommenterId": user.user_id,
             "Commenter": user.username,
             "Text": comment,
-            "id": response.data.commentID
+            "id": response.data.commentID,
+            "Timestamp": new Date()
           });
           console.log('mutatedReview', mutatedReview)
           setReview(mutatedReview)
@@ -83,16 +84,18 @@ export const BookReview = ({bookID}) => {
     }
   }
   const handleCommentDeleted = (index) => {
+    let deleteID = review.comments[index].id
+      let mutatedReview = {...review};
+    mutatedReview.comments.splice(index, 1);
+    setReview(mutatedReview);
+
     api()
-    .post(commentDeleteEndpoint(review.comments[index].id))
+    .post(commentDeleteEndpoint(deleteID))
     .then((response) => {
-      console.log('Comment no:', review.comments[index].id , ' delete post response:', response)
-      let mutatedReview = review;
-      mutatedReview.comments.splice(index, 1);
-      setReview(mutatedReview)
+      console.log('Comment no:', deleteID, ' delete post response:', response)
     })
     .catch((err)=> {
-      console.log('Comment no:', review.comments[index].id , ' delete post err:', err)
+      console.log('Comment no:', deleteID , ' delete post err:', err)
     })
   }
   const commentReplyHandler = ()=> {console.log('isReplying', isReplying);setIsReplying(!isReplying)}
