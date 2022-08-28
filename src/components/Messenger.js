@@ -193,7 +193,7 @@ export default function Messenger() {
                 setArchived(willBeArchived)
 
                 api()
-                .get(messagesWithUserFetchEndpoint(messages_from_id))
+                .get(messagesWithUserFetchEndpoint(messages_from_id, true))
                 .then((response)=> {
                     let _messages = response.data;
                     console.log('message with user response', _messages)

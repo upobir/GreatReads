@@ -9,7 +9,7 @@ function truncateMessage(message){
 }
 export function MessagePreview({m,messages_from_id}){
     return <Container fluid
-        as={Link} to={viewMessagesFromUserUrl(m.from.id, true)}
+        as={Link} to={viewMessagesFromUserUrl(m.from.id)}
         className={'message-preview  no-text-effects ' + ((m.from.id == messages_from_id) ? 'message-preview__active' : '')}>
         <Stack gap={1}>
             <Stack direction='horizontal' className='space-contents-between' gap={1}>
