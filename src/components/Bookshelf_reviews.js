@@ -66,7 +66,7 @@ export const BookShelf_ViewReviews = ({userID}) => {
                     <div className='bookshelf-viewreviews__body'>
                         <h3 className='primary-text'>Reviews by this user:</h3>
 
-                        {(reviewFeedItems.length <= 0 && !spinner) && <h5 className='primary-text'>{ displayMessage }</h5>}
+                        {(reviewFeedItems && reviewFeedItems.length <= 0 && !spinner) && <h5 className='primary-text'>{ displayMessage }</h5>}
                         
                         {reviewFeedItems
                         ? <Stack gap={2}>

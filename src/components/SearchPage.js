@@ -90,7 +90,7 @@ export const Search = () => {
                         {
                         <div className='search-result-book__body'>
                             <h3 className='primary-text'>Matched Books:</h3>
-                            {(books.length <= 0 && !spinner) && <h5 className='primary-text'>{displayBookRelatedMessage}</h5>}
+                            {(books && books.length <= 0 && !spinner) && <h5 className='primary-text'>{displayBookRelatedMessage}</h5>}
                             <BookShelfBookGallery books={books} booksPerRow={4} setBooks={setBooks} spinner={spinner} setSpinner={setSpinner}></BookShelfBookGallery>
 
                         </div>
@@ -108,7 +108,7 @@ export const Search = () => {
                         {
                         <div className='search-result-author__body'>
                             <h3 className='primary-text'>Matched Authors:</h3>
-                            {(authors.length <= 0 && !spinner) && <h5 className='primary-text'>{displayAuthorRelatedMessage}</h5>}
+                            {(authors && authors.length <= 0 && !spinner) && <h5 className='primary-text'>{displayAuthorRelatedMessage}</h5>}
                             <AuthorGallery authors={authors} authorsPerRow={4} spinner={spinner}></AuthorGallery>
                         </div>
                         }
@@ -125,7 +125,7 @@ export const Search = () => {
                         {
                         <div className='search-result-series__body'>
                             <h3 className='primary-text'>Matched Series:</h3>
-                            {(series.length <= 0 && !spinner) && <h5 className='primary-text'>{displaySeriesRelatedMessage}</h5>}
+                            {(series && series.length <= 0 && !spinner) && <h5 className='primary-text'>{displaySeriesRelatedMessage}</h5>}
                             <SeriesGallery seriesList={series} seriesPerRow={4} spinner={spinner}></SeriesGallery>
                         </div>
                         }
