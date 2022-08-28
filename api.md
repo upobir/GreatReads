@@ -40,6 +40,7 @@ List of all kinds of jsons
 {
     "id": int,
     "name": str,
+    "picture_url": url,
 }
 ```
 
@@ -70,6 +71,7 @@ List of all kinds of jsons
     "name": name,
     "bookCount": int,
     "avgRating": float,
+    "thumbnail": url,
 }
 ```
 
@@ -250,7 +252,7 @@ List of all kinds of jsons
 1. GET `api/genres` array of all `genre_mini` sorted by whether user follows genre [DONE]
 1. GET `api/genre/<id>` one `genre_detailed` [DONE]
 1. GET `api/book/<id>/similar` array of `book_mini` that are similar (pagination needed) [DONE]
-1. GET `api/user/<id>` user_detailed [DONE-BY-PRANTO]
+1. GET `api/user/<id>` user_detailed [DONE]
 1. GET `api/user/<id>/reading` array of `book_mini` that user is reading (pagination needed) [DONE-BY-PRANTO]
 1. GET `api/user/<id>/read` array of `book_mini` that user has read (pagination needed) [DONE-BY-PRANTO]
 1. GET `api/user/<id>/want_to_read` array of `book_mini` that user wants to read (pagination needed) [DONE-BY-PRANTO]

@@ -28,6 +28,7 @@ def author_mini(author):
     return {
         "id": author.id,
         "name": author.name,
+        "picture_url": author.picture.url if author.picture else None,
     }
 
 def author_detailed(author, userid):
@@ -149,11 +150,18 @@ def publisher_detailed(publisher):
     }
 
 def series_mini(series):
+    first_book = series.book_set.filter(series_number=1)
+    if first_book.exists():
+        thumbnail = first_book[0].thumbnail
+    else:
+        thumbnail = None
+
     return {
         "id": series.id,
         "name": series.name,
         "bookCount": series.book_count,
         "avgRating": series.avg_rating,
+        "thumbnail": thumbnail.url if thumbnail else None
     }
 
 def series_detailed(series, userid):
