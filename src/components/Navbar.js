@@ -144,15 +144,6 @@ export default function GreatReadsNavbar() {
                               id={`series_radio_button`}
                               onChange={() => handleRadioSelection("series")}
                             />
-                            <DropdownButton  title="Category"
-                            onClick={e=>{setIsDropdownFocused(true); console.log('aaaa')}}
-                            on
-                            onFocus={e=>setIsDropdownFocused(true)}
-                                                         onBlur={e=>setIsDropdownFocused(false)} >
-                              <Dropdown.Item >Action</Dropdown.Item>
-                              <Dropdown.Item >Another action</Dropdown.Item>
-                              <Dropdown.Item >Something else</Dropdown.Item>
-                            </DropdownButton>
                      </Form>
                     {(user == null) && <Link to={loginURL()} className='no-text-effects'>Login</Link>}
                     {(user == null) && <Button variant="primary" as={Link} to={registerURL()} >Sign Up </Button>}
