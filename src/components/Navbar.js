@@ -57,6 +57,7 @@ export default function GreatReadsNavbar() {
   let [seriesSelected, setSeriesSelected] = useState(false);
   let [isSearchbarFocused, setIsSearchBarFocused] = useState(false);
   let [isDropdownFocused, setIsDropdownFocused] = useState(false);
+  let [isHoverOnSearch, setIsHoverOnSearch] = useState(false);
   const handleSubmit = e => {
     e.preventDefault();
     console.log('pattern: ', searchString)
@@ -111,48 +112,28 @@ export default function GreatReadsNavbar() {
                       {user && <Nav.Link href ={myBookShelfURL(user)}>Bookshelf</Nav.Link>}
                       {user && <Nav.Link href ={myFeedURL}>My Feed</Nav.Link>}
                       <Form className="d-flex" style={{flex:"1"}} onSubmit={handleSubmit}>
-                        <FormControl
-                            type="search"
-                            placeholder={searchString}
-                            className="me-2 nav-search-bar"
-                            aria-label="Search"
-                            onChange={e => setSearchString(e.target.value)} 
-                            onFocus={e=>setIsSearchBarFocused(true)}
-                            onBlur={e=>setIsSearchBarFocused(false)}
+                        <div
+                        className="nav-search-bar__container"
+                        onMouseEnter={() => setIsHoverOnSearch(true)}
+                        onMouseLeave={() => setIsHoverOnSearch(false)}>
+                          <FormControl
+                              type="search"
+                              placeholder={searchString}
+                              className="nav-search-bar"
+                              aria-label="Search"
+                              onChange={e => setSearchString(e.target.value)}
+                              onFocus={e=>setIsSearchBarFocused(true)}
+                              onBlur={e=>setIsSearchBarFocused(false)}
                             />
-                        <Form.Check
-                              inline
-                              label="Book"
-                              name="group1"
-                              type="radio"
-                              id={`book_radio_button`}
-                              onChange={() => handleRadioSelection("book")}
-                            />
-                            <Form.Check
-                              inline
-                              label="Author"
-                              name="group1"
-                              type="radio"
-                              id={`author_radio_button`}
-                              onChange={() => handleRadioSelection("author")}
-                            />
-                            <Form.Check
-                              inline
-                              label="Series"
-                              name="group1"
-                              type="radio"
-                              id={`series_radio_button`}
-                              onChange={() => handleRadioSelection("series")}
-                            />
-                            <DropdownButton  title="Category"
-                            onClick={e=>{setIsDropdownFocused(true); console.log('aaaa')}}
-                            on
-                            onFocus={e=>setIsDropdownFocused(true)}
-                                                         onBlur={e=>setIsDropdownFocused(false)} >
-                              <Dropdown.Item >Action</Dropdown.Item>
-                              <Dropdown.Item >Another action</Dropdown.Item>
-                              <Dropdown.Item >Something else</Dropdown.Item>
-                            </DropdownButton>
+                          {(isSearchbarFocused || isHoverOnSearch || (searchString && searchString !== "")) && <>
+                              <DropdownButton title={(authorSelected && "Author") || (seriesSelected && "Series") || "Book" }>
+                                <Dropdown.Item  onClick={() =>  handleRadioSelection("book")}>Book</Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleRadioSelection("author")}>Author</Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleRadioSelection("series")}>Series</Dropdown.Item>
+                              </DropdownButton>
+                            </>
+                          }
+                        </div>
                      </Form>
                     {(user == null) && <Link to={loginURL()} className='no-text-effects'>Login</Link>}
                     {(user == null) && <Button variant="primary" as={Link} to={registerURL()} >Sign Up </Button>}

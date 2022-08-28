@@ -490,7 +490,13 @@ $theme-colors: (
   }
 }
 .nav-search-bar{
-  margin-right: auto;
+  flex:1;
+  &__container{
+    display:inline;
+    display: flex;
+    width: 100%;
+    gap:.5rem
+  }
 }
 .browse-genre{
   top: $navbar-height;
