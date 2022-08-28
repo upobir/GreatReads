@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Container, Row,Stack, Button } from 'react-bootstrap';
 import { useParams, useLocation } from 'react-router-dom'
 import { BookShelfBookGallery } from './Bookshelf_BookGallery';
+import { AuthorGallery } from './AuthorGallery';
+import { SeriesGallery } from './SeriesGallery';
 import { searchEndpoint } from '../endpoints';
 import useAxios from "../utils/useAxios";
 
@@ -13,8 +15,14 @@ export const Search = () => {
 
     const location = useLocation();
 
-    let pattern = location.state.pattern;
-    let type = location.state.type;
+    let pattern = '';
+    let type = '';
+
+    if(location.state != null)
+    {
+        pattern = location.state.pattern;
+        type = location.state.type;
+    }
 
     const api = useAxios();
 
@@ -25,6 +33,8 @@ export const Search = () => {
     console.log('In SearchPage, pattern: ', pattern,', type: ', type)
 
     const getSearchResults = async () => {
+        if(pattern === '')
+            return;
         api()
         .get(searchEndpoint(pattern, type), {
         })
@@ -66,12 +76,44 @@ export const Search = () => {
         return (
             <Container fluid>
                 <Row>
-                    <Stack gap={1} className='search-result'>
+                    <Stack gap={1} className='search-result-book'>
                         {
-                        <div className='search-result__body'>
+                        <div className='search-result-book__body'>
                             <h3 className='primary-text'>Matched Books:</h3>
                             <BookShelfBookGallery books={books} booksPerRow={4} setBooks={setBooks} spinner={spinner} setSpinner={setSpinner}></BookShelfBookGallery>
 
+                        </div>
+                        }
+                    </Stack>
+                </Row>
+            </Container>
+    )
+
+    if(type === "author")
+        return (
+            <Container fluid>
+                <Row>
+                    <Stack gap={1} className='search-result-author'>
+                        {
+                        <div className='search-result-author__body'>
+                            <h3 className='primary-text'>Matched Authors:</h3>
+                            <AuthorGallery authors={authors} authorsPerRow={4}></AuthorGallery>
+                        </div>
+                        }
+                    </Stack>
+                </Row>
+            </Container>
+    )
+
+    if(type === "series")
+        return (
+            <Container fluid>
+                <Row>
+                    <Stack gap={1} className='search-result-series'>
+                        {
+                        <div className='search-result-series__body'>
+                            <h3 className='primary-text'>Matched Series:</h3>
+                            <SeriesGallery seriesList={series} seriesPerRow={4}></SeriesGallery>
                         </div>
                         }
                     </Stack>
