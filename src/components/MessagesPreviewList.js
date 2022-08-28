@@ -13,11 +13,11 @@ export function MessagePreview({m,messages_from_id}){
         className={'message-preview  no-text-effects ' + ((m.from.id == messages_from_id) ? 'message-preview__active' : '')}>
         <Stack gap={1}>
             <Stack direction='horizontal' className='space-contents-between' gap={1}>
-                <span className={m.isRead?'light-text' : 'primary-text'}>{m.from.username}</span>
+                <span className={m.message.isRead?'light-text' : 'primary-text'}>{m.from.username}</span>
                 {/* <Link to={userDetailsURL(m.from.id)} className='primary-text'>{m.from.username}</Link> */}
-                <span className={m.isRead?'light-text' : 'primary-text'}>{timestampToString(m.message.timestamp)}</span>
+                <span className={m.message.isRead?'light-text' : 'primary-text'}>{timestampToString(m.message.timestamp)}</span>
             </Stack>
-            <p className='message-preview__medium-text'>{truncateMessage(m.message.text)}</p>
+            <p className={m.message.isRead?'medium-text' : 'primary-text'}>{truncateMessage(m.message.text)}</p>
         </Stack>
     </Container>;
 }

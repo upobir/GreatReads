@@ -18,7 +18,7 @@ function shortenMessagePreviewsList(messagePreviewsList){
   return messagePreviewsList.slice(0,3);
 }
 function getUnreadCount(messagePreviewsList){
-  return messagePreviewsList.filter(m=> !m.isRead).length
+  return messagePreviewsList.filter(m=> !m.message.isRead).length
 } 
 function UserInfo({ user, logout }) {
   const [messagePreviews, setMessagePreviews] = useState(null) 
@@ -46,14 +46,12 @@ function UserInfo({ user, logout }) {
       .then((response)=>{
           let _messages = response.data;
           console.log('messages fetch response.data',_messages);
-          console.log('messagePreviews', _messages)
           setUnreadCount(getUnreadCount(_messages))
           setMessagePreviews(_messages)
       } )
       .catch(err => console.log('messages fetch err', err))
     }
   } 
-  console.log('unreadCount', unreadCount)
 
     return (
       <Stack direction='horizontal' gap={1}>
