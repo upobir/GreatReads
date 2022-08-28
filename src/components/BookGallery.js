@@ -59,9 +59,9 @@ export const BookGallery = ({books, booksPerRow, setBooks})=>{
     return <>
         <Stack gap={4}>
         {groupBooks(books).map((group, groupIndex) => {
-                return (<Row key={groupIndex}>
+                return (<Row key={groupIndex} className='book-gallery__row'>
                 {group.map((book, index) =>
-                    <Col xs={12/booksPerRow} key={index}>
+                    <Col xs={12/booksPerRow} key={index} className='book-gallery__col'>
                     <BookCapsule
                         book={book}
                         id={book.id}

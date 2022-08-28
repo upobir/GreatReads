@@ -377,6 +377,14 @@ $theme-colors: (
     justify-content: space-between;
   }
 }
+.book-gallery{
+  // &&__row{
+
+  // }
+  &__col{
+    margin-top: auto;
+  }
+}
 .space-contents-between{
   justify-content: space-between;
 }
