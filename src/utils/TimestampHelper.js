@@ -3,5 +3,4 @@ export function timestampToString(timestamp){
     const createdDate = createdAt.toLocaleDateString('en-US');
     const createdTime = createdAt.toLocaleTimeString('en-US');
     return `${createdDate} at ${createdTime}`
-
 } 

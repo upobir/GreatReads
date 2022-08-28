@@ -60,6 +60,7 @@ urlpatterns = [
     path('messages/', AllMessageView.as_view(), name='all_messages'),
     path('messages/<int:pk>/', UserMessagesView.as_view(), name='user_messages'),
     path('messages/<int:pk>/post/', UserMessagePostView.as_view(), name='message_post'),
+    path('unread_msg_count/', MessageCountView.as_view(),name='unread_msg_count'),
 
     # virtual bookshelf
     path('user/<int:userID>/<int:bookshelfCategory>/', BookUserStatusView.as_view(), name="bookuserstatus_view"),

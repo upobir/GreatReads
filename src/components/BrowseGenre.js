@@ -12,7 +12,7 @@ import Placeholder from 'react-bootstrap/Placeholder';
 
 export const BrowseGenre = () => {
     const {genre_id, category} = useParams();//undefined when no genreID is in URL
-    const [books, setBooks] = useState([])  
+    const [books, setBooks] = useState(null)  
     const [genre, setGenre]  = useState(null)
     
     const api =  useAxios()

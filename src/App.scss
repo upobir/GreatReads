@@ -67,6 +67,7 @@ $theme-colors: (
 
 .book-capsule { 
   max-width: 15vw;
+
   &__mini{
     max-width: 12vw;
   }
@@ -102,6 +103,11 @@ $theme-colors: (
       // border-bottom-right-radius: 0.25rem;
       border-top-right-radius: 0;
     }  
+    &__tooltip{
+      font-size: 1.2rem;
+      padding: .25rem;
+      color: $text-high;
+    }
     
     button{
       :active{
@@ -216,6 +222,7 @@ $theme-colors: (
       color: $body-bg;
       background-color: $secondary;
     }
+
   }
 }
 .book-review-details{
@@ -375,6 +382,14 @@ $theme-colors: (
     justify-content: space-between;
   }
 }
+.book-gallery{
+  // &&__row{
+
+  // }
+  &__col{
+    margin-top: auto;
+  }
+}
 .space-contents-between{
   justify-content: space-between;
 }
@@ -517,6 +532,7 @@ $theme-colors: (
     padding: 1rem;
     padding-right: 2rem;
     padding-top: 0.5rem;
+    white-space: nowrap;
     a {
       text-decoration: none;
     }
@@ -534,6 +550,7 @@ $theme-colors: (
     display: flex;
     flex-direction: column;
     top:$navbar-height;
+    z-index: 3;
     hr{
       width: 100%;
       flex-basis: 100%;

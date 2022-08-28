@@ -28,7 +28,7 @@ def author_mini(author):
     return {
         "id": author.id,
         "name": author.name,
-        "picture_url": author.picture.url if author.picture else None,
+        "picture_url": author.picture.build_url(transformation={'height':500, 'width':325}) if author.picture else None,
     }
 
 def author_detailed(author, userid):
@@ -38,7 +38,7 @@ def author_detailed(author, userid):
         "followCount": author.follower_count,
         "isFollowedByUser": author.followers.filter(id=userid).exists() if userid else False,
         "description": author.description,
-        "picture_url": author.picture.url if author.picture else None,
+        "picture_url": author.picture.build_url(transformation={'height':500, 'width':325}) if author.picture else None,
     }
 
 def author_extra(author):
@@ -66,13 +66,14 @@ def genre_detailed(genre, userid):
     }
 
 def book_mini(book, userid):
+
     return {
         "id" : book.id,
         "title" : book.title,
         "description" : book.description,
         "authors" : [ author_mini(author) for author in book.authors.all() ],
         "avgRating" : book.avg_rating,
-        "thumbnail" : book.thumbnail.url if book.thumbnail else None,
+        "thumbnail" : book.thumbnail.build_url(transformation={'height':500, 'width':325}) if book.thumbnail else None,
         "seriesEntry": book.series_number,
         "readStatus": get_book_status(book, userid)[0],
     }
@@ -126,7 +127,7 @@ def book_detailed(book, userid):
         "id": book.id, 
         "isbn": book.isbn,
         "title": book.title,
-        "thumbnail" : book.thumbnail.url if book.thumbnail else None,
+        "thumbnail" : book.thumbnail.build_url(transformation={'height':500, 'width':325}) if book.thumbnail else None,
         "description": book.description,
         "pageCount": book.pages,
         "released": book.release_date, 
@@ -161,7 +162,7 @@ def series_mini(series):
         "name": series.name,
         "bookCount": series.book_count,
         "avgRating": series.avg_rating,
-        "thumbnail": thumbnail.url if thumbnail else None
+        "thumbnail": thumbnail.build_url(transformation={'height':500, 'width':325}) if thumbnail else None
     }
 
 def series_detailed(series, userid):
@@ -220,7 +221,7 @@ def book_mid(book, userid):
         "id": book.id,
         "title": book.title,
         "authors": [ author_mini(author) for author in book.authors.all() ],
-        "thumbnail": book.thumbnail.url if book.thumbnail else None,
+        "thumbnail": book.thumbnail.build_url(transformation={'height':500, 'width':325}) if book.thumbnail else None,
         "readStatus": readstatus,
         "avgRating": book.avg_rating,
         "description": book.description,

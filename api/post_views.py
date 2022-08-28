@@ -60,10 +60,13 @@ class BookReviewPostView(APIView):
             reviews[0].description = description
             reviews[0].timestamp = timezone.now()
             reviews[0].save()
-        else:
-            Review.objects.create(rating = rating, description = description, creator = user, book = book, timestamp=timezone.now())
 
-        return Response("ok")
+            review_id = reviews[0].id
+        else:
+            review = Review.objects.create(rating = rating, description = description, creator = user, book = book, timestamp=timezone.now())
+            review_id = review.id
+
+        return Response({"status":"ok", "reviewID": review_id})
 
 
 class GenreFollowPostView(APIView):

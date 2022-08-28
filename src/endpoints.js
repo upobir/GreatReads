@@ -122,7 +122,20 @@ export function genreFetchEndpoint(genreID){
 }
 
 export function messagePostEndpoint(toUserID){
-    return `/api/message/${toUserID}/post/`
+    return `/api/messages/${toUserID}/post/`
+}
+
+export function messagesWithUserFetchEndpoint(toUserID, markRead){
+    if(markRead)
+        return `/api/messages/${toUserID}/?read=true`
+    else
+        return `/api/messages/${toUserID}/`
+}
+export function messagesFetchEndpoint(){
+    return `/api/messages/`
+}
+export function userDetailsEndpoint(toUserID){
+    return `/api/user/${toUserID}/`
 }
 
 export function searchEndpoint(pattern, type){
