@@ -234,6 +234,17 @@ class UserMessagesView(APIView):
 
         return Response(data)
 
+class UserDetailedView(APIView):
+    def get(self, request, pk):
+        if not request.user.id:
+            return Response({})
+
+        user = User.objects.get(id=pk)
+
+        data = user_detailed(user, request.user.id)
+
+        return Response(data)
+
 # virtual bookself
 class BookUserStatusView(APIView):
     def get(self, request, userID, bookshelfCategory):

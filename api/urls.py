@@ -53,6 +53,7 @@ urlpatterns = [
     path('author/<int:pk>/series/', AuthorSeriesView.as_view(), name='author_series'),
     path('author/<int:pk>/extra/', AuthorExtraView.as_view(), name='author_extra'),
 
+    path('user/<int:pk>/', UserDetailedView.as_view(), name='user_detailed'),
     path('search/', SearchView.as_view(), name='search'),
     path('feed/all/', FeedView.as_view(), name='feed'),
 

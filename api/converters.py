@@ -230,6 +230,16 @@ def user_mini_alter(user):
         "username": user.username
     }
 
+def user_detailed(user, userId):
+    return {
+        "id": user.id,
+        "name": user.username,
+        "followerCount": user.followers.count(),
+        "followCount": user.following.count(),
+        "followedByUser": user.followers.filter(user_id=userId).exists(),
+        "followsUser": user.following.filter(following_user_id=userId).exists(),
+    }
+
 def feed_item_review(review, userId):
     return {
         "updateType": "review",
