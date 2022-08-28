@@ -211,9 +211,14 @@ class AllMessageView(APIView):
         if not request.user.id:
             return Response({})
 
-        messages = Message.objects.filter(to_user=request.user.id).order_by("-timestamp")
+        messages = Message.objects.filter(to_user = request.user.id).order_by('from_user__id', '-timestamp', ).distinct('from_user__id')
+
+        #messages = Message.objects.filter(to_user=request.user.id).order_by("-timestamp")
 
         data = [message_detailed(message, request.user.id) for message in messages]
+
+        data.sort(key=lambda d: d['message']['timestamp'])
+        data.reverse()
 
         return Response(data)
 
