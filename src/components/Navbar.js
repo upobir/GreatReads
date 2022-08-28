@@ -1,5 +1,7 @@
 import React, {useRef} from 'react'
-import {Navbar,NavDropdown,Nav, Container, Stack,Row, Col, Form,FormControl, Button, ButtonGroup} from 'react-bootstrap'
+import {Navbar,NavDropdown,Nav, Container, Stack,Row,
+        Col, Form,FormControl, Button, ButtonGroup,
+      Dropdown, DropdownButton} from 'react-bootstrap'
 import {myBookShelfURL, myFeedURL, homeURL, browseAllURL,
    genreBrowseURL, newlyRatedBrowseURL, newReleasesBrowseURL, followedAuthorBrowseURL, loginURL, registerURL
   } from '../urls'
@@ -54,6 +56,7 @@ export default function GreatReadsNavbar() {
   let [authorSelected, setAuthorSelected] = useState(false);
   let [seriesSelected, setSeriesSelected] = useState(false);
   let [isSearchbarFocused, setIsSearchBarFocused] = useState(false);
+  let [isDropdownFocused, setIsDropdownFocused] = useState(false);
   const handleSubmit = e => {
     e.preventDefault();
     console.log('pattern: ', searchString)
@@ -117,8 +120,7 @@ export default function GreatReadsNavbar() {
                             onFocus={e=>setIsSearchBarFocused(true)}
                             onBlur={e=>setIsSearchBarFocused(false)}
                             />
-                        {isSearchbarFocused && <>
-                            <Form.Check
+                        <Form.Check
                               inline
                               label="Book"
                               name="group1"
@@ -142,8 +144,15 @@ export default function GreatReadsNavbar() {
                               id={`series_radio_button`}
                               onChange={() => handleRadioSelection("series")}
                             />
-                          </>
-                          }
+                            <DropdownButton  title="Category"
+                            onClick={e=>{setIsDropdownFocused(true); console.log('aaaa')}}
+                            on
+                            onFocus={e=>setIsDropdownFocused(true)}
+                                                         onBlur={e=>setIsDropdownFocused(false)} >
+                              <Dropdown.Item >Action</Dropdown.Item>
+                              <Dropdown.Item >Another action</Dropdown.Item>
+                              <Dropdown.Item >Something else</Dropdown.Item>
+                            </DropdownButton>
                      </Form>
                     {(user == null) && <Link to={loginURL()} className='no-text-effects'>Login</Link>}
                     {(user == null) && <Button variant="primary" as={Link} to={registerURL()} >Sign Up </Button>}
