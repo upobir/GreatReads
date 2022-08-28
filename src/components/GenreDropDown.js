@@ -48,7 +48,7 @@ export const GenreDropDown = ({selectedGenre}) => {
             {
                 genres && genres.map((genre, index) => {
                     return <Dropdown.Item
-                        key={genre.id}
+                        key={index}
                         as={Link} to={genreBrowseURL(genre.id)}
                         onClick={() => handleGenreSelect(index)}
                     >

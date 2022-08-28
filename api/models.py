@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Avg
 from cloudinary.models import CloudinaryField
+from django.utils import timezone
 
 # Create your models here.
 
@@ -20,13 +21,12 @@ class UserFollowing(models.Model):
 
     # UserFollowing.objects.create(user_id=user.id, following_user_id=follow.id)
 
-    # def __str__(self):
-    #     f"{self.user_id} follows {self.following_user_id}"
+    def __str__(self):
+        return f"{self.user_id.username} follows {self.following_user_id.username}"
 
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
-    #picture = models.FileField(null=True, blank=True)  # TODO ImageField? updload path?
     picture = CloudinaryField('image', default=None, null=True, blank=True)
     description = models.TextField(blank=True)
     birth_date = models.DateField()
@@ -41,10 +41,26 @@ class Author(models.Model):
     def follower_count(self):
         return self.followers.all().count()
 
+    @property
+    def book_count(self):
+        return self.book_set.all().count()
+
+    @property
+    def avg_rating(self):
+        book_ratings = [book.avg_rating for book in self.book_set.all()] # Book.objects.filter(authors=self)]
+        if not book_ratings:
+            return 0
+        else:
+            return sum(book_ratings)/len(book_ratings)
+
 class Publisher(models.Model):
     address = models.TextField()
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Series(models.Model):
     name = models.CharField(max_length=100)
@@ -75,13 +91,17 @@ class Genre(models.Model):
     @property
     def follower_count(self):
         return self.followers.all().count()
+        
 
 class Message(models.Model):
-    timestamp = models.DateField(auto_now=True)
+    timestamp = models.DateTimeField(auto_now=True)
     text = models.TextField()
     from_user = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE) #using User
     to_user = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE) #using User
     is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.from_user.username} to {self.to_user.username} : {self.text if len(self.text) < 15 else self.text[:15]+'...'}"
 
 
 class Book(models.Model):
@@ -91,7 +111,6 @@ class Book(models.Model):
     release_date = models.DateField(null=True, blank=True)
     language = models.CharField(max_length=100, default='English')
     description = models.TextField(default="sit dor amet")
-    #thumbnail = models.FileField(null=True, blank=True)  # TODO ImageField? updload path?
     thumbnail = CloudinaryField('image', default=None, null=True, blank=True)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE)
     series = models.ForeignKey(Series, null=True, blank=True, on_delete=models.SET_NULL)
@@ -102,18 +121,18 @@ class Book(models.Model):
 
     @property
     def review_count(self):
-        return Review.objects.filter(book=self).count()
+        return self.review_set.count() # Review.objects.filter(book=self).count()
 
     @property
     def avg_rating(self):
-        avg = Review.objects.filter(book=self).aggregate(Avg('rating'))['rating__avg']
+        avg = self.review_set.aggregate(Avg('rating'))['rating__avg']  #Review.objects.filter(book=self).aggregate(Avg('rating'))['rating__avg']
         return 0 if avg is None else avg
 
     def __str__(self):
         return self.title
 
 class Review(models.Model):
-    timestamp = models.DateField(auto_now=True)
+    timestamp = models.DateTimeField()
     rating = models.IntegerField() # TODO add validator?
     description = models.TextField(blank=True)
     creator = models.ForeignKey(User, related_name='created_reviews', on_delete=models.CASCADE) #using User
@@ -126,15 +145,16 @@ class Review(models.Model):
 
     @property
     def comment_count(self):
-        return ReviewComment.objects.filter(review=self).count()
+        return self.reviewcomment_set.count() # ReviewComment.objects.filter(review=self).count()
 
 class ReviewComment(models.Model):
-    timestamp = models.DateField(auto_now=True)
+    timestamp = models.DateTimeField(auto_now=True)
     text = models.TextField()
     creator = models.ForeignKey(User, on_delete=models.CASCADE) #using User
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
 
 class BookUserStatus(models.Model):
+    timestamp = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, on_delete=models.CASCADE) #using User
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     is_read = models.BooleanField()

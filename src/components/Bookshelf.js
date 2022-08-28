@@ -11,9 +11,29 @@ import { BookShelf_stats } from './Bookshelf_stats';
 import { bookshelfUserInfoEndpoint, followUserEndpoint, unFollowUserEndpoint } from '../endpoints';
 import { BookShelf_ViewReviews} from './Bookshelf_reviews';
 import { SpinnerWrapper } from './SpinnerWrapper';
-const bookshelfGallary = () => {
-  
-}
+import { viewMessagesFromUserUrl } from '../urls';
+const tabs = [
+  {
+    tabTitle:"Want To Read",
+    tabLink:`WantToRead`,
+    tabKey:"WantToRead",
+  },
+  {
+    tabTitle:"Reading",
+    tabLink:`Reading`,
+    tabKey:"Reading",
+  },
+  {
+    tabTitle:"Read",
+    tabLink:`Read`,
+    tabKey:"Read",
+  },
+  {
+    tabTitle:"Reviewed",
+    tabLink:`Reviewed`,
+    tabKey:"Reviewed",
+  },
+]
 export const Bookshelf = () => {
   const { user_id } = useParams();
   const { user } = useContext(AuthContext);
@@ -31,28 +51,7 @@ export const Bookshelf = () => {
   const loc = useLocation();
   console.log('user', user)
   console.log('userID', userID)
-  const tabs = [
-    {
-      tabTitle:"Want To Read",
-      tabLink:`/user/${userID}/WantToRead`,
-      tabKey:"WantToRead",
-    },
-    {
-      tabTitle:"Reading",
-      tabLink:`/user/${userID}/Reading`,
-      tabKey:"Reading",
-    },
-    {
-      tabTitle:"Read",
-      tabLink:`/user/${userID}/Read`,
-      tabKey:"Read",
-    },
-    {
-      tabTitle:"Reviewed",
-      tabLink:`/user/${userID}/Reviewed`,
-      tabKey:"Reviewed",
-    },
-  ]
+
   const api = useAxios();
 
   const getBookShelfUserInfo = async () => {
@@ -137,14 +136,15 @@ export const Bookshelf = () => {
                     <Stack direction='horizontal' gap={2  }>
                       <h3 className='primary-text'>{ user_name }</h3>
                       { (user.username !== user_name) &&
-                        <div>
+                        <Stack gap={2} direction='horizontal'>
                           <Button variant='outline-primary'
                                   // disabled={followContext == null}
                                   active={isFollowedByUser}
                                   onClick={handleSubmit}>
                               {isFollowedByUser? "Unfollow": "Follow"}
                           </Button>
-                        </div>
+                          <Button as={Link} to={viewMessagesFromUserUrl(userID)}>Message</Button>
+                        </Stack>
                       }
                     </Stack>
                     <div className='light-text'>{follower_count} Followers, {following_count} Following</div>

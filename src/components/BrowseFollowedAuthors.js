@@ -4,7 +4,7 @@ import { browseFollowedAuthorEndpoint } from '../endpoints'
 import { BookGallery } from './BookGallery'
 import useAxios from '../utils/useAxios';
 export const BrowseFollowedAuthors = () => {
-    const [books, setBooks] = useState([])
+    const [books, setBooks] = useState(null)
     const api =  useAxios()
     
     const getBooks= async () => { 

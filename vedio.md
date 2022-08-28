@@ -1,0 +1,35 @@
+- Register
+- Login
+- browse
+    - newly rated
+    - followed authors
+    - newly published
+    - by genre
+        - genre follow
+- book
+    - book track
+    - reviews
+        - post review
+        - comments
+        - comments post
+        - review like
+    - series
+    - similar book
+    - author
+        - author page
+        - author follow
+- bookshelf
+    - read
+    - wishlisted
+    - reading
+    - reviewed
+- user 
+    - follow
+    - feed
+        - review item
+        - reading item
+    - message
+- search
+    - book
+    - author
+    - series

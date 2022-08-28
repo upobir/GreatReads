@@ -1,22 +1,26 @@
 from .models import *
 
 def get_book_status(book, userid):
-    status = book.bookuserstatus_set.filter(user_id=userid)
+    status_set = book.bookuserstatus_set.filter(user_id=userid)
 
+    if status_set.exists():
+        return convert_book_status(status_set[0])
+    else:
+        return None, -1
+
+def convert_book_status(status):
     readstatus = None 
     readpages = -1
 
-    if status.exists():
-        print(status.values())
-        if status[0].is_read:
-            readstatus = "read"
-            readpages = -1
-        elif status[0].is_wishlisted:
-            readstatus = "wishlisted"
-            readpages = -1
-        elif status[0].read_pages != -1:
-            readstatus = "reading"
-            readpages = status[0].read_pages
+    if status.is_read:
+        readstatus = "read"
+        readpages = -1
+    elif status.is_wishlisted:
+        readstatus = "wishlisted"
+        readpages = -1
+    elif status.read_pages != -1:
+        readstatus = "reading"
+        readpages = status.read_pages
 
     return readstatus, readpages
 
@@ -24,6 +28,7 @@ def author_mini(author):
     return {
         "id": author.id,
         "name": author.name,
+        "picture_url": author.picture.build_url(transformation={'height':500, 'width':325}) if author.picture else None,
     }
 
 def author_detailed(author, userid):
@@ -33,7 +38,16 @@ def author_detailed(author, userid):
         "followCount": author.follower_count,
         "isFollowedByUser": author.followers.filter(id=userid).exists() if userid else False,
         "description": author.description,
-        "picture_url": author.picture.url if author.picture else None,
+        "picture_url": author.picture.build_url(transformation={'height':500, 'width':325}) if author.picture else None,
+    }
+
+def author_extra(author):
+    return {
+        "birth_date": author.birth_date,
+        "website": author.website,
+        "booksWritten": author.book_count,
+        "avgRating": author.avg_rating,
+        "genres": [genre_mini(genre) for genre in Genre.objects.filter(book__authors=author).distinct()]
     }
 
 def genre_mini(genre):
@@ -52,13 +66,14 @@ def genre_detailed(genre, userid):
     }
 
 def book_mini(book, userid):
+
     return {
         "id" : book.id,
         "title" : book.title,
         "description" : book.description,
         "authors" : [ author_mini(author) for author in book.authors.all() ],
         "avgRating" : book.avg_rating,
-        "thumbnail" : book.thumbnail.url if book.thumbnail else None,
+        "thumbnail" : book.thumbnail.build_url(transformation={'height':500, 'width':325}) if book.thumbnail else None,
         "seriesEntry": book.series_number,
         "readStatus": get_book_status(book, userid)[0],
     }
@@ -112,7 +127,7 @@ def book_detailed(book, userid):
         "id": book.id, 
         "isbn": book.isbn,
         "title": book.title,
-        "thumbnail" : book.thumbnail.url if book.thumbnail else None,
+        "thumbnail" : book.thumbnail.build_url(transformation={'height':500, 'width':325}) if book.thumbnail else None,
         "description": book.description,
         "pageCount": book.pages,
         "released": book.release_date, 
@@ -136,11 +151,18 @@ def publisher_detailed(publisher):
     }
 
 def series_mini(series):
+    first_book = series.book_set.filter(series_number=1)
+    if first_book.exists():
+        thumbnail = first_book[0].thumbnail
+    else:
+        thumbnail = None
+
     return {
         "id": series.id,
         "name": series.name,
         "bookCount": series.book_count,
         "avgRating": series.avg_rating,
+        "thumbnail": thumbnail.build_url(transformation={'height':500, 'width':325}) if thumbnail else None
     }
 
 def series_detailed(series, userid):
@@ -199,7 +221,7 @@ def book_mid(book, userid):
         "id": book.id,
         "title": book.title,
         "authors": [ author_mini(author) for author in book.authors.all() ],
-        # "thumbnail": book.thumbnail,
+        "thumbnail": book.thumbnail.build_url(transformation={'height':500, 'width':325}) if book.thumbnail else None,
         "readStatus": readstatus,
         "avgRating": book.avg_rating,
         "description": book.description,
@@ -211,6 +233,42 @@ def user_mini(userID):
         "username": User.objects.get(id=userID).username,
     }
 
+def user_mini_alter(user):
+    return {
+        "id": user.id,
+        "username": user.username
+    }
+
+def user_detailed(user, userId):
+    return {
+        "id": user.id,
+        "name": user.username,
+        "followerCount": user.followers.count(),
+        "followCount": user.following.count(),
+        "followedByUser": user.followers.filter(user_id=userId).exists(),
+        "followsUser": user.following.filter(following_user_id=userId).exists(),
+    }
+
+def feed_item_review(review, userId):
+    return {
+        "updateType": "review",
+        "timeStamp" : review.timestamp,
+        "review" : review_mini(review, userId),
+        "book": book_mid(review.book, userId)
+    }
+
+def feed_read_update(status, userId):
+    readstatus, readpages = convert_book_status(status)
+
+    return {
+        "updateType": "readingUpdate",
+        "readStatus": readstatus,
+        "readpages": readpages,
+        "user": user_mini_alter(status.user),
+        "timeStamp": status.timestamp,
+        "book": book_mid(status.book, userId)
+    }
+
 def review_feed_item(review_mini_data, timestamp, book_mid_data, reviewCreator):
     return {
         "updateType": "review",
@@ -219,3 +277,30 @@ def review_feed_item(review_mini_data, timestamp, book_mid_data, reviewCreator):
         "book": book_mid_data,
         "user": reviewCreator,
     }
+
+def message_detailed(message, userID):
+    return {
+        "from": {
+            "id": message.from_user.id,
+            "username": message.from_user.username,
+            "followedByUser": message.from_user.followers.filter(user_id=userID).exists(),
+            "followsUser": message.from_user.following.filter(following_user_id=userID).exists(),
+        },
+    "message": {
+        "timestamp": message.timestamp,
+        "text": message.text,
+        "isRead": message.is_read
+    }
+}
+
+def message_mini(message, userID):
+    res = {
+        "timestamp": message.timestamp,
+        "text": message.text,
+        "isRead": message.is_read,
+    }
+
+    if message.from_user.id != userID:
+        res['from'] = message.from_user.id
+
+    return res

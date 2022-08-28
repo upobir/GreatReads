@@ -34,6 +34,7 @@ urlpatterns = [
     path('books/genre/<int:pk>/', GenreBookView.as_view(), name='all_books_genre'),
     path('genres/', AllGenreView.as_view(), name='all_genres'),
     path('genre/<int:pk>/', GenreView.as_view(), name='genre'),
+    path('book/<int:pk>/similar/', SimilarBookView.as_view(), name='similar_books'),
 
     path('book/<int:pk>/review/post/', BookReviewPostView.as_view(), name="review_post"),
     path('book/<int:pk>/status/post/', BookStatusView.as_view(), name="status_post"),
@@ -50,6 +51,16 @@ urlpatterns = [
 
     path('author/<int:pk>/books/', AuthorBooksView.as_view(), name='author_books'),
     path('author/<int:pk>/series/', AuthorSeriesView.as_view(), name='author_series'),
+    path('author/<int:pk>/extra/', AuthorExtraView.as_view(), name='author_extra'),
+
+    path('user/<int:pk>/', UserDetailedView.as_view(), name='user_detailed'),
+    path('search/', SearchView.as_view(), name='search'),
+    path('feed/all/', FeedView.as_view(), name='feed'),
+
+    path('messages/', AllMessageView.as_view(), name='all_messages'),
+    path('messages/<int:pk>/', UserMessagesView.as_view(), name='user_messages'),
+    path('messages/<int:pk>/post/', UserMessagePostView.as_view(), name='message_post'),
+    path('unread_msg_count/', MessageCountView.as_view(),name='unread_msg_count'),
 
     # virtual bookshelf
     path('user/<int:userID>/<int:bookshelfCategory>/', BookUserStatusView.as_view(), name="bookuserstatus_view"),

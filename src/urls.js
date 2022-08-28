@@ -6,8 +6,8 @@
  * If you forget it, you will see fetch URL including the react host url
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
-export function bookDetailsURL(noteID){
-    return  `/book/${noteID}/`
+export function bookDetailsURL(bookID){
+    return  `/book/${bookID}/`
 }
 export function userDetailsURL(userID){
     if(userID != null)
@@ -27,7 +27,9 @@ export function browseAllURL(){
     return "/browse/all"
 }
 export function authorDetailsURL(authorID){
-    return `/author/${authorID}/`
+    if(authorID != null)
+        return `/author/${authorID}/`
+    return '#'
 }
 export function genreBrowseURL(genreID){
     return `/browse/genre/${genreID}/`
@@ -51,6 +53,9 @@ export function registerURL(){
 }
 export function viewMessagesFromUserUrl(userID){
     return `/messages/${userID}`
+}
+export function viewMessagesUrl(){
+    return `/messages/`
 }
 const myFeedURL = "/feed/"
 const homeURL = "/home/"

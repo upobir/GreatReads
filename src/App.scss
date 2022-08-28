@@ -25,6 +25,7 @@ $text-high: rgba(255,255,255,.87);
 $logo-font-size: 1.25rem;
 $navbar-height: $logo-font-size + 2rem;
 $book-details-top-height: calc(.67em + .67em + 1rem + 1.375rem + 1.5vw);
+$author-details-top-height: calc(.67em + .67em + 1rem);
 $browse-header-height:1.6rem + .75rem + .75rem +.75rem;
 
 // this is used to map colors. change accordingly.
@@ -66,6 +67,7 @@ $theme-colors: (
 
 .book-capsule { 
   max-width: 15vw;
+
   &__mini{
     max-width: 12vw;
   }
@@ -101,6 +103,11 @@ $theme-colors: (
       // border-bottom-right-radius: 0.25rem;
       border-top-right-radius: 0;
     }  
+    &__tooltip{
+      font-size: 1.2rem;
+      padding: .25rem;
+      color: $text-high;
+    }
     
     button{
       :active{
@@ -199,6 +206,10 @@ $theme-colors: (
     height: 100%;
     background-color: $text-medium
   }
+  &__name-block__name{
+    text-decoration: none;
+    font-size: 2rem;
+  }
 }
 .book-review-block{
   background-color:  $dp-3;
@@ -215,6 +226,7 @@ $theme-colors: (
       color: $body-bg;
       background-color: $secondary;
     }
+
   }
 }
 .book-review-details{
@@ -263,7 +275,16 @@ $theme-colors: (
 .author-block-text{
   font-size:1rem;
 }
-.book-details{
+.author-details{
+  &__left-col{
+    &__inner{
+      .follow-block{
+        text-align: center;
+      }
+    }
+  }
+}
+.book-details, .author-details{
   &__left-col,&__mid-col-top,&__right-col{
     position: fixed;
     pointer-events: none; 
@@ -275,6 +296,12 @@ $theme-colors: (
     &__inner{
       padding-left: 1rem;
       padding-right: .5rem;
+
+      .follow-block{
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
   }
   &__right-col{
@@ -286,6 +313,11 @@ $theme-colors: (
 }
 .book-details__tab-bar{
   top: calc($navbar-height + $book-details-top-height - 2px);
+  position: sticky;
+  padding-top: 2px;
+}
+.author-details__tab-bar{
+  top: calc($navbar-height + $author-details-top-height - 2px);
   position: sticky;
   padding-top: 2px;
 }
@@ -315,7 +347,21 @@ $theme-colors: (
   height: $book-details-top-height;
   z-index: 2;
 }
-.top-navbar, .book-details__mid-col-top-header,.book-details__tab-bar {
+.author-details__mid-col-bottom{
+  // margin-top: $navbar-height + $book-details-top-height;
+  padding-top:  $author-details-top-height;
+  margin-left: .5rem;//book-details__mid-col-top-header has  some issues covering wholething
+  margin-right: .5rem;
+}
+.author-details__mid-col-top-header{
+  padding-left: .25rem;
+  padding-right: .25rem;
+  background-color: $body-bg;
+  height: $author-details-top-height;
+  z-index: 2;
+}
+.top-navbar, .book-details__mid-col-top-header,.book-details__tab-bar
+, .author-details__mid-col-top-header,.author-details__tab-bar {
   background-color: $body-bg;
   z-index: 1;
 
@@ -340,8 +386,21 @@ $theme-colors: (
     justify-content: space-between;
   }
 }
+.book-gallery{
+  // &&__row{
+
+  // }
+  &__col{
+    margin-top: auto;
+  }
+}
 .space-contents-between{
   justify-content: space-between;
+}
+.align-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .book-review-block__reviewer_image{
   // display: flex;
@@ -380,6 +439,54 @@ $theme-colors: (
   h3{
     display: inline;
     margin-bottom: 0;
+  }
+}
+.navbar-user-submenu{
+  background-color: $body-bg;
+  border: 2px solid $primary;
+  .navbar-messages-list{
+    max-width: 20vw;
+  }
+  &__notification{
+    position: relative;
+    display: inline;
+  }
+  &__unread-indicator{
+    // background-color: $primary;
+    // color: $body-bg;
+    // color: $body-bg;
+
+    // background-color: $body-bg;
+    // color: $primary;
+    // border: 2px solid $primary;
+
+    color: $text-high;
+
+    border-radius: 50%;
+    width: 1.4rem;
+    height: 1.4rem;
+    padding: .2rem;
+    position: absolute;
+    top: -0.4rem;
+    right: -.75rem;
+    font-size: .7rem;
+    text-align: center ;
+  }
+  &__btn{
+    flex: 1;
+  }
+  &__footer{
+    display: flex;
+  }
+  &__toggle__btn{
+    background-color: $body-bg;
+    :active{
+      background-color: $primary;    
+      color: $body-bg;
+    }
+  }
+  .popover-header{
+    background-color: $body-bg;
   }
 }
 .nav-search-bar{
@@ -429,6 +536,7 @@ $theme-colors: (
     padding: 1rem;
     padding-right: 2rem;
     padding-top: 0.5rem;
+    white-space: nowrap;
     a {
       text-decoration: none;
     }
@@ -446,6 +554,7 @@ $theme-colors: (
     display: flex;
     flex-direction: column;
     top:$navbar-height;
+    z-index: 3;
     hr{
       width: 100%;
       flex-basis: 100%;
@@ -512,20 +621,7 @@ $theme-colors: (
     padding: .5rem;
   }
 }
-.message-preview{
-  background-color: $dp-2;
-  border: none;
-  :hover{
-    color: unset;
-    background-color: unset;
-  }
-  &__body{
-    text-align: left;
-  }
-  :active{
-    border-right: solid 2px $primary;
-  }
-}
+
 .primary-text{
   color:$primary;
 }
@@ -550,11 +646,117 @@ $theme-colors: (
 .inline-block{
   display: inline-block;
 }
+.inline-only{
+  display: inline;
+}
 .no-text-effects{
   text-decoration: none;
 }
+.messenger-left{
+  position: relative;
+  height: 100%;
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
+}
 
+.message-preview{
+  background-color: $dp-2;
+  border: none;
+  padding:.5rem;
+  width: 100%;
+  &__container{
+    height: 100%;
+    max-width: inherit;
+    overflow-y: scroll;
+    position: absolute;
+    padding-left: 0;
+    // padding-right: 0;
+  }
+  
+  &__active{
+    border-right: solid 4px $primary;
+    background-color: $dp-4;
+  }
+  :hover{
+    color: unset;
+    background-color: unset;
+  }
+  &__body{
+    text-align: left;
+  }
+}
+.message{
+  &__container{
+    &__self{
+      padding-left: 25%;
+    }
+    &__other{
+      padding-right: 25%;
+    }
+  }
+  background-color: $dp-3;
+  border-radius: 4px;
+  &__timestamp{
+    display: block;
+    .span{
+      margin-left: auto;
+      
+    }      
+    &__self{
+      text-align: right;
+    }
+  }
+  &__self{
+    background-color: $primary;
+    color: $body-bg;
 
+  }
+}
+.messenger-mid{
+  // position: fixed;
+  position: relative;
+  height: 100%;
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
+}
+.messages-list{
+  overflow-y: scroll;
+  position: absolute;
+  height: 100%;  
+  padding-bottom: 20vh;
+  top:0;
+
+  &__archived{
+    pointer-events: none;
+    position:absolute;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color: #000000, $alpha: .5);
+    // text-align: center;
+    // justify-content: center;
+  }
+}
+.messenger-container{
+  position: fixed;
+  width: 100%;
+  height: calc(100% - $navbar-height);
+  padding-left: 0;
+  padding-right: 0;
+}
+.message-post-textbox{
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: $body-bg;
+  padding: .25rem;
+  margin-left: .75rem;  // width: 100%;
+  position: absolute;
+}
 body{
   color:$text-high;
 }

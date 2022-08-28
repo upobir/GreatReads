@@ -40,6 +40,7 @@ List of all kinds of jsons
 {
     "id": int,
     "name": str,
+    "picture_url": url,
 }
 ```
 
@@ -70,6 +71,7 @@ List of all kinds of jsons
     "name": name,
     "bookCount": int,
     "avgRating": float,
+    "thumbnail": url,
 }
 ```
 
@@ -149,6 +151,7 @@ List of all kinds of jsons
     "followerCount": int,
     "followCount": int,
     "followedByUser": int,
+    "followsUser": bool,
 }
 ```
 13. user_stats
@@ -175,7 +178,7 @@ List of all kinds of jsons
     "description": str   
 }  
 ```
-15. read_update_feed_item
+15. read_update_feed_item [DONE]
 ```
 {
         "updateType": "readingUpdate",//to indicate read_updates in feed
@@ -185,7 +188,7 @@ List of all kinds of jsons
         "book": book_mid
 }
 ```
-16. review_feed_item
+16. review_feed_item [DONE]
 ```
 {
         "updateType": "review",//to indicate reviews in feed
@@ -193,36 +196,80 @@ List of all kinds of jsons
         "book": book_mid
 }
 ```
-
+17. message_detailed [DONE]
+```
+{
+    "from":{
+        "id": int,
+        "username":str,
+        //we need this to filter archived messages in frontend
+        "followedByUser": str,
+        //same as above, you could just send archived status but I already coded it to determin based on these 2 bools
+        "followsUser": str,
+    },
+    "message": {
+        "timestamp": timestamp,
+        "text": str,
+        "isRead":bool
+    }
+}
+```
+//we really don't need to pass all of "from" data when the user is the logged in one
+//also, we don't need anything but from.userID to identify if a message belongs which user
+//follow status can be sent once as part of conversation
+//hence, this should be separate from mesage_detailed
+18. message_mini 
+```
+{
+    "from": int?,//not present if this message is for logged in user
+    "timestamp": timestamp,
+    "text": str,
+    "isRead":bool
+}
+```
+19. author_extra [DONE]
+```
+{
+    "birth_date": timestamp,
+    "website": str,
+    "booksWritten": int,
+    "avgRating": float,
+    "genres": [genre_mini]
+}
+```
 ## Routes
 1. GET `api/books` array of all `book_mini` [DONE]
 1. GET `api/book/<id>` one `book_detailed` [DONE]
 1. GET `api/book/<id>/reviews` array of `review_mini` of a book (pagination needed) [DONE]
 1. GET `api/review/<id>` one `review_detailed` [DONE]
 1. GET `api/author/<id>` one `author_detailed` [DONE]
+1. GET `api/author/<id>/extra` one `author_extra` [DONE]
+1. GET `api/author/<id>/books` array of all `book_mini` written by author [DONE]
+1. GET `api/author/<id>/series` array of all `series_mini` with at least one book written by author [DONE]
 1. GET `api/publisher/<id>` one `publisher_detailed` [DONE]
 1. GET `api/series/<id>` one `series_mini` [DONE]
 1. GET `api/books/genre/<id>` array of `book_mini` of a genre (pagination needed) [DONE]
 1. GET `api/genres` array of all `genre_mini` sorted by whether user follows genre [DONE]
 1. GET `api/genre/<id>` one `genre_detailed` [DONE]
-1. GET `api/books/new_rated` array of `book_mini` that are newly genre (pagination needed)
-1. GET `api/books/followed_author` array of `book_mini` that are from followed author (pagination needed)
-1. GET `api/book/<id>/similar` array of `book_mini` that are similar (pagination needed)
-1. GET `api/user/<id>` user_detailed
-1. GET `api/user/<id>/reading` array of `book_mini` that user is reading (pagination needed)
-1. GET `api/user/<id>/read` array of `book_mini` that user has read (pagination needed)
-1. GET `api/user/<id>/want_to_read` array of `book_mini` that user wants to read (pagination needed)
-1. GET `api/user/<id>/reviewed` array of `book_mini` that user has reviewed (pagination needed)
-1. GET `api/user/<id>/reviews` array of `review_feed_item` that user has created (pagination needed)//"updateType" not necessary
-1. GET `api/user/<id>/messages` ????
-1. GET `api/messages` ????
+1. GET `api/book/<id>/similar` array of `book_mini` that are similar (pagination needed) [DONE]
+1. GET `api/user/<id>` user_detailed [DONE]
+1. GET `api/user/<id>/reading` array of `book_mini` that user is reading (pagination needed) [DONE-BY-PRANTO]
+1. GET `api/user/<id>/read` array of `book_mini` that user has read (pagination needed) [DONE-BY-PRANTO]
+1. GET `api/user/<id>/want_to_read` array of `book_mini` that user wants to read (pagination needed) [DONE-BY-PRANTO]
+1. GET `api/user/<id>/reviewed` array of `book_mini` that user has reviewed (pagination needed) [DONE-BY-PRANTO]
+1. GET `api/user/<id>/reviews` array of `review_feed_item` that user has created (pagination needed)//"updateType" not necessary [DONE-BY-PRANTO]
 1. GET `api/author/<id>/books` array of `book_mini` (pagination needed) [DONE]
-1. GET `api/author/<id>/series` array of `series_mini` (pagination needed) [DONE]
+1. GET `api/author/<id>/series` array of `series_detailed` (pagination needed) [DONE]
 1. GET `api/browse/genre/<id>` array of `book_detailed` in genre sorted by release date (pagination needed) [DONE]
 1. GET `api/browse/followedAuthors` array of `book_detailed` by authors followed by user sorted by release date (pagination needed) [DONE]
 1. GET `api/browse/newReleases` array of `book_detailed` sorted by release date (pagination needed) [DONE]
-1. GET `api/browse/newlyRated` array of `book_detailed`  sorted by review timestamp (pagination needed)
-1. GET `api/feed/all` array of `feed_item`  sorted by timestamp (pagination needed)
+1. GET `api/browse/newlyRated` array of `book_detailed`  sorted by review timestamp (pagination needed) [DONE]
+1. GET `api/feed/all` array of `feed_item`  sorted by timestamp (pagination needed) [DONE]
+1. GET `/api/messages/` array of `message_detailed` sorted by timestamp [DONE]
+1. GET `/api/messages/<userID>?read=<true|false>` array of all `message_mini` for conversation between logged user and this user sorted by timestamp. BE SURE TO UPDATE USER_DETAILED TO CONTAIN followsUser field. Also, marke these messages as read IF read Query sent, default is false
+1. GET `/api/search?pattern=<pattern>&type=<book|author|series>` default is book, return book_mini, author_mini or series_mini [DONE]
+1. GET `/api/unread_msg_count/` returns {"count": int}
+
 1. POST `api/book/<id>/status/post/` {
         "readStatus": book.readStatus,
         "pagesRead": int,
@@ -246,3 +293,7 @@ List of all kinds of jsons
 1. POST `/api/review/<id>/like/post/` {//no details just toggle for cur user
 
     } [DONE]
+1. POST `/api/message/<id>/post/` {//post message for logged in user
+    text: messageText,
+}
+

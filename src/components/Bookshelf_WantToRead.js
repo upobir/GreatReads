@@ -12,6 +12,8 @@ export const BookShelf_WantToRead = ({userID, bookshelfCategory}) => {
 
     const [spinner, setSpinner] = useState(true)
 
+    const [displayMessage, setDisplayMessage] = useState("No books are here, yet. Try adding some books!")  
+
     const loc = useLocation();
 
     const getWantToReadBooks = async () => {
@@ -23,9 +25,12 @@ export const BookShelf_WantToRead = ({userID, bookshelfCategory}) => {
             let wantToReadBooks = response.data
             setBooks(wantToReadBooks)
             setSpinner(false)
+            setDisplayMessage("No books are here, yet. Try adding some books!")
         })
         .catch((error)=> {
             console.log('Error during fetch wantToReadBooks:', error)
+            setSpinner(false)
+            setDisplayMessage("Ops, error fetching book information. Please try again later!")
         });
     }
 
@@ -46,6 +51,7 @@ export const BookShelf_WantToRead = ({userID, bookshelfCategory}) => {
                         {(bookshelfCategory === 1) && <h3 className='primary-text'>Books in already-read list</h3>}
                         {(bookshelfCategory === 2) && <h3 className='primary-text'>Books in currently reading list</h3>}
                         {(bookshelfCategory === 3) && <h3 className='primary-text'>Reviews</h3>}
+                        {(books.length <= 0 && !spinner) && <h5 className='primary-text'>{displayMessage}</h5>}
                         <BookShelfBookGallery books={books} booksPerRow={4} setBooks={setBooks} spinner={spinner} setSpinner={setSpinner}></BookShelfBookGallery>
                     </div>
                     }

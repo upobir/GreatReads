@@ -49,9 +49,20 @@ export function reviewLikeToggleEndpoint(reviewID){
 export function authorFetchEndpoint(authorID){
     return  `/api/author/${authorID}/`
 }
-
+export function authorExtraFetchEndpoint(authorID){
+    return  `/api/author/${authorID}/extra/`
+}
+export function authorBooksFetchEndpoint(authorID){
+    return  `/api/author/${authorID}/books/`
+}
+export function authorSeriesFetchEndpoint(authorID){
+    return  `/api/author/${authorID}/series/`
+}
 export function bookBrowseEndpoint(){
     return  `/api/books/`
+}
+export function similarBooksEndpoint(bookID){
+    return `/api/book/${bookID}/similar/`
 }
 
 export function browseGenreEndpoint(genreID){
@@ -108,4 +119,30 @@ export function genresFetchEndpoint(){
 
 export function genreFetchEndpoint(genreID){
     return `/api/genre/${genreID}/`
+}
+
+export function messagePostEndpoint(toUserID){
+    return `/api/messages/${toUserID}/post/`
+}
+
+export function messagesWithUserFetchEndpoint(toUserID, markRead){
+    if(markRead)
+        return `/api/messages/${toUserID}/?read=true`
+    else
+        return `/api/messages/${toUserID}/`
+}
+export function messagesFetchEndpoint(){
+    return `/api/messages/`
+}
+export function userDetailsEndpoint(toUserID){
+    return `/api/user/${toUserID}/`
+}
+
+export function searchEndpoint(pattern, type){
+    //return  `/api/search/`
+    return  `/api/search?pattern=${pattern}&type=${type}`
+}
+
+export function unreadMessageCountEndpoint(id){
+    return "/api/unread_msg_count/"
 }
