@@ -42,7 +42,7 @@ export function PostMessageTextBox({messages, setMessages, archived}){
     const {messages_from_id} = useParams()
     const {user} = useContext(AuthContext)
     const api = useAxios()
-    const [message, setMessage] = useState(null)
+    const [message, setMessage] = useState("")
     const postMessage = (e)=> {
         if (message && message.length > 0 ) {
 
@@ -89,10 +89,11 @@ export function PostMessageTextBox({messages, setMessages, archived}){
                             as="textarea"
                             rows={1}
                             placeholder={archived?"(Archived)":"Enter Message"}
+                            value={message}
                             onChange={e => setMessage(e.target.value)}/>
                         <Button variant="primary" 
                                 onClick={postMessage}
-                                // disabled={archived}
+                                disabled={archived || !user || !messages}
                         >
                             <FaPaperPlane fontSize={25}/>
                         </Button>
