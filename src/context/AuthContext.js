@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }) => {
       setAuthTokens(data);
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
-      navigate("/");
+      navigate(myFeedURL);
     } else {
       alert("Incorrect Username or Password!");
     }
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
     setAuthTokens(null);
     setUser(null);
     localStorage.removeItem("authTokens");
-    navigate(myFeedURL);
+    navigate('/');
   };
 
   const contextData = {

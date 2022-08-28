@@ -6,13 +6,14 @@ import {Rating} from 'react-simple-star-rating'
 import useAxios from '../utils/useAxios';
 import { useContext } from 'react';
 import { reviewPostEndpoint } from '../endpoints';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { reviewDetailsURL } from '../urls';
+import { bookReviewsURL } from '../urls';
 export const ReviewPopup = ({bookID, showState, handleClose}) => {
   const [reviewText, setReviewText] = useState("")
   const [reviewRating, setReviewRating] = useState(null)
   const api = useAxios()
-
+  const navigate = useNavigate()
   const handleRatingUpdate = (ratingVal) => {
     console.log('ratingVal', ratingVal)
     console.log('ratingVal/100', ratingVal/100)
@@ -33,7 +34,10 @@ export const ReviewPopup = ({bookID, showState, handleClose}) => {
       .then((response) => {
         let rd = response.data
         console.log('review post response', rd);
-        Navigate(reviewDetailsURL(rd.reviewID))
+        if(reviewText && reviewText.length > 0)
+          navigate(reviewDetailsURL(bookID,rd.reviewID))
+        else
+          navigate(bookReviewsURL(bookID))
         // window.location.reload(true)
       })
       .catch((error)=> {
