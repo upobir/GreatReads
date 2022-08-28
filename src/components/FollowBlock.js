@@ -12,6 +12,8 @@ export const FollowBlock = ({followContext,followedByUser, followToggleURL, vert
         setFollowCount(followContext.followCount + 1);
       } else if (followedByUser && !isFollowing) {
         setFollowCount(followContext.followCount - 1);
+      }else  {
+        setFollowCount(followContext.followCount);
       }
     }
   }
