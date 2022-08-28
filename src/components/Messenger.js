@@ -106,11 +106,27 @@ export function PostMessageTextBox({messages, setMessages, otherUser, archived})
     )
 }
 
-export function MessagesPreview({messagePreviews}) {
+export function MessagesPreview({messagePreviews,otherUser, messagesWithID}) {
+    const [key, setKey] = useState('new');
+
+    useEffect(()=> {
+        console.log('messagePreviews', messagePreviews)
+        if(messagePreviews && messagesWithID){
+            let target = messagePreviews.find(m => m.from.id == messagesWithID);
+            if(target){
+                let isArchived = !otherUser || !otherUser.followsUser || !otherUser.followedByUser;
+                setKey(isArchived? "new":"archived")
+            }
+        }
+    }, [messagesWithID])
+    
+
     return (
         
             <Tabs
                 defaultActiveKey="new"
+                activeKey={key}
+                onSelect={(k) => setKey(k)}
             >
             <Tab eventKey="new" title="New">
                 <Container fluid className="message-preview__container">
@@ -131,7 +147,7 @@ export default function Messenger() {
     const {messages_from_id} = useParams()
     const {unreadCount, setUnreadCount,messagePreviews, setMessagePreviews} = useContext(messagePreviewContext)
 
-    const [messagesBetweenUser, setMessagesBetweenUser] = useState(null)
+    const [messagesBetweenUser, setMessagesBetweenUser] = useState(messages_from_id?null:[])
     const [otherUser, setOtherUser] = useState(null)
     const [archived, setArchived] = useState(false)
     const api = useAxios()
@@ -201,6 +217,10 @@ export default function Messenger() {
                 .get(messagesWithUserFetchEndpoint(messages_from_id, true))
                 .then((response)=> {
                     let _messages = response.data;
+                    _messages.map(m => {
+                        if(m.from.id == messages_from_id)
+                            m.isRead = true
+                    })
                     console.log('message with user response', _messages)
                     setMessagesBetweenUser(_messages.reverse())
                     setUnreadCount(getUnreadCount(_messages))
@@ -217,8 +237,17 @@ export default function Messenger() {
             <Row style={{height:"100%"}}>
                 <Col xs={3} className='messenger-left'>
                     <Routes>
-                        <Route path='/:messages_from_id' element={<MessagesPreview messagePreviews={messagePreviews}/>}/>
-                        <Route path='/' element={<MessagesPreview messagePreviews={messagePreviews}/>}/>
+                        <Route path='/:messages_from_id' element={<MessagesPreview 
+                            messagePreviews={messagePreviews}
+                            messagesWithID={messages_from_id}
+                            otherUser={otherUser}/>
+                        }
+                        />
+                        <Route path='/' element={<MessagesPreview 
+                            messagePreviews={messagePreviews}
+                            messagesWithID={messages_from_id}
+                            otherUser={otherUser}/>
+                        }/>
                     </Routes>
                     
                 </Col>
