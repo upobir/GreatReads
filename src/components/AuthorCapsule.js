@@ -3,7 +3,7 @@ import { Stack,Button,ButtonGroup,Overlay, Tooltip,FormGroup,FormControl, Row, C
 import 'holderjs'
 import { FaUser, FaBook } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { placeholderBookImage } from '../PlaceHolder'
+import { placeholderUserImage } from '../PlaceHolder'
 import { authorDetailsURL } from '../urls'
 
 export default function AuthorCapsule({author, id}) {
@@ -16,9 +16,9 @@ export default function AuthorCapsule({author, id}) {
         author?.picture_url
         ? <Image fluid src={author.picture_url} />
         : (<div className="author-capsule__picture">
-              <Image fluid src={placeholderBookImage} />
+              <Image fluid src={placeholderUserImage} />
               <div className='author-capsule__picture__placeholder'>
-                <FaBook />
+                <FaUser />
               </div>
             </div>)
         }

@@ -38,7 +38,7 @@ export function showArchivedMessages(messagePreviews) {
 }
 
 
-export function PostMessageTextBox({messages, setMessages, archived}){
+export function PostMessageTextBox({messages, setMessages, otherUser, archived}){
     const {messages_from_id} = useParams()
     const {user} = useContext(AuthContext)
     const api = useAxios()
@@ -89,11 +89,11 @@ export function PostMessageTextBox({messages, setMessages, archived}){
                             as="textarea"
                             rows={1}
                             placeholder={archived?"(Archived)":"Enter Message"}
-                            value={message}
+                            value={message? message : ''}
                             onChange={e => setMessage(e.target.value)}/>
                         <Button variant="primary" 
                                 onClick={postMessage}
-                                disabled={archived || !user || !messages}
+                                disabled={archived || !user || !messages || !otherUser}
                         >
                             <FaPaperPlane fontSize={25}/>
                         </Button>
@@ -153,14 +153,19 @@ export default function Messenger() {
         })
         setMessagePreviews(mutatedMessagePreviews)
         console.log('mutatedMessagePreviews', mutatedMessagePreviews)
+
+        let willBeArchived = !mutatedOtherUser || !mutatedOtherUser.followsUser || !mutatedOtherUser.followedByUser;
+        setArchived(willBeArchived)
     }
     useEffect(()=> {
+        //get those spinners spinnnin
         if(messagePreviews != [])
             setMessagePreviews(null)
         if(messagePreviews)
             setMessagesBetweenUser(null)
         if(otherUser)
             setOtherUser(null)
+        //fetch messages list first
         api()
         .get(messagesFetchEndpoint())
         .then((response)=>{
@@ -171,6 +176,7 @@ export default function Messenger() {
         } )
         .catch(err => console.log('messages fetch err', err))
 
+        //then from user under this id
         console.log('messages_from_id', messages_from_id)
         if(messages_from_id){
             api()
@@ -179,8 +185,15 @@ export default function Messenger() {
                 let _user = response.data
                 console.log('setother user _user', _user)
                 setOtherUser(_user)
+
+                let willBeArchived = !_user || !_user.followsUser || !_user.followedByUser;
+                // const isArchivedConversation = () => !otherUser || !otherUser.followsUser || !otherUser.followedByUser; 
+                // console.log('otherUser',otherUser,'willBeArchived', willBeArchived, 'otherUser.followsUser', otherUser.followsUser,
+                // 'otherUser.followedByUser', otherUser.followedByUser)
+                setArchived(willBeArchived)
+
                 api()
-                .get(messagesWithUserFetchEndpoint(messages_from_id))
+                .get(messagesWithUserFetchEndpoint(messages_from_id, true))
                 .then((response)=> {
                     let _messages = response.data;
                     console.log('message with user response', _messages)
@@ -189,14 +202,10 @@ export default function Messenger() {
                 .catch((err)=> console.log('message with user err', err))
             })
             .catch((err) => console.log('user fetch fail err', err))
-            let willBeArchived = !otherUser || !otherUser.followsUser || !otherUser.followedByUser;
-            // const isArchivedConversation = () => !otherUser || !otherUser.followsUser || !otherUser.followedByUser; 
-            // console.log('otherUser',otherUser,'willBeArchived', willBeArchived, 'otherUser.followsUser', otherUser.followsUser,
-            // 'otherUser.followedByUser', otherUser.followedByUser)
-            setArchived(willBeArchived)
+
         }
     }, [messages_from_id])
-
+    console.log('archived', archived)
     return (
         <Container fluid className='messenger-container'>
             <Row style={{height:"100%"}}>
@@ -210,7 +219,8 @@ export default function Messenger() {
                 <Col xs={{span:6}} className='messenger-mid'>
                     <MessagesList messages={messagesBetweenUser} archived={archived} />
                     <PostMessageTextBox 
-                        archived={archived} 
+                        archived={archived}
+                        otherUser={otherUser} 
                         messages={messagesBetweenUser}
                         setMessages={setMessagesBetweenUser}/>
                     {messagesBetweenUser && otherUser && archived && <Container fluid className='messages-list__archived'>

@@ -17,7 +17,7 @@ import { genresFetchEndpoint } from '../endpoints';
 const GenreSubmenu = () => { 
   const[genres,setGenres] = useState(null) 
   const api = useAxios()
-  console.log('_genres', genres)
+  console.log('_genresubmenu ', genres)
   useState(()=>{
     api()
         .get(genresFetchEndpoint())
@@ -53,7 +53,7 @@ export default function GreatReadsNavbar() {
   let [bookSelected, setBookSelected] = useState(true);
   let [authorSelected, setAuthorSelected] = useState(false);
   let [seriesSelected, setSeriesSelected] = useState(false);
-
+  let [isSearchbarFocused, setIsSearchBarFocused] = useState(false);
   const handleSubmit = e => {
     e.preventDefault();
     console.log('pattern: ', searchString)
@@ -113,34 +113,37 @@ export default function GreatReadsNavbar() {
                             placeholder={searchString}
                             className="me-2 nav-search-bar"
                             aria-label="Search"
-                            onChange={e => setSearchString(e.target.value)} />
-
-                          <Form.Check
-                          inline
-                          label="Book"
-                          name="group1"
-                          type="radio"
-                          id={`book_radio_button`}
-                          onChange={() => handleRadioSelection("book")}
-                           />
-
-                        <Form.Check
-                          inline
-                          label="Author"
-                          name="group1"
-                          type="radio"
-                          id={`author_radio_button`}
-                          onChange={() => handleRadioSelection("author")}
-                           />
-
-                        <Form.Check
-                          inline
-                          label="Series"
-                          name="group1"
-                          type="radio"
-                          id={`series_radio_button`}
-                          onChange={() => handleRadioSelection("series")}
-                           />
+                            onChange={e => setSearchString(e.target.value)} 
+                            onFocus={e=>setIsSearchBarFocused(true)}
+                            onBlur={e=>setIsSearchBarFocused(false)}
+                            />
+                        {isSearchbarFocused && <>
+                            <Form.Check
+                              inline
+                              label="Book"
+                              name="group1"
+                              type="radio"
+                              id={`book_radio_button`}
+                              onChange={() => handleRadioSelection("book")}
+                            />
+                            <Form.Check
+                              inline
+                              label="Author"
+                              name="group1"
+                              type="radio"
+                              id={`author_radio_button`}
+                              onChange={() => handleRadioSelection("author")}
+                            />
+                            <Form.Check
+                              inline
+                              label="Series"
+                              name="group1"
+                              type="radio"
+                              id={`series_radio_button`}
+                              onChange={() => handleRadioSelection("series")}
+                            />
+                          </>
+                          }
                      </Form>
                     {(user == null) && <Link to={loginURL()} className='no-text-effects'>Login</Link>}
                     {(user == null) && <Button variant="primary" as={Link} to={registerURL()} >Sign Up </Button>}

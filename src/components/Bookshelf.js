@@ -11,6 +11,7 @@ import { BookShelf_stats } from './Bookshelf_stats';
 import { bookshelfUserInfoEndpoint, followUserEndpoint, unFollowUserEndpoint } from '../endpoints';
 import { BookShelf_ViewReviews} from './Bookshelf_reviews';
 import { SpinnerWrapper } from './SpinnerWrapper';
+import { viewMessagesFromUserUrl } from '../urls';
 const tabs = [
   {
     tabTitle:"Want To Read",
@@ -135,14 +136,15 @@ export const Bookshelf = () => {
                     <Stack direction='horizontal' gap={2  }>
                       <h3 className='primary-text'>{ user_name }</h3>
                       { (user.username !== user_name) &&
-                        <div>
+                        <Stack gap={2} direction='horizontal'>
                           <Button variant='outline-primary'
                                   // disabled={followContext == null}
                                   active={isFollowedByUser}
                                   onClick={handleSubmit}>
                               {isFollowedByUser? "Unfollow": "Follow"}
                           </Button>
-                        </div>
+                          <Button as={Link} to={viewMessagesFromUserUrl(userID)}>Message</Button>
+                        </Stack>
                       }
                     </Stack>
                     <div className='light-text'>{follower_count} Followers, {following_count} Following</div>

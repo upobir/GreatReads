@@ -142,3 +142,7 @@ export function searchEndpoint(pattern, type){
     //return  `/api/search/`
     return  `/api/search?pattern=${pattern}&type=${type}`
 }
+
+export function unreadMessageCountEndpoint(id){
+    return "/api/unread_msg_count/"
+}
