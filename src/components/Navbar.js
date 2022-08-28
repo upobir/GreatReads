@@ -93,7 +93,7 @@ export default function GreatReadsNavbar() {
     else
       setBookSelected(true)
   };
-
+  console.log('searchString', searchString)
   return (
     <Navbar variant = "dark" fixed="top" className="top-navbar">
       <Stack >
@@ -125,7 +125,7 @@ export default function GreatReadsNavbar() {
                               onFocus={e=>setIsSearchBarFocused(true)}
                               onBlur={e=>setIsSearchBarFocused(false)}
                             />
-                          {(isSearchbarFocused || isHoverOnSearch || (searchString && searchString !== "")) && <>
+                          {(isSearchbarFocused || isHoverOnSearch || (searchString && searchString.length > 0)) && <>
                               <DropdownButton title={(authorSelected && "Author") || (seriesSelected && "Series") || "Book" }>
                                 <Dropdown.Item  onClick={() =>  handleRadioSelection("book")}>Book</Dropdown.Item>
                                 <Dropdown.Item onClick={() => handleRadioSelection("author")}>Author</Dropdown.Item>
