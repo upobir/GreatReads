@@ -31,7 +31,7 @@ export default function BookCapsule({book,setBook, id, mini}) {
   const [pagesRead, setPagesRead] = useState(book && book.readPages?book.readPages: 0);
   useEffect(() => {
     if(book && book.readPages)
-      setPagesRead(book.readPages)
+      setPagesRead(book.readPages > 0 ? book.readPages : 0 )
     
   }, [book])
   const postBookStatus =  (_readStatus, _pagesRead) => {
@@ -154,30 +154,48 @@ export default function BookCapsule({book,setBook, id, mini}) {
             <OverlayTrigger
               placement="bottom"
               delay={{ hide: 100 }}
-              overlay={<Tooltip>Add to Reading list</Tooltip>}
+              overlay={<Tooltip className='book-capsule__btn-group__tooltip'>
+                Add to Wishlist
+              </Tooltip>}
             >
               <Button variant="outline-primary"
                 disabled={book == null || user == null}
                 onClick={handleBookSetToWishlist}
                 active={book && book.readStatus === "wishlisted"}>
                 <FaBookmark fontSize="1.4rem" />
-
               </Button>
             </OverlayTrigger>
-            <Button ref={ReadPageUpdateOverlayTarget}
-                    disabled={book == null || user == null} 
-                    variant="outline-primary" 
-                    onClick={handleBookSetToReading} 
-                    active={book && book.readStatus === "reading"}>
-              <FaBookOpen  fontSize="1.4rem"/>
-            </Button>
-            <Button variant="outline-primary"
+            <OverlayTrigger
+              placement="bottom"
+              delay={{ hide: 100 }}
+              overlay={<Tooltip className='book-capsule__btn-group__tooltip'>
+                Add to Reading list
+              </Tooltip>}
+            >
+              <Button variant="outline-primary"
+                disabled={book == null || user == null}
+                onClick={handleBookSetToWishlist}
+                active={book && book.readStatus === "wishlisted"}>
+                <FaBookmark fontSize="1.4rem" />
+              </Button>
+            </OverlayTrigger>
+
+         
+
+            <OverlayTrigger
+              placement="bottom"
+              delay={{ hide: 100 }}
+              overlay={<Tooltip className='book-capsule__btn-group__tooltip'>
+                Mark as read
+              </Tooltip>}
+            >
+                          <Button variant="outline-primary"
                     disabled={book == null || user == null} 
                     onClick={handleBookSetToRead} 
                     active={book && book.readStatus === "read"}>
               <FaCheck  fontSize="1.4rem"/>
             </Button>
-
+            </OverlayTrigger>
           </ButtonGroup>
           
         <Overlay 

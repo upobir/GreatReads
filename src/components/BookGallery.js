@@ -27,7 +27,6 @@ function groupBooks (booksToGroup) {
 
 export const BookGallery = ({books, booksPerRow, setBooks})=>{
     const { user } = useContext(AuthContext);
-    console.log('books', books)
     const handleBookSet = (index, book) => {
         // console.log('handlebookset', books, ' index ', index)
         // console.log('user', user)
