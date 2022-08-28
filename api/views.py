@@ -15,7 +15,7 @@ class MessageCountView(APIView):
         if not request.user.id:
             return Response({})
 
-        count = Message.objects.filter(to_user = request.user.id, is_read = False).count()
+        count = Message.objects.filter(to_user = request.user.id, is_read = False).distinct("from_user").count()
 
         return Response({"count": count})
 
