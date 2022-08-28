@@ -66,6 +66,7 @@ def genre_detailed(genre, userid):
     }
 
 def book_mini(book, userid):
+    print(type(book.thumbnail))
     return {
         "id" : book.id,
         "title" : book.title,

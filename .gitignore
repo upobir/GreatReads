@@ -201,3 +201,8 @@ yarn-error.log*
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# mystuff
+*.code-workspace
+.vscode
+dummy*
