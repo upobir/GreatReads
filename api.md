@@ -176,7 +176,7 @@ List of all kinds of jsons
     "description": str   
 }  
 ```
-15. read_update_feed_item
+15. read_update_feed_item [DONE]
 ```
 {
         "updateType": "readingUpdate",//to indicate read_updates in feed
@@ -186,7 +186,7 @@ List of all kinds of jsons
         "book": book_mid
 }
 ```
-16. review_feed_item
+16. review_feed_item [DONE]
 ```
 {
         "updateType": "review",//to indicate reviews in feed
@@ -194,7 +194,7 @@ List of all kinds of jsons
         "book": book_mid
 }
 ```
-17. message_detailed
+17. message_detailed [DONE]
 ```
 {
     "from":{
@@ -225,7 +225,7 @@ List of all kinds of jsons
     "isRead":bool
 }
 ```
-19. author_extra
+19. author_extra [DONE]
 ```
 {
     "birth_date": timestamp,
@@ -250,23 +250,21 @@ List of all kinds of jsons
 1. GET `api/genres` array of all `genre_mini` sorted by whether user follows genre [DONE]
 1. GET `api/genre/<id>` one `genre_detailed` [DONE]
 1. GET `api/book/<id>/similar` array of `book_mini` that are similar (pagination needed) [DONE]
-1. GET `api/user/<id>` user_detailed
-1. GET `api/user/<id>/reading` array of `book_mini` that user is reading (pagination needed)
-1. GET `api/user/<id>/read` array of `book_mini` that user has read (pagination needed)
-1. GET `api/user/<id>/want_to_read` array of `book_mini` that user wants to read (pagination needed)
-1. GET `api/user/<id>/reviewed` array of `book_mini` that user has reviewed (pagination needed)
-1. GET `api/user/<id>/reviews` array of `review_feed_item` that user has created (pagination needed)//"updateType" not necessary
-1. GET `api/user/<id>/messages` ????
-1. GET `api/messages` ????
+1. GET `api/user/<id>` user_detailed [DONE-BY-PRANTO]
+1. GET `api/user/<id>/reading` array of `book_mini` that user is reading (pagination needed) [DONE-BY-PRANTO]
+1. GET `api/user/<id>/read` array of `book_mini` that user has read (pagination needed) [DONE-BY-PRANTO]
+1. GET `api/user/<id>/want_to_read` array of `book_mini` that user wants to read (pagination needed) [DONE-BY-PRANTO]
+1. GET `api/user/<id>/reviewed` array of `book_mini` that user has reviewed (pagination needed) [DONE-BY-PRANTO]
+1. GET `api/user/<id>/reviews` array of `review_feed_item` that user has created (pagination needed)//"updateType" not necessary [DONE-BY-PRANTO]
 1. GET `api/author/<id>/books` array of `book_mini` (pagination needed) [DONE]
 1. GET `api/author/<id>/series` array of `series_detailed` (pagination needed) [DONE]
 1. GET `api/browse/genre/<id>` array of `book_detailed` in genre sorted by release date (pagination needed) [DONE]
 1. GET `api/browse/followedAuthors` array of `book_detailed` by authors followed by user sorted by release date (pagination needed) [DONE]
 1. GET `api/browse/newReleases` array of `book_detailed` sorted by release date (pagination needed) [DONE]
 1. GET `api/browse/newlyRated` array of `book_detailed`  sorted by review timestamp (pagination needed) [DONE]
-1. GET `api/feed/all` array of `feed_item`  sorted by timestamp (pagination needed)
-1. GET `/api/messages/` array of `message_detailed` sorted by timestamp 
-1. GET `/api/messages/<userID>` array of all `message_mini` for conversation between logged user and this user sorted by timestamp. BE SURE TO UPDATE USER_DETAILED TO CONTAIN followsUser field. Also, marke these messages as read   
+1. GET `api/feed/all` array of `feed_item`  sorted by timestamp (pagination needed) [DONE]
+1. GET `/api/messages/` array of `message_detailed` sorted by timestamp [DONE]
+1. GET `/api/messages/<userID>?read=<true|false>` array of all `message_mini` for conversation between logged user and this user sorted by timestamp. BE SURE TO UPDATE USER_DETAILED TO CONTAIN followsUser field. Also, marke these messages as read IF read Query sent, default is false
 1. GET `/api/search?pattern=<pattern>&type=<book|author|series>` default is book, return book_mini, author_mini or series_mini [DONE]
 
 1. POST `api/book/<id>/status/post/` {

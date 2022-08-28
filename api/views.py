@@ -8,7 +8,7 @@ from .models import *
 from .serializers import *
 from .converters import *
 from django.contrib.auth.models import User
-from django.db.models import Max
+from django.db.models import Max, Q
 
 class BookView(APIView):
     def get(self, request, pk):
@@ -203,6 +203,17 @@ class FeedView(APIView):
 
         data.sort(key=lambda d: d['timeStamp'])
         data.reverse()
+
+        return Response(data)
+
+class AllMessageView(APIView):
+    def get(self, request):
+        if not request.user.id:
+            return Response({})
+
+        messages = Message.objects.filter(to_user=request.user.id).order_by("-timestamp")
+
+        data = [message_detailed(message, request.user.id) for message in messages]
 
         return Response(data)
 

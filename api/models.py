@@ -100,6 +100,9 @@ class Message(models.Model):
     to_user = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE) #using User
     is_read = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.from_user.username} to {self.to_user.username} : {self.text if len(self.text) < 15 else self.text[:15]+'...'}"
+
 
 class Book(models.Model):
     isbn = models.CharField(max_length=12, unique=True)

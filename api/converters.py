@@ -258,3 +258,18 @@ def review_feed_item(review_mini_data, timestamp, book_mid_data, reviewCreator):
         "book": book_mid_data,
         "user": reviewCreator,
     }
+
+def message_detailed(message, userID):
+    return {
+        "from": {
+            "id": message.from_user.id,
+            "username": message.from_user.username,
+            "followedByUser": message.from_user.followers.filter(user_id=userID).exists(),
+            "followsUser": message.from_user.following.filter(following_user_id=userID).exists(),
+        },
+    "message": {
+        "timestamp": message.timestamp,
+        "text": message.text,
+        "isRead": message.is_read
+    }
+}
