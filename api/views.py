@@ -21,7 +21,7 @@ class MessageCountView(APIView):
 
 class BookView(APIView):
     def get(self, request, pk):
-        book = Book.objects.prefetch_related('review_set').get(id=pk)
+        book = Book.objects.prefetch_related('review_set', 'authors', 'bookuserstatus_set').get(id=pk)
 
         data = book_detailed(book, request.user.id)
 
@@ -30,13 +30,13 @@ class BookView(APIView):
 
 class AllBookView(APIView):
     def get(self, request):
-        data = [ book_mini(book, request.user.id) for book in Book.objects.all() ]
+        data = [ book_mini(book, request.user.id) for book in Book.objects.prefetch_related('review_set', 'authors', 'bookuserstatus_set').all() ]
         return Response(data)
     
 
 class AuthorView(APIView):
     def get(self, request, pk):
-        author = Author.objects.get(id=pk)
+        author = Author.objects.prefetch_related('followers').get(id=pk)
         data = author_detailed(author, request.user.id)
         return Response(data)
 
@@ -72,9 +72,7 @@ class ReviewView(APIView):
 
 class  GenreBookView(APIView):
     def get(self, request, pk):
-        genre = Genre.objects.get(id=pk)
-
-        data = [book_mini(book, request.user.id) for book in Book.objects.filter(genres=genre)] 
+        data = [book_mini(book, request.user.id) for book in Book.objects.prefetch_related('review_set', 'authors', 'bookuserstatus_set').filter(genres__id=pk)] 
 
         return Response(data)
 
@@ -87,7 +85,7 @@ class AllGenreView(APIView):
 
 class GenreView(APIView):
     def get(self, request, pk):
-        genre = Genre.objects.get(id=pk)
+        genre = Genre.objects.prefetch_related('followers').get(id=pk)
 
         data = genre_detailed(genre, request.user.id)
 
@@ -99,20 +97,20 @@ class SimilarBookView(APIView):
 
         #genres = [genre.id for genre in book.genres]
 
-        data = [book_mini(book,request.user.id) for book in Book.objects.filter(genres__id__in=book.genres.all()).exclude(id=pk)]
+        data = [book_mini(book,request.user.id) for book in Book.objects.prefetch_related('review_set', 'authors', 'bookuserstatus_set').filter(genres__id__in=book.genres.all()).exclude(id=pk)]
         return Response(data)
 
 
 class BrowseByGenreView(APIView):
     def get(self, request, pk):
-        books = Book.objects.prefetch_related('review_set').filter(genres__id=pk).order_by("-release_date")  # TODO nulls
+        books = Book.objects.prefetch_related('review_set', 'authors', 'bookuserstatus_set').filter(genres__id=pk).order_by("-release_date")  # TODO nulls
 
         data = [book_detailed(book, request.user.id) for book in books]
         return Response(data)
 
 class BrowseNewReleaseView(APIView):
     def get(self, request):
-        books = Book.objects.prefetch_related('review_set').all().order_by("-release_date")  # TODO nulls
+        books = Book.objects.prefetch_related('review_set', 'authors', 'bookuserstatus_set').all().order_by("-release_date")  # TODO nulls
 
         data = [book_detailed(book, request.user.id) for book in books]
         return Response(data)
@@ -120,21 +118,21 @@ class BrowseNewReleaseView(APIView):
 
 class BrowseFollowedAuthorsView(APIView):
     def get(self, request):
-        books = Book.objects.prefetch_related('review_set').filter(authors__followers__id=request.user.id).order_by("-release_date")  # TODO nulls
+        books = Book.objects.prefetch_related('review_set', 'authors', 'bookuserstatus_set').filter(authors__followers__id=request.user.id).order_by("-release_date")  # TODO nulls
 
         data = [book_detailed(book, request.user.id) for book in books]
         return Response(data)
 
 class BrowseNewlyRatedView(APIView):
     def get(self, request):
-        books = Book.objects.prefetch_related('review_set').all().annotate(max_update_time=Max('review__timestamp')).order_by("-max_update_time")  # TODO nulls
+        books = Book.objects.prefetch_related('review_set', 'authors', 'bookuserstatus_set').all().annotate(max_update_time=Max('review__timestamp')).order_by("-max_update_time")  # TODO nulls
 
         data = [book_detailed(book, request.user.id) for book in books]
         return Response(data)
 
 class AuthorBooksView(APIView):
     def get(self, request, pk):
-        books = Book.objects.filter(authors__id=pk)
+        books = Book.objects.prefetch_related('review_set', 'authors', 'bookuserstatus_set').filter(authors__id=pk)
 
         data = [book_mini(book, request.user.id) for book in books]
         return Response(data)
@@ -148,7 +146,7 @@ class AuthorSeriesView(APIView):
 
 class AuthorExtraView(APIView):
     def get(self, request, pk):
-        author = Author.objects.get(id=pk)
+        author = Author.objects.prefetch_related('book_set', 'book_set__review_set', 'followers').get(id=pk)
 
         data = author_extra(author)
 
@@ -177,7 +175,7 @@ class SearchView(APIView):
         return Response(data)
 
     def search_books(self, pattern, userid):
-        books = Book.objects.prefetch_related('review_set').filter(title__icontains=pattern)
+        books = Book.objects.prefetch_related('review_set', 'authors', 'bookuserstatus_set').filter(title__icontains=pattern)
 
         return [book_mini(book, userid) for book in books]
 
@@ -198,7 +196,7 @@ class FeedView(APIView):
 
         reviews = Review.objects.filter(creator__followers__user_id=request.user.id)
 
-        updates = BookUserStatus.objects.filter(user__followers__user_id=request.user.id)
+        updates = BookUserStatus.objects.select_related('book', 'user').prefetch_related('book__review_set', 'book__authors').filter(user__followers__user_id=request.user.id)
 
         data = []
 
@@ -218,7 +216,7 @@ class AllMessageView(APIView):
         if not request.user.id:
             return Response({})
 
-        messages = Message.objects.filter(to_user = request.user.id).order_by('from_user__id', '-timestamp', ).distinct('from_user__id')
+        messages = Message.objects.select_related('from_user').prefetch_related('from_user__followers', 'from_user__following').filter(to_user = request.user.id).order_by('from_user__id', '-timestamp', ).distinct('from_user__id')
 
         #messages = Message.objects.filter(to_user=request.user.id).order_by("-timestamp")
 

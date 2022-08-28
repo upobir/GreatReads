@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'GreatReads.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=15)
+    'default': dj_database_url.config()
 }
 
 
