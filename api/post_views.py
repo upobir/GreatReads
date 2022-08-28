@@ -135,3 +135,14 @@ class ReviewLikePostView(APIView):
             review.likers.add(User.objects.get(id=request.user.id))
 
         return Response("ok")
+
+class UserMessagePostView(APIView):
+    def post(self, request, pk):
+        if not request.user.id:
+            return Response("fail")
+
+        text = request.data['text']
+
+        Message.objects.create(text=text, from_user = User.objects.get(id=request.user.id), to_user = User.objects.get(id=pk), is_read=False)
+
+        return Response("ok")

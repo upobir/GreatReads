@@ -230,7 +230,7 @@ class UserMessagesView(APIView):
         data = [message_mini(message, request.user.id) for message in messages]
 
         if read_msg == 'true':
-            messages.update(is_read = True)
+            messages.filter(to_user=request.user.id).update(is_read = True)
 
         return Response(data)
 
