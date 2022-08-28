@@ -17,7 +17,7 @@ import { genresFetchEndpoint } from '../endpoints';
 const GenreSubmenu = () => { 
   const[genres,setGenres] = useState(null) 
   const api = useAxios()
-  console.log('_genres', _genres)
+  console.log('_genres', genres)
   useState(()=>{
     api()
         .get(genresFetchEndpoint())
@@ -29,16 +29,18 @@ const GenreSubmenu = () => {
         .catch((err)=> console.log('genres fetcg err', err))
   },[])
   return (
-    <Stack  className='genre-submenu'>
-      <h4>Genre</h4>
-      {genres
-        ? (genres.map((genre, index)=> {
-          return <Link key={index} to={genreBrowseURL(genre.id)}>{genre.name}</Link>
-        }))
-        : <SimpleSpinner />
-      }
-      {}
-    </Stack>
+    <Container fluid>
+      <Stack  className='genre-submenu'>
+        <h4>Genre</h4>
+        {genres
+          ? (genres.map((genre, index)=> {
+            return <Link key={index}  to={genreBrowseURL(genre.id)}>{genre.name}</Link>
+          }))
+          : <SimpleSpinner />
+        }
+        {}
+      </Stack>
+    </Container>
   )
 }
 

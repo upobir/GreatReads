@@ -143,7 +143,7 @@ export default function Messenger() {
         mutatedOtherUser.followedByUser = isFollowingOtherUser
         setOtherUser(mutatedOtherUser)
         
-        let mutatedMessagePreviews = messagePreviews
+        let mutatedMessagePreviews = [...messagePreviews]
         mutatedMessagePreviews.forEach((m, index, messagePreviews) => {
             if(m.from.id === otherUserID){
                 m.from.followedByUser = isFollowingOtherUser

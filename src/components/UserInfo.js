@@ -29,8 +29,8 @@ function UserInfo({ user, logout }) {
     .then((response)=>{
         let _messages = response.data;
         console.log('messages fetch response.data',_messages);
-        console.log('messagePreviews', messagePreviews)
-        setUnreadCount(getUnreadCount(_messagePreviews))
+        console.log('messagePreviews', _messages)
+        setUnreadCount(getUnreadCount(_messages))
         setMessagePreviews(_messages)
     } )
     .catch(err => console.log('messages fetch err', err))

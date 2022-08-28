@@ -3,6 +3,7 @@ import React from 'react';
 import { Container, Stack } from 'react-bootstrap';
 import { viewMessagesFromUserUrl } from '../urls';
 import { SimpleSpinner } from './SpinnerWrapper';
+import { timestampToString } from '../utils/TimestampHelper';
 function truncateMessage(message){
     return message && message.length > 50 ? (message.substring(0, 50) + '...') : message;
 }
@@ -11,10 +12,10 @@ export function MessagePreview({m,messages_from_id}){
         as={Link} to={viewMessagesFromUserUrl(m.from.id)}
         className={'message-preview  no-text-effects ' + ((m.from.id == messages_from_id) ? 'message-preview__active' : '')}>
         <Stack gap={1}>
-            <Stack direction='horizontal' className='space-contents-between'>
+            <Stack direction='horizontal' className='space-contents-between' gap={1}>
                 <span className={m.isRead?'light-text' : 'primary-text'}>{m.from.username}</span>
                 {/* <Link to={userDetailsURL(m.from.id)} className='primary-text'>{m.from.username}</Link> */}
-                <span className={m.isRead?'light-text' : 'primary-text'}>{(m.message.timestamp.replaceAll('-', "‑"))}</span>
+                <span className={m.isRead?'light-text' : 'primary-text'}>{timestampToString(m.message.timestamp)}</span>
             </Stack>
             <p className='message-preview__medium-text'>{truncateMessage(m.message.text)}</p>
         </Stack>
