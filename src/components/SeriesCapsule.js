@@ -23,7 +23,7 @@ export default function SeriesCapsule({series, id}) {
 
       <Stack className='series-capsule__series-name' direction='horizontal'>
         <div className='series-capsule__series-name-div'>
-            <h3 className='primary-text'>{`${series.name} (${series.bookCount} books)`}</h3>
+            <h3 className='primary-text'>{`${series.name}`}</h3>
             <FaBook fontSize={17} /> <span className='primary-text'>{series.bookCount} books</span>   <FaStar fontSize={17} /> <span className='primary-text'>{series?.avgRating.toFixed(2)}</span>
         </div>
       </Stack>
