@@ -144,13 +144,6 @@ export default function BookCapsule({book,setBook, id, mini}) {
         </div> */}
       </Stack>
           <ButtonGroup className='book-capsule__btn-group' >
-            {/* <Button variant="outline-primary"
-              disabled={book == null || user == null} 
-              onClick={handleBookSetToWishlist} 
-              active={book && book.readStatus === "wishlisted"}>
-              <FaBookmark fontSize="1.4rem"/>
-              
-            </Button> */}
             <OverlayTrigger
               placement="bottom"
               delay={{ hide: 100 }}
@@ -172,11 +165,12 @@ export default function BookCapsule({book,setBook, id, mini}) {
                 Add to Reading list
               </Tooltip>}
             >
-              <Button variant="outline-primary"
-                disabled={book == null || user == null}
-                onClick={handleBookSetToWishlist}
-                active={book && book.readStatus === "wishlisted"}>
-                <FaBookmark fontSize="1.4rem" />
+              <Button ref={ReadPageUpdateOverlayTarget}
+                    disabled={book == null || user == null} 
+                    variant="outline-primary" 
+                    onClick={handleBookSetToReading} 
+                    active={book && book.readStatus === "reading"}>
+              <FaBookOpen  fontSize="1.4rem"/>
               </Button>
             </OverlayTrigger>
 
