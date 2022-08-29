@@ -325,7 +325,7 @@ class FollowUser(APIView):
         followingUser = User.objects.get(id=followingUserID)
         comment = UserFollowing.objects.create(user_id=followerUser, following_user_id=followingUser)
 
-        return Response({"status": "success", "comment":comment})
+        return Response({"status": "success"})
 
 class UnFollowUser(APIView):
     def post(self, request, followingUserID):
@@ -333,7 +333,7 @@ class UnFollowUser(APIView):
             return Response("fail")
 
         followerUserID = request.user.id
-        followingUser = UserFollowing.objects.get(user_id=followerUserID, following_user_id=followingUserID)
+        followingUser = UserFollowing.objects.filter(user_id=followerUserID, following_user_id=followingUserID)[0]
         followingUser.delete()
 
         return Response({"status": "success"})

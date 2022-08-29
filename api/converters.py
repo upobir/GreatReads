@@ -80,7 +80,7 @@ def book_mini(book, userid):
 
 def bookshelf_stats(userid):
     bookList = BookUserStatus.objects.filter(user=userid)
-    reading_count = len([iter for iter in bookList if iter.read_pages > 0])
+    reading_count = len([iter for iter in bookList if iter.read_pages >= 0])
     read_count = len([iter for iter in bookList if iter.is_read])
     wantToRead_count = len([iter for iter in bookList if iter.is_wishlisted])
 
