@@ -217,7 +217,10 @@ export default function BookCapsule({book,setBook, id, mini}) {
             </Container>
           </Tooltip>
         </Overlay>
-        <ReviewPopup showState={showReviewPopup} setShowState={setShowReviewPopup} bookID={id} handleClose={handleReviewPopupClose} />
+        <ReviewPopup 
+          book={book}
+          setBook={setBook}
+          showState={showReviewPopup} setShowState={setShowReviewPopup} bookID={id} handleClose={handleReviewPopupClose} />
     </Stack>
 
   )
