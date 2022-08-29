@@ -59,9 +59,13 @@ export const AuthProvider = ({ children }) => {
     });
     if (response.status === 201) {
       navigate("/login");
+    } else if (response.status === 400) {
+      const data = await response.json();
+      alert(data.password);
     } else {
-      alert("Something went wrong!");
+      alert("Something went wrong! Please try again later.");
     }
+    
   };
 
   const logoutUser = () => {
