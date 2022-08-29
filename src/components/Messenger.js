@@ -217,11 +217,18 @@ export default function Messenger() {
                 .get(messagesWithUserFetchEndpoint(messages_from_id, true))
                 .then((response)=> {
                     let _messages = response.data;
-                    _messages.map(m => {
-                        if(m.from.id == messages_from_id)
-                            m.isRead = true
-                    })
                     console.log('message with user response', _messages)
+                    
+                    if (messagePreviews) {
+                        let mutatedMessagePreviews = [...messagePreviews]
+                        for (let i = 0; i < mutatedMessagePreviews.length; i++) {
+                            if (mutatedMessagePreviews[i].from &&
+                                mutatedMessagePreviews[i].from.id == messages_from_id)
+                                mutatedMessagePreviews[i].message.isRead = true
+                        }
+                        setMessagePreviews(mutatedMessagePreviews)
+                        console.log('message with user response', _messages)
+                    }
                     setMessagesBetweenUser(_messages.reverse())
                     setUnreadCount(getUnreadCount(_messages))
                 })
