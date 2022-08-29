@@ -444,6 +444,8 @@ $theme-colors: (
 .navbar-user-submenu{
   background-color: $body-bg;
   border: 2px solid $primary;
+  right: 0;
+  min-width: 14vw;
   .navbar-messages-list{
     max-width: 20vw;
   }
@@ -487,6 +489,7 @@ $theme-colors: (
   }
   .popover-header{
     background-color: $body-bg;
+    border-top: 3px solid $primary;
   }
 }
 .nav-search-bar{

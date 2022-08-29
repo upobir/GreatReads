@@ -14,27 +14,18 @@ import AuthContext from '../context/AuthContext';
 import { messagesFetchEndpoint, unreadMessageCountEndpoint } from '../endpoints';
 import useAxios from '../utils/useAxios';
 import { SimpleSpinner } from './SpinnerWrapper';
+import messagePreviewContext from '../context/MessagesContext';
 function shortenMessagePreviewsList(messagePreviewsList){
   return messagePreviewsList.slice(0,3);
 }
-function getUnreadCount(messagePreviewsList){
+export function getUnreadCount(messagePreviewsList){
   return messagePreviewsList.filter(m=> !m.message.isRead).length
 } 
 function UserInfo({ user, logout }) {
-  const [messagePreviews, setMessagePreviews] = useState(null) 
-  const [unreadCount, setUnreadCount] = useState(0)
+  const {unreadCount, setUnreadCount,messagePreviews, setMessagePreviews} = useContext(messagePreviewContext)
   const [notifActive, setNotifACtive] = useState(false)
   const api =  useAxios()
-  useEffect(()=> {
-    api()
-    .get(unreadMessageCountEndpoint())
-    .then((response)=>{
-        let numUnread = response.data;
-        console.log('numUnread', numUnread.count)
-        setUnreadCount(numUnread.count)
-    } )
-    .catch(err => console.log('messages fetch err', err))
-  },[])
+  console.log('unreadCount', unreadCount)
 
   const handleNotifClick = () => { 
     let _notifActive = !notifActive
